@@ -842,30 +842,38 @@
 
     /* ── Certs & Courses ── */
     .cert-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 26px;
-    }
-
-    .cert-card {
       border: 1px solid var(--line);
       border-radius: 22px;
       background: rgba(255,255,255,0.84);
       box-shadow: var(--shadow);
-      padding: 22px;
+      margin-top: 26px;
+      overflow: hidden;
+    }
+
+    .cert-card {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cert-card:last-child {
+      border-bottom: none;
     }
 
     .cert-card strong {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      flex-shrink: 0;
+      min-width: 240px;
     }
 
     .cert-card p {
       margin: 0;
-      font-size: 13px;
-      line-height: 1.68;
+      font-size: 12.5px;
+      line-height: 1.5;
       color: var(--muted);
     }
 
@@ -1219,12 +1227,10 @@
           <h3>S3E Program</h3>
           <p>Elite sports business program focused on professional selling, CRM, and consumer strategy. Taught by Russell Bookbinder, former COO of the San Antonio Spurs, and Dr. Wakefield. Currently partnered with the Spurs — selling tickets and sponsorships directly on behalf of the organization. Also developed a full SAP enterprise strategy pitch presented as a real-world client deliverable. Places students directly with top sports &amp; entertainment organizations.</p>
           <div class="edu-placements">
-            <span class="edu-placement">Dallas Cowboys</span>
             <span class="edu-placement">Dallas Mavericks</span>
+            <span class="edu-placement">Atlanta Hawks</span>
             <span class="edu-placement">San Antonio Spurs</span>
-            <span class="edu-placement">Vegas Golden Knights</span>
-            <span class="edu-placement">Colorado Avalanche</span>
-            <span class="edu-placement">Curb Records</span>
+            <span class="edu-placement">SAP</span>
           </div>
         </article>
 
@@ -1584,32 +1590,32 @@
 
       <div class="cert-grid">
         <article class="cert-card">
-          <strong>HubSpot Social Media Marketing Certification</strong>
-          <p>Training in strategy, content planning, measurement, and campaign optimization across major social platforms.</p>
+          <strong>HubSpot Social Media Marketing</strong>
+          <p>Strategy, content planning, measurement, and campaign optimization across major social platforms.</p>
         </article>
         <article class="cert-card">
           <strong>Salesforce Trailhead — 20,000 pts · 80+ Badges</strong>
-          <p>CRM workflows, digital tools, data management, and marketing cloud fundamentals with emphasis on Salesforce marketing tools relevant to sports &amp; entertainment.</p>
+          <p>CRM workflows, marketing cloud, and data management tools relevant to sports &amp; entertainment.</p>
         </article>
         <article class="cert-card">
           <strong>MOS Certification (Microsoft Office Specialist)</strong>
-          <p>Certified proficiency in Microsoft Office suite — Excel, Word, and PowerPoint at a professional standard.</p>
+          <p>Certified proficiency in Excel, Word, and PowerPoint at a professional standard.</p>
         </article>
         <article class="cert-card">
           <strong>AED / First Aid · Ministry Safe Certified</strong>
-          <p>Holds current AED, CPR, and First Aid certification alongside Ministry Safe certification for working with youth in supervised settings.</p>
+          <p>Current CPR, AED, and First Aid certification plus Ministry Safe for supervised youth settings.</p>
         </article>
         <article class="cert-card">
           <strong>SPJST System Proposal and Design</strong>
-          <p>Academic project: full system analysis proposal for SPJST — requirements gathering, process mapping, and solution architecture presented to stakeholders.</p>
+          <p>Full system analysis — requirements gathering, process mapping, and solution architecture presented to stakeholders.</p>
         </article>
         <article class="cert-card">
           <strong>Mobile App Development — Corona SDK</strong>
-          <p>Built a functional mobile application using Corona SDK, covering the full development cycle from concept to deployment.</p>
+          <p>Built a functional mobile app covering the full development cycle from concept to deployment.</p>
         </article>
         <article class="cert-card">
-          <strong>Marketplace Simulation Competition — 2nd Place</strong>
-          <p>Competed in and placed second in a multi-team business strategy simulation assessing market analysis, pricing, and competitive positioning.</p>
+          <strong>Marketplace Simulation — 2nd Place</strong>
+          <p>Multi-team business strategy simulation covering market analysis, pricing, and competitive positioning.</p>
         </article>
         <article class="cert-card">
           <strong>Involvements</strong>
