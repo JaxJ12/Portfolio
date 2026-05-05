@@ -537,6 +537,64 @@
       .page-shell { width: calc(100% - 32px); }
     }
 
+    /* ── Try It Walkthrough ── */
+    .try-it {
+      margin-bottom: 24px;
+      padding: 20px 24px;
+      border: 1px solid rgba(140,106,0,0.2);
+      border-radius: 14px;
+      background: rgba(184,145,26,0.05);
+    }
+    .try-it__heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .try-it__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .try-it__steps {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .try-it__step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      flex: 1;
+      min-width: 180px;
+    }
+    .try-it__num {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .try-it__step p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .try-it__step strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
     /* ── Dashboard Embeds ── */
     .dash-intro__tags {
       margin-bottom: 24px;
@@ -646,6 +704,30 @@
             <span class="tag">Vendor Scoring</span>
             <span class="tag tag--accent">AI-Built</span>
             <span class="tag">Decision Tool</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="try-it">
+        <div class="try-it__heading">
+          <span class="try-it__label">Try it yourself</span>
+        </div>
+        <div class="try-it__steps">
+          <div class="try-it__step">
+            <div class="try-it__num">1</div>
+            <p>Click <strong>Auto-Enrich</strong> on any company row in the table below.</p>
+          </div>
+          <div class="try-it__step">
+            <div class="try-it__num">2</div>
+            <p>Copy the prompt that appears and paste it into <strong>ChatGPT or Claude</strong>.</p>
+          </div>
+          <div class="try-it__step">
+            <div class="try-it__num">3</div>
+            <p>Paste the AI's response back into the tool — it auto-fills the <strong>fit score and analysis</strong>.</p>
+          </div>
+          <div class="try-it__step">
+            <div class="try-it__num">4</div>
+            <p>Watch the vendor get scored, tiered, and ranked against the rest of the list.</p>
           </div>
         </div>
       </div>
