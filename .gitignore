@@ -27,3 +27,6 @@ cleanup-repo.ps1
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Private vendor data — use Gartner_Demo.html for public portfolio
+Gartner_Vendor_Manager.html
