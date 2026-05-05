@@ -601,7 +601,13 @@
       .skill-card, .cert-card { border-right: none; border-bottom: 1px solid var(--line); }
       .skill-card:last-child, .cert-card:last-child { border-bottom: none; }
       .contact-panel { grid-template-columns: 1fr; }
+      .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .site-footer__legal { text-align: left; }
     }
+    .site-footer { width: min(1200px, calc(100% - 36px)); margin: 0 auto 116px; padding: 14px 20px; border: 1px solid var(--line); border-radius: 14px; background: #ffffff; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .site-footer__name { font-size: 12px; font-weight: 700; color: var(--text); }
+    .site-footer__meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .site-footer__legal { font-size: 11px; color: var(--muted); text-align: right; opacity: 0.7; }
   </style>
 </head>
 <body>
@@ -910,5 +916,14 @@
     </section>
 
   </main>
+
+  <footer class="site-footer">
+    <div>
+      <p class="site-footer__name">Jax Johnson</p>
+      <p class="site-footer__meta">Social Media &amp; Content Creation &bull; Marketing &amp; MIS &bull; Baylor University</p>
+    </div>
+    <span class="site-footer__legal">Section 03 / 05</span>
+  </footer>
+
 </body>
 </html>
