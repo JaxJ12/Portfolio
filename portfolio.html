@@ -470,6 +470,35 @@
       color: var(--muted);
     }
 
+    /* ── Education ── */
+    .edu-stats-bar { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+    .edu-stat-pill { flex: 1; min-width: 100px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .edu-stat-pill strong { font-family: "Playfair Display", serif; font-size: 1.7rem; letter-spacing: -0.03em; line-height: 1; color: var(--text); }
+    .edu-stat-pill span { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .edu-card { border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 26px; }
+    .edu-card--wide { grid-column: span 2; }
+    .edu-card--main { grid-column: span 2; position: relative; overflow: hidden; }
+    .edu-card--main::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), #c9a227, var(--gold)); }
+    .edu-card--main-inner { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start; }
+    .edu-placements { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .edu-placement { padding: 5px 12px; border-radius: 999px; background: rgba(140,106,0,0.08); border: 1px solid rgba(140,106,0,0.22); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--gold); }
+    .edu-activities { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .edu-activity { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+    .edu-activity:last-child { border-bottom: none; padding-bottom: 0; }
+    .edu-activity strong { font-size: 13px; font-weight: 700; color: var(--text); }
+    .edu-activity span { font-size: 11px; font-weight: 600; color: var(--muted); text-align: right; flex-shrink: 0; }
+    .edu-card__school { margin: 0 0 4px; font-family: "Playfair Display", serif; font-size: 1.55rem; letter-spacing: -0.02em; }
+    .edu-card__degree { margin: 0 0 14px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+    .edu-card__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .edu-badge { padding: 5px 12px; border-radius: 999px; background: var(--surface-soft); border: 1px solid var(--line); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+    .edu-badge--gold { background: rgba(140,106,0,0.1); border-color: rgba(140,106,0,0.25); color: var(--gold); }
+    .edu-card__honors { margin: 12px 0 0; font-size: 13px; line-height: 1.68; color: var(--faint); }
+    .edu-card h3 { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+    .edu-card p { margin: 0; font-size: 13.5px; line-height: 1.72; color: var(--muted); }
+    .courses-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .course-chip { padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-soft); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+
     .site-footer {
       display: flex;
       justify-content: space-between;
@@ -696,6 +725,81 @@
             <div class="page-card__footer">Open page</div>
           </div>
         </a>
+      </div>
+    </section>
+
+    <!-- ═══ EDUCATION ═══ -->
+    <section class="section">
+      <div class="section-head">
+        <div class="section-head__label">Education</div>
+        <h2>Baylor University.</h2>
+        <p>Business Scholars Honors Program — graduating May 2027 with a double major designed for the intersection of data systems and sports &amp; entertainment marketing.</p>
+      </div>
+
+      <div class="edu-stats-bar">
+        <div class="edu-stat-pill"><strong>3.4</strong><span>GPA</span></div>
+        <div class="edu-stat-pill"><strong>1420</strong><span>SAT · 95th %ile</span></div>
+        <div class="edu-stat-pill"><strong>2</strong><span>Majors</span></div>
+        <div class="edu-stat-pill"><strong>May '27</strong><span>Graduation</span></div>
+        <div class="edu-stat-pill"><strong>Honors</strong><span>Business Scholars</span></div>
+      </div>
+
+      <div class="edu-grid">
+        <article class="edu-card edu-card--main">
+          <div class="edu-card--main-inner">
+            <div>
+              <p class="edu-card__school">Baylor University</p>
+              <p class="edu-card__degree">
+                Bachelor of Business Administration — Business Scholars Honors Program<br />
+                Double Major: Management Information Systems &amp; Sports, Strategy, Sales &amp; Entertainment Marketing
+              </p>
+              <div class="edu-card__meta">
+                <span class="edu-badge edu-badge--gold">May 2027</span>
+                <span class="edu-badge">Waco, TX</span>
+                <span class="edu-badge">Honors Program</span>
+              </div>
+              <p class="edu-card__honors">National Merit Qualifier · Honors with Distinction · 2× Academic Decathlon State Finalist · 2× UIL One-Act Play State Finalist</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="edu-card">
+          <h3>S3E Program</h3>
+          <p>Elite sports business program focused on professional selling, CRM, and consumer strategy. Taught by Russell Bookbinder, former COO of the San Antonio Spurs, and Dr. Wakefield. Currently partnered with the Spurs — selling tickets and sponsorships directly on behalf of the organization. Also developed a full SAP enterprise strategy pitch presented as a real-world client deliverable.</p>
+          <div class="edu-placements">
+            <span class="edu-placement">Dallas Mavericks</span>
+            <span class="edu-placement">Atlanta Hawks</span>
+            <span class="edu-placement">San Antonio Spurs</span>
+            <span class="edu-placement">SAP</span>
+          </div>
+        </article>
+
+        <article class="edu-card">
+          <h3>Campus Roles</h3>
+          <div class="edu-activities">
+            <div class="edu-activity"><strong>Baylor S3E Club</strong><span>VP of Recruitment</span></div>
+            <div class="edu-activity"><strong>AI Society</strong><span>VP of External Relations</span></div>
+            <div class="edu-activity"><strong>Baylor Consulting Group</strong><span>Member</span></div>
+            <div class="edu-activity"><strong>Christian Business Leaders</strong><span>Member</span></div>
+            <div class="edu-activity"><strong>Perplexity Campus Partner</strong><span>Ambassador</span></div>
+          </div>
+        </article>
+
+        <article class="edu-card edu-card--wide">
+          <h3>Relevant Coursework</h3>
+          <div class="courses-row">
+            <span class="course-chip">Professional Selling</span>
+            <span class="course-chip">Sports Data Analytics</span>
+            <span class="course-chip">Org. Leadership</span>
+            <span class="course-chip">Systems &amp; Analysis Design</span>
+            <span class="course-chip">Mobile App Development</span>
+            <span class="course-chip">Operations Management</span>
+            <span class="course-chip">Intro to Python</span>
+            <span class="course-chip">Financial Accounting</span>
+            <span class="course-chip">Managerial Accounting</span>
+            <span class="course-chip">Software Applications</span>
+          </div>
+        </article>
       </div>
     </section>
 
