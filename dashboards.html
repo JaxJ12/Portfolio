@@ -793,20 +793,52 @@
         </div>
       </div>
 
-      <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:24px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
 
-        <div class="try-it" style="flex:1; min-width:240px; margin-bottom:0;">
-          <div class="try-it__heading">
-            <span class="try-it__label">Try it yourself — Sample Transcript</span>
-          </div>
-          <div class="try-it__steps">
-            <div class="try-it__step">
-              <div class="try-it__num">1</div>
-              <p>Click <strong>Load Sample</strong> to pre-fill a realistic insurance call transcript.</p>
+        <!-- Left: what it does -->
+        <div style="background:rgba(28,23,16,0.04); border:1px solid rgba(130,100,55,0.14); border-radius:16px; padding:28px 28px 24px;">
+          <p style="font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin:0 0 16px;">How it works</p>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">1</span>
+              <div>
+                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Agent finishes a client call</p>
+                <p style="margin:0; font-size:13px; line-height:1.6; color:var(--muted);">They paste in their raw notes or spoken transcript — no formatting required.</p>
+              </div>
             </div>
-            <div class="try-it__step">
-              <div class="try-it__num">2</div>
-              <p>Hit <strong>Process and Generate Tasks</strong> — watch it extract plans, draft a follow-up email, and build an action list automatically.</p>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">2</span>
+              <div>
+                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">AI parses the full conversation</p>
+                <p style="margin:0; font-size:13px; line-height:1.6; color:var(--muted);">Extracts client details, Medicare or life insurance plans mentioned, pricing discussed, urgency signals, and next-contact timing.</p>
+              </div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">3</span>
+              <div>
+                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Full automation package delivered</p>
+                <p style="margin:0; font-size:13px; line-height:1.6; color:var(--muted);">A task checklist, step-by-step guide, and a ready-to-send follow-up email — generated in seconds, no manual writeup needed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: try it -->
+        <div style="background:rgba(184,145,26,0.06); border:1px solid rgba(140,106,0,0.2); border-radius:16px; padding:28px 28px 24px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <p style="font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin:0 0 10px;">Try it yourself</p>
+            <p style="font-size:22px; font-weight:700; color:var(--text); margin:0 0 14px; line-height:1.2; font-family:'Playfair Display', serif;">Paste a call log or transcript below.</p>
+            <p style="font-size:13px; line-height:1.7; color:var(--muted); margin:0 0 20px;">Type or paste any insurance call summary into the tool — or hit <strong style="color:var(--text);">Load Sample</strong> to use a pre-built scenario. Then hit <strong style="color:var(--text);">Process and Generate Tasks</strong> and watch the right panel populate with a complete automation output.</p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted);">
+                <span style="color:var(--gold);">→</span> Client profile &amp; contact details extracted
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted);">
+                <span style="color:var(--gold);">→</span> Plans &amp; pricing identified from the transcript
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted);">
+                <span style="color:var(--gold);">→</span> Follow-up email drafted and ready to send
+              </div>
             </div>
           </div>
         </div>
