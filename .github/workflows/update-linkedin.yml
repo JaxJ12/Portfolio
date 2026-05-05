@@ -64,7 +64,11 @@ jobs:
 
           function toISODate(val) {
             if (!val) return new Date().toISOString().slice(0, 10);
-            const d = typeof val === "number" ? new Date(val) : new Date(val);
+            // APIs often return Unix timestamps in seconds (10 digits) not milliseconds (13 digits)
+            let ms = typeof val === "number"
+              ? (val < 1e12 ? val * 1000 : val)   // seconds → ms if needed
+              : Date.parse(val);
+            const d = new Date(ms);
             return isNaN(d) ? new Date().toISOString().slice(0, 10) : d.toISOString().slice(0, 10);
           }
 
@@ -94,6 +98,13 @@ jobs:
 
               const posts = raw
                 .filter(p => (p.text || p.commentary || "").trim().length > 20)
+                .sort((a, b) => {
+                  // sort newest-first before slicing so we always keep the 10 most recent
+                  const aDate = a.postedAt || a.publishedAt || a.createdAt || a.date || 0;
+                  const bDate = b.postedAt || b.publishedAt || b.createdAt || b.date || 0;
+                  const toMs = v => typeof v === "number" ? (v < 1e12 ? v * 1000 : v) : Date.parse(v) || 0;
+                  return toMs(bDate) - toMs(aDate);
+                })
                 .slice(0, 10)
                 .map((p, i) => {
                   const text      = (p.text || p.commentary || "").trim();
