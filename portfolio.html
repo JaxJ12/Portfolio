@@ -107,8 +107,8 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 420px);
-      gap: clamp(28px, 5vw, 72px);
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+      gap: clamp(24px, 4vw, 48px);
       align-items: center;
       padding: 54px 0 46px;
     }
@@ -229,17 +229,14 @@
 
     .hero__photo {
       width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: contain;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
       object-position: center top;
-      background:
-        radial-gradient(circle at top, rgba(184, 145, 26, 0.14), transparent 40%),
-        linear-gradient(180deg, #f7f2e8 0%, #eee5d6 100%);
-      padding: 24px 18px 0;
+      padding: 0;
     }
 
     .hero__panel-copy {
-      padding: 22px 24px 24px;
+      padding: 18px 22px 20px;
       border-top: 1px solid var(--line);
     }
 
