@@ -1660,7 +1660,8 @@
       // Ensure it's an array
       if (!Array.isArray(data)) data = [data];
 
-      const posts = data.map(normalizePost).filter(Boolean);
+      const posts = data.map(normalizePost).filter(Boolean)
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
       posts.forEach(p => { _postCache[p.id] = p; });
       feed.innerHTML = posts.map(renderPost).join("");
       showLiveBadge();
@@ -1669,7 +1670,8 @@
       if (IS_LIVE) {
         try {
           const fallback = await fetch("linkedin-posts.json?" + Date.now());
-          const posts = await fallback.json();
+          const posts = (await fallback.json())
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
           posts.forEach(p => { _postCache[p.id] = p; });
           feed.innerHTML = posts.map(renderPost).join("");
           const hint = document.querySelector(".li-update-hint");
