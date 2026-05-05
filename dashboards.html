@@ -296,8 +296,29 @@
       display: flex; align-items: center; justify-content: space-between;
     }
 
-    .tag { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: rgba(180,210,240,0.62); }
-    .tag--accent { border-color: rgba(0,180,255,0.3); color: var(--gold-soft); }
+    .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 11px; border-radius: 999px; border: 1px solid rgba(130,100,55,0.22); color: var(--muted); background: rgba(130,100,55,0.06); }
+    .tag--accent { border-color: rgba(140,106,0,0.3); color: var(--gold); background: rgba(184,145,26,0.08); }
+
+    /* ── Dashboard Intro Layout ── */
+    .dash-intro {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0 48px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+    .dash-intro__text { max-width: 62ch; }
+    .dash-intro__desc {
+      margin: 0 0 18px;
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+    .dash-intro__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
 
     .card-link {
       display: inline-flex; align-items: center; gap: 8px;
@@ -584,14 +605,18 @@
     <section class="section reveal">
       <hr class="section-rule" />
       <p class="section-eyebrow">01 — Personal Intelligence</p>
-      <h2 class="section-title">Creed &amp; Jax Performance Dashboard</h2>
-      <p class="section-intro" style="max-width: 62ch; margin-bottom: 10px;">A full personal analytics hub built from scratch with AI — no templates. Tracks KPIs, goal progress, and performance data across multiple dimensions in a shared family view. The value: one place to see everything that matters, updated in real time, designed around actual habits and targets rather than generic metrics.</p>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 28px;">
-        <span class="tag tag--accent">Personal Intelligence</span>
-        <span class="tag">KPI Tracking</span>
-        <span class="tag">Goal Visualization</span>
-        <span class="tag tag--accent">AI-Built</span>
-        <span class="tag">Live</span>
+      <h2 class="section-title" style="margin-bottom: 16px;">Creed &amp; Jax Performance Dashboard</h2>
+      <div class="dash-intro">
+        <div class="dash-intro__text">
+          <p class="dash-intro__desc">A full personal analytics hub built from scratch with AI — no templates. Tracks KPIs, goal progress, and performance data across multiple dimensions in a shared view. One place to see everything that matters, designed around actual habits and targets rather than generic metrics.</p>
+          <div class="dash-intro__tags">
+            <span class="tag tag--accent">Personal Intelligence</span>
+            <span class="tag">KPI Tracking</span>
+            <span class="tag">Goal Visualization</span>
+            <span class="tag tag--accent">AI-Built</span>
+            <span class="tag">Live</span>
+          </div>
+        </div>
       </div>
 
       <div class="embed-block">
@@ -606,14 +631,18 @@
     <section class="section reveal">
       <hr class="section-rule" />
       <p class="section-eyebrow">02 — Business Intelligence</p>
-      <h2 class="section-title">Gartner Vendor Manager</h2>
-      <p class="section-intro" style="max-width: 62ch; margin-bottom: 10px;">A professional vendor evaluation tool built around the Gartner scoring framework — not a class demo. Upload vendor data, score across weighted criteria, and get a side-by-side tier comparison that actually drives decisions. Built for real procurement workflows where choosing the wrong vendor has real consequences.</p>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 28px;">
-        <span class="tag tag--accent">Business Intelligence</span>
-        <span class="tag">Gartner Framework</span>
-        <span class="tag">Vendor Scoring</span>
-        <span class="tag tag--accent">AI-Built</span>
-        <span class="tag">Decision Tool</span>
+      <h2 class="section-title" style="margin-bottom: 16px;">Gartner Vendor Manager</h2>
+      <div class="dash-intro">
+        <div class="dash-intro__text">
+          <p class="dash-intro__desc">A professional vendor evaluation tool built around the Gartner scoring framework — not a class demo. Upload vendor data, score across weighted criteria, and get a side-by-side tier comparison that actually drives decisions. Built for real procurement workflows where choosing the wrong vendor has real consequences.</p>
+          <div class="dash-intro__tags">
+            <span class="tag tag--accent">Business Intelligence</span>
+            <span class="tag">Gartner Framework</span>
+            <span class="tag">Vendor Scoring</span>
+            <span class="tag tag--accent">AI-Built</span>
+            <span class="tag">Decision Tool</span>
+          </div>
+        </div>
       </div>
 
       <div class="embed-block">
