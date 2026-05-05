@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jax Johnson | Portfolio Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f3;
+      --surface: #ffffff;
+      --surface-soft: #f4eee3;
+      --surface-strong: #ebe3d3;
+      --text: #1c1710;
+      --muted: rgba(28, 23, 16, 0.64);
+      --faint: rgba(28, 23, 16, 0.36);
+      --line: rgba(130, 100, 55, 0.14);
+      --line-strong: rgba(130, 100, 55, 0.28);
+      --gold: #8c6a00;
+      --gold-soft: #b8911a;
+      --shadow: 0 28px 70px rgba(28, 23, 16, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(184, 145, 26, 0.08), transparent 32%),
+        linear-gradient(180deg, #faf8f3 0%, #f7f2e8 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 32px;
+      background: rgba(250, 248, 243, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .top-nav__logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .top-nav__logo span { color: var(--gold); }
+
+    .top-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .top-nav__links a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .top-nav__links a:hover,
+    .top-nav__links a.is-active {
+      color: var(--text);
+    }
+
+    .top-nav__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: var(--text);
+      color: #faf8f3;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .page-shell {
+      width: min(1240px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 420px);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: center;
+      padding: 54px 0 46px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+
+    .hero__title {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.8rem, 7vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      max-width: 10ch;
+    }
+
+    .hero__title span { color: var(--gold); }
+
+    .hero__copy {
+      margin: 22px 0 0;
+      max-width: 58ch;
+      font-size: 1.02rem;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+
+    .hero__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 0;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 30px 0 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.74);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .btn--primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #faf8f3;
+    }
+
+    .hero__contact {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      gap: 24px 40px;
+      margin: 28px 0 0;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--faint);
+    }
+
+    .hero__contact-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .hero__contact a:hover { color: var(--text); }
+
+    .hero__panel {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,238,227,0.94));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero__photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: contain;
+      object-position: center top;
+      background:
+        radial-gradient(circle at top, rgba(184, 145, 26, 0.14), transparent 40%),
+        linear-gradient(180deg, #f7f2e8 0%, #eee5d6 100%);
+      padding: 24px 18px 0;
+    }
+
+    .hero__panel-copy {
+      padding: 22px 24px 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero__panel-copy strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .hero__panel-copy p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 28px 26px;
+      border-right: 1px solid var(--line);
+    }
+
+    .metric:last-child { border-right: none; }
+
+    .metric strong {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .metric p {
+      margin: 8px 0 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--faint);
+    }
+
+    .section {
+      padding: 78px 0;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .section-head__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 62ch;
+      font-size: 14px;
+      line-height: 1.74;
+      color: var(--muted);
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .page-card {
+      display: grid;
+      grid-template-rows: 220px auto;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow);
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+
+    .page-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+    }
+
+    .page-card__media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top, rgba(184,145,26,0.12), transparent 38%),
+        linear-gradient(180deg, #f6f0e4 0%, #ece2d1 100%);
+      padding: 18px;
+    }
+
+    .page-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .page-card__body {
+      padding: 22px 22px 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .page-card__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .page-card__title {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: 1.55rem;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .page-card__copy {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .page-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .tag {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .page-card__footer {
+      margin-top: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .note-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 20px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .note-panel h3 {
+      margin: 0 0 12px;
+      font-family: "Playfair Display", serif;
+      font-size: 1.9rem;
+      letter-spacing: -0.02em;
+    }
+
+    .note-panel p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+
+    .note-panel__list {
+      display: grid;
+      gap: 12px;
+      padding-left: 18px;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.68;
+      color: var(--muted);
+    }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 0 52px;
+      color: var(--faint);
+      font-size: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .site-footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    @media (max-width: 1100px) {
+      .page-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric:nth-child(2) { border-right: none; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    }
+
+    @media (max-width: 900px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 20px;
+      }
+      .top-nav__links { gap: 14px; }
+      .page-shell { width: calc(100% - 32px); }
+      .hero,
+      .note-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid,
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+      .metric {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .metric:last-child { border-bottom: none; }
+      .site-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Portfolio navigation">
+    <div class="top-nav__logo">Jax <span>Johnson</span></div>
+    <div class="top-nav__links">
+      <a class="is-active" href="portfolio.html">Overview</a>
+      <a href="experience.html">Experience</a>
+      <a href="dashboards.html">Dashboards</a>
+      <a href="social.html">Social</a>
+      <a href="class-projects.html">Projects</a>
+      <a href="chatbot.html">Chatbot</a>
+    </div>
+    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+  </nav>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Portfolio Overview</p>
+        <h1 class="hero__title">Marketing, media, and<br><span>AI-assisted execution</span>.</h1>
+        <p class="hero__copy">
+          This site is now structured as a multi-page portfolio so each category of work can stand on its own. Recruiters can move through experience, social case studies, dashboard work, academic projects, and chatbot concepts without having to scroll one long page.
+        </p>
+        <div class="hero__chips">
+          <span class="chip">Baylor University</span>
+          <span class="chip">Marketing and MIS</span>
+          <span class="chip">Sports Business</span>
+          <span class="chip">Social Strategy</span>
+          <span class="chip">AI Prototyping</span>
+        </div>
+        <div class="hero__contact">
+          <div class="hero__contact-group">
+            <a href="mailto:JaxJohnson179263@gmail.com">JaxJohnson179263@gmail.com</a>
+            <a href="mailto:Jax_Johnson2@baylor.edu">Jax_Johnson2@baylor.edu</a>
+            <a href="mailto:Jax@usecreed.com">Jax@usecreed.com</a>
+          </div>
+          <div class="hero__contact-group">
+            <a href="https://linkedin.com/in/jax-johnson" target="_blank">LinkedIn</a>
+            <a href="https://instagram.com/j.xjohnson" target="_blank">Instagram</a>
+            <a href="tel:4699784476">(469) 978-4476</a>
+          </div>
+          <div class="hero__contact-group">
+            <a href="https://tiktok.com/@notjax" target="_blank">Personal TT</a>
+            <a href="https://tiktok.com/@jax.praise" target="_blank">Creed TT</a>
+            <a href="https://tiktok.com/@jax.relates" target="_blank">Insight Timer TT</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero__panel">
+        <img class="hero__photo" src="jax-headshot-bw.png" alt="Jax Johnson headshot" />
+        <div class="hero__panel-copy">
+          <strong>Recruiter Snapshot</strong>
+          <p>
+            Open to internships and entry-level opportunities across marketing, social media, digital strategy, sports business, and AI-supported workflow roles.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+
+    <section class="section" aria-labelledby="pages-title">
+      <div class="section-head">
+        <div class="section-head__label">Explore the Work</div>
+        <h2 id="pages-title">Five sections. One through-line.</h2>
+        <p>
+          Experience covers my roles at Baylor, ESPN, and beyond. Social breaks down every account, platform, and brand deal with real numbers. Dashboards shows the AI tools I've built from scratch. Projects digs into class and client work including a full corporate pitch for SAP. And the Chatbot is a live AI assistant I built and deployed myself.
+        </p>
+      </div>
+
+      <div class="page-grid">
+        <a class="page-card" href="experience.html">
+          <div class="page-card__media">
+            <img src="jax-headshot-bw.png" alt="Jax Johnson portrait" />
+          </div>
+          <div class="page-card__body">
+            <div class="page-card__label">Profile</div>
+            <h3 class="page-card__title">Experience and Skills</h3>
+            <p class="page-card__copy">Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best.</p>
+            <div class="page-card__tags">
+              <span class="tag">Experience</span>
+              <span class="tag">Leadership</span>
+              <span class="tag">Certifications</span>
+            </div>
+            <div class="page-card__footer">Open page</div>
+          </div>
+        </a>
+
+        <a class="page-card" href="social.html">
+          <div class="page-card__media">
+            <img src="instagram-profile.png" alt="Instagram profile screenshot" />
+          </div>
+          <div class="page-card__body">
+            <div class="page-card__label">Case Studies</div>
+            <h3 class="page-card__title">Social Media Systems</h3>
+            <p class="page-card__copy">How I run different voices, audiences, and content systems across personal, sponsored, and institutional work.</p>
+            <div class="page-card__tags">
+              <span class="tag">Growth</span>
+              <span class="tag">Content Strategy</span>
+              <span class="tag">Audience</span>
+            </div>
+            <div class="page-card__footer">Open page</div>
+          </div>
+        </a>
+
+        <a class="page-card" href="dashboards.html">
+          <div class="page-card__media">
+            <img src="instagram-insights.png" alt="Analytics dashboard screenshot" />
+          </div>
+          <div class="page-card__body">
+            <div class="page-card__label">Builds</div>
+            <h3 class="page-card__title">Dashboard Projects</h3>
+            <p class="page-card__copy">Interactive dashboard concepts built to organize information, support decisions, and show how I think about product-style work.</p>
+            <div class="page-card__tags">
+              <span class="tag">Dashboards</span>
+              <span class="tag">Analytics</span>
+              <span class="tag">AI Build</span>
+            </div>
+            <div class="page-card__footer">Open page</div>
+          </div>
+        </a>
+
+        <a class="page-card" href="class-projects.html">
+          <div class="page-card__media">
+            <img src="jax-mavs.jpg" alt="Jax Johnson at a sports event" />
+          </div>
+          <div class="page-card__body">
+            <div class="page-card__label">Coursework</div>
+            <h3 class="page-card__title">Academic Projects</h3>
+            <p class="page-card__copy">Baylor coursework presented as polished deliverables instead of basic class submissions.</p>
+            <div class="page-card__tags">
+              <span class="tag">MIS</span>
+              <span class="tag">Strategy</span>
+              <span class="tag">Marketing</span>
+            </div>
+            <div class="page-card__footer">Open page</div>
+          </div>
+        </a>
+
+        <a class="page-card" href="chatbot.html">
+          <div class="page-card__media">
+            <img src="tiktok-profile.png" alt="TikTok profile screenshot" />
+          </div>
+          <div class="page-card__body">
+            <div class="page-card__label">Concepts</div>
+            <h3 class="page-card__title">Conversational AI</h3>
+            <p class="page-card__copy">Chatbot concepts focused on practical use cases: briefing assistants, recruiter-facing answers, and guided project exploration.</p>
+            <div class="page-card__tags">
+              <span class="tag">AI</span>
+              <span class="tag">UX</span>
+              <span class="tag">Prototype</span>
+            </div>
+            <div class="page-card__footer">Open page</div>
+          </div>
+        </a>
+
+        <a class="page-card" href="index.html">
+          <div class="page-card__media">
+            <img src="baylor-tiktok.jpg" alt="Baylor content image" />
+          </div>
+          <div class="page-card__body">
+            <div class="page-card__label">Featured External Case Study</div>
+            <h3 class="page-card__title">Baylor x SAP Pitch</h3>
+            <p class="page-card__copy">The multi-page sponsorship proposal that inspired this page structure across the rest of the portfolio.</p>
+            <div class="page-card__tags">
+              <span class="tag">Sponsorship</span>
+              <span class="tag">Storytelling</span>
+              <span class="tag">Web Build</span>
+            </div>
+            <div class="page-card__footer">Open page</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div>� 2026 Jax Johnson � Baylor University � Marketing and MIS</div>
+      <div class="site-footer__links">
+        <a href="experience.html">Experience</a>
+        <a href="social.html">Social</a>
+        <a href="dashboards.html">Dashboards</a>
+        <a href="class-projects.html">Projects</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

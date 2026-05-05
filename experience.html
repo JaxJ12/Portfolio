@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experience and Skills | Jax Johnson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f3;
+      --surface: #ffffff;
+      --surface-soft: #f4eee3;
+      --surface-strong: #ebe3d3;
+      --text: #1c1710;
+      --muted: rgba(28, 23, 16, 0.64);
+      --faint: rgba(28, 23, 16, 0.36);
+      --line: rgba(130, 100, 55, 0.14);
+      --line-strong: rgba(130, 100, 55, 0.28);
+      --gold: #8c6a00;
+      --shadow: 0 24px 64px rgba(28, 23, 16, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(184,145,26,0.08), transparent 28%),
+        linear-gradient(180deg, #faf8f3 0%, #f6f0e4 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Layout ── */
+    .page {
+      width: min(1240px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+      gap: clamp(24px, 4vw, 48px);
+      align-items: center;
+      padding: 60px clamp(48px, 7vw, 100px) 60px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.8rem, 7vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      max-width: 10ch;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .hero__copy {
+      margin: 22px 0 0;
+      max-width: 58ch;
+      font-size: 1.02rem;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+
+    .hero__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 0;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero__panel {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,238,227,0.94));
+      box-shadow: var(--shadow);
+    }
+
+    .hero__panel img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center top;
+      padding: 0;
+    }
+
+    .hero__panel-copy {
+      padding: 18px 22px 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero__panel-copy strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .hero__panel-copy p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ── Section base ── */
+    section:not(.hero) { padding-top: 32px; }
+
+    .section-label {
+      margin: 0 0 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .section-intro {
+      margin: 0;
+      max-width: 62ch;
+      font-size: 14px;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+
+    /* ── Education ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .edu-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .edu-card--main {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .edu-card__school {
+      margin: 0 0 4px;
+      font-family: "Playfair Display", serif;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+    }
+
+    .edu-card__degree {
+      margin: 0 0 14px;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .edu-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .edu-badge {
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .edu-badge--gold {
+      background: rgba(140, 106, 0, 0.1);
+      border-color: rgba(140, 106, 0, 0.25);
+      color: var(--gold);
+    }
+
+    .edu-card__stats {
+      display: grid;
+      gap: 10px;
+      text-align: right;
+    }
+
+    .edu-stat strong {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .edu-stat span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .edu-card__honors {
+      margin: 12px 0 0;
+      font-size: 13px;
+      line-height: 1.68;
+      color: var(--faint);
+    }
+
+    .edu-card h3 {
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .edu-card p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.72;
+      color: var(--muted);
+    }
+
+    /* ── Timeline ── */
+    .timeline-group {
+      margin-top: 26px;
+    }
+
+    .timeline-group + .timeline-group {
+      margin-top: 32px;
+    }
+
+    .timeline-group-label {
+      margin: 0 0 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--faint);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .timeline--3col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .timeline-item {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      gap: 0;
+    }
+
+    .timeline-item__img {
+      margin-top: 10px;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center center;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+    }
+
+    .timeline-item__img-block {
+      margin-top: 10px;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .timeline-item__date {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .timeline-item__org {
+      margin-top: 6px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .timeline-item__org span {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .timeline-item__role {
+      margin: 10px 0 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .timeline-item ul {
+      margin: 0;
+      padding-left: 16px;
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── LinkedIn Feed ── */
+    .li-feed-wrapper {
+      margin-top: 26px;
+      position: relative;
+    }
+
+    .li-feed-scroll {
+      max-height: 640px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-right: 6px;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    .li-feed-scroll::-webkit-scrollbar { width: 4px; }
+    .li-feed-scroll::-webkit-scrollbar-track { background: transparent; }
+    .li-feed-scroll::-webkit-scrollbar-thumb {
+      background: var(--line-strong);
+      border-radius: 999px;
+    }
+
+    /* Bottom fade */
+    .li-feed-wrapper::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 6px;
+      height: 64px;
+      background: linear-gradient(to bottom, transparent, #f6f0e4);
+      pointer-events: none;
+      border-radius: 0 0 20px 20px;
+    }
+
+    /* Individual post card */
+    .li-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 2px 12px rgba(28, 23, 16, 0.06);
+      padding: 18px 20px;
+      cursor: default;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .li-card:hover {
+      box-shadow: 0 4px 20px rgba(28, 23, 16, 0.11);
+    }
+
+    .li-card__header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .li-card__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+
+    .li-card__meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .li-card__name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0a66c2;
+      line-height: 1.3;
+      cursor: pointer;
+    }
+
+    .li-card__name:hover { text-decoration: underline; }
+
+    .li-card__connection {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--faint);
+    }
+
+    .li-card__headline {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .li-card__timestamp {
+      font-size: 12px;
+      color: var(--faint);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .li-card__timestamp svg {
+      flex-shrink: 0;
+    }
+
+    .li-card__more-btn {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--faint);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .li-card__more-btn:hover { background: var(--surface-soft); }
+
+    .li-card__body {
+      font-size: 14px;
+      line-height: 1.68;
+      color: #1c1710;
+      white-space: pre-line;
+      word-break: break-word;
+    }
+
+    .li-card__body.is-truncated { cursor: pointer; }
+
+    .li-card__see-more {
+      display: inline;
+      color: var(--faint);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .li-card__see-more:hover { color: var(--text); }
+
+    .li-card__hashtags {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .li-card__hashtag {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0a66c2;
+      cursor: pointer;
+    }
+
+    .li-card__hashtag:hover { text-decoration: underline; }
+
+    .li-card__reactions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0 6px;
+      border-top: 1px solid #e9e5de;
+      margin-top: 14px;
+    }
+
+    .li-card__reaction-icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--faint);
+    }
+
+    .li-card__reaction-emojis {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .li-card__comments-count {
+      font-size: 13px;
+      color: var(--faint);
+      cursor: pointer;
+    }
+
+    .li-card__comments-count:hover { text-decoration: underline; color: var(--text); }
+
+    .li-card__actions {
+      display: flex;
+      gap: 0;
+      padding-top: 2px;
+      border-top: 1px solid #e9e5de;
+      margin-top: 2px;
+    }
+
+    .li-card__action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      border-radius: 8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .li-card__action-btn:hover {
+      background: var(--surface-soft);
+      color: var(--text);
+    }
+
+    .li-card__action-btn svg {
+      flex-shrink: 0;
+    }
+
+    .li-feed-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding: 0 4px;
+    }
+
+    .li-view-all {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0a66c2;
+    }
+
+    .li-view-all:hover { text-decoration: underline; }
+
+    .li-update-hint {
+      font-size: 11px;
+      color: var(--faint);
+    }
+
+    .li-update-hint code {
+      font-family: monospace;
+      background: var(--surface-soft);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .li-skeleton {
+      text-align: center;
+      padding: 40px;
+      font-size: 13px;
+      color: var(--faint);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .skill-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .skill-card h3 {
+      margin: 0 0 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── Certs & Courses ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .cert-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .cert-card strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .cert-card p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.68;
+      color: var(--muted);
+    }
+
+    .courses-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .course-chip {
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+
+    /* ── Social Role Cards ── */
+    .social-role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .social-role-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .social-role-card:hover {
+      box-shadow: 0 12px 40px rgba(28, 23, 16, 0.13);
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+    }
+
+    .social-role-card__img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+
+    .social-role-card__body {
+      padding: 16px 18px 10px;
+      flex: 1;
+    }
+
+    .social-role-card__badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .social-role-card__org {
+      margin: 0 0 3px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .social-role-card__role {
+      margin: 0 0 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .social-role-card__date {
+      margin: 0 0 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .social-role-card__stat {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .social-role-card__arrow {
+      display: block;
+      padding: 12px 18px;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: color 0.2s ease;
+    }
+
+    .social-role-card:hover .social-role-card__arrow {
+      color: var(--text);
+    }
+
+    @media (max-width: 860px) {
+      .social-role-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 540px) {
+      .social-role-grid { grid-template-columns: 1fr; }
+    }
+    /* ── Contact ── */
+    .contact-panel {
+      margin-top: 26px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-panel h3 {
+      margin: 0 0 10px;
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-panel p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.74;
+      color: var(--muted);
+      max-width: 48ch;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 10px;
+      justify-items: start;
+    }
+
+    .contact-links a {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Nav ── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 32px;
+      background: rgba(250, 248, 243, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .top-nav__logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .top-nav__logo span { color: var(--gold); }
+
+    .top-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .top-nav__links a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .top-nav__links a:hover,
+    .top-nav__links a.is-active { color: var(--text); }
+
+    .top-nav__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: var(--text);
+      color: #faf8f3;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .timeline { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .contact-panel { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .edu-card--main { grid-column: span 1; grid-template-columns: 1fr; }
+      .edu-card__stats { text-align: left; }
+    }
+
+    @media (max-width: 680px) {
+      .page { width: calc(100% - 28px); }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline--3col { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .li-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Portfolio navigation">
+    <div class="top-nav__logo">Jax <span>Johnson</span></div>
+    <div class="top-nav__links">
+      <a href="portfolio.html">Overview</a>
+      <a class="is-active" href="experience.html">Experience</a>
+      <a href="dashboards.html">Dashboards</a>
+      <a href="social.html">Social</a>
+      <a href="class-projects.html">Projects</a>
+      <a href="chatbot.html">Chatbot</a>
+    </div>
+    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+  </nav>
+
+  <main class="page">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Experience and Skills</p>
+        <h1 class="hero__title">Experience, campus roles, and <span>proof of work</span>.</h1>
+        <p class="hero__copy">
+          Baylor BBA student — double major in MIS and Sports, Strategy, Sales &amp; Entertainment Marketing. Built audiences from scratch, closed brand deals, analyzed performance data, and led teams across creator, campus, and service roles. Everything below is documented and verifiable.
+        </p>
+        <div class="hero__chips">
+          <span class="chip">Sports Business</span>
+          <span class="chip">CRM &amp; Sales</span>
+          <span class="chip">Leadership</span>
+          <span class="chip">Analytics</span>
+          <span class="chip">AI Tools</span>
+          <span class="chip">Social Media</span>
+        </div>
+      </div>
+
+      <aside class="hero__panel">
+        <img src="jax-headshot-bw.png" alt="Jax Johnson headshot" />
+        <div class="hero__panel-copy">
+          <strong>Recruiter Snapshot</strong>
+          <p>Best fit for marketing, social media, content strategy, sports business, and digital roles that value someone who can both think strategically and execute quickly.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ═══ EDUCATION ═══ -->
+    <section>
+      <p class="section-label">Education</p>
+      <h2 class="section-title">Baylor University.</h2>
+      <p class="section-intro">Business Scholars Honors Program — graduating May 2027 with a double major designed for the intersection of data systems and sports &amp; entertainment marketing.</p>
+
+      <div class="edu-grid">
+        <article class="edu-card edu-card--main">
+          <div>
+            <p class="edu-card__school">Baylor University</p>
+            <p class="edu-card__degree">
+              Bachelor of Business Administration — Business Scholars Honors Program<br />
+              Double Major: Management Information Systems &amp; Sports, Strategy, Sales &amp; Entertainment Marketing
+            </p>
+            <div class="edu-card__meta">
+              <span class="edu-badge edu-badge--gold">May 2027</span>
+              <span class="edu-badge">Waco, TX</span>
+              <span class="edu-badge">Honors Program</span>
+            </div>
+            <p class="edu-card__honors">
+              National Merit Qualifier · Honors with Distinction · 2× Academic Decathlon State Finalist · 2× UIL One-Act Play State Finalist
+            </p>
+          </div>
+          <div class="edu-card__stats">
+            <div class="edu-stat">
+              <strong>3.4</strong>
+              <span>GPA</span>
+            </div>
+            <div class="edu-stat">
+              <strong>1420</strong>
+              <span>SAT · 95th %ile</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="edu-card">
+          <h3>S3E Program</h3>
+          <p>The Sales Strategy in Sports and Entertainment program prepares students for professional selling, CRM usage, and consumer strategy in the sports and entertainment industry. Direct job placements include the Vegas Golden Knights, San Antonio Spurs, Colorado Avalanche, Dallas Cowboys, Dallas Mavericks, and Curb Records.</p>
+        </article>
+
+        <article class="edu-card">
+          <h3>Relevant Coursework</h3>
+          <div class="courses-row">
+            <span class="course-chip">Professional Selling</span>
+            <span class="course-chip">Sports Data Analytics</span>
+            <span class="course-chip">Org. Leadership</span>
+            <span class="course-chip">Systems &amp; Analysis Design</span>
+            <span class="course-chip">Mobile App Development</span>
+            <span class="course-chip">Operations Management</span>
+            <span class="course-chip">Intro to Python</span>
+            <span class="course-chip">Financial Accounting</span>
+            <span class="course-chip">Managerial Accounting</span>
+            <span class="course-chip">Software Applications</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ EXPERIENCE TIMELINE ═══ -->
+    <section>
+      <p class="section-label">Timeline</p>
+      <h2 class="section-title">Professional experience.</h2>
+      <p class="section-intro">The through-line across every role is ownership — content, analytics, performance, and a drive to build polished work rather than stopping at the idea stage.</p>
+
+      <!-- Group 2 → now Group 1: Campus Leadership -->
+      <div class="timeline-group">
+        <p class="timeline-group-label">Campus &amp; Leadership</p>
+        <div class="timeline">
+
+          <article class="timeline-item">
+            <div>
+              <div class="timeline-item__date">Oct 2025 – Present</div>
+              <div class="timeline-item__org"><span>Leadership</span>Baylor S3E Club</div>
+              <img class="timeline-item__img" src="jax-mavs-courtside.jpg" alt="Jax Johnson at Dallas Mavericks game" />
+            </div>
+            <div>
+              <p class="timeline-item__role">VP of Recruitment &amp; Outreach</p>
+              <ul>
+                <li>Prospected 65 Texas HS DECA programs and contacted 180+ MBA and BBA students.</li>
+                <li>Attended and designed promotional events for the S3E organization.</li>
+                <li>Recruited and informed students on club information and career pathways.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Recruitment</span>
+                <span class="tag">Sports Business</span>
+                <span class="tag">Outreach</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <div class="timeline-item__date">2026 – Present</div>
+              <div class="timeline-item__org"><span>Leadership</span>AI Society</div>
+              <img class="timeline-item__img" src="HSB-child-page-list_GraduateCertificates.jpg" alt="AI Society" style="object-position: top center;" />
+            </div>
+            <div>
+              <p class="timeline-item__role">VP of External Relations</p>
+              <ul>
+                <li>Build and manage relationships with companies and executives.</li>
+                <li>Manage the speaker pipeline from outreach through event coordination.</li>
+                <li>Secure sponsorships, funding packages, and partnership agreements.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Executive Relations</span>
+                <span class="tag">Sponsorships</span>
+                <span class="tag">AI</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <div class="timeline-item__date">Aug – Dec 2025</div>
+              <div class="timeline-item__org"><span>Teaching</span>Peer Leader Program</div>
+              <div class="timeline-item__img-block" style="background: linear-gradient(135deg, #e8f0fe 0%, #c5d6f5 100%);">
+                🎓
+              </div>
+            </div>
+            <div>
+              <p class="timeline-item__role">Business Peer Leader &amp; TA</p>
+              <ul>
+                <li>Helped achieve 8.3% higher satisfaction and retention for program students vs. non-participants.</li>
+                <li>Led weekly sessions for 26 freshmen, guided discussions, and supported their business school transition.</li>
+                <li>Organized 2-semester meetups and individual check-ins.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Teaching</span>
+                <span class="tag">Mentorship</span>
+                <span class="tag">Leadership</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <div class="timeline-item__date">Sep 2025 – Present</div>
+              <div class="timeline-item__org"><span>Ministry</span>Highland HS Ministry</div>
+              <div class="timeline-item__img-block" style="background: linear-gradient(135deg, #f3e8ff 0%, #ddd0f5 100%);">
+                ✝️
+              </div>
+            </div>
+            <div>
+              <p class="timeline-item__role">Small Group Leader &amp; Mentor</p>
+              <ul>
+                <li>Assisted in discussion for 20–30 juniors in high school each week on Sunday mornings.</li>
+                <li>Guided deeper learning discussions for 10–20 high school boys every Wednesday night.</li>
+                <li>Attended weekend retreats supporting spiritual growth for 100+ high schoolers.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Mentorship</span>
+                <span class="tag">Leadership</span>
+                <span class="tag">Community</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Group 3: Earlier Experience -->
+      <div class="timeline-group">
+        <p class="timeline-group-label">Earlier Experience</p>
+        <div class="timeline timeline--3col">
+
+          <article class="timeline-item">
+            <div>
+              <div class="timeline-item__date">Summers 2022–2025</div>
+              <div class="timeline-item__org"><span>Camp</span>Sky Ranch Christian Camps</div>
+              <div class="timeline-item__img-block" style="background: linear-gradient(135deg, #d4f7e0 0%, #a8e6b8 100%);">
+                ⛺
+              </div>
+            </div>
+            <div>
+              <p class="timeline-item__role">Day Camp · Work Crew · Senior &amp; Leadership Counselor</p>
+              <ul>
+                <li>Only high schooler on Day Camp team — assisted activities for 200+ campers, 9 hours a day.</li>
+                <li>1 of 5 selected for Work Crew; amassed 500+ service hours over multiple summers.</li>
+                <li>Selected as Senior Counselor and Leadership Counselor in consecutive years, demonstrating progression.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Dallas &amp; CO</span>
+                <span class="tag">Counselor</span>
+                <span class="tag">Leadership</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <div class="timeline-item__date">Mar – Jul 2023</div>
+              <div class="timeline-item__org"><span>Service</span>Hula Hut Hawaiian Restaurant</div>
+              <div class="timeline-item__img-block" style="background: linear-gradient(135deg, #fff3d4 0%, #ffd980 100%);">
+                🌺
+              </div>
+            </div>
+            <div>
+              <p class="timeline-item__role">Server and Waitstaff</p>
+              <ul>
+                <li>Served 60+ guests per shift; boosted customer satisfaction and repeat visits.</li>
+                <li>Managed up to 7 tables simultaneously, developing multitasking and time management under pressure.</li>
+                <li>Trained 3 new team members and streamlined daily operations.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Little Elm, TX</span>
+                <span class="tag">Customer Service</span>
+                <span class="tag">Team Training</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <div class="timeline-item__date">Aug 2017 – May 2022</div>
+              <div class="timeline-item__org"><span>Referee</span>Plano Sports Authority</div>
+              <div class="timeline-item__img-block" style="background: linear-gradient(135deg, #d4f0e0 0%, #85d6a5 100%);">
+                ⚽
+              </div>
+            </div>
+            <div>
+              <p class="timeline-item__role">Soccer Referee and Timekeeper</p>
+              <ul>
+                <li>Worked 2–5 matches per week; promoted to high school center referee at age 16.</li>
+                <li>Received match requests from multiple coaches — recognized for consistency and professionalism.</li>
+                <li>Enforced rules, made quick decisions under pressure, communicated effectively with all parties.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Plano, TX</span>
+                <span class="tag">Officiating</span>
+                <span class="tag">Decision-Making</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══ SOCIAL MEDIA ROLES ═══ -->
+    <section>
+      <p class="section-label">Social Media Work</p>
+      <h2 class="section-title">Content, media, and creator roles.</h2>
+      <p class="section-intro">Social media and content creation have been central to the professional work — full case studies, numbers, and platform breakdowns are on the Social page.</p>
+
+      <div class="social-role-grid">
+
+        <a class="social-role-card" href="social.html">
+          <img class="social-role-card__img" src="baylor-mic.jpg" alt="Baylor Social Media" />
+          <div class="social-role-card__body">
+            <span class="social-role-card__badge">University</span>
+            <p class="social-role-card__org">Baylor University Social Media</p>
+            <p class="social-role-card__role">Social Media Student Worker</p>
+            <p class="social-role-card__date">2026 – Present</p>
+            <p class="social-role-card__stat">200K+ views on first 3 videos</p>
+          </div>
+          <span class="social-role-card__arrow">View social work →</span>
+        </a>
+
+        <a class="social-role-card" href="social.html">
+          <img class="social-role-card__img" src="espn-broadcast.jpg" alt="ESPN Central Texas" style="object-position: center 4%;" />
+          <div class="social-role-card__body">
+            <span class="social-role-card__badge">Media</span>
+            <p class="social-role-card__org">ESPN Central Texas</p>
+            <p class="social-role-card__role">TikTok Creator Intern</p>
+            <p class="social-role-card__date">Spring 2026</p>
+            <p class="social-role-card__stat">Built social from scratch · 3-person team</p>
+          </div>
+          <span class="social-role-card__arrow">View social work →</span>
+        </a>
+
+        <a class="social-role-card" href="social.html">
+          <img class="social-role-card__img" src="tiktok-analytics.jpg" alt="UGC Creator" style="object-position: center top;" />
+          <div class="social-role-card__body">
+            <span class="social-role-card__badge">Creator</span>
+            <p class="social-role-card__org">TikTok UGC &amp; Brand Partnerships</p>
+            <p class="social-role-card__role">Brand Ambassador &amp; UGC Creator</p>
+            <p class="social-role-card__date">2023 – Present</p>
+            <p class="social-role-card__stat">50M+ views · $15K+ revenue · 6 brand deals</p>
+          </div>
+          <span class="social-role-card__arrow">View social work →</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ═══ LINKEDIN FEED ═══ -->
+    <section>
+      <p class="section-label">LinkedIn</p>
+      <h2 class="section-title">In the field.</h2>
+      <p class="section-intro">Real-time updates from the work as it happens — partnerships, milestones, and professional moments posted directly to LinkedIn. Add new posts to <code style="font-size:12px;background:rgba(28,23,16,0.06);padding:2px 6px;border-radius:5px;">linkedin-posts.json</code> and they'll appear here automatically.</p>
+
+      <div class="li-feed-wrapper">
+        <div class="li-feed-scroll" id="liFeed">
+          <div class="li-skeleton">Loading posts…</div>
+        </div>
+      </div>
+
+      <div class="li-feed-footer">
+        <a class="li-view-all" href="https://www.linkedin.com/in/jax-johnson/" target="_blank">View full profile on LinkedIn →</a>
+        <span class="li-update-hint">Data source: <code>linkedin-posts.json</code></span>
+      </div>
+    </section>
+
+    <!-- ═══ SKILLS ═══ -->
+    <section>
+      <p class="section-label">Skills</p>
+      <h2 class="section-title">Platforms, tools, and working strengths.</h2>
+      <p class="section-intro">Creative execution paired with practical systems thinking — content, data, CRM, and lightweight product-style building.</p>
+
+      <div class="skills-grid">
+        <article class="skill-card">
+          <h3>Content &amp; Social</h3>
+          <div class="pill-row">
+            <span class="pill">TikTok Strategy</span>
+            <span class="pill">Short-Form Video</span>
+            <span class="pill">Hook Writing</span>
+            <span class="pill">UGC Creation</span>
+            <span class="pill">CapCut</span>
+            <span class="pill">Canva</span>
+            <span class="pill">Trend Research</span>
+            <span class="pill">Instagram Reels</span>
+            <span class="pill">Content Scheduling</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <h3>Technical &amp; AI</h3>
+          <div class="pill-row">
+            <span class="pill">Python</span>
+            <span class="pill">R-Studio</span>
+            <span class="pill">SQL / SOQL</span>
+            <span class="pill">Corona SDK</span>
+            <span class="pill">HTML / CSS / JS</span>
+            <span class="pill">Google Gemini</span>
+            <span class="pill">AI Studio</span>
+            <span class="pill">n8n</span>
+            <span class="pill">Postman</span>
+            <span class="pill">MOS Certified</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <h3>Sales &amp; CRM</h3>
+          <div class="pill-row">
+            <span class="pill">Salesforce CRM</span>
+            <span class="pill">HubSpot</span>
+            <span class="pill">Cold Calling</span>
+            <span class="pill">Client Acquisition</span>
+            <span class="pill">Lead Generation</span>
+            <span class="pill">Account Management</span>
+            <span class="pill">Group Ticket Sales</span>
+            <span class="pill">Partnership Dev.</span>
+            <span class="pill">Sponsorship ROI</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <h3>Analytics &amp; Strategy</h3>
+          <div class="pill-row">
+            <span class="pill">TikTok Analytics</span>
+            <span class="pill">Descriptive Statistics</span>
+            <span class="pill">Campaign Planning</span>
+            <span class="pill">Audience Analysis</span>
+            <span class="pill">Excel &amp; Sheets</span>
+            <span class="pill">Sports Data Analytics</span>
+            <span class="pill">Conversion Rate Opt.</span>
+            <span class="pill">Event Marketing</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ CERTIFICATIONS & PROJECTS ═══ -->
+    <section>
+      <p class="section-label">Credentials</p>
+      <h2 class="section-title">Certifications and projects.</h2>
+      <p class="section-intro">A mix of industry credentials, academic competitions, and hands-on system builds from coursework.</p>
+
+      <div class="cert-grid">
+        <article class="cert-card">
+          <strong>HubSpot Social Media Marketing Certification</strong>
+          <p>Training in strategy, content planning, measurement, and campaign optimization across major social platforms.</p>
+        </article>
+        <article class="cert-card">
+          <strong>Salesforce Trailhead — 20,000 pts · 80+ Badges</strong>
+          <p>CRM workflows, digital tools, data management, and marketing cloud fundamentals with emphasis on Salesforce marketing tools relevant to sports &amp; entertainment.</p>
+        </article>
+        <article class="cert-card">
+          <strong>MOS Certification (Microsoft Office Specialist)</strong>
+          <p>Certified proficiency in Microsoft Office suite — Excel, Word, and PowerPoint at a professional standard.</p>
+        </article>
+        <article class="cert-card">
+          <strong>AED / First Aid · Ministry Safe Certified</strong>
+          <p>Holds current AED, CPR, and First Aid certification alongside Ministry Safe certification for working with youth in supervised settings.</p>
+        </article>
+        <article class="cert-card">
+          <strong>SPJST System Proposal and Design</strong>
+          <p>Academic project: full system analysis proposal for SPJST — requirements gathering, process mapping, and solution architecture presented to stakeholders.</p>
+        </article>
+        <article class="cert-card">
+          <strong>Mobile App Development — Corona SDK</strong>
+          <p>Built a functional mobile application using Corona SDK, covering the full development cycle from concept to deployment.</p>
+        </article>
+        <article class="cert-card">
+          <strong>Marketplace Simulation Competition — 2nd Place</strong>
+          <p>Competed in and placed second in a multi-team business strategy simulation assessing market analysis, pricing, and competitive positioning.</p>
+        </article>
+        <article class="cert-card">
+          <strong>Involvements</strong>
+          <p>VP of Recruitment — S3E Club · Baylor Consulting Group · Perplexity Campus Partner · Christian Business Leaders</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section>
+      <div class="contact-panel">
+        <div>
+          <h3>Let's talk.</h3>
+          <p>Open to marketing, social media, content strategy, sports business, and creator economy roles. Reach out directly — I respond fast.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:Jax_Johnson2@Baylor.edu">Jax_Johnson2@Baylor.edu</a>
+          <a href="tel:4699784476">(469) 978-4476</a>
+          <a href="https://www.linkedin.com/in/jax-johnson/" target="_blank">LinkedIn</a>
+          <a href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script>
+  /* ══════════════════════════════════════════════════════════
+     LinkedIn Feed — LIVE SYNC CONFIG
+     ──────────────────────────────────────────────────────────
+     STEP 1 ▸ Go to https://jsonbin.io → sign up free → New Bin
+              Paste the contents of linkedin-posts.json → Save
+              Copy the Bin URL (format: /v3/b/YOUR_ID/latest)
+
+     STEP 2 ▸ Replace the LI_FEED_URL below with your bin URL:
+              const LI_FEED_URL = "https://api.jsonbin.io/v3/b/YOUR_ID/latest";
+
+     STEP 3 ▸ Set up n8n automation (see SETUP GUIDE below).
+              n8n will update the JSONBin whenever you post on LinkedIn.
+              The portfolio fetches fresh data on every page load.
+
+     SETUP GUIDE — n8n workflow (5 nodes):
+     ────────────────────────────────────────
+     Node 1 — Schedule Trigger (every 2 hours)
+     Node 2 — HTTP Request
+              Method: GET
+              URL: https://api.linkedin.com/v2/ugcPosts?q=authors&authors=List(urn:li:person:YOUR_PERSON_ID)&count=10&sortBy=LAST_MODIFIED
+              Headers: Authorization: Bearer YOUR_ACCESS_TOKEN
+                       LinkedIn-Version: 202304
+     Node 3 — Code node (transform LinkedIn response → portfolio JSON)
+              See the transform script at the bottom of this file.
+     Node 4 — HTTP Request
+              Method: PUT
+              URL: https://api.jsonbin.io/v3/b/YOUR_BIN_ID
+              Headers: X-Master-Key: YOUR_JSONBIN_KEY
+                       Content-Type: application/json
+              Body: {{ $json }}
+     Node 5 — Done ✓
+
+     GETTING YOUR LINKEDIN ACCESS TOKEN:
+     1. Go to https://www.linkedin.com/developers/apps → Create App
+     2. Add products: "Share on LinkedIn" + "Sign In with LinkedIn"
+     3. Auth tab → OAuth 2.0 → generate token with scopes:
+        r_liteprofile, r_emailaddress, r_member_social
+     4. Your Person ID is in your LinkedIn profile URL or token response.
+
+     ALTERNATIVE — Zapier (easier, no code):
+     LinkedIn trigger "New Post by User" → Zapier Formatter
+     → HTTP PUT to JSONBin. Requires Zapier Professional plan.
+  ══════════════════════════════════════════════════════════ */
+
+  // ── LIVE FEED URL ─────────────────────────────────────────
+  // Fetches directly from GitHub — updates automatically when
+  // your n8n workflow commits a new linkedin-posts.json to the repo.
+  const LI_FEED_URL = "https://raw.githubusercontent.com/JaxJ12/Portfolio/main/linkedin-posts.json";
+  // ──────────────────────────────────────────────────────────
+
+  const LI_HEADLINE = "MIS & S3E Marketing @ Baylor · Creator · @NotJax";
+  const LI_AVATAR   = "jax-headshot-bw.png";
+  const LI_NAME     = "Jax Johnson";
+  const LI_URL      = "https://www.linkedin.com/in/jax-johnson/";
+  const TRUNCATE_AT = 320; // characters before "…see more"
+
+  const ICONS = {
+    globe: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    like: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>`,
+    comment: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+    repost: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+    send: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`,
+    dots: `•••`
+  };
+
+  function timeAgo(dateStr) {
+    const posted = new Date(dateStr);
+    const now = new Date();
+    const diffDays = Math.round((now - posted) / (1000 * 60 * 60 * 24));
+    if (diffDays < 1)  return "Today";
+    if (diffDays < 7)  return `${diffDays}d`;
+    if (diffDays < 30) return `${Math.round(diffDays / 7)}w`;
+    if (diffDays < 365) return `${Math.round(diffDays / 30)}mo`;
+    return `${Math.round(diffDays / 365)}y`;
+  }
+
+  function formatNumber(n) {
+    return n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "K" : String(n);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function renderPost(post) {
+    const fullText = escapeHtml(post.text);
+    const truncated = post.text.length > TRUNCATE_AT;
+    const shortText = truncated
+      ? escapeHtml(post.text.slice(0, TRUNCATE_AT).trimEnd()) + "…"
+      : fullText;
+
+    const hashtagsHtml = (post.hashtags || [])
+      .map(h => `<span class="li-card__hashtag">${escapeHtml(h)}</span>`)
+      .join(" ");
+
+    const ago = timeAgo(post.date);
+
+    return `
+      <article class="li-card">
+        <div class="li-card__header">
+          <img class="li-card__avatar" src="${LI_AVATAR}" alt="${LI_NAME}" />
+          <div class="li-card__meta">
+            <div class="li-card__name">
+              <a href="${LI_URL}" target="_blank" style="color:inherit;text-decoration:none;">${LI_NAME}</a>
+              <span class="li-card__connection">· 1st</span>
+            </div>
+            <div class="li-card__headline">${LI_HEADLINE}</div>
+            <div class="li-card__timestamp">
+              ${ago} · ${ICONS.globe}
+            </div>
+          </div>
+          <button class="li-card__more-btn" aria-label="More options">${ICONS.dots}</button>
+        </div>
+
+        <div class="li-card__body${truncated ? " is-truncated" : ""}" data-full="${post.id}" data-truncated="${truncated}">
+          <span class="li-card__text">${shortText}</span>${truncated
+            ? ` <span class="li-card__see-more" onclick="expandPost('${post.id}', this)">see more</span>`
+            : ""}
+        </div>
+
+        ${hashtagsHtml ? `<div class="li-card__hashtags">${hashtagsHtml}</div>` : ""}
+
+        <div class="li-card__reactions-row">
+          <div class="li-card__reaction-icons">
+            <span class="li-card__reaction-emojis">${post.reactionTypes || "👍"}</span>
+            <span>${formatNumber(post.reactions || 0)}</span>
+          </div>
+          <span class="li-card__comments-count">${post.comments || 0} comments</span>
+        </div>
+
+        <div class="li-card__actions">
+          <button class="li-card__action-btn">${ICONS.like} Like</button>
+          <button class="li-card__action-btn">${ICONS.comment} Comment</button>
+          <button class="li-card__action-btn">${ICONS.repost} Repost</button>
+          <button class="li-card__action-btn">${ICONS.send} Send</button>
+        </div>
+      </article>
+    `;
+  }
+
+  // Full post text stored for expand
+  const _postCache = {};
+
+  function expandPost(id, btn) {
+    const post = _postCache[id];
+    if (!post) return;
+    const body = document.querySelector(`[data-full="${id}"]`);
+    if (!body) return;
+    body.querySelector(".li-card__text").innerHTML = escapeHtml(post.text);
+    btn.remove();
+  }
+
+  // Detect if we're using the live JSONBin URL or local file
+  const IS_LIVE = LI_FEED_URL.startsWith("http");
+
+  // Show live badge if using remote source
+  function showLiveBadge() {
+    const label = document.querySelector(".li-update-hint");
+    if (label && IS_LIVE) {
+      label.innerHTML = `<span style="display:inline-flex;align-items:center;gap:5px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#5cb85c;display:inline-block;animation:pulse 2s infinite;"></span>
+        Live — syncs automatically when you post on LinkedIn
+      </span>`;
+    }
+  }
+
+  // Parse LinkedIn raw API response OR pre-formatted portfolio JSON
+  function normalizePost(raw) {
+    // If it already has our portfolio format fields, pass through
+    if (raw.id && raw.text !== undefined) return raw;
+    // Otherwise try to parse LinkedIn UGC API format
+    try {
+      const text = raw.specificContent?.["com.linkedin.ugc.ShareContent"]
+        ?.shareCommentary?.text || "";
+      const ts = raw.created?.time;
+      const date = ts ? new Date(ts).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
+      return {
+        id: raw.id || String(Date.now()),
+        date,
+        dateLabel: "",
+        text,
+        hashtags: [],
+        reactions: 0,
+        reactionTypes: "👍",
+        comments: 0,
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function loadFeed() {
+    const feed = document.getElementById("liFeed");
+    try {
+      const res = await fetch(LI_FEED_URL + (LI_FEED_URL.includes("?") ? "&" : "?") + "_t=" + Date.now());
+      if (!res.ok) throw new Error("fetch failed");
+      let data = await res.json();
+
+      // JSONBin wraps response in { record: [...] }
+      if (data.record) data = data.record;
+      // LinkedIn UGC API wraps in { elements: [...] }
+      if (data.elements) data = data.elements;
+      // Ensure it's an array
+      if (!Array.isArray(data)) data = [data];
+
+      const posts = data.map(normalizePost).filter(Boolean);
+      posts.forEach(p => { _postCache[p.id] = p; });
+      feed.innerHTML = posts.map(renderPost).join("");
+      showLiveBadge();
+    } catch (e) {
+      // Fallback: try local linkedin-posts.json if the remote failed
+      if (IS_LIVE) {
+        try {
+          const fallback = await fetch("linkedin-posts.json?" + Date.now());
+          const posts = await fallback.json();
+          posts.forEach(p => { _postCache[p.id] = p; });
+          feed.innerHTML = posts.map(renderPost).join("");
+          const hint = document.querySelector(".li-update-hint");
+          if (hint) hint.textContent = "Showing cached posts — remote feed unavailable";
+        } catch (_) {
+          feed.innerHTML = `<div class="li-skeleton">Could not load posts.<br><br><a href="${LI_URL}" target="_blank" style="color:#0a66c2;">View on LinkedIn →</a></div>`;
+        }
+      } else {
+        feed.innerHTML = `<div class="li-skeleton">Open this page via a local server (e.g. VS Code Live Server) or deploy it online for the feed to load.<br><br><a href="${LI_URL}" target="_blank" style="color:#0a66c2;">View on LinkedIn →</a></div>`;
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadFeed);
+
+  /* ══════════════════════════════════════════════════════════
+     n8n CODE NODE — paste into the "Code" node in your workflow
+     This transforms the raw LinkedIn UGC API response into the
+     portfolio JSON format and merges with existing posts.
+     ──────────────────────────────────────────────────────────
+     const elements = $input.first().json.elements || [];
+     const existing = $node["Get Current Bin"].json.record || [];
+     const existingIds = new Set(existing.map(p => p.id));
+
+     const newPosts = elements
+       .filter(e => !existingIds.has(e.id))
+       .map(e => {
+         const commentary = e.specificContent?.["com.linkedin.ugc.ShareContent"]
+           ?.shareCommentary?.text || "";
+         const ts = e.created?.time;
+         const date = ts ? new Date(ts).toISOString().split("T")[0] : "";
+         const words = commentary.split(" ");
+         const hashtags = words.filter(w => w.startsWith("#"));
+         return {
+           id: e.id,
+           date,
+           dateLabel: "",
+           text: commentary,
+           hashtags,
+           reactions: 0,
+           reactionTypes: "👍",
+           comments: 0
+         };
+       });
+
+     return [...newPosts, ...existing];
+  ══════════════════════════════════════════════════════════ */
+  </script>
+</body>
+</html>

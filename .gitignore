@@ -1,0 +1,29 @@
+# Raw PDF extract images (not referenced in any HTML page)
+pdf-img-*.jpg
+pdf-img-*.png
+
+# Source/renamed images (renamed to instagram-6k.jpg, creed-tiktok.jpg, etc.)
+Image.jpeg
+Image (1).jpeg
+Image (2).jpeg
+
+# Duplicate large images (jpg versions are used in the site)
+jax-mavs.png
+jax-headshot.jpg
+jax-espn.jpg
+instagram-profile.jpg
+instagram-insights.jpg
+tiktok-analytics.png
+tiktok-profile.jpg
+
+# Archives
+*.zip
+
+# Cleanup scripts (not part of the deployed site)
+cleanup-repo.bat
+cleanup-repo.ps1
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

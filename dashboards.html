@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Projects | Jax Johnson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Page Theme: Cream & Gold ── */
+    :root {
+      --bg:             #faf8f3;
+      --bg-soft:        #f4eee3;
+      --bg-deep:        #ebe3d3;
+      --surface:        rgba(255, 255, 255, 0.92);
+      --surface-strong: rgba(244, 238, 227, 0.97);
+      --text:           #1c1710;
+      --muted:          rgba(28, 23, 16, 0.58);
+      --line:           rgba(130, 100, 55, 0.14);
+      --gold:           #8c6a00;
+      --gold-soft:      #b8911a;
+      --blue:           #8c6a00;
+      --shadow-panel:   0 24px 72px rgba(28, 23, 16, 0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(184, 145, 26, 0.08), transparent 32%),
+        linear-gradient(180deg, #faf8f3 0%, #f7f2e8 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    @view-transition { navigation: auto; }
+    ::view-transition-old(root),
+    ::view-transition-new(root) { animation-duration: 0.62s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+
+    /* ── Page Transition ── */
+    .page-transition { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
+    .page-transition__panel {
+      position: absolute; top: 50%; left: 50%;
+      width: min(34vw, 460px); height: min(22vw, 300px);
+      background: var(--bg-deep);
+      border: 1px solid rgba(0, 180, 255, 0.2);
+      border-radius: 28px;
+      transform: translate(-50%, -50%) scale(0.88);
+      opacity: 0; backdrop-filter: blur(16px);
+    }
+    .page-transition.is-leaving { pointer-events: all; }
+    body.is-transitioning { overflow: hidden; }
+
+    /* ── Page Header ── */
+    .page-header {
+      position: relative;
+      min-height: 72vh;
+      overflow: hidden;
+      display: grid;
+      place-items: end;
+    }
+
+    .page-header__bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(184, 145, 26, 0.10), transparent 44%),
+        radial-gradient(ellipse at 80% 80%, rgba(140, 106, 0, 0.05), transparent 36%);
+    }
+
+    .page-header__grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(130, 100, 55, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 180, 255, 0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    .page-header__inner {
+      position: relative; z-index: 2;
+      width: min(1200px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 18vh 0 8vh;
+    }
+
+    .page-num {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 0 0 18px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .page-num::before {
+      content: ""; display: block; width: 32px; height: 1px;
+      background: var(--gold); opacity: 0.7;
+    }
+
+    .page-header__title {
+      margin: 0;
+      font-size: clamp(2.8rem, 6.5vw, 5.8rem);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 0.92;
+      color: var(--text);
+      max-width: 14ch;
+    }
+
+    .page-header__title em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .page-header__sub {
+      margin: 22px 0 0;
+      font-size: clamp(1rem, 1.4vw, 1.16rem);
+      line-height: 1.72;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+
+    .header-metrics {
+      display: flex; gap: 32px; flex-wrap: wrap;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .header-metric { display: flex; flex-direction: column; gap: 4px; }
+    .header-metric__num {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      color: rgba(230,242,255,0.97);
+      line-height: 1;
+    }
+    .header-metric__num span { color: var(--gold); }
+    .header-metric__label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(180,210,240,0.6);
+    }
+
+    /* ── Content Sections ── */
+    .section {
+      width: min(1200px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 72px 0;
+    }
+
+    .section-rule {
+      height: 1px; border: none; margin: 0 0 28px;
+      background: linear-gradient(90deg, rgba(184,145,26,0.35), rgba(140,106,0,0.15), transparent 70%);
+    }
+
+    .section-eyebrow {
+      margin: 0 0 10px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .section-title {
+      margin: 0 0 36px;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    }
+
+    /* ── Dashboard Cards ── */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .dash-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface-strong);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      transition: border-color 0.24s, transform 0.24s, box-shadow 0.24s;
+    }
+
+    .dash-card:hover {
+      border-color: rgba(0, 180, 255, 0.38);
+      transform: translateY(-5px);
+      box-shadow: 0 36px 88px rgba(0, 30, 80, 0.5), 0 0 0 1px rgba(0, 180, 255, 0.08) inset;
+    }
+
+    .dash-card--featured { border-color: rgba(0, 180, 255, 0.22); }
+
+    .dash-card__screen {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background:
+        radial-gradient(circle at 30% 50%, rgba(184, 145, 26, 0.12), transparent 50%),
+        radial-gradient(circle at 78% 30%, rgba(140, 106, 0, 0.07), transparent 40%),
+        #f4eee3;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Simulated UI elements */
+    .dash-card__screen-ui {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      padding: 16px; gap: 10px;
+      opacity: 0.55;
+    }
+
+    .ui-sidebar {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .ui-block {
+      border-radius: 6px;
+      background: rgba(140, 106, 0, 0.10);
+      border: 1px solid rgba(130, 100, 55, 0.18);
+    }
+
+    .ui-charts {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+
+    .ui-chart {
+      border-radius: 8px;
+      background: rgba(140, 106, 0, 0.08);
+      border: 1px solid rgba(140, 106, 0, 0.10);
+    }
+
+    .dash-card__screen-label {
+      position: absolute; bottom: 12px; left: 16px;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(28, 23, 16, 0.45);
+      padding: 3px 10px; border-radius: 999px;
+      border: 1px solid rgba(130, 100, 55, 0.18);
+      background: rgba(244, 238, 227, 0.85);
+      backdrop-filter: blur(6px);
+    }
+
+    .dash-card__accent-bar {
+      position: absolute; inset: 0 0 auto 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), rgba(0, 80, 180, 0.4));
+      opacity: 0; transition: opacity 0.24s;
+    }
+    .dash-card:hover .dash-card__accent-bar { opacity: 1; }
+
+    .dash-card__body { padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 10px; }
+
+    .dash-card__tag {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(180, 210, 240, 0.6);
+    }
+
+    .dash-card__title {
+      margin: 0;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;
+      color: rgba(230,242,255,0.97);
+    }
+
+    .dash-card__desc {
+      font-size: 13.5px; line-height: 1.74; color: var(--muted);
+    }
+
+    .dash-card__features {
+      display: flex; flex-direction: column; gap: 8px;
+      margin: 8px 0 0;
+    }
+
+    .feature-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; line-height: 1.6; color: var(--muted);
+    }
+
+    .feature-row::before {
+      content: "—";
+      color: var(--gold); opacity: 0.7; flex-shrink: 0;
+      font-size: 12px; margin-top: 1px;
+    }
+
+    .dash-card__footer {
+      margin-top: auto; padding-top: 16px;
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .tag { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: rgba(180,210,240,0.62); }
+    .tag--accent { border-color: rgba(0,180,255,0.3); color: var(--gold-soft); }
+
+    .card-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(230,242,255,0.9);
+      transition: color 0.2s;
+    }
+    .card-link::after {
+      content: ""; width: 22px; height: 1px;
+      background: linear-gradient(90deg, var(--gold), rgba(0,100,200,0.5));
+      transition: width 0.24s;
+    }
+    .dash-card:hover .card-link { color: var(--gold-soft); }
+    .dash-card:hover .card-link::after { width: 36px; }
+
+    /* ── Feature Breakdown ── */
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .breakdown-item {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+      padding: 22px 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .breakdown-item__icon {
+      font-size: 1.6rem; margin-bottom: 12px;
+    }
+
+    .breakdown-item__title {
+      margin: 0 0 8px;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.04em;
+      color: rgba(230,242,255,0.94);
+    }
+
+    .breakdown-item__desc {
+      font-size: 13px; line-height: 1.68; color: var(--muted);
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      min-height: 46px; padding: 0 22px;
+      border-radius: 999px; font-family: inherit;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05); color: var(--text);
+      transition: all 0.22s;
+    }
+    .btn:hover { border-color: rgba(0,180,255,0.4); background: rgba(0,180,255,0.08); transform: translateY(-2px); }
+    .btn--primary { background: rgba(0,100,200,0.85); border-color: rgba(0,180,255,0.7); color: #e6f4ff; }
+    .btn--primary:hover { background: rgba(0,140,255,0.9); }
+
+    /* ── Nav Island ── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 32px;
+      background: rgba(250, 248, 243, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .top-nav__logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+    .top-nav__logo span { color: var(--gold); }
+    .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
+    .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s ease; }
+    .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
+    .top-nav__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 999px; background: var(--text); color: #faf8f3; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ── Footer ── */
+    .site-footer {
+      width: min(1200px, calc(100% - 36px));
+      margin: 0 auto 116px; padding: 14px 20px;
+      border: 1px solid var(--line); border-radius: 14px;
+      background: var(--surface-strong);
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .site-footer__name { font-size: 12px; font-weight: 700; color: rgba(230,242,255,0.9); }
+    .site-footer__meta { font-size: 11px; color: rgba(180,210,240,0.6); margin-top: 2px; }
+    .site-footer__legal { font-size: 11px; color: rgba(180,210,240,0.46); text-align: right; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .dash-grid { grid-template-columns: 1fr; }
+      .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .breakdown-grid { grid-template-columns: 1fr; }
+      .header-metrics { gap: 20px; }
+      .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .site-footer__legal { text-align: left; }
+    }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .reveal--d1 { transition-delay: 0.08s; }
+    .reveal--d2 { transition-delay: 0.16s; }
+    .reveal--d3 { transition-delay: 0.24s; }
+
+    /* ── Standard Hero ── */
+    .page-shell {
+      width: min(1240px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+      gap: clamp(24px, 4vw, 48px);
+      align-items: center;
+      padding: 60px clamp(48px, 7vw, 100px) 60px 0;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+    .hero__title {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.8rem, 7vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      max-width: 10ch;
+    }
+    .hero__title span { color: var(--gold); }
+    .hero__copy {
+      margin: 22px 0 0;
+      max-width: 58ch;
+      font-size: 1.02rem;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+    .hero__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 0;
+    }
+    .chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(130, 100, 55, 0.28);
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero__panel {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,238,227,0.94));
+      box-shadow: 0 28px 70px rgba(28, 23, 16, 0.08);
+      overflow: hidden;
+    }
+    .hero__photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center top;
+      background:
+        radial-gradient(circle at top, rgba(184, 145, 26, 0.14), transparent 40%),
+        linear-gradient(180deg, #f7f2e8 0%, #eee5d6 100%);
+      padding: 0;
+    }
+    .hero__panel-copy {
+      padding: 18px 22px 20px;
+      border-top: 1px solid var(--line);
+    }
+    .hero__panel-copy strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .hero__panel-copy p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .page-shell { width: calc(100% - 32px); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Portfolio navigation">
+    <div class="top-nav__logo">Jax <span>Johnson</span></div>
+    <div class="top-nav__links">
+      <a href="portfolio.html">Overview</a>
+      <a href="experience.html">Experience</a>
+      <a class="is-active" href="dashboards.html">Dashboards</a>
+      <a href="social.html">Social</a>
+      <a href="class-projects.html">Projects</a>
+      <a href="chatbot.html">Chatbot</a>
+    </div>
+    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+  </nav>
+
+  <div class="page-transition" aria-hidden="true">
+    <div class="page-transition__panel"></div>
+  </div>
+
+  <main>
+
+  <div class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AI Dashboards</p>
+        <h1 class="hero__title">Professional dashboards <span>from scratch</span>.</h1>
+        <p class="hero__copy">
+          Working dashboard concepts built to organize information, surface patterns, and support clearer decisions across content, operations, and vendor research. Built from scratch with AI — no templates used.
+        </p>
+        <div class="hero__chips">
+          <span class="chip">AI Tools</span>
+          <span class="chip">Data Visualization</span>
+          <span class="chip">Business Intelligence</span>
+          <span class="chip">Tableau</span>
+          <span class="chip">Excel</span>
+        </div>
+      </div>
+      <aside class="hero__panel">
+        <img class="hero__photo" src="jax-headshot-bw.png" alt="Jax Johnson" />
+        <div class="hero__panel-copy">
+          <strong>Dashboard Focus</strong>
+          <p>All dashboards are original builds — no templates, no borrowed frameworks. Each one started with a blank canvas and a real question to answer.</p>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+
+    <!-- Dashboard Showcases -->
+    <section class="section reveal">
+      <hr class="section-rule" />
+      <p class="section-eyebrow">Live Projects</p>
+      <h2 class="section-title">The dashboards</h2>
+
+      <div class="dash-grid">
+
+        <!-- Creed & Jax -->
+        <a class="dash-card dash-card--featured" href="Creed_Jax_Dashboard.html">
+          <div class="dash-card__screen">
+            <div class="dash-card__screen-ui" aria-hidden="true">
+              <div class="ui-sidebar">
+                <div class="ui-block" style="height:28px; width:70%;"></div>
+                <div class="ui-block" style="flex:1;"></div>
+                <div class="ui-block" style="height:48px;"></div>
+                <div class="ui-block" style="height:36px; width:85%;"></div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="ui-charts">
+                  <div class="ui-chart" style="height:60px;"></div>
+                  <div class="ui-chart" style="height:60px;"></div>
+                  <div class="ui-chart" style="height:80px;"></div>
+                  <div class="ui-chart" style="height:80px;"></div>
+                </div>
+                <div class="ui-block" style="height:40px;"></div>
+              </div>
+            </div>
+            <span class="dash-card__screen-label">Live App &middot; Personal Intelligence</span>
+            <div class="dash-card__accent-bar"></div>
+          </div>
+          <div class="dash-card__body">
+            <p class="dash-card__tag">Personal Intelligence</p>
+            <h2 class="dash-card__title">Creed &amp; Jax<br />Performance Dashboard</h2>
+            <p class="dash-card__desc">A full personal analytics hub tracking key metrics, goals, and performance data — built completely with AI from a blank canvas.</p>
+            <div class="dash-card__features">
+              <div class="feature-row">Real-time KPI tracking with custom metric definitions</div>
+              <div class="feature-row">Goal progress visualization across multiple dimensions</div>
+              <div class="feature-row">Family-shared data view for accountability</div>
+            </div>
+            <div class="dash-card__footer">
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <span class="tag tag--accent">AI-Built</span>
+                <span class="tag">Personal</span>
+                <span class="tag tag--accent">Live</span>
+              </div>
+              <span class="card-link">Open Dashboard</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Gartner -->
+        <a class="dash-card" href="Gartner_Vendor_Manager.html">
+          <div class="dash-card__screen">
+            <div class="dash-card__screen-ui" aria-hidden="true">
+              <div class="ui-sidebar">
+                <div class="ui-block" style="height:32px;"></div>
+                <div class="ui-block" style="height:22px; width:60%;"></div>
+                <div class="ui-block" style="flex:1;"></div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="ui-block" style="height:28px; width:90%;"></div>
+                <div class="ui-chart" style="height:50px;"></div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <div class="ui-block" style="height:50px;"></div>
+                  <div class="ui-block" style="height:50px;"></div>
+                </div>
+                <div class="ui-block" style="height:32px;"></div>
+              </div>
+            </div>
+            <span class="dash-card__screen-label">Business Tool &middot; Vendor Analysis</span>
+            <div class="dash-card__accent-bar"></div>
+          </div>
+          <div class="dash-card__body">
+            <p class="dash-card__tag">Business Intelligence</p>
+            <h2 class="dash-card__title">Gartner Vendor<br />Manager</h2>
+            <p class="dash-card__desc">Professional vendor evaluation tool using Gartner-style scoring. Built for real decision-making — not a class demo.</p>
+            <div class="dash-card__features">
+              <div class="feature-row">Gartner-framework vendor scoring matrix</div>
+              <div class="feature-row">Upload &amp; parse vendor data via Excel integration</div>
+              <div class="feature-row">Side-by-side vendor comparison with tier ratings</div>
+            </div>
+            <div class="dash-card__footer">
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <span class="tag tag--accent">AI-Built</span>
+                <span class="tag">Gartner</span>
+                <span class="tag">Analysis</span>
+              </div>
+              <span class="card-link">Open Tool</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Build Philosophy -->
+    <section class="section reveal">
+      <hr class="section-rule" />
+      <p class="section-eyebrow">How They Were Built</p>
+      <h2 class="section-title">AI-first, from scratch</h2>
+
+      <div class="breakdown-grid">
+        <div class="breakdown-item reveal--d1">
+          <div class="breakdown-item__icon">🧠</div>
+          <h3 class="breakdown-item__title">AI as the Coder</h3>
+          <p class="breakdown-item__desc">Every line of HTML, CSS, and JavaScript was generated and iterated through AI prompting — no drag-and-drop builders, no starter templates.</p>
+        </div>
+        <div class="breakdown-item reveal--d2">
+          <div class="breakdown-item__icon">🎯</div>
+          <h3 class="breakdown-item__title">Real Requirements</h3>
+          <p class="breakdown-item__desc">Each dashboard was built for an actual user with actual needs — not hypothetical project briefs. The Gartner tool is actively used for real vendor decisions.</p>
+        </div>
+        <div class="breakdown-item reveal--d3">
+          <div class="breakdown-item__icon">⚡</div>
+          <h3 class="breakdown-item__title">Rapid Iteration</h3>
+          <p class="breakdown-item__desc">Went from zero to fully functional in hours, not weeks. AI-assisted development compressed a multi-sprint project into a single focused session.</p>
+        </div>
+        <div class="breakdown-item reveal--d1">
+          <div class="breakdown-item__icon">📊</div>
+          <h3 class="breakdown-item__title">Data-First Design</h3>
+          <p class="breakdown-item__desc">Layout and UX decisions were driven by what information matters most to the end user — not by what was easiest to build.</p>
+        </div>
+        <div class="breakdown-item reveal--d2">
+          <div class="breakdown-item__icon">🔗</div>
+          <h3 class="breakdown-item__title">Live &amp; Shareable</h3>
+          <p class="breakdown-item__desc">Both dashboards run in the browser with no backend required — shareable via link, no login, no setup. Built to actually be used.</p>
+        </div>
+        <div class="breakdown-item reveal--d3">
+          <div class="breakdown-item__icon">🔮</div>
+          <h3 class="breakdown-item__title">More Coming</h3>
+          <p class="breakdown-item__desc">Additional dashboards are in progress — tracking social media performance, class analytics, and more personal intelligence tools.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <p class="site-footer__name">Jax Johnson</p>
+      <p class="site-footer__meta">Dashboard Projects &bull; Marketing &amp; MIS &bull; Baylor University</p>
+    </div>
+    <span class="site-footer__legal">Section 02 / 05</span>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // ── Scroll Reveal ──
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-visible"); observer.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+      // ── Page Transitions ──
+      const wrap = document.querySelector(".page-transition");
+      const panel = wrap?.querySelector(".page-transition__panel");
+      if (!wrap || !panel) return;
+
+      const hasGSAP = typeof gsap !== "undefined";
+      let isLeaving = false;
+
+      const tabColors = {
+        "portfolio.html": "#0b1320", "experience.html": "#5f4934",
+        "dashboards.html": "#030810",
+        "social.html": "#100610",
+        "class-projects.html": "#0c0b02",
+        "chatbot.html": "#020e0c",
+        "index.html": "#050505",
+      };
+
+      const setCompact = () => {
+        panel.style.opacity = "0";
+        panel.style.width = "min(34vw, 460px)";
+        panel.style.height = "min(22vw, 300px)";
+        panel.style.borderRadius = "28px";
+        panel.style.transform = "translate(-50%, -50%) scale(0.88)";
+      };
+
+      const isInternal = (a) => {
+        if (!a?.href || a.target === "_blank" || a.hasAttribute("download")) return false;
+        try {
+          const url = new URL(a.href, location.origin);
+          if (url.origin !== location.origin) return false;
+          if (url.pathname === location.pathname && url.hash) return false;
+          return true;
+        } catch { return false; }
+      };
+
+      const resolveColor = (href) => {
+        try {
+          const file = new URL(href, location.origin).pathname.split("/").pop().toLowerCase();
+          return tabColors[file] || "#050505";
+        } catch { return "#050505"; }
+      };
+
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (!a || !isInternal(a)) return;
+        try {
+          if (new URL(a.href, location.origin).pathname === location.pathname) return;
+        } catch { return; }
+        if (isLeaving) return;
+        isLeaving = true;
+        e.preventDefault();
+        sessionStorage.setItem("__pt_pending", "1");
+        panel.style.background = resolveColor(a.href);
+        if (hasGSAP) {
+          gsap.to(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0, duration: 0.56, ease: "expo.inOut", onComplete: () => { location.href = a.href; } });
+        } else { location.href = a.href; }
+      });
+
+      if (sessionStorage.getItem("__pt_pending") === "1") {
+        sessionStorage.removeItem("__pt_pending");
+        if (hasGSAP) {
+          gsap.set(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0 });
+          gsap.to(panel, { opacity: 0, scale: 1.015, duration: 0.52, ease: "expo.out", onComplete: setCompact });
+        }
+      } else { setCompact(); }
+    });
+  </script>
+</body>
+</html>
+
+
+
+

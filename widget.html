@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baylor x SAP Briefing Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #0d0f10;
+      --surface-2: #111315;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(15, 124, 201, 0.75);
+      --text: #f3f5f7;
+      --muted: rgba(243, 245, 247, 0.6);
+      --gold: #ffb81c;
+      --blue: #0f7cc9;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      overflow: hidden;
+    }
+    .widget {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      height: 100%;
+      min-height: 100%;
+      background: var(--bg);
+    }
+    .prompt-bar {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .prompt-bar__label {
+      margin: 0 0 7px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .prompt-bar__chips {
+      display: grid;
+      gap: 6px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .chip {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 500;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--gold); }
+    .messages {
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .msg {
+      max-width: 92%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .msg.agent {
+      align-self: flex-start;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--surface-2);
+      border-color: rgba(15, 124, 201, 0.4);
+      color: var(--text);
+    }
+    .msg.thinking {
+      align-self: flex-start;
+      color: var(--muted);
+      background: transparent;
+      font-style: normal;
+      border: none;
+      padding: 0 12px;
+    }
+    .msg strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .msg ul { margin: 8px 0; padding-left: 20px; }
+    .msg li { margin-bottom: 4px; }
+    .input {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(78px, auto);
+      align-items: stretch;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .input input {
+      min-width: 0;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 12.5px;
+      outline: none;
+    }
+    .input input:focus { border-color: var(--blue); }
+    .send {
+      min-width: 78px;
+      min-height: 44px;
+      padding: 0 11px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .send:hover { border-color: var(--gold); }
+    .send:disabled, .input input:disabled { opacity: 0.6; cursor: default; }
+
+    @media (max-width: 640px) {
+      .prompt-bar__chips { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="prompt-bar">
+      <p class="prompt-bar__label">Suggested Executive Inquiries</p>
+      <div class="prompt-bar__chips">
+        <button class="chip" onclick="sendChip(this)">How does this provide "Business Back" to SAP?</button>
+        <button class="chip" onclick="sendChip(this)">What are the 5 core communication assets?</button>
+        <button class="chip" onclick="sendChip(this)">Why is the $1.5M-$2.0M platform justified?</button>
+        <button class="chip" onclick="sendChip(this)">Why pitch for 2027 instead of 2026?</button>
+        <button class="chip" onclick="sendChip(this)">How will Playfly measure success?</button>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="msg agent">Hello. I am the SAP x Baylor Briefing Assistant. Ask me about the proposal's valuation, asset mix, timeline, or strategic alignment.</div>
+    </div>
+
+    <div class="input">
+      <input id="userInput" type="text" placeholder="Ask a question about the proposal..." onkeydown="if(event.key==='Enter') sendMessage()">
+      <button class="send" id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // THE AI BRAIN: 21 Hardcoded responses tailored perfectly to the rubric, Dan's transcript, and Capstone traps.
+    const knowledgeBase = [
+      {
+        // 1. BUSINESS BACK / VIK
+        keywords: ["business back", "vik", "purchase", "customer", "buy", "software"],
+        response: "To satisfy SAP's requirement for authentic storytelling, Baylor Athletics will become an active customer. \n\nWe propose a formal **Value-in-Kind (VIK) or Direct Purchase** agreement where Baylor adopts **SAP Analytics Cloud** to manage stadium operations and ticketing data. \n\nThis provides direct **Business Back** to SAP, while allowing us to use the Executive Suite as a live technology showcase demonstrating your software in action."
+      },
+      {
+        // 2. THE 5 COMMUNICATION ASSETS
+        keywords: ["5", "five", "communication", "assets", "mix", "deliverables"],
+        response: "The proposal includes exactly 5 distinct communication assets, supported by our underlying B2B ecosystem:\n\n1. **In-App Digital Takeover:** SAP Game Center screens driving fans to active B2B portals.\n2. **Premium Suite Branding:** Physical framing for the Executive Huddle tech showcase.\n3. **Keynote Event Signage:** Physical room ownership at the Baylor Club.\n4. **Flagship Jersey Patch:** High-visibility broadcast asset signaling innovation.\n5. **Co-Branded Digital Content:** 'Always-on' social media storytelling highlighting SAP's data capabilities."
+      },
+      {
+        // 3. THE BUDGET TRAP (Jersey Patch Pricing)
+        keywords: ["1.5m", "2.0m", "1.8m", "2.5m", "750k", "low", "patch", "budget", "valuation", "price", "cheap", "cost", "expensive"],
+        response: "The **$1.5M-$2.0M** range is justified because SAP is not buying ordinary local advertising. \n\nThey are buying a premium **enterprise acquisition platform** that combines B2B hospitality, operational integration, app intelligence, keynote authority, and third-party ROI validation. \n\nThat price point is high enough to feel credible for a tech giant, while still staying grounded in a year-one recommendation rather than overreaching into pro-sports patch economics. \n\nThe jersey patch remains on a **separate flagship valuation track**, because Power 4 patch inventory behaves more like a multi-million dollar pro-style media asset than a standard sponsorship add-on."
+      },
+      {
+        // 4. THE TIMELINE (Dan's specific requirement)
+        keywords: ["timeline", "2026", "2027", "year", "when", "launch", "fiscal"],
+        response: "The strategic roadmap is purposefully designed for **2027 and beyond**.\n\nDuring discovery, SAP explicitly stated that the 2026 budget is already locked. Proposing a 2026 activation would be dead on arrival. By targeting 2027, we align perfectly with SAP's fiscal planning cycle and ensure adequate lead time for a custom software integration."
+      },
+      {
+        // 5. TARGET AUDIENCE / DEMOGRAPHIC
+        keywords: ["audience", "target", "demographic", "who", "mid-market", "enterprise", "market"],
+        response: "SAP's primary obstacle is the stigma that its software is 'only for the Fortune 1000.'\n\nTherefore, our target audience is not the general fan—it is the **Corporate Mid-Market** ($500M-$2B revenue). We utilize the I-35 Dallas-Waco-Austin corridor to put SAP directly in front of regional CXOs and IT decision-makers who are primed for scalable enterprise solutions."
+      },
+      {
+        // 6. HERO AND GUIDE (Rubric requirement)
+        keywords: ["story", "hero", "guide", "narrative", "obstacle"],
+        response: "In this proposal, **SAP is the Hero**. Your obstacle is the public perception that SAP is too rigid or expensive for mid-market businesses.\n\n**Baylor Athletics is the Guide.** We provide the map (access to the I-35 tech corridor) and the vehicle (premium hospitality and tech showcases) to help SAP overcome that stigma and capture regional market share."
+      },
+      {
+        // 7. ARTIFICIAL INTELLIGENCE / APP CTA
+        keywords: ["ai", "artificial intelligence", "app", "mobile", "cta", "call to action"],
+        response: "We are integrating the **SAP Business AI Game Center** into the Baylor app to provide real-time predictive play probabilities to the fans.\n\nHowever, it includes a crucial B2B Call-to-Action. When business owners in the stands interact with this data, the app prompts them to **'Run your business like Baylor runs Game Day,'** linking them directly into SAP's mid-market sales funnel for active conversion."
+      },
+      {
+        // 8. TALENT ACQUISITION (SAP's 4th Pillar)
+        keywords: ["talent", "student", "recruiting", "pipeline", "hire", "employee", "university"],
+        response: "Dan Fleetwood explicitly stated that SAP utilizes collegiate partnerships for **young talent recruitment programs**. \n\nThis proposal establishes SAP as the premier innovation partner on campus, granting your HR team priority pipeline access to elite business and tech graduates for summer internships and early-career hiring."
+      },
+      {
+        // 21. MEASUREMENT & VENDORS (Playfly, Zoomph, Nielsen)
+        keywords: ["measure", "measurement", "zoomph", "wakefield", "playfly", "survey", "report", "recap", "roi", "roo"],
+        response: "Baylor Sports Properties, powered by **Playfly**, executes a rigorous, multi-tiered measurement strategy.\n\nInstead of vague impressions, we deliver a comprehensive **Annual Recap**. We utilize **Zoomph** and **Nielsen** for quantitative broadcast and social exposure valuation, while **Playfly Insights** handles the qualitative survey work that tracks actual brand lift and trust. Our focus is on Return on Objective (ROO) and true B2B pipeline value."
+      },
+      {
+        // 9. ROI AND MEASUREMENT
+        keywords: ["roi", "metrics", "measure", "success", "kpi", "return"],
+        response: "We separate brand reach from pipeline value.\n\nOur primary KPIs focus on business development: **Post-game executive meetings booked** (the 'Monday Morning Call'), keynote lead-gen lists, and B2B portal click-through rates from the SAP Game Center app. We provide SAP with quarterly executive dashboards to prove the partnership is a revenue engine, not just a marketing expense."
+      },
+      {
+        // 10. COMPETITIVE ADVANTAGE (Why Baylor?)
+        keywords: ["why baylor", "unique", "pro team", "cowboys"],
+        response: "A professional sports team can offer SAP hospitality and a logo. Baylor offers a **demand generation ecosystem.**\n\nOnly a university partnership can combine Power 4 television visibility, a B2B technology showcase in the suites, curated thought-leadership keynotes for regional executives, AND a direct pipeline to elite young tech talent. It is a fully integrated enterprise solution."
+      },
+      {
+        // 11. COMPETITOR PUSH-OUT (Dan explicitly asked about this)
+        keywords: ["competitor", "push out", "replace", "oracle", "salesforce", "exclusive"],
+        response: "Dan specifically asked during discovery if there was a play to push out a competitor. \n\nYes. Currently, Baylor Athletics' backend analytics operations are fragmented. This partnership allows SAP to consolidate and replace existing legacy systems, giving SAP **exclusive category ownership** over all enterprise software applications in the athletic department."
+      },
+      {
+        // 12. EMPLOYEE ENGAGEMENT (SAP's 4th Pillar expanded)
+        keywords: ["staff", "reward", "tickets", "retention", "internal"],
+        response: "Beyond talent recruitment, Dan highlighted the need for employee engagement and team rewards. \n\nThe proposal includes a dedicated allocation of premium tickets, sideline passes, and Baylor Club access specifically earmarked for SAP’s internal team outings and top-performer incentive programs."
+      },
+      {
+        // 13. GEOGRAPHY / THE I-35 TRIANGLE
+        keywords: ["waco", "location", "geography", "austin", "dallas", "triangle"],
+        response: "Waco is the strategic linchpin of the Texas Triangle. \n\nBy activating at McLane Stadium, SAP intercepts the massive migration of mid-market tech and business headquarters expanding between Dallas and Austin, capturing decision-makers from both major metros in a single premium venue."
+      },
+      {
+        // 14. DATA PRIVACY & SECURITY
+        keywords: ["privacy", "security", "data", "gdpr", "safe"],
+        response: "As a B2B enterprise company, data security is paramount. \n\nThe SAP Business AI Game Center operates within a closed-loop, opt-in ecosystem within the Baylor app, ensuring all known-user engagement and lead generation strictly adheres to enterprise-grade privacy and compliance standards."
+      },
+      {
+        // 15. PARTNERSHIP FLEXIBILITY (The "Can-Do" Attitude)
+        keywords: ["flexible", "contract", "attitude", "can-do", "adapt"],
+        response: "Dan emphasized that a great partner has a 'can-do attitude' rather than just pointing to a contract. \n\nBaylor Sports Properties operates as an extension of SAP's marketing team. This roadmap is modular—we will dynamically adjust keynote topics, suite invites, and digital content throughout the year to match your evolving quarterly sales targets."
+      },
+      {
+        // 16. BRAND PURPOSE / SUSTAINABILITY
+        keywords: ["sustainability", "charity", "purpose", "values", "community"],
+        response: "SAP's first pillar is 'Brand Awareness and Purpose.' \n\nBaylor shares SAP's core values. Our keynote series and community initiatives can be co-branded to highlight SAP's sustainability efforts and local charitable impact, ensuring the partnership resonates with the global SAP brand."
+      },
+      {
+        // 17. THE APPROVAL CHAIN
+        keywords: ["approve", "decision", "board", "cmo", "ops", "sign"],
+        response: "We understand this proposal must pass through Dan's Strategy and Operations team, then the CMO, and ultimately require Board Area approval. \n\nWe have structured this Executive Brief to specifically arm Dan's team with the B2B ROI and pipeline metrics required to secure that final board sign-off."
+      },
+      {
+        // 18. KEYNOTE SPEAKER CURRICULUM
+        keywords: ["speaker", "keynote", "topic", "talk", "present"],
+        response: "The Keynote Series isn't just SAP executives talking about software. \n\nWe will integrate Baylor Athletics leadership, coaches, and sports science directors alongside SAP experts to discuss high-performance team building, data-driven decision making, and leadership—creating a truly unique curriculum for mid-market CXOs."
+      },
+      {
+        // 19. ACADEMIC SPECIFICS (S3E & MIS)
+        keywords: ["s3e", "sales program", "major", "business school", "academic"],
+        response: "Baylor's Center for Sports Strategy and Sales (S3E) is one of the premier programs in the country. \n\nBy partnering with Baylor, SAP gets first-look access to students explicitly trained in Sales Strategy in Sports and Entertainment Marketing, drastically reducing your onboarding time and cost for new enterprise sales hires."
+      },
+      {
+        // 20. PROOF OF CONCEPT (The 49ers comparison)
+        keywords: ["proof", "case study", "showcase", "example", "49ers", "niners"],
+        response: "Dan mentioned the massive success of the 49ers Executive Huddle. Baylor will serve as your collegiate equivalent. \n\nWe will co-author a public case study detailing how Baylor Athletics uses SAP Analytics Cloud to optimize stadium operations, giving your sales team a powerful new reference story for the higher-education and live-event markets."
+      }
+    ];
+
+const fallbackResponse = "That is an excellent question. The full granular breakdown for that topic is maintained by the Baylor Sports Properties team. I recommend reviewing the 'Strategic Rationale' section of the Executive Brief or submitting the Contact Form on the website to have Scott Yacyshyn provide the detailed data room.";
+
+    function renderMarkdown(text) {
+      // Bold text
+      let html = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      // Bullet points
+      html = html.replace(/\n\d\. (.+)/g, "<li>$1</li>");
+      html = html.replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>");
+      // Line breaks
+      return html.replace(/\n/g, "<br>");
+    }
+
+    function appendMsg(text, type, isHtml) {
+      const messages = document.getElementById("messages");
+      const div = document.createElement("div");
+      div.className = "msg " + type;
+      if (isHtml) div.innerHTML = text;
+      else div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    function sendChip(element) {
+      document.getElementById("userInput").value = element.textContent.trim();
+      sendMessage();
+    }
+
+    function setLoading(isLoading) {
+      document.getElementById("sendBtn").disabled = isLoading;
+      document.getElementById("userInput").disabled = isLoading;
+    }
+
+    function findBestResponse(input) {
+      const lowerInput = input.toLowerCase();
+      for (const item of knowledgeBase) {
+        if (item.keywords.some(kw => lowerInput.includes(kw))) {
+          return item.response;
+        }
+      }
+      return fallbackResponse;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = "";
+      appendMsg(text, "user", false);
+      setLoading(true);
+      
+      const thinking = appendMsg("Analyzing proposal data...", "thinking", false);
+
+      // Simulate network delay for realistic AI feel (1.2 seconds)
+      setTimeout(() => {
+        thinking.remove();
+        const responseText = findBestResponse(text);
+        appendMsg(renderMarkdown(responseText), "agent", true);
+        setLoading(false);
+        input.focus();
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
