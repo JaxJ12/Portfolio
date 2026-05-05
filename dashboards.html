@@ -515,6 +515,47 @@
       .hero { grid-template-columns: 1fr; }
       .page-shell { width: calc(100% - 32px); }
     }
+
+    /* ── Dashboard Embeds ── */
+    .embed-block {
+      margin-bottom: 48px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(28, 23, 16, 0.08);
+    }
+    .embed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px;
+      background: var(--surface-strong);
+      border-bottom: 1px solid var(--line);
+    }
+    .embed-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+    .embed-open {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: opacity 0.2s;
+    }
+    .embed-open:hover { opacity: 0.7; }
+    .dash-iframe {
+      width: 100%;
+      height: 440px;
+      border: none;
+      display: block;
+      background: #fff;
+    }
   </style>
 </head>
 <body>
@@ -537,126 +578,28 @@
 
   <main>
 
-  <div class="page-shell">
-    <section class="hero">
-      <div>
-        <p class="eyebrow">AI Dashboards</p>
-        <h1 class="hero__title">Professional dashboards <span>from scratch</span>.</h1>
-        <p class="hero__copy">
-          Working dashboard concepts built to organize information, surface patterns, and support clearer decisions across content, operations, and vendor research. Built from scratch with AI — no templates used.
-        </p>
-        <div class="hero__chips">
-          <span class="chip">AI Tools</span>
-          <span class="chip">Data Visualization</span>
-          <span class="chip">Business Intelligence</span>
-          <span class="chip">Tableau</span>
-          <span class="chip">Excel</span>
-        </div>
-      </div>
-      <aside class="hero__panel">
-        <img class="hero__photo" src="jax-headshot-bw.png" alt="Jax Johnson" />
-        <div class="hero__panel-copy">
-          <strong>Dashboard Focus</strong>
-          <p>All dashboards are original builds — no templates, no borrowed frameworks. Each one started with a blank canvas and a real question to answer.</p>
-        </div>
-      </aside>
-    </section>
-  </div>
 
 
-    <!-- Dashboard Showcases -->
+    <!-- Live Embeds -->
     <section class="section reveal">
       <hr class="section-rule" />
-      <p class="section-eyebrow">Live Projects</p>
-      <h2 class="section-title">The dashboards</h2>
+      <p class="section-eyebrow">Try Them Here</p>
+      <h2 class="section-title">Live previews</h2>
 
-      <div class="dash-grid">
+      <div class="embed-block">
+        <div class="embed-header">
+          <span class="embed-label">Creed &amp; Jax Performance Dashboard</span>
+          <a class="embed-open" href="Creed_Jax_Dashboard.html" target="_blank">Open full screen ↗</a>
+        </div>
+        <iframe class="dash-iframe" src="Creed_Jax_Dashboard.html" title="Creed & Jax Performance Dashboard" loading="lazy"></iframe>
+      </div>
 
-        <!-- Creed & Jax -->
-        <a class="dash-card dash-card--featured" href="Creed_Jax_Dashboard.html">
-          <div class="dash-card__screen">
-            <div class="dash-card__screen-ui" aria-hidden="true">
-              <div class="ui-sidebar">
-                <div class="ui-block" style="height:28px; width:70%;"></div>
-                <div class="ui-block" style="flex:1;"></div>
-                <div class="ui-block" style="height:48px;"></div>
-                <div class="ui-block" style="height:36px; width:85%;"></div>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:8px;">
-                <div class="ui-charts">
-                  <div class="ui-chart" style="height:60px;"></div>
-                  <div class="ui-chart" style="height:60px;"></div>
-                  <div class="ui-chart" style="height:80px;"></div>
-                  <div class="ui-chart" style="height:80px;"></div>
-                </div>
-                <div class="ui-block" style="height:40px;"></div>
-              </div>
-            </div>
-            <span class="dash-card__screen-label">Live App &middot; Personal Intelligence</span>
-            <div class="dash-card__accent-bar"></div>
-          </div>
-          <div class="dash-card__body">
-            <p class="dash-card__tag">Personal Intelligence</p>
-            <h2 class="dash-card__title">Creed &amp; Jax<br />Performance Dashboard</h2>
-            <p class="dash-card__desc">A full personal analytics hub tracking key metrics, goals, and performance data — built completely with AI from a blank canvas.</p>
-            <div class="dash-card__features">
-              <div class="feature-row">Real-time KPI tracking with custom metric definitions</div>
-              <div class="feature-row">Goal progress visualization across multiple dimensions</div>
-              <div class="feature-row">Family-shared data view for accountability</div>
-            </div>
-            <div class="dash-card__footer">
-              <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                <span class="tag tag--accent">AI-Built</span>
-                <span class="tag">Personal</span>
-                <span class="tag tag--accent">Live</span>
-              </div>
-              <span class="card-link">Open Dashboard</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Gartner -->
-        <a class="dash-card" href="Gartner_Vendor_Manager.html">
-          <div class="dash-card__screen">
-            <div class="dash-card__screen-ui" aria-hidden="true">
-              <div class="ui-sidebar">
-                <div class="ui-block" style="height:32px;"></div>
-                <div class="ui-block" style="height:22px; width:60%;"></div>
-                <div class="ui-block" style="flex:1;"></div>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:8px;">
-                <div class="ui-block" style="height:28px; width:90%;"></div>
-                <div class="ui-chart" style="height:50px;"></div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                  <div class="ui-block" style="height:50px;"></div>
-                  <div class="ui-block" style="height:50px;"></div>
-                </div>
-                <div class="ui-block" style="height:32px;"></div>
-              </div>
-            </div>
-            <span class="dash-card__screen-label">Business Tool &middot; Vendor Analysis</span>
-            <div class="dash-card__accent-bar"></div>
-          </div>
-          <div class="dash-card__body">
-            <p class="dash-card__tag">Business Intelligence</p>
-            <h2 class="dash-card__title">Gartner Vendor<br />Manager</h2>
-            <p class="dash-card__desc">Professional vendor evaluation tool using Gartner-style scoring. Built for real decision-making — not a class demo.</p>
-            <div class="dash-card__features">
-              <div class="feature-row">Gartner-framework vendor scoring matrix</div>
-              <div class="feature-row">Upload &amp; parse vendor data via Excel integration</div>
-              <div class="feature-row">Side-by-side vendor comparison with tier ratings</div>
-            </div>
-            <div class="dash-card__footer">
-              <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                <span class="tag tag--accent">AI-Built</span>
-                <span class="tag">Gartner</span>
-                <span class="tag">Analysis</span>
-              </div>
-              <span class="card-link">Open Tool</span>
-            </div>
-          </div>
-        </a>
-
+      <div class="embed-block">
+        <div class="embed-header">
+          <span class="embed-label">Gartner Vendor Manager</span>
+          <a class="embed-open" href="Gartner_Vendor_Manager.html" target="_blank">Open full screen ↗</a>
+        </div>
+        <iframe class="dash-iframe" src="Gartner_Vendor_Manager.html" title="Gartner Vendor Manager" loading="lazy"></iframe>
       </div>
     </section>
 
