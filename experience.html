@@ -562,7 +562,7 @@
 
     /* Individual post card */
     .li-card {
-      border: 1.5px solid #0a66c2;
+      border: 1px solid var(--line);
       border-radius: 16px;
       background: #ffffff;
       box-shadow: 0 2px 12px rgba(28, 23, 16, 0.06);
@@ -675,6 +675,14 @@
     }
 
     .li-card__see-more:hover { color: var(--text); }
+
+    .li-card__image {
+      width: 100%;
+      border-radius: 8px;
+      margin: 10px 0 4px;
+      object-fit: cover;
+      max-height: 280px;
+    }
 
     .li-card__hashtags {
       margin-top: 8px;
@@ -1574,6 +1582,8 @@
             ? ` <span class="li-card__see-more" onclick="expandPost('${post.id}', this)">see more</span>`
             : ""}
         </div>
+
+        ${post.image ? `<img class="li-card__image" src="${post.image}" alt="Post image" loading="lazy" />` : ""}
 
         ${hashtagsHtml ? `<div class="li-card__hashtags">${hashtagsHtml}</div>` : ""}
 
