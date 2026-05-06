@@ -17,38 +17,39 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Fetch posts via RapidAPI and update JSON
+      - name: Fetch posts via LinkdAPI and update JSON
         env:
-          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          LINKDAPI_KEY: ${{ secrets.LINKD_API }}
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
         run: |
           node - <<'EOF'
           const https = require("https");
           const fs   = require("fs");
 
-          const API_KEY  = process.env.RAPIDAPI_KEY;
+          const API_KEY  = process.env.LINKDAPI_KEY;
           const USERNAME = process.env.LINKEDIN_USERNAME;
           const OUT_PATH = "linkedin-posts.json";
 
           if (!API_KEY || !USERNAME) {
-            console.error("Missing RAPIDAPI_KEY or LINKEDIN_USERNAME secret — add them in repo Settings > Secrets.");
+            console.error("Missing LINKDAPI_KEY or LINKEDIN_USERNAME secret — add them in repo Settings > Secrets.");
             process.exit(1);
           }
 
           function get(path) {
             return new Promise((resolve, reject) => {
               const req = https.request({
-                hostname: "linkedin-data-api.p.rapidapi.com",
+                hostname: "api.linkdapi.com",
                 path,
                 method: "GET",
                 headers: {
-                  "x-rapidapi-key":  API_KEY,
-                  "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
+                  "X-linkdapi-apikey": API_KEY,
+                  "Content-Type": "application/json"
                 }
               }, res => {
                 let body = "";
                 res.on("data", c => body += c);
                 res.on("end", () => {
+                  console.log("Status:", res.statusCode);
                   if (res.statusCode >= 400) {
                     reject(new Error(`API returned ${res.statusCode}: ${body.slice(0, 300)}`));
                   } else {
@@ -64,9 +65,8 @@ jobs:
 
           function toISODate(val) {
             if (!val) return new Date().toISOString().slice(0, 10);
-            // APIs often return Unix timestamps in seconds (10 digits) not milliseconds (13 digits)
             let ms = typeof val === "number"
-              ? (val < 1e12 ? val * 1000 : val)   // seconds → ms if needed
+              ? (val < 1e12 ? val * 1000 : val)
               : Date.parse(val);
             const d = new Date(ms);
             return isNaN(d) ? new Date().toISOString().slice(0, 10) : d.toISOString().slice(0, 10);
@@ -84,13 +84,11 @@ jobs:
           (async () => {
             try {
               console.log("Fetching posts for:", USERNAME);
-              const data = await get(`/get-profile-posts?username=${encodeURIComponent(USERNAME)}&start=0`);
+              const data = await get(`/api/v1/posts/all?username=${encodeURIComponent(USERNAME)}`);
 
-              // Log raw response so we can debug structure issues
               console.log("API response keys:", Object.keys(data));
               console.log("API response preview:", JSON.stringify(data).slice(0, 500));
 
-              // RapidAPI wraps results differently depending on the plan
               const raw = Array.isArray(data)
                 ? data
                 : (data.data || data.posts || data.items || data.results || []);
@@ -101,9 +99,8 @@ jobs:
               }
 
               const posts = raw
-                .filter(p => (p.text || p.commentary || "").trim().length > 20)
+                .filter(p => (p.text || p.commentary || p.content || "").trim().length > 20)
                 .sort((a, b) => {
-                  // sort newest-first before slicing so we always keep the 10 most recent
                   const aDate = a.postedAt || a.publishedAt || a.createdAt || a.date || 0;
                   const bDate = b.postedAt || b.publishedAt || b.createdAt || b.date || 0;
                   const toMs = v => typeof v === "number" ? (v < 1e12 ? v * 1000 : v) : Date.parse(v) || 0;
@@ -111,7 +108,7 @@ jobs:
                 })
                 .slice(0, 10)
                 .map((p, i) => {
-                  const text      = (p.text || p.commentary || "").trim();
+                  const text      = (p.text || p.commentary || p.content || "").trim();
                   const rawDate   = p.postedAt || p.publishedAt || p.createdAt || p.date;
                   const isoDate   = toISODate(rawDate);
                   const reactions = p.totalReactionCount || p.numLikes || p.likeCount || p.reactions || 0;
