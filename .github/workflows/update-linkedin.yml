@@ -102,7 +102,9 @@ jobs:
 
               const raw = Array.isArray(data)
                 ? data
-                : (data.data || data.posts || data.items || data.results || []);
+                : Array.isArray(data.data)
+                  ? data.data
+                  : (data.data?.posts || data.posts || data.items || data.results || []);
 
               if (!raw.length) {
                 console.log("No posts returned from API — leaving existing JSON unchanged.");
