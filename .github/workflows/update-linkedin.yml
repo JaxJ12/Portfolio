@@ -99,6 +99,8 @@ jobs:
 
               console.log("API response keys:", Object.keys(data));
               console.log("API response preview:", JSON.stringify(data).slice(0, 500));
+              const firstPost = data?.data?.posts?.[0];
+              if (firstPost) console.log("FIRST POST FULL:", JSON.stringify(firstPost, null, 2));
 
               const raw = Array.isArray(data)
                 ? data
