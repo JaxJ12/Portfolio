@@ -83,8 +83,19 @@ jobs:
 
           (async () => {
             try {
-              console.log("Fetching posts for:", USERNAME);
-              const data = await get(`/api/v1/posts/all?username=${encodeURIComponent(USERNAME)}`);
+              console.log("Fetching profile for:", USERNAME);
+              const profile = await get(`/api/v1/profile/full?username=${encodeURIComponent(USERNAME)}`);
+              console.log("Profile response keys:", Object.keys(profile));
+              console.log("Profile preview:", JSON.stringify(profile).slice(0, 300));
+
+              const urn = profile?.data?.urn || profile?.data?.entityUrn || profile?.urn;
+              if (!urn) {
+                console.error("Could not find URN in profile response — leaving JSON unchanged.");
+                process.exit(0);
+              }
+              console.log("Got URN:", urn);
+
+              const data = await get(`/api/v1/posts/all?urn=${encodeURIComponent(urn)}`);
 
               console.log("API response keys:", Object.keys(data));
               console.log("API response preview:", JSON.stringify(data).slice(0, 500));
