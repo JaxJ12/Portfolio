@@ -2,7 +2,7 @@ name: Update LinkedIn Feed
 
 on:
   schedule:
-    - cron: '0 8 * * *'   # daily at 8am UTC
+    - cron: '0 8 * * 1'   # weekly on Mondays at 8am UTC
   workflow_dispatch:        # allow manual trigger from Actions tab
 
 jobs:
