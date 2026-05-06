@@ -97,39 +97,37 @@ jobs:
 
               const data = await get(`/api/v1/posts/all?urn=${encodeURIComponent(urn)}`);
 
-              console.log("API response keys:", Object.keys(data));
-              console.log("API response preview:", JSON.stringify(data).slice(0, 500));
-              const firstPost = data?.data?.posts?.[0];
-              if (firstPost) console.log("FIRST POST FULL:", JSON.stringify(firstPost, null, 2));
-
-              const raw = Array.isArray(data)
-                ? data
-                : Array.isArray(data.data)
-                  ? data.data
-                  : (data.data?.posts || data.posts || data.items || data.results || []);
+              const raw = (data.data?.posts || []);
 
               if (!raw.length) {
                 console.log("No posts returned from API — leaving existing JSON unchanged.");
                 process.exit(0);
               }
 
+              const REACTION_EMOJI = {
+                LIKE: "👍", PRAISE: "🙌", APPRECIATION: "🙏",
+                EMPATHY: "❤️", INTEREST: "💡", ENTERTAINMENT: "😄",
+                CELEBRATE: "🎉"
+              };
+
               const posts = raw
-                .filter(p => (p.text || p.commentary || p.content || "").trim().length > 20)
-                .sort((a, b) => {
-                  const aDate = a.postedAt || a.publishedAt || a.createdAt || a.date || 0;
-                  const bDate = b.postedAt || b.publishedAt || b.createdAt || b.date || 0;
-                  const toMs = v => typeof v === "number" ? (v < 1e12 ? v * 1000 : v) : Date.parse(v) || 0;
-                  return toMs(bDate) - toMs(aDate);
-                })
+                .filter(p => p.author?.urn === urn)
+                .filter(p => (p.text || "").trim().length > 20)
+                .sort((a, b) => (b.postedAt?.timestamp || 0) - (a.postedAt?.timestamp || 0))
                 .slice(0, 10)
                 .map((p, i) => {
-                  const text      = (p.text || p.commentary || p.content || "").trim();
-                  const rawDate   = p.postedAt || p.publishedAt || p.createdAt || p.date;
-                  const isoDate   = toISODate(rawDate);
-                  const reactions = p.totalReactionCount || p.numLikes || p.likeCount || p.reactions || 0;
-                  const comments  = p.commentsCount || p.numComments || p.commentCount || p.comments || 0;
+                  const text      = (p.text || "").trim();
+                  const isoDate   = toISODate(p.postedAt?.timestamp);
+                  const reactions = p.engagements?.totalReactions || 0;
+                  const comments  = p.engagements?.commentsCount || 0;
+                  const reposts   = p.engagements?.repostsCount || 0;
                   const hashtags  = (text.match(/#\w+/g) || []).slice(0, 6);
-                  const image     = p.image?.[0]?.url || p.images?.[0]?.url || p.thumbnail || null;
+                  const image     = p.mediaContent?.[0]?.url || null;
+                  const reactionTypes = (p.engagements?.reactions || [])
+                    .sort((a, b) => b.reactionCount - a.reactionCount)
+                    .slice(0, 3)
+                    .map(r => REACTION_EMOJI[r.reactionType] || "👍")
+                    .join("") || "👍";
 
                   return {
                     id:           "li-" + String(i + 1).padStart(3, "0"),
@@ -138,8 +136,9 @@ jobs:
                     text,
                     hashtags,
                     reactions,
-                    reactionTypes: "👍❤️🎉",
+                    reactionTypes,
                     comments,
+                    reposts,
                     image
                   };
                 });
