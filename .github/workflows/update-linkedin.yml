@@ -86,6 +86,10 @@ jobs:
               console.log("Fetching posts for:", USERNAME);
               const data = await get(`/get-profile-posts?username=${encodeURIComponent(USERNAME)}&start=0`);
 
+              // Log raw response so we can debug structure issues
+              console.log("API response keys:", Object.keys(data));
+              console.log("API response preview:", JSON.stringify(data).slice(0, 500));
+
               // RapidAPI wraps results differently depending on the plan
               const raw = Array.isArray(data)
                 ? data
