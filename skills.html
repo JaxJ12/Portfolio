@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills & Credentials | Jax Johnson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f3; --bg-soft: #f4eee3; --bg-deep: #ebe3d3;
+      --surface: rgba(255,255,255,0.92); --surface-strong: rgba(244,238,227,0.97);
+      --text: #1c1710; --muted: rgba(28,23,16,0.58); --faint: rgba(28,23,16,0.35);
+      --line: rgba(130,100,55,0.14); --line-strong: rgba(130,100,55,0.28);
+      --gold: #8c6a00; --gold-soft: #b8911a;
+      --shadow: 0 4px 24px rgba(28,23,16,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Space Grotesk", sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ── Nav ── */
+    .top-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 32px; padding: 0 40px; height: 58px; background: rgba(250,248,243,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    .top-nav__logo { font-family: "Playfair Display", serif; font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; }
+    .top-nav__logo span { color: var(--gold); }
+    .top-nav__links { display: flex; align-items: center; gap: 4px; flex: 1; }
+    .top-nav__links a { padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.18s, background 0.18s; }
+    .top-nav__links a:hover { color: var(--text); background: rgba(130,100,55,0.07); }
+    .top-nav__links a.is-active { color: var(--gold); background: rgba(140,106,0,0.08); font-weight: 700; }
+    .top-nav__cta { padding: 7px 18px; border-radius: 20px; border: 1.5px solid var(--line-strong); font-size: 12px; font-weight: 700; color: var(--gold); text-decoration: none; white-space: nowrap; transition: background 0.18s; }
+    .top-nav__cta:hover { background: rgba(140,106,0,0.07); }
+
+    /* ── Page ── */
+    .page { width: min(1100px, calc(100% - 48px)); margin: 0 auto; padding-bottom: 80px; }
+    .section { padding: 72px 0 0; }
+
+    /* ── Hero ── */
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 14px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+    .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; opacity: 0.7; }
+    .section-title { margin: 0 0 10px; font-family: "Playfair Display", serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+    .section-copy { margin: 0 0 36px; max-width: 60ch; font-size: 15px; line-height: 1.74; color: var(--muted); }
+
+    /* ── Skill categories ── */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+    .skill-card { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 20px; padding: 24px 26px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .skill-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), rgba(184,145,26,0.4), transparent 70%); }
+    .skill-card__cat { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill { display: inline-block; font-size: 12px; font-weight: 500; color: var(--text); background: var(--bg-soft); border: 1px solid var(--line-strong); border-radius: 20px; padding: 4px 12px; }
+
+    /* ── Proficiency bars ── */
+    .prof-list { display: flex; flex-direction: column; gap: 10px; }
+    .prof-item { display: flex; align-items: center; gap: 12px; }
+    .prof-item__label { font-size: 12px; font-weight: 600; color: var(--text); width: 140px; flex-shrink: 0; }
+    .prof-bar { flex: 1; height: 6px; background: var(--bg-deep); border-radius: 10px; overflow: hidden; }
+    .prof-bar__fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--gold), var(--gold-soft)); transition: width 1.2s ease; }
+    .prof-item__pct { font-size: 11px; color: var(--muted); width: 34px; text-align: right; flex-shrink: 0; }
+
+    /* ── Certs ── */
+    .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cert-card { background: var(--surface-strong); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
+    .cert-card__icon { font-size: 18px; margin-bottom: 8px; }
+    .cert-card strong { display: block; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .cert-card p { font-size: 12px; color: var(--muted); line-height: 1.55; margin: 0; }
+
+    /* ── Involvement tags ── */
+    .involvement-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .inv-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 12px; padding: 10px 16px; color: var(--text); }
+    .inv-tag__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    /* ── Footer ── */
+    .site-footer { width: min(1100px, calc(100% - 48px)); margin: 0 auto; padding: 32px 0 52px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .site-footer__name { font-size: 12px; font-weight: 700; color: var(--text); }
+    .site-footer__meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .site-footer__legal { font-size: 11px; color: var(--faint); text-align: right; }
+    @media (max-width: 600px) { .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; } .site-footer__legal { text-align: left; } }
+
+    /* ── Page transition ── */
+    .page-transition { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
+    .page-transition__panel { position: absolute; top: 50%; left: 50%; width: min(34vw, 460px); height: min(22vw, 300px); background: var(--bg); border: 1px solid var(--line); border-radius: 28px; transform: translate(-50%, -50%) scale(0.88); opacity: 0; }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.52s ease, transform 0.52s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .reveal--d1 { transition-delay: 0.08s; } .reveal--d2 { transition-delay: 0.16s; } .reveal--d3 { transition-delay: 0.24s; }
+
+    @media (max-width: 768px) { .skills-grid, .cert-grid { grid-template-columns: 1fr; } .top-nav__links { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="page-transition" aria-hidden="true"><div class="page-transition__panel"></div></div>
+
+  <nav class="top-nav" aria-label="Portfolio navigation">
+    <div class="top-nav__logo">Jax <span>Johnson</span></div>
+    <div class="top-nav__links">
+      <a href="portfolio.html">Overview</a>
+      <a href="experience.html">Experience</a>
+      <a href="dashboards.html">Dashboards</a>
+      <a href="social.html">Social</a>
+      <a href="class-projects.html">Projects</a>
+      <a href="about.html">About</a>
+    </div>
+    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+  </nav>
+
+  <main>
+    <div class="page">
+
+      <!-- ── Hero ── -->
+      <section class="section reveal">
+        <div class="eyebrow">Skills &amp; Credentials</div>
+        <h1 class="section-title" style="font-size:clamp(2.4rem,5.5vw,4.2rem);letter-spacing:-0.04em;line-height:0.95;margin-bottom:20px;">
+          Tools, strengths,<br/>and credentials.
+        </h1>
+        <p class="section-copy" style="margin-bottom:0;">
+          Creative execution paired with practical systems thinking — content creation,
+          AI engineering, CRM, data analytics, and product-style building across
+          marketing and MIS.
+        </p>
+      </section>
+
+      <!-- ── Skill categories ── -->
+      <section class="section reveal reveal--d1">
+        <div class="eyebrow">Core Skills</div>
+        <h2 class="section-title">What I work with</h2>
+
+        <div class="skills-grid">
+
+          <div class="skill-card">
+            <p class="skill-card__cat">Content &amp; Social</p>
+            <div class="pill-row">
+              <span class="pill">TikTok Strategy</span>
+              <span class="pill">Short-Form Video</span>
+              <span class="pill">Hook Writing</span>
+              <span class="pill">UGC Creation</span>
+              <span class="pill">CapCut</span>
+              <span class="pill">Canva</span>
+              <span class="pill">Trend Research</span>
+              <span class="pill">Instagram Reels</span>
+              <span class="pill">Content Scheduling</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <p class="skill-card__cat">Technical &amp; AI</p>
+            <div class="pill-row">
+              <span class="pill">Python</span>
+              <span class="pill">R-Studio</span>
+              <span class="pill">SQL / SOQL</span>
+              <span class="pill">HTML / CSS / JS</span>
+              <span class="pill">Google Gemini</span>
+              <span class="pill">AI Studio</span>
+              <span class="pill">LangChain</span>
+              <span class="pill">n8n</span>
+              <span class="pill">Django</span>
+              <span class="pill">Postman</span>
+              <span class="pill">Corona SDK</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <p class="skill-card__cat">Sales &amp; CRM</p>
+            <div class="pill-row">
+              <span class="pill">Salesforce CRM</span>
+              <span class="pill">HubSpot</span>
+              <span class="pill">Cold Calling</span>
+              <span class="pill">Client Acquisition</span>
+              <span class="pill">Lead Generation</span>
+              <span class="pill">Account Management</span>
+              <span class="pill">Group Ticket Sales</span>
+              <span class="pill">Partnership Dev.</span>
+              <span class="pill">Sponsorship ROI</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <p class="skill-card__cat">Analytics &amp; Strategy</p>
+            <div class="pill-row">
+              <span class="pill">TikTok Analytics</span>
+              <span class="pill">Descriptive Statistics</span>
+              <span class="pill">Campaign Planning</span>
+              <span class="pill">Audience Analysis</span>
+              <span class="pill">Excel &amp; Sheets</span>
+              <span class="pill">Sports Data Analytics</span>
+              <span class="pill">Conversion Rate Opt.</span>
+              <span class="pill">Event Marketing</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── Proficiency ── -->
+      <section class="section reveal">
+        <div class="eyebrow">Proficiency</div>
+        <h2 class="section-title">Where I'm strongest</h2>
+        <p class="section-copy">Self-assessed across active project work and coursework.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+          <div class="prof-list">
+            <div class="prof-item"><span class="prof-item__label">Content Creation</span><div class="prof-bar"><div class="prof-bar__fill" style="width:95%"></div></div><span class="prof-item__pct">95%</span></div>
+            <div class="prof-item"><span class="prof-item__label">Python / AI Dev</span><div class="prof-bar"><div class="prof-bar__fill" style="width:82%"></div></div><span class="prof-item__pct">82%</span></div>
+            <div class="prof-item"><span class="prof-item__label">Salesforce CRM</span><div class="prof-bar"><div class="prof-bar__fill" style="width:78%"></div></div><span class="prof-item__pct">78%</span></div>
+            <div class="prof-item"><span class="prof-item__label">HTML / CSS / JS</span><div class="prof-bar"><div class="prof-bar__fill" style="width:80%"></div></div><span class="prof-item__pct">80%</span></div>
+            <div class="prof-item"><span class="prof-item__label">Data Analytics</span><div class="prof-bar"><div class="prof-bar__fill" style="width:75%"></div></div><span class="prof-item__pct">75%</span></div>
+          </div>
+          <div class="prof-list">
+            <div class="prof-item"><span class="prof-item__label">TikTok Strategy</span><div class="prof-bar"><div class="prof-bar__fill" style="width:90%"></div></div><span class="prof-item__pct">90%</span></div>
+            <div class="prof-item"><span class="prof-item__label">Campaign Planning</span><div class="prof-bar"><div class="prof-bar__fill" style="width:85%"></div></div><span class="prof-item__pct">85%</span></div>
+            <div class="prof-item"><span class="prof-item__label">SQL / SOQL</span><div class="prof-bar"><div class="prof-bar__fill" style="width:70%"></div></div><span class="prof-item__pct">70%</span></div>
+            <div class="prof-item"><span class="prof-item__label">Sponsorship Sales</span><div class="prof-bar"><div class="prof-bar__fill" style="width:76%"></div></div><span class="prof-item__pct">76%</span></div>
+            <div class="prof-item"><span class="prof-item__label">AI Workflow Design</span><div class="prof-bar"><div class="prof-bar__fill" style="width:88%"></div></div><span class="prof-item__pct">88%</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Certs ── -->
+      <section class="section reveal">
+        <div class="eyebrow">Credentials</div>
+        <h2 class="section-title">Certifications &amp; achievements</h2>
+
+        <div class="cert-grid">
+          <div class="cert-card">
+            <div class="cert-card__icon">🏆</div>
+            <strong>HubSpot Social Media Marketing</strong>
+            <p>Strategy, content planning, measurement, and campaign optimization across major social platforms.</p>
+          </div>
+          <div class="cert-card">
+            <div class="cert-card__icon">⚡</div>
+            <strong>Salesforce Trailhead — 20,000 pts · 80+ Badges</strong>
+            <p>CRM workflows, marketing cloud, and data management tools relevant to sports &amp; entertainment.</p>
+          </div>
+          <div class="cert-card">
+            <div class="cert-card__icon">📊</div>
+            <strong>MOS Certification (Microsoft Office Specialist)</strong>
+            <p>Certified proficiency in Excel, Word, and PowerPoint at a professional standard.</p>
+          </div>
+          <div class="cert-card">
+            <div class="cert-card__icon">🚑</div>
+            <strong>AED / First Aid · Ministry Safe Certified</strong>
+            <p>Current CPR, AED, and First Aid certification plus Ministry Safe for supervised youth settings.</p>
+          </div>
+          <div class="cert-card">
+            <div class="cert-card__icon">📐</div>
+            <strong>SPJST System Proposal and Design</strong>
+            <p>Full system analysis — requirements gathering, process mapping, and solution architecture presented to stakeholders.</p>
+          </div>
+          <div class="cert-card">
+            <div class="cert-card__icon">📱</div>
+            <strong>Mobile App Development — Corona SDK</strong>
+            <p>Built a functional mobile app covering the full development cycle from concept to deployment.</p>
+          </div>
+          <div class="cert-card">
+            <div class="cert-card__icon">🥈</div>
+            <strong>Marketplace Simulation — 2nd Place</strong>
+            <p>Multi-team business strategy simulation covering market analysis, pricing, and competitive positioning.</p>
+          </div>
+          <div class="cert-card">
+            <div class="cert-card__icon">🌐</div>
+            <strong>Perplexity Campus Partner</strong>
+            <p>Officially recognized campus partner representing Perplexity AI at Baylor University.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Involvements ── -->
+      <section class="section reveal">
+        <div class="eyebrow">Campus &amp; Community</div>
+        <h2 class="section-title">Involvements</h2>
+
+        <div class="involvement-grid">
+          <div class="inv-tag"><span class="inv-tag__dot"></span>VP of Recruitment — S3E Club</div>
+          <div class="inv-tag"><span class="inv-tag__dot"></span>Baylor Consulting Group</div>
+          <div class="inv-tag"><span class="inv-tag__dot"></span>Perplexity Campus Partner</div>
+          <div class="inv-tag"><span class="inv-tag__dot"></span>Christian Business Leaders</div>
+          <div class="inv-tag"><span class="inv-tag__dot"></span>Sports Sponsorship &amp; Events (S3E)</div>
+          <div class="inv-tag"><span class="inv-tag__dot"></span>Marketing &amp; MIS, Baylor University</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <p class="site-footer__name">Jax Johnson</p>
+      <p class="site-footer__meta">Skills &amp; Credentials &bull; Baylor University</p>
+    </div>
+    <span class="site-footer__legal">Skills Overview</span>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+
+    const panel = document.querySelector('.page-transition__panel');
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || a.target === '_blank') return;
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        gsap.to(panel, { opacity: 1, scale: 1, duration: 0.32, ease: 'power2.inOut',
+          onComplete: () => { window.location.href = href; }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
