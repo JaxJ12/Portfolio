@@ -505,36 +505,34 @@
           <!-- LangChain -->
           <a href="project-langchain.html" class="proj-card">
             <div class="proj-icon-strip proj-strip--langchain">
+      
               <div class="proj-icon-strip__left">
                 <div class="proj-icon-strip__label">LangChain</div>
-                <div class="proj-icon-strip__sub">ReAct · Gemini 2.5</div>
+                <div class="proj-icon-strip__sub">ReAct · 6 tools</div>
               </div>
-              <!-- ReAct loop: Think → Act → Observe -->
-              <svg width="66" height="38" viewBox="0 0 66 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="1" y="9" width="18" height="20" rx="4" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.3"/>
-                <text x="10" y="17.5" text-anchor="middle" font-size="5.5" fill="#6366f1" font-weight="700" font-family="sans-serif">LLM</text>
-                <text x="10" y="24.5" text-anchor="middle" font-size="4.5" fill="#6366f1" fill-opacity="0.7" font-family="sans-serif">think</text>
-                <path d="M19 19 L26 19" stroke="#6366f1" stroke-width="1" stroke-opacity="0.5"/>
-                <polygon points="24,16 28,19 24,22" fill="#6366f1" fill-opacity="0.5"/>
-                <rect x="28" y="9" width="18" height="20" rx="4" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.3"/>
-                <text x="37" y="17.5" text-anchor="middle" font-size="5.5" fill="#6366f1" font-weight="700" font-family="sans-serif">TOOL</text>
-                <text x="37" y="24.5" text-anchor="middle" font-size="4.5" fill="#6366f1" fill-opacity="0.7" font-family="sans-serif">act</text>
-                <path d="M46 19 L53 19" stroke="#6366f1" stroke-width="1" stroke-opacity="0.5"/>
-                <polygon points="51,16 55,19 51,22" fill="#6366f1" fill-opacity="0.5"/>
-                <rect x="55" y="9" width="10" height="20" rx="4" fill="rgba(99,102,241,0.28)" stroke="#6366f1" stroke-width="1.3"/>
-                <circle cx="60" cy="19" r="3.5" fill="#6366f1"/>
+              <!-- ReAct loop: LLM box → TOOL box → output dot -->
+              <svg width="80" height="42" viewBox="0 0 80 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2" y="13" width="22" height="16" rx="3" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="1.2"/>
+                <text x="13" y="25" text-anchor="middle" fill="#6366f1" font-size="5.5" font-weight="700" font-family="monospace">LLM</text>
+                <polygon points="26,21 31,18 31,24" fill="#6366f1" opacity="0.6"/>
+                <rect x="33" y="13" width="22" height="16" rx="3" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="1.2"/>
+                <text x="44" y="25" text-anchor="middle" fill="#6366f1" font-size="5.5" font-weight="700" font-family="monospace">TOOL</text>
+                <polygon points="57,21 62,18 62,24" fill="#6366f1" opacity="0.6"/>
+                <circle cx="70" cy="21" r="7" fill="rgba(99,102,241,0.22)" stroke="#6366f1" stroke-width="1.4"/>
+                <circle cx="70" cy="21" r="3" fill="#6366f1"/>
               </svg>
             </div>
-            <p class="proj-course">AI Agents &bull; Spring 2026</p>
-            <h3 class="proj-title">LangChain Handyman Agent</h3>
+            <p class="proj-course">AI Agent &bull; Spring 2026</p>
+            <h3 class="proj-title">LangChain HandyMan Booking Agent</h3>
             <p class="proj-desc">
-              ReAct LangChain agent powered by Gemini 2.5 Flash with 3 live tools — reads a Google
-              Sheet for dynamic pricing, checks Calendar for availability, and books appointments directly.
+              A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests,
+              reading live Google Calendar availability, pricing by task type, and scheduling with
+              confirmation. Six specialised tools wired together in a single reasoning loop.
             </p>
             <div class="proj-tags">
               <span class="tag tag--gold">LangChain</span>
-              <span class="tag">Gemini 2.5</span>
-              <span class="tag">Google APIs</span>
+              <span class="tag">ReAct Agent</span>
+              <span class="tag">Google Calendar</span>
               <span class="tag">Python</span>
             </div>
             <div class="proj-cta">
@@ -543,8 +541,208 @@
             </div>
           </a>
 
-          <!-- AI Studio -->
+          <!-- Google Veo / AI Video -->
           <a href="project-aistudio.html" class="proj-card">
-            <div class="proj-icon-strip proj-strip--aistudio">
+            <div class="proj-icon-strip proj-strip--veo">
               <div class="proj-icon-strip__left">
-                <div class="proj-icon-strip__l
+                <div class="proj-icon-strip__label">Google Veo</div>
+                <div class="proj-icon-strip__sub">Cinematic AI</div>
+              </div>
+              <!-- Film strip -->
+              <svg width="64" height="42" viewBox="0 0 64 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="8" width="56" height="26" rx="2" fill="rgba(168,85,247,0.12)" stroke="#a855f7" stroke-width="1.3"/>
+                <rect x="4" y="8" width="56" height="5" fill="rgba(168,85,247,0.18)"/>
+                <rect x="4" y="29" width="56" height="5" fill="rgba(168,85,247,0.18)"/>
+                <rect x="8" y="9" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="16" y="9" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="24" y="9" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="32" y="9" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="40" y="9" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="48" y="9" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="8" y="30" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="16" y="30" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="24" y="30" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="32" y="30" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="40" y="30" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <rect x="48" y="30" width="4" height="3" rx="0.5" fill="rgba(168,85,247,0.5)"/>
+                <polygon points="27,17 27,27 38,22" fill="#a855f7" opacity="0.85"/>
+              </svg>
+            </div>
+            <p class="proj-course">AI Video &bull; Spring 2026</p>
+            <h3 class="proj-title">Cinematic AI Video — Google Veo</h3>
+            <p class="proj-desc">
+              A 15-second cinematic shot generated entirely with Google Veo and AI Studio —
+              prompted, iterated, and directed frame-by-frame. Explores what AI-native filmmaking
+              looks like when the model is the camera operator.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">Google Veo</span>
+              <span class="tag">AI Studio</span>
+              <span class="tag">Prompt Engineering</span>
+              <span class="tag">Video</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- scikit-learn ML -->
+          <a href="project-ml.html" class="proj-card">
+            <div class="proj-icon-strip proj-strip--sklearn">
+              <div class="proj-icon-strip__left">
+                <div class="proj-icon-strip__label">scikit-learn</div>
+                <div class="proj-icon-strip__sub">96% accuracy</div>
+              </div>
+              <!-- Iris scatter plot — 3 clusters -->
+              <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <line x1="6" y1="36" x2="52" y2="36" stroke="rgba(5,150,105,0.3)" stroke-width="1"/>
+                <line x1="6" y1="6"  x2="6"  y2="36" stroke="rgba(5,150,105,0.3)" stroke-width="1"/>
+                <circle cx="14" cy="30" r="2.5" fill="#059669"/>
+                <circle cx="17" cy="27" r="2.5" fill="#059669"/>
+                <circle cx="12" cy="26" r="2.5" fill="#059669"/>
+                <circle cx="16" cy="32" r="2.5" fill="#059669"/>
+                <circle cx="30" cy="20" r="2.5" fill="#10b981"/>
+                <circle cx="34" cy="17" r="2.5" fill="#10b981"/>
+                <circle cx="28" cy="18" r="2.5" fill="#10b981"/>
+                <circle cx="33" cy="22" r="2.5" fill="#10b981"/>
+                <circle cx="44" cy="11" r="2.5" fill="#6ee7b7"/>
+                <circle cx="47" cy="9"  r="2.5" fill="#6ee7b7"/>
+                <circle cx="42" cy="8"  r="2.5" fill="#6ee7b7"/>
+                <circle cx="46" cy="14" r="2.5" fill="#6ee7b7"/>
+              </svg>
+            </div>
+            <p class="proj-course">Machine Learning &bull; Spring 2026</p>
+            <h3 class="proj-title">Classification &amp; Regression with scikit-learn</h3>
+            <p class="proj-desc">
+              Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic
+              Regression, Decision Tree, Random Forest, and KNN — with a full EDA pipeline,
+              confusion matrices, and cross-validation comparison.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">scikit-learn</span>
+              <span class="tag">Machine Learning</span>
+              <span class="tag">Python</span>
+              <span class="tag">Data Science</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- SkillSwap -->
+          <a href="project-skillswap.html" class="proj-card">
+            <div class="proj-icon-strip proj-strip--skillswap">
+              <div class="proj-icon-strip__left">
+                <div class="proj-icon-strip__label">SkillSwap</div>
+                <div class="proj-icon-strip__sub">Django · Full-stack</div>
+              </div>
+              <!-- Marketplace mini-card -->
+              <svg width="58" height="42" viewBox="0 0 58 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="6" y="7" width="46" height="28" rx="5" fill="rgba(139,92,246,0.12)" stroke="#8b5cf6" stroke-width="1.2"/>
+                <circle cx="18" cy="18" r="6" fill="rgba(139,92,246,0.25)" stroke="#8b5cf6" stroke-width="1"/>
+                <line x1="28" y1="15" x2="44" y2="15" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                <line x1="28" y1="19" x2="40" y2="19" stroke="#8b5cf6" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+                <text x="28" y="29" fill="#8b5cf6" font-size="7" opacity="0.8">★★★</text>
+              </svg>
+            </div>
+            <p class="proj-course">Full-Stack Web &bull; Spring 2026</p>
+            <h3 class="proj-title">Campus SkillSwap Marketplace</h3>
+            <p class="proj-desc">
+              A full-stack Django marketplace where students list skills they can teach and request
+              skills they want to learn — user auth, profiles, listing creation, and a browse/filter
+              system. Deployed and running end-to-end.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">Django</span>
+              <span class="tag">Full-Stack</span>
+              <span class="tag">Python</span>
+              <span class="tag">Marketplace</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- Chatbot -->
+          <a href="project-chatbot.html" class="proj-card">
+            <div class="proj-icon-strip proj-strip--chatbot">
+              <div class="proj-icon-strip__left">
+                <div class="proj-icon-strip__label">AI Chatbot</div>
+                <div class="proj-icon-strip__sub">Gemini · Context</div>
+              </div>
+              <!-- Two speech bubbles -->
+              <svg width="58" height="42" viewBox="0 0 58 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="5" width="34" height="16" rx="5" fill="rgba(6,182,212,0.15)" stroke="#06b6d4" stroke-width="1.2"/>
+                <circle cx="14" cy="13" r="2" fill="#06b6d4" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="21" cy="13" r="2" fill="#06b6d4" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" begin="0.22s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="28" cy="13" r="2" fill="#06b6d4" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" begin="0.44s" repeatCount="indefinite"/>
+                </circle>
+                <rect x="20" y="24" width="34" height="14" rx="5" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-width="1.2" opacity="0.8"/>
+                <line x1="27" y1="30" x2="45" y2="30" stroke="#06b6d4" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+                <line x1="27" y1="34" x2="40" y2="34" stroke="#06b6d4" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+              </svg>
+            </div>
+            <p class="proj-course">NLP &bull; MIS 4V90 &bull; Spring 2026</p>
+            <h3 class="proj-title">Python Chatbot — MIS 4V90</h3>
+            <p class="proj-desc">
+              The class project where it all started — a terminal chatbot built from scratch with
+              the Gemini API, manual conversation history management, and a purpose-built system
+              prompt. The foundation for every AI interface in this portfolio.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">Gemini API</span>
+              <span class="tag">Python</span>
+              <span class="tag">NLP</span>
+              <span class="tag">Context Management</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+        </div><!-- /.projects-grid -->
+      </section>
+
+    </div><!-- /.page -->
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <p class="site-footer__name">Jax Johnson</p>
+      <p class="site-footer__meta">Academic Projects &bull; Baylor University</p>
+    </div>
+    <span class="site-footer__legal">Section 04 / 05</span>
+  </footer>
+
+  <!-- ── Reveal + Page transition ── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+
+    const panel = document.querySelector('.page-transition__panel');
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || a.target === '_blank') return;
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        gsap.to(panel, { opacity: 1, scale: 1, duration: 0.32, ease: 'power2.inOut',
+          onComplete: () => { window.location.href = href; }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

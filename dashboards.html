@@ -808,3 +808,112 @@
               <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">1</span>
               <div>
                 <p style="margin:0 0 3px; font-size:13px
+                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Paste a call transcript</p>
+                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Drop in a raw call recording transcript — any length, any format.</p>
+              </div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">2</span>
+              <div>
+                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">AI extracts everything</p>
+                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Client name, age, health details, coverage needs, relevant plans, and pricing — all pulled automatically.</p>
+              </div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">3</span>
+              <div>
+                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Step-by-step action list</p>
+                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Generates a prioritised next-step checklist so the agent knows exactly what to do after the call.</p>
+              </div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">4</span>
+              <div>
+                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Draft &amp; send follow-up email</p>
+                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Writes a personalised follow-up email with the extracted plan details — and optionally sends it on the spot.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: outcomes -->
+        <div style="background:rgba(28,23,16,0.04); border:1px solid rgba(130,100,55,0.14); border-radius:16px; padding:28px 28px 24px;">
+          <p style="font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin:0 0 16px;">Why it matters</p>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div>
+              <p style="margin:0 0 4px; font-size:24px; font-weight:700; color:var(--text); font-family:'Playfair Display', serif;">~45 min</p>
+              <p style="margin:0; font-size:12px; color:var(--muted);">saved per call — no manual data entry or follow-up drafting</p>
+            </div>
+            <div>
+              <p style="margin:0 0 4px; font-size:24px; font-weight:700; color:var(--text); font-family:'Playfair Display', serif;">100%</p>
+              <p style="margin:0; font-size:12px; color:var(--muted);">AI-built — designed, prompted, and deployed without writing code</p>
+            </div>
+            <div>
+              <p style="margin:0 0 4px; font-size:24px; font-weight:700; color:var(--text); font-family:'Playfair Display', serif;">Live</p>
+              <p style="margin:0; font-size:12px; color:var(--muted);">in active use by Alpha &amp; Omega Insurance agents today</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Output preview card -->
+      <div style="background:var(--surface); border:1px solid var(--line-strong); border-radius:20px; padding:28px 32px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--gold), rgba(184,145,26,0.4), transparent 70%);"></div>
+        <p style="font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin:0 0 16px;">Sample output</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div>
+            <p style="margin:0 0 8px; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">Extracted client info</p>
+            <div style="font-size:12px; color:var(--text); line-height:1.8; font-family:monospace; background:rgba(28,23,16,0.06); border-radius:10px; padding:14px 16px;">
+              Name: Margaret R., 62<br/>
+              Condition: Type 2 diabetes, hypertension<br/>
+              Budget: $300–$400/mo<br/>
+              Preferred plan: Medicare Advantage<br/>
+              Next renewal: Jan 2027
+            </div>
+          </div>
+          <div>
+            <p style="margin:0 0 8px; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">Auto-generated action list</p>
+            <div style="font-size:12px; color:var(--text); line-height:1.8; font-family:monospace; background:rgba(28,23,16,0.06); border-radius:10px; padding:14px 16px;">
+              ✓ Send Plan G vs. Plan N comparison<br/>
+              ✓ Schedule 15-min callback Thursday<br/>
+              ✓ Request Rx list for Part D review<br/>
+              ✓ Draft follow-up email (sent ✓)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <p class="site-footer__name">Jax Johnson</p>
+      <p class="site-footer__meta">Dashboards &bull; Marketing &amp; MIS &bull; Baylor University</p>
+    </div>
+    <span class="site-footer__legal">Section 03 / 05</span>
+  </footer>
+
+  <!-- ── Reveal + Page transition ── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+
+    const panel = document.querySelector('.page-transition__panel');
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || a.target === '_blank') return;
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        gsap.to(panel, { opacity: 1, scale: 1, duration: 0.32, ease: 'power2.inOut',
+          onComplete: () => { window.location.href = href; }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

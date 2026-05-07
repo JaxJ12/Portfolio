@@ -682,3 +682,82 @@ Answer questions concisely and professionally. Under 4 sentences when possible. 
     }
 
     // ── Send flow ───────────────────────
+    async function doSend() {
+      const text = input.value.trim();
+      if (!text || !apiKey) return;
+      input.value = '';
+      send.disabled = true;
+      setStatus('Thinking…');
+      addMsg('user', text);
+      const typing = addTyping();
+      try {
+        const reply = await callGemini(text);
+        typing.remove();
+        addMsg('ai', reply);
+        setStatus('Online');
+      } catch (e) {
+        typing.remove();
+        addMsg('ai', '⚠ ' + e.message);
+        setStatus('Error — try again');
+      }
+      send.disabled = false;
+      input.focus();
+    }
+
+    function showKeyPrompt() {
+      const prompt = document.getElementById('keyPrompt');
+      const keyInput = document.getElementById('keyInput');
+      const keyBtn   = document.getElementById('keyBtn');
+      if (!prompt) return;
+      prompt.style.display = 'flex';
+      if (keyBtn) keyBtn.addEventListener('click', () => {
+        const k = keyInput?.value.trim();
+        if (!k) return;
+        apiKey = k;
+        sessionStorage.setItem(STORAGE_KEY, k);
+        prompt.style.display = 'none';
+        initChat();
+      });
+      if (keyInput) keyInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') keyBtn?.click();
+      });
+    }
+
+    function initChat() {
+      setStatus('Online');
+      addMsg('ai', 'Hello! I\'m the SAP Briefing Assistant. Ask me anything about the Baylor × SAP partnership proposal — activations, pricing, ROI, or anything else from the pitch.');
+    }
+
+    send.addEventListener('click', doSend);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); }
+    });
+
+    if (apiKey) { initChat(); } else { showKeyPrompt(); }
+
+  })();
+  </script>
+
+  <!-- ── Reveal + Page transition ── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+
+    const panel = document.querySelector('.page-transition__panel');
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || a.target === '_blank') return;
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        gsap.to(panel, { opacity: 1, scale: 1, duration: 0.32, ease: 'power2.inOut',
+          onComplete: () => { window.location.href = href; }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
