@@ -93,32 +93,45 @@
       content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, var(--gold), rgba(184,145,26,0.4), transparent 70%);
     }
-    /* Hero banner inside featured */
-    .featured-banner {
-      width: 100%; aspect-ratio: 16/5.5;
-      background:
-        radial-gradient(ellipse at 18% 40%, rgba(140,106,0,0.22), transparent 50%),
-        radial-gradient(ellipse at 82% 65%, rgba(184,145,26,0.10), transparent 44%),
-        #0f0c04;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
+    /* Hero browser preview inside featured */
+    .featured-browser {
+      width: 100%;
       border-bottom: 1px solid var(--line);
+      background: #1a1a1a;
+      position: relative;
     }
-    .featured-banner__bg-num {
-      position: absolute; right: 4%; bottom: -12%;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(7rem, 16vw, 14rem);
-      font-weight: 700; letter-spacing: -0.06em;
-      color: rgba(255,184,28,0.06); user-select: none; line-height: 1;
+    .featured-browser__bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px;
+      background: #242424;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .featured-banner__chip {
-      position: absolute; top: 20px; left: 24px;
-      font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-      color: rgba(225,200,140,0.65);
-      border: 1px solid rgba(225,200,140,0.2); border-radius: 999px;
-      padding: 5px 14px; background: rgba(15,12,4,0.7); backdrop-filter: blur(6px);
+    .featured-browser__dots { display: flex; gap: 6px; }
+    .featured-browser__dot {
+      width: 10px; height: 10px; border-radius: 50%;
     }
-    .featured-banner__emoji { font-size: 3.5rem; position: relative; z-index: 1; }
+    .featured-browser__dot:nth-child(1) { background: #ff5f57; }
+    .featured-browser__dot:nth-child(2) { background: #febc2e; }
+    .featured-browser__dot:nth-child(3) { background: #28c840; }
+    .featured-browser__url {
+      flex: 1; background: rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 4px 12px;
+      font-size: 11px; color: rgba(255,255,255,0.45);
+      font-family: "Space Grotesk", monospace;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .featured-browser__live {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #28c840;
+      border: 1px solid rgba(40,200,64,0.35); border-radius: 999px;
+      padding: 3px 10px;
+    }
+    .featured-browser__frame {
+      width: 100%; height: 420px;
+      border: none;
+      display: block;
+      overflow: auto;
+    }
 
     /* Featured card body */
     .featured-body { padding: 32px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: start; }
@@ -315,10 +328,23 @@
         <h2 class="section-title">The flagship</h2>
 
         <div class="featured">
-          <div class="featured-banner">
-            <div class="featured-banner__bg-num">01</div>
-            <span class="featured-banner__chip">Multi-Page Interactive Site &middot; Live</span>
-            <div class="featured-banner__emoji">🏟️</div>
+          <div class="featured-browser">
+            <div class="featured-browser__bar">
+              <div class="featured-browser__dots">
+                <div class="featured-browser__dot"></div>
+                <div class="featured-browser__dot"></div>
+                <div class="featured-browser__dot"></div>
+              </div>
+              <div class="featured-browser__url">sap-pitch-mqhs.vercel.app</div>
+              <span class="featured-browser__live">● Live</span>
+            </div>
+            <iframe
+              class="featured-browser__frame"
+              src="sap-index.html"
+              title="Baylor Athletics × SAP Partnership Proposal"
+              loading="lazy"
+              scrolling="yes"
+            ></iframe>
           </div>
           <div class="featured-body">
             <div>
