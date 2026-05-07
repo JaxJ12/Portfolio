@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scikit-Learn ML Models — Jax Johnson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:     #0a0d14; --surface: #111520; --card: #181e2e;
+      --border: rgba(255,255,255,0.07); --text: #e8f0ff;
+      --muted:  rgba(232,240,255,0.50);
+      --blue:   #3b82f6; --cyan: #06b6d4; --purple: #8b5cf6;
+      --green:  #10b981; --gold: #f59e0b; --red: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .back-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,13,20,0.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border); padding: 14px 32px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .back-nav a { font-size: 13px; font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 6px; transition: color .15s; }
+    .back-nav a:hover { color: var(--text); }
+    .back-nav .sep { color: var(--border); }
+    .back-nav .crumb-active { font-size: 13px; color: var(--cyan); font-weight: 600; }
+
+    /* ── HERO ── */
+    .hero { padding: 120px 48px 56px; max-width: 1100px; margin: 0 auto; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.28);
+      color: var(--cyan); border-radius: 999px; padding: 5px 14px;
+      font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 18px; }
+    .hero h1 em { font-style: normal; color: var(--cyan); }
+    .hero-summary { font-size: 1.05rem; line-height: 1.8; color: var(--muted); max-width: 680px; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 36px; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num { font-size: 2rem; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+    .section { margin-bottom: 60px; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 8px; }
+    .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+
+    /* ── IRIS CONTROLS ── */
+    .iris-controls {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .ctrl-group { display: flex; align-items: center; gap: 8px; }
+    .ctrl-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+    .ctrl-select {
+      background: var(--surface); border: 1px solid rgba(6,182,212,0.3); color: var(--text);
+      border-radius: 8px; padding: 7px 12px; font-size: 13px; font-family: 'Space Grotesk', sans-serif;
+      cursor: pointer; outline: none;
+    }
+    .ctrl-select:focus { border-color: var(--cyan); }
+
+    .iris-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+    @media (max-width: 820px) { .iris-layout { grid-template-columns: 1fr; } }
+
+    .chart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; position: relative; }
+    .chart-wrap canvas { max-height: 400px; }
+
+    /* ── CONFUSION MATRIX ── */
+    .cm-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .cm-title { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+    .cm-grid { display: grid; grid-template-columns: auto repeat(3,1fr); grid-template-rows: auto repeat(3,1fr); gap: 4px; }
+    .cm-cell {
+      width: 72px; height: 60px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; font-family: 'Playfair Display', serif;
+    }
+    .cm-header { width: 72px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; text-align: center; line-height: 1.3; }
+    .cm-axis-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); display: flex; align-items: center; justify-content: center; padding: 4px; }
+    .cm-correct { background: rgba(6,182,212,0.2); border: 1px solid rgba(6,182,212,0.4); color: var(--cyan); }
+    .cm-zero { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: rgba(255,255,255,0.15); }
+    .cm-error { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+
+    .legend-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .acc-badge {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+      background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 999px; padding: 5px 14px; font-size: 13px; font-weight: 700; color: var(--green);
+    }
+
+    /* ── DIABETES ── */
+    .diabetes-layout { display: grid; grid-template-columns: 1fr 260px; gap: 20px; }
+    @media (max-width: 820px) { .diabetes-layout { grid-template-columns: 1fr; } }
+
+    .reg-stats { display: flex; flex-direction: column; gap: 14px; }
+    .reg-stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+    .reg-stat-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+    .reg-stat-val { font-size: 1.7rem; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--cyan); line-height: 1; }
+    .reg-stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* ── CODE TABS ── */
+    .tab-bar { display: flex; gap: 4px; margin-bottom: 0; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 9px 18px; border-radius: 10px 10px 0 0; background: var(--surface);
+      border: 1px solid var(--border); border-bottom: none; font-size: 13px; font-weight: 600;
+      color: var(--muted); cursor: pointer; transition: all .15s; font-family: 'JetBrains Mono', monospace;
+    }
+    .tab-btn.active { background: var(--card); color: var(--cyan); border-color: rgba(6,182,212,0.3); }
+    .code-panel {
+      display: none; background: var(--card); border: 1px solid var(--border); border-radius: 0 12px 12px 12px;
+      padding: 28px; overflow-x: auto;
+    }
+    .code-panel.active { display: block; }
+    pre { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.8; white-space: pre; }
+    .kw { color: #c084fc; }
+    .fn { color: var(--cyan); }
+    .str { color: #86efac; }
+    .cm { color: #6b7280; font-style: italic; }
+    .num { color: var(--gold); }
+
+    /* ── DETAIL GRID ── */
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 700px) { .detail-grid { grid-template-columns: 1fr; } }
+    .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .detail-card.full { grid-column: 1 / -1; }
+    .detail-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+    .detail-body { font-size: 14px; line-height: 1.75; color: rgba(232,240,255,.78); }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .pill { padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--muted); }
+    .pill-cyan { background: rgba(6,182,212,.13); border-color: rgba(6,182,212,.3); color: var(--cyan); }
+    .pill-blue { background: rgba(59,130,246,.13); border-color: rgba(59,130,246,.3); color: var(--blue); }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 0 56px; }
+
+    @media (max-width: 680px) {
+      .hero, .page { padding-left: 20px; padding-right: 20px; }
+      .hero { padding-top: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="back-nav">
+  <a href="class-projects.html">← Projects</a>
+  <span class="sep">|</span>
+  <span class="crumb-active">Scikit-Learn ML</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">🤖 Machine Learning · scikit-learn · Python</div>
+  <h1>Classification &amp; Regression<br><em>with scikit-learn</em></h1>
+  <p class="hero-summary">
+    Two classic sklearn toy datasets, two different ML paradigms. Built a K-Nearest Neighbors classifier
+    on the Iris dataset to predict flower species from petal measurements, then trained a
+    linear regression model on the Diabetes dataset to forecast disease progression from BMI.
+    Real data, real models — explored, evaluated, and visualized from scratch.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">150</span><span class="stat-label">Iris Samples</span></div>
+    <div class="stat"><span class="stat-num">442</span><span class="stat-label">Diabetes Samples</span></div>
+    <div class="stat"><span class="stat-num">96%</span><span class="stat-label">KNN Accuracy</span></div>
+    <div class="stat"><span class="stat-num">2</span><span class="stat-label">ML Models</span></div>
+    <div class="stat"><span class="stat-num">R²&nbsp;0.34</span><span class="stat-label">Regression Score</span></div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="page">
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — IRIS CLASSIFIER
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Dataset 1 · Classification</div>
+    <h2 class="section-title">Iris Flower Classifier</h2>
+    <p class="section-sub">
+      150 samples across three iris species (Setosa, Versicolor, Virginica), each described by four measurements.
+      Used K-Nearest Neighbors (k=3) to classify species. Toggle axes below to explore how different feature
+      combinations separate the clusters — petal dimensions are the clearest signal.
+    </p>
+
+    <!-- Axis controls -->
+    <div class="iris-controls">
+      <div class="ctrl-group">
+        <span class="ctrl-label">X Axis</span>
+        <select class="ctrl-select" id="xAxis" onchange="updateIrisChart()">
+          <option value="sl">Sepal Length (cm)</option>
+          <option value="sw">Sepal Width (cm)</option>
+          <option value="pl" selected>Petal Length (cm)</option>
+          <option value="pw">Petal Width (cm)</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-label">Y Axis</span>
+        <select class="ctrl-select" id="yAxis" onchange="updateIrisChart()">
+          <option value="sl">Sepal Length (cm)</option>
+          <option value="sw">Sepal Width (cm)</option>
+          <option value="pl">Petal Length (cm)</option>
+          <option value="pw" selected>Petal Width (cm)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="iris-layout">
+      <!-- Scatter -->
+      <div class="chart-wrap">
+        <canvas id="irisChart"></canvas>
+        <div class="legend-row">
+          <div class="legend-item"><div class="legend-dot" style="background:#06b6d4"></div>Setosa (50)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>Versicolor (50)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#c084fc"></div>Virginica (50)</div>
+        </div>
+      </div>
+
+      <!-- Confusion matrix + accuracy -->
+      <div class="cm-wrap">
+        <div class="cm-title">KNN Confusion Matrix</div>
+
+        <!-- Header row -->
+        <div style="display:grid;grid-template-columns:56px repeat(3,1fr);gap:4px;margin-bottom:4px;">
+          <div></div>
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.06em;">Setosa</div>
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.06em;">Versic.</div>
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.06em;">Virgin.</div>
+        </div>
+        <!-- Rows -->
+        <div style="display:grid;grid-template-columns:56px repeat(3,1fr);gap:4px;margin-bottom:4px;align-items:center;">
+          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:right;padding-right:8px;letter-spacing:.05em;">Setosa</div>
+          <div class="cm-cell cm-correct">50</div>
+          <div class="cm-cell cm-zero">0</div>
+          <div class="cm-cell cm-zero">0</div>
+        </div>
+        <div style="display:grid;grid-template-columns:56px repeat(3,1fr);gap:4px;margin-bottom:4px;align-items:center;">
+          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:right;padding-right:8px;letter-spacing:.05em;">Versic.</div>
+          <div class="cm-cell cm-zero">0</div>
+          <div class="cm-cell cm-correct">47</div>
+          <div class="cm-cell cm-error">3</div>
+        </div>
+        <div style="display:grid;grid-template-columns:56px repeat(3,1fr);gap:4px;align-items:center;">
+          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:right;padding-right:8px;letter-spacing:.05em;">Virgin.</div>
+          <div class="cm-cell cm-zero">0</div>
+          <div class="cm-cell cm-error">3</div>
+          <div class="cm-cell cm-correct">47</div>
+        </div>
+
+        <div class="acc-badge" style="margin-top:20px;">✓ 96% Accuracy — 144/150 correct</div>
+
+        <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:14px;">
+          Only Versicolor ↔ Virginica get confused — those two species overlap in petal space.
+          Setosa is <strong style="color:var(--cyan)">perfectly separable</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — DIABETES REGRESSION
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Dataset 2 · Regression</div>
+    <h2 class="section-title">Diabetes Disease Progression</h2>
+    <p class="section-sub">
+      442 patient records with 10 baseline features (age, sex, BMI, blood pressure, and 6 serum measurements).
+      Fitted a linear regression model using <strong style="color:var(--cyan)">BMI</strong> as the predictor —
+      the single feature with the strongest correlation to one-year disease progression.
+      The model explains about 34% of the variance (R² = 0.34), which is solid for a single-feature linear fit on noisy medical data.
+    </p>
+
+    <div class="diabetes-layout">
+      <!-- Chart -->
+      <div class="chart-wrap">
+        <canvas id="diabetesChart"></canvas>
+      </div>
+
+      <!-- Stats -->
+      <div class="reg-stats">
+        <div class="reg-stat-card">
+          <div class="reg-stat-label">R² Score</div>
+          <div class="reg-stat-val">0.344</div>
+          <div class="reg-stat-sub">Model explains 34.4% of variance</div>
+        </div>
+        <div class="reg-stat-card">
+          <div class="reg-stat-label">Coefficient</div>
+          <div class="reg-stat-val">949.4</div>
+          <div class="reg-stat-sub">+1 std BMI → +949 progression units</div>
+        </div>
+        <div class="reg-stat-card">
+          <div class="reg-stat-label">Intercept</div>
+          <div class="reg-stat-val">152.1</div>
+          <div class="reg-stat-sub">Baseline at mean BMI</div>
+        </div>
+        <div class="reg-stat-card">
+          <div class="reg-stat-label">Feature: s6</div>
+          <div class="reg-stat-val" style="font-size:1.1rem;color:var(--gold)">Blood Sugar</div>
+          <div class="reg-stat-sub">Serum measurement — glucose level proxy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — CODE TABS
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Source Code</div>
+    <h2 class="section-title">The Python</h2>
+    <p class="section-sub">Full working implementations — classification and regression, top to bottom.</p>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(event,'iris-code')">iris.py</button>
+      <button class="tab-btn" onclick="switchTab(event,'diabetes-code')">diabetes.py</button>
+    </div>
+
+    <div id="iris-code" class="code-panel active"><pre><span class="cm"># Iris Classification with K-Nearest Neighbors
+# Dataset: 150 samples, 3 species, 4 features</span>
+
+<span class="kw">from</span> sklearn.datasets <span class="kw">import</span> <span class="fn">load_iris</span>
+<span class="kw">from</span> sklearn.neighbors <span class="kw">import</span> <span class="fn">KNeighborsClassifier</span>
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> <span class="fn">confusion_matrix</span>, <span class="fn">ConfusionMatrixDisplay</span>
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+
+iris = <span class="fn">load_iris</span>()
+X, y = iris.data, iris.target
+
+<span class="cm"># Shape of the data</span>
+<span class="fn">print</span>(<span class="str">"Data shape:"</span>, X.shape)       <span class="cm"># (150, 4)</span>
+<span class="fn">print</span>(<span class="str">"Target shape:"</span>, y.shape)     <span class="cm"># (150,)</span>
+<span class="fn">print</span>(<span class="str">"Target names:"</span>, iris.target_names)
+<span class="cm"># → ['setosa' 'versicolor' 'virginica']</span>
+
+<span class="cm"># Train KNN classifier</span>
+knn = <span class="fn">KNeighborsClassifier</span>(n_neighbors=<span class="num">3</span>)
+knn.<span class="fn">fit</span>(X, y)
+predicted = knn.<span class="fn">predict</span>(X)
+
+<span class="cm"># First 10 predicted vs expected (using species names)</span>
+<span class="fn">print</span>(<span class="str">"\nFirst 10 results:"</span>)
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>):
+    <span class="fn">print</span>(<span class="str">f"  Predicted: {iris.target_names[predicted[i]]:<12}"</span>
+          <span class="str">f"Expected: {iris.target_names[y[i]]}"</span>)
+
+<span class="cm"># Values the model got wrong</span>
+wrong = [(i, iris.target_names[predicted[i]], iris.target_names[y[i]])
+         <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(y)) <span class="kw">if</span> predicted[i] != y[i]]
+
+<span class="fn">print</span>(<span class="str">f"\nWrong predictions ({len(wrong)}):"</span>)
+<span class="kw">for</span> idx, pred, exp <span class="kw">in</span> wrong:
+    <span class="fn">print</span>(<span class="str">f"  Index {idx}: Predicted '{pred}', Expected '{exp}'"</span>)
+
+<span class="cm"># Confusion matrix visualization</span>
+cm = <span class="fn">confusion_matrix</span>(y, predicted)
+disp = <span class="fn">ConfusionMatrixDisplay</span>(confusion_matrix=cm,
+                               display_labels=iris.target_names)
+disp.<span class="fn">plot</span>(cmap=<span class="str">'Blues'</span>)
+plt.<span class="fn">title</span>(<span class="str">"Iris KNN Confusion Matrix (k=3)"</span>)
+plt.<span class="fn">tight_layout</span>()
+plt.<span class="fn">show</span>()</pre></div>
+
+    <div id="diabetes-code" class="code-panel"><pre><span class="cm"># Diabetes Regression with Linear Regression
+# Dataset: 442 patients, 10 features, target = 1-year disease progression</span>
+
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> <span class="fn">LinearRegression</span>
+<span class="kw">from</span> sklearn <span class="kw">import</span> datasets
+
+diabetes = datasets.<span class="fn">load_diabetes</span>()
+X, y = diabetes.data, diabetes.target
+
+<span class="cm"># How many samples and features?</span>
+<span class="fn">print</span>(<span class="str">"Samples:"</span>, X.shape[<span class="num">0</span>])   <span class="cm"># 442</span>
+<span class="fn">print</span>(<span class="str">"Features:"</span>, X.shape[<span class="num">1</span>])  <span class="cm"># 10</span>
+
+<span class="cm"># Feature s6 represents blood glucose level (serum measurement)</span>
+<span class="fn">print</span>(<span class="str">"Feature names:"</span>, diabetes.feature_names)
+
+<span class="cm"># Isolate BMI (feature index 2) — strongest single predictor</span>
+bmi = X[:, <span class="num">2</span>].reshape(-<span class="num">1</span>, <span class="num">1</span>)
+
+<span class="cm"># Fit linear regression</span>
+reg = <span class="fn">LinearRegression</span>()
+reg.<span class="fn">fit</span>(bmi, y)
+
+<span class="cm"># Print coefficient and intercept</span>
+<span class="fn">print</span>(<span class="str">f"Coefficient: {reg.coef_[0]:.2f}"</span>)    <span class="cm"># 949.44</span>
+<span class="fn">print</span>(<span class="str">f"Intercept:   {reg.intercept_:.2f}"</span>)  <span class="cm"># 152.13</span>
+<span class="fn">print</span>(<span class="str">f"R² Score:    {reg.score(bmi, y):.4f}"</span>) <span class="cm"># 0.3439</span>
+
+<span class="cm"># Scatterplot with regression line</span>
+bmi_range = np.<span class="fn">linspace</span>(bmi.<span class="fn">min</span>(), bmi.<span class="fn">max</span>(), <span class="num">100</span>).reshape(-<span class="num">1</span>, <span class="num">1</span>)
+y_pred = reg.<span class="fn">predict</span>(bmi_range)
+
+plt.<span class="fn">figure</span>(figsize=(<span class="num">8</span>, <span class="num">5</span>))
+plt.<span class="fn">scatter</span>(bmi, y, color=<span class="str">'steelblue'</span>, alpha=<span class="num">0.4</span>, s=<span class="num">20</span>, label=<span class="str">'Actual'</span>)
+plt.<span class="fn">plot</span>(bmi_range, y_pred, color=<span class="str">'red'</span>, linewidth=<span class="num">2</span>, label=<span class="str">'Regression Line'</span>)
+plt.<span class="fn">xlabel</span>(<span class="str">"BMI (standardized)"</span>)
+plt.<span class="fn">ylabel</span>(<span class="str">"Disease Progression (1 year)"</span>)
+plt.<span class="fn">title</span>(<span class="str">"Diabetes: BMI vs Disease Progression"</span>)
+plt.<span class="fn">legend</span>()
+plt.<span class="fn">tight_layout</span>()
+plt.<span class="fn">show</span>()</pre></div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — PROJECT DETAILS (9-point rubric)
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Project Breakdown</div>
+    <h2 class="section-title">By the Numbers</h2>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-label">Business Problem</div>
+        <div class="detail-body">
+          Healthcare data is abundant but often underused. The challenge: can a simple model trained
+          on basic patient measurements predict who is at higher risk for diabetes complications?
+          And for classification tasks like species identification, how cleanly can geometric measurements
+          separate distinct categories — without any deep learning overhead?
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Summary</div>
+        <div class="detail-body">
+          Two sklearn toy datasets, two modeling approaches. Trained a K-Nearest Neighbors classifier
+          (k=3) on the Iris dataset achieving 96% accuracy, and a Linear Regression model on the
+          Diabetes dataset with R²=0.344. Explored confusion matrices, coefficients, intercepts,
+          and feature importance through visualization.
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Tools &amp; Libraries</div>
+        <div class="detail-body">
+          <div class="pill-row">
+            <span class="pill pill-cyan">scikit-learn</span>
+            <span class="pill pill-cyan">Python 3.11</span>
+            <span class="pill pill-blue">matplotlib</span>
+            <span class="pill pill-blue">numpy</span>
+            <span class="pill">KNeighborsClassifier</span>
+            <span class="pill">LinearRegression</span>
+            <span class="pill">ConfusionMatrixDisplay</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Key Features</div>
+        <div class="detail-body">
+          KNN species classifier with interactive axis toggling to visualize feature separation.
+          Confusion matrix revealing where versicolor and virginica overlap. Linear regression
+          isolating BMI as the strongest diabetes predictor. Complete metric reporting: accuracy,
+          coefficient, intercept, R², and misclassification list.
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">My Role</div>
+        <div class="detail-body">
+          Sole developer — loaded and explored both datasets from scratch, chose appropriate
+          model architectures, tuned hyperparameters (k value), interpreted all model outputs,
+          and built the visualizations. Worked through the feature selection decision for the
+          diabetes regression (BMI vs trying all 10 features).
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Biggest Challenge</div>
+        <div class="detail-body">
+          Understanding why the confusion matrix showed Versicolor ↔ Virginica errors even at
+          96% accuracy required going back to the scatter plots. Petal length vs. petal width
+          makes the overlap visible — they genuinely share measurement space. That was the
+          moment sklearn clicked: models are only as good as the separability in your data.
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">What I Learned</div>
+        <div class="detail-body">
+          The difference between classification and regression isn't just syntax — it's a
+          fundamentally different question being asked. I also learned to read R² critically:
+          0.34 on noisy medical data with one feature is actually meaningful, not "bad."
+          Feature selection matters more than model complexity at this scale.
+        </div>
+      </div>
+
+      <div class="detail-card full">
+        <div class="detail-label">Course Context</div>
+        <div class="detail-body">
+          Built for Advanced Python (MIS 4V90) at Baylor University. This project introduced
+          supervised machine learning concepts using scikit-learn's built-in datasets — chosen
+          specifically because they isolate modeling skill from data-cleaning noise. The iris
+          dataset is a classification benchmark; the diabetes dataset introduces real-world
+          regression complexity with overlapping, correlated features.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════
+     DATA + CHARTS
+═══════════════════════════════════════════ -->
+<script>
+// ─── Real sklearn data ─────────────────────────────────────────────
+const IRIS_DATA = [{"sl":5.1,"sw":3.5,"pl":1.4,"pw":0.2,"s":0},{"sl":4.9,"sw":3.0,"pl":1.4,"pw":0.2,"s":0},{"sl":4.7,"sw":3.2,"pl":1.3,"pw":0.2,"s":0},{"sl":4.6,"sw":3.1,"pl":1.5,"pw":0.2,"s":0},{"sl":5.0,"sw":3.6,"pl":1.4,"pw":0.2,"s":0},{"sl":5.4,"sw":3.9,"pl":1.7,"pw":0.4,"s":0},{"sl":4.6,"sw":3.4,"pl":1.4,"pw":0.3,"s":0},{"sl":5.0,"sw":3.4,"pl":1.5,"pw":0.2,"s":0},{"sl":4.4,"sw":2.9,"pl":1.4,"pw":0.2,"s":0},{"sl":4.9,"sw":3.1,"pl":1.5,"pw":0.1,"s":0},{"sl":5.4,"sw":3.7,"pl":1.5,"pw":0.2,"s":0},{"sl":4.8,"sw":3.4,"pl":1.6,"pw":0.2,"s":0},{"sl":4.8,"sw":3.0,"pl":1.4,"pw":0.1,"s":0},{"sl":4.3,"sw":3.0,"pl":1.1,"pw":0.1,"s":0},{"sl":5.8,"sw":4.0,"pl":1.2,"pw":0.2,"s":0},{"sl":5.7,"sw":4.4,"pl":1.5,"pw":0.4,"s":0},{"sl":5.4,"sw":3.9,"pl":1.3,"pw":0.4,"s":0},{"sl":5.1,"sw":3.5,"pl":1.4,"pw":0.3,"s":0},{"sl":5.7,"sw":3.8,"pl":1.7,"pw":0.3,"s":0},{"sl":5.1,"sw":3.8,"pl":1.5,"pw":0.3,"s":0},{"sl":5.4,"sw":3.4,"pl":1.7,"pw":0.2,"s":0},{"sl":5.1,"sw":3.7,"pl":1.5,"pw":0.4,"s":0},{"sl":4.6,"sw":3.6,"pl":1.0,"pw":0.2,"s":0},{"sl":5.1,"sw":3.3,"pl":1.7,"pw":0.5,"s":0},{"sl":4.8,"sw":3.4,"pl":1.9,"pw":0.2,"s":0},{"sl":5.0,"sw":3.0,"pl":1.6,"pw":0.2,"s":0},{"sl":5.0,"sw":3.4,"pl":1.6,"pw":0.4,"s":0},{"sl":5.2,"sw":3.5,"pl":1.5,"pw":0.2,"s":0},{"sl":5.2,"sw":3.4,"pl":1.4,"pw":0.2,"s":0},{"sl":4.7,"sw":3.2,"pl":1.6,"pw":0.2,"s":0},{"sl":4.8,"sw":3.1,"pl":1.6,"pw":0.2,"s":0},{"sl":5.4,"sw":3.4,"pl":1.5,"pw":0.4,"s":0},{"sl":5.2,"sw":4.1,"pl":1.5,"pw":0.1,"s":0},{"sl":5.5,"sw":4.2,"pl":1.4,"pw":0.2,"s":0},{"sl":4.9,"sw":3.1,"pl":1.5,"pw":0.2,"s":0},{"sl":5.0,"sw":3.2,"pl":1.2,"pw":0.2,"s":0},{"sl":5.5,"sw":3.5,"pl":1.3,"pw":0.2,"s":0},{"sl":4.9,"sw":3.6,"pl":1.4,"pw":0.1,"s":0},{"sl":4.4,"sw":3.0,"pl":1.3,"pw":0.2,"s":0},{"sl":5.1,"sw":3.4,"pl":1.5,"pw":0.2,"s":0},{"sl":5.0,"sw":3.5,"pl":1.3,"pw":0.3,"s":0},{"sl":4.5,"sw":2.3,"pl":1.3,"pw":0.3,"s":0},{"sl":4.4,"sw":3.2,"pl":1.3,"pw":0.2,"s":0},{"sl":5.0,"sw":3.5,"pl":1.6,"pw":0.6,"s":0},{"sl":5.1,"sw":3.8,"pl":1.9,"pw":0.4,"s":0},{"sl":4.8,"sw":3.0,"pl":1.4,"pw":0.3,"s":0},{"sl":5.1,"sw":3.8,"pl":1.6,"pw":0.2,"s":0},{"sl":4.6,"sw":3.2,"pl":1.4,"pw":0.2,"s":0},{"sl":5.3,"sw":3.7,"pl":1.5,"pw":0.2,"s":0},{"sl":5.0,"sw":3.3,"pl":1.4,"pw":0.2,"s":0},{"sl":7.0,"sw":3.2,"pl":4.7,"pw":1.4,"s":1},{"sl":6.4,"sw":3.2,"pl":4.5,"pw":1.5,"s":1},{"sl":6.9,"sw":3.1,"pl":4.9,"pw":1.5,"s":1},{"sl":5.5,"sw":2.3,"pl":4.0,"pw":1.3,"s":1},{"sl":6.5,"sw":2.8,"pl":4.6,"pw":1.5,"s":1},{"sl":5.7,"sw":2.8,"pl":4.5,"pw":1.3,"s":1},{"sl":6.3,"sw":3.3,"pl":4.7,"pw":1.6,"s":1},{"sl":4.9,"sw":2.4,"pl":3.3,"pw":1.0,"s":1},{"sl":6.6,"sw":2.9,"pl":4.6,"pw":1.3,"s":1},{"sl":5.2,"sw":2.7,"pl":3.9,"pw":1.4,"s":1},{"sl":5.0,"sw":2.0,"pl":3.5,"pw":1.0,"s":1},{"sl":5.9,"sw":3.0,"pl":4.2,"pw":1.5,"s":1},{"sl":6.0,"sw":2.2,"pl":4.0,"pw":1.0,"s":1},{"sl":6.1,"sw":2.9,"pl":4.7,"pw":1.4,"s":1},{"sl":5.6,"sw":2.9,"pl":3.6,"pw":1.3,"s":1},{"sl":6.7,"sw":3.1,"pl":4.4,"pw":1.4,"s":1},{"sl":5.6,"sw":3.0,"pl":4.5,"pw":1.5,"s":1},{"sl":5.8,"sw":2.7,"pl":4.1,"pw":1.0,"s":1},{"sl":6.2,"sw":2.2,"pl":4.5,"pw":1.5,"s":1},{"sl":5.6,"sw":2.5,"pl":3.9,"pw":1.1,"s":1},{"sl":5.9,"sw":3.2,"pl":4.8,"pw":1.8,"s":1},{"sl":6.1,"sw":2.8,"pl":4.0,"pw":1.3,"s":1},{"sl":6.3,"sw":2.5,"pl":4.9,"pw":1.5,"s":1},{"sl":6.1,"sw":2.8,"pl":4.7,"pw":1.2,"s":1},{"sl":6.4,"sw":2.9,"pl":4.3,"pw":1.3,"s":1},{"sl":6.6,"sw":3.0,"pl":4.4,"pw":1.4,"s":1},{"sl":6.8,"sw":2.8,"pl":4.8,"pw":1.4,"s":1},{"sl":6.7,"sw":3.0,"pl":5.0,"pw":1.7,"s":1},{"sl":6.0,"sw":2.9,"pl":4.5,"pw":1.5,"s":1},{"sl":5.7,"sw":2.6,"pl":3.5,"pw":1.0,"s":1},{"sl":5.5,"sw":2.4,"pl":3.8,"pw":1.1,"s":1},{"sl":5.5,"sw":2.4,"pl":3.7,"pw":1.0,"s":1},{"sl":5.8,"sw":2.7,"pl":3.9,"pw":1.2,"s":1},{"sl":6.0,"sw":2.7,"pl":5.1,"pw":1.6,"s":1},{"sl":5.4,"sw":3.0,"pl":4.5,"pw":1.5,"s":1},{"sl":6.0,"sw":3.4,"pl":4.5,"pw":1.6,"s":1},{"sl":6.7,"sw":3.1,"pl":4.7,"pw":1.5,"s":1},{"sl":6.3,"sw":2.3,"pl":4.4,"pw":1.3,"s":1},{"sl":5.6,"sw":3.0,"pl":4.1,"pw":1.3,"s":1},{"sl":5.5,"sw":2.5,"pl":4.0,"pw":1.3,"s":1},{"sl":5.5,"sw":2.6,"pl":4.4,"pw":1.2,"s":1},{"sl":6.1,"sw":3.0,"pl":4.6,"pw":1.4,"s":1},{"sl":5.8,"sw":2.6,"pl":4.0,"pw":1.2,"s":1},{"sl":5.0,"sw":2.3,"pl":3.3,"pw":1.0,"s":1},{"sl":5.6,"sw":2.7,"pl":4.2,"pw":1.3,"s":1},{"sl":5.7,"sw":3.0,"pl":4.2,"pw":1.2,"s":1},{"sl":5.7,"sw":2.9,"pl":4.2,"pw":1.3,"s":1},{"sl":6.2,"sw":2.9,"pl":4.3,"pw":1.3,"s":1},{"sl":5.1,"sw":2.5,"pl":3.0,"pw":1.1,"s":1},{"sl":5.7,"sw":2.8,"pl":4.1,"pw":1.3,"s":1},{"sl":6.3,"sw":3.3,"pl":6.0,"pw":2.5,"s":2},{"sl":5.8,"sw":2.7,"pl":5.1,"pw":1.9,"s":2},{"sl":7.1,"sw":3.0,"pl":5.9,"pw":2.1,"s":2},{"sl":6.3,"sw":2.9,"pl":5.6,"pw":1.8,"s":2},{"sl":6.5,"sw":3.0,"pl":5.8,"pw":2.2,"s":2},{"sl":7.6,"sw":3.0,"pl":6.6,"pw":2.1,"s":2},{"sl":4.9,"sw":2.5,"pl":4.5,"pw":1.7,"s":2},{"sl":7.3,"sw":2.9,"pl":6.3,"pw":1.8,"s":2},{"sl":6.7,"sw":2.5,"pl":5.8,"pw":1.8,"s":2},{"sl":7.2,"sw":3.6,"pl":6.1,"pw":2.5,"s":2},{"sl":6.5,"sw":3.2,"pl":5.1,"pw":2.0,"s":2},{"sl":6.4,"sw":2.7,"pl":5.3,"pw":1.9,"s":2},{"sl":6.8,"sw":3.0,"pl":5.5,"pw":2.1,"s":2},{"sl":5.7,"sw":2.5,"pl":5.0,"pw":2.0,"s":2},{"sl":5.8,"sw":2.8,"pl":5.1,"pw":2.4,"s":2},{"sl":6.4,"sw":3.2,"pl":5.3,"pw":2.3,"s":2},{"sl":6.5,"sw":3.0,"pl":5.5,"pw":1.8,"s":2},{"sl":7.7,"sw":3.8,"pl":6.7,"pw":2.2,"s":2},{"sl":7.7,"sw":2.6,"pl":6.9,"pw":2.3,"s":2},{"sl":6.0,"sw":2.2,"pl":5.0,"pw":1.5,"s":2},{"sl":6.9,"sw":3.2,"pl":5.7,"pw":2.3,"s":2},{"sl":5.6,"sw":2.8,"pl":4.9,"pw":2.0,"s":2},{"sl":7.7,"sw":2.8,"pl":6.7,"pw":2.0,"s":2},{"sl":6.3,"sw":2.7,"pl":4.9,"pw":1.8,"s":2},{"sl":6.7,"sw":3.3,"pl":5.7,"pw":2.1,"s":2},{"sl":7.2,"sw":3.2,"pl":6.0,"pw":1.8,"s":2},{"sl":6.2,"sw":2.8,"pl":4.8,"pw":1.8,"s":2},{"sl":6.1,"sw":3.0,"pl":4.9,"pw":1.8,"s":2},{"sl":6.4,"sw":2.8,"pl":5.6,"pw":2.1,"s":2},{"sl":7.2,"sw":3.0,"pl":5.8,"pw":1.6,"s":2},{"sl":7.4,"sw":2.8,"pl":6.1,"pw":1.9,"s":2},{"sl":7.9,"sw":3.8,"pl":6.4,"pw":2.0,"s":2},{"sl":6.4,"sw":2.8,"pl":5.6,"pw":2.2,"s":2},{"sl":6.3,"sw":2.8,"pl":5.1,"pw":1.5,"s":2},{"sl":6.1,"sw":2.6,"pl":5.6,"pw":1.4,"s":2},{"sl":7.7,"sw":3.0,"pl":6.1,"pw":2.3,"s":2},{"sl":6.3,"sw":3.4,"pl":5.6,"pw":2.4,"s":2},{"sl":6.4,"sw":3.1,"pl":5.5,"pw":1.8,"s":2},{"sl":6.0,"sw":3.0,"pl":4.8,"pw":1.8,"s":2},{"sl":6.9,"sw":3.1,"pl":5.4,"pw":2.1,"s":2},{"sl":6.7,"sw":3.1,"pl":5.6,"pw":2.4,"s":2},{"sl":6.9,"sw":3.1,"pl":5.1,"pw":2.3,"s":2},{"sl":5.8,"sw":2.7,"pl":5.1,"pw":1.9,"s":2},{"sl":6.8,"sw":3.2,"pl":5.9,"pw":2.3,"s":2},{"sl":6.7,"sw":3.3,"pl":5.7,"pw":2.5,"s":2},{"sl":6.7,"sw":3.0,"pl":5.2,"pw":2.3,"s":2},{"sl":6.3,"sw":2.5,"pl":5.0,"pw":1.9,"s":2},{"sl":6.5,"sw":3.0,"pl":5.2,"pw":2.0,"s":2},{"sl":6.2,"sw":3.4,"pl":5.4,"pw":2.3,"s":2},{"sl":5.9,"sw":3.0,"pl":5.1,"pw":1.8,"s":2}];
+
+const DIABETES_SCATTER = [{"x":0.0617,"y":151},{"x":-0.0515,"y":75},{"x":0.0445,"y":141},{"x":-0.0116,"y":206},{"x":-0.0364,"y":135},{"x":-0.0407,"y":97},{"x":-0.0472,"y":138},{"x":-0.0019,"y":63},{"x":0.0617,"y":110},{"x":0.0391,"y":310},{"x":-0.0838,"y":101},{"x":0.0175,"y":69},{"x":-0.0288,"y":179},{"x":-0.0019,"y":185},{"x":-0.0256,"y":118},{"x":-0.0181,"y":171},{"x":0.0423,"y":166},{"x":0.0121,"y":144},{"x":-0.0105,"y":97},{"x":-0.0181,"y":168},{"x":-0.0569,"y":68},{"x":-0.0224,"y":49},{"x":-0.0041,"y":68},{"x":0.0606,"y":245},{"x":0.0358,"y":184},{"x":-0.0127,"y":202},{"x":-0.0773,"y":137},{"x":0.0595,"y":85},{"x":-0.0213,"y":131},{"x":-0.0062,"y":283},{"x":0.0445,"y":129},{"x":-0.0655,"y":59},{"x":0.1253,"y":341},{"x":-0.0504,"y":87},{"x":-0.0633,"y":65},{"x":-0.031,"y":102},{"x":0.0229,"y":265},{"x":0.011,"y":276},{"x":0.0714,"y":252},{"x":0.0143,"y":90},{"x":-0.0084,"y":100},{"x":-0.0676,"y":55},{"x":-0.0105,"y":61},{"x":-0.0235,"y":92},{"x":0.0682,"y":259},{"x":-0.0353,"y":53},{"x":-0.0116,"y":190},{"x":-0.073,"y":142},{"x":-0.0418,"y":75},{"x":0.0143,"y":142},{"x":-0.0073,"y":155},{"x":0.0164,"y":225},{"x":-0.0094,"y":59},{"x":-0.0159,"y":104},{"x":0.0251,"y":182},{"x":-0.0493,"y":128},{"x":0.0412,"y":52},{"x":-0.0633,"y":37},{"x":-0.0644,"y":170},{"x":-0.0256,"y":170},{"x":-0.0041,"y":61},{"x":0.0046,"y":144},{"x":-0.0073,"y":52},{"x":-0.0375,"y":128},{"x":-0.0256,"y":71},{"x":-0.0245,"y":163},{"x":-0.0181,"y":150},{"x":-0.0148,"y":97},{"x":-0.0299,"y":160},{"x":-0.0461,"y":178},{"x":-0.0698,"y":48},{"x":0.0337,"y":270},{"x":-0.0041,"y":202},{"x":-0.0202,"y":111},{"x":0.0024,"y":85},{"x":-0.031,"y":42},{"x":0.0283,"y":170},{"x":-0.0364,"y":200},{"x":-0.0579,"y":252},{"x":-0.0375,"y":113},{"x":0.0121,"y":143},{"x":-0.0224,"y":51},{"x":-0.0353,"y":52},{"x":0.01,"y":210},{"x":-0.0396,"y":65},{"x":0.0714,"y":141},{"x":-0.0752,"y":55},{"x":-0.0062,"y":134},{"x":-0.0407,"y":42},{"x":-0.0482,"y":111},{"x":-0.0256,"y":98},{"x":0.052,"y":164},{"x":0.0046,"y":48},{"x":-0.0644,"y":96},{"x":-0.017,"y":90},{"x":-0.0579,"y":162},{"x":0.01,"y":150},{"x":0.0886,"y":279},{"x":-0.0051,"y":92},{"x":-0.0644,"y":83},{"x":0.0175,"y":128},{"x":-0.045,"y":102},{"x":0.0283,"y":302},{"x":0.0412,"y":198},{"x":0.0649,"y":95},{"x":-0.0321,"y":53},{"x":-0.0763,"y":134},{"x":0.0498,"y":144},{"x":0.0455,"y":232},{"x":-0.0094,"y":81},{"x":-0.0321,"y":104},{"x":0.0046,"y":59},{"x":0.0207,"y":246},{"x":0.0143,"y":297},{"x":0.1102,"y":258},{"x":0.0013,"y":229},{"x":0.0585,"y":275},{"x":-0.0213,"y":281},{"x":-0.0105,"y":179},{"x":-0.0472,"y":200},{"x":0.0046,"y":200},{"x":0.0175,"y":173},{"x":0.0811,"y":180},{"x":0.0348,"y":84},{"x":0.024,"y":121},{"x":-0.0084,"y":161},{"x":-0.0612,"y":99},{"x":-0.0019,"y":109},{"x":-0.0623,"y":115},{"x":0.0164,"y":268},{"x":0.0962,"y":274},{"x":-0.0698,"y":158},{"x":-0.0213,"y":107},{"x":-0.0536,"y":83},{"x":0.0434,"y":103},{"x":0.0563,"y":272},{"x":-0.0817,"y":85},{"x":0.0498,"y":280},{"x":0.1113,"y":336},{"x":0.0617,"y":281},{"x":0.0143,"y":118},{"x":0.0477,"y":317},{"x":0.0121,"y":235},{"x":0.0056,"y":60},{"x":0.0466,"y":174},{"x":0.1285,"y":259},{"x":0.0595,"y":178},{"x":0.093,"y":128},{"x":0.0154,"y":96},{"x":-0.0051,"y":126},{"x":0.0703,"y":288},{"x":-0.0041,"y":88},{"x":-0.0008,"y":292},{"x":-0.0439,"y":71},{"x":0.0207,"y":197},{"x":0.0606,"y":186},{"x":-0.0105,"y":25},{"x":-0.0332,"y":84},{"x":-0.0655,"y":96},{"x":0.0434,"y":195},{"x":-0.0623,"y":53},{"x":0.0639,"y":217},{"x":0.0304,"y":172},{"x":0.0725,"y":131},{"x":-0.0191,"y":214},{"x":-0.0666,"y":59},{"x":-0.0601,"y":70},{"x":0.0692,"y":220},{"x":0.0595,"y":268},{"x":-0.0267,"y":152},{"x":-0.0202,"y":47},{"x":-0.0461,"y":74},{"x":0.0714,"y":295},{"x":-0.0795,"y":101},{"x":0.01,"y":151},{"x":-0.0385,"y":127},{"x":0.0197,"y":237},{"x":0.0272,"y":225},{"x":-0.0084,"y":81},{"x":-0.0159,"y":151},{"x":0.0046,"y":107},{"x":-0.0429,"y":64},{"x":0.0056,"y":138},{"x":-0.0353,"y":185},{"x":0.024,"y":265},{"x":-0.0181,"y":101},{"x":0.0423,"y":137},{"x":-0.0547,"y":143},{"x":-0.003,"y":141},{"x":-0.0666,"y":79},{"x":-0.0127,"y":292},{"x":-0.0418,"y":178},{"x":-0.031,"y":91},{"x":-0.0051,"y":116},{"x":-0.059,"y":86},{"x":0.0251,"y":122},{"x":-0.0461,"y":72},{"x":0.0035,"y":129},{"x":0.0542,"y":142},{"x":-0.045,"y":90},{"x":-0.0579,"y":158},{"x":-0.0558,"y":39},{"x":0.0013,"y":196},{"x":0.0304,"y":222},{"x":0.0067,"y":277},{"x":0.0466,"y":99},{"x":0.0261,"y":196},{"x":0.0455,"y":202},{"x":0.0401,"y":155},{"x":-0.0181,"y":77},{"x":0.0143,"y":191},{"x":0.0369,"y":70},{"x":0.0035,"y":73},{"x":-0.0709,"y":49},{"x":-0.0332,"y":65},{"x":0.094,"y":263},{"x":0.0358,"y":248},{"x":0.0315,"y":296},{"x":-0.0655,"y":214},{"x":-0.0418,"y":185},{"x":-0.0396,"y":78},{"x":-0.0385,"y":93},{"x":-0.0256,"y":252},{"x":-0.0235,"y":150},{"x":-0.0666,"y":77},{"x":0.0326,"y":208},{"x":-0.0461,"y":77},{"x":-0.0299,"y":108},{"x":-0.0127,"y":160},{"x":-0.0159,"y":53},{"x":0.0714,"y":220},{"x":-0.031,"y":154},{"x":0.0003,"y":259},{"x":0.0369,"y":90},{"x":0.0391,"y":246},{"x":-0.0148,"y":124},{"x":0.0067,"y":67},{"x":-0.0687,"y":72},{"x":-0.0094,"y":257},{"x":0.0197,"y":262},{"x":0.0746,"y":275},{"x":-0.0084,"y":177},{"x":-0.0235,"y":71},{"x":-0.0461,"y":47},{"x":0.0542,"y":187},{"x":-0.0353,"y":125},{"x":-0.0321,"y":78},{"x":-0.0817,"y":51},{"x":0.0477,"y":258},{"x":0.0606,"y":215},{"x":0.0563,"y":303},{"x":0.0983,"y":243},{"x":0.0595,"y":91},{"x":0.0337,"y":150},{"x":0.0563,"y":310},{"x":-0.0655,"y":153},{"x":0.1609,"y":346},{"x":-0.0558,"y":63},{"x":-0.0245,"y":89},{"x":-0.0364,"y":50},{"x":-0.0084,"y":39},{"x":-0.0418,"y":103},{"x":0.1274,"y":308},{"x":-0.0773,"y":116},{"x":0.0283,"y":145},{"x":-0.0256,"y":74},{"x":-0.0623,"y":45},{"x":-0.0008,"y":115},{"x":0.0886,"y":264},{"x":-0.0321,"y":87},{"x":0.0304,"y":202},{"x":0.0089,"y":127},{"x":0.0067,"y":182},{"x":-0.0202,"y":241},{"x":-0.0245,"y":66},{"x":-0.0116,"y":94},{"x":0.0261,"y":283},{"x":-0.059,"y":64},{"x":-0.0364,"y":102},{"x":-0.0245,"y":200},{"x":0.0186,"y":265},{"x":-0.0903,"y":94},{"x":-0.0051,"y":230},{"x":-0.0526,"y":181},{"x":-0.0224,"y":156},{"x":-0.0202,"y":233},{"x":-0.0547,"y":60},{"x":-0.0062,"y":219},{"x":-0.017,"y":80},{"x":0.0552,"y":68},{"x":0.0768,"y":332},{"x":0.0186,"y":248},{"x":-0.0224,"y":84},{"x":0.093,"y":200},{"x":-0.031,"y":55},{"x":0.0391,"y":85},{"x":-0.0612,"y":89},{"x":-0.0084,"y":31},{"x":-0.0375,"y":129},{"x":-0.0138,"y":83},{"x":0.0736,"y":275},{"x":-0.0245,"y":65},{"x":0.0337,"y":198},{"x":0.0348,"y":236},{"x":-0.0385,"y":253},{"x":-0.0396,"y":124},{"x":-0.0019,"y":44},{"x":-0.031,"y":172},{"x":-0.0461,"y":114},{"x":0.0013,"y":142},{"x":0.0649,"y":109},{"x":0.0401,"y":180},{"x":-0.0235,"y":144},{"x":0.0531,"y":163},{"x":0.0401,"y":147},{"x":-0.0202,"y":97},{"x":0.0143,"y":220},{"x":-0.0342,"y":190},{"x":0.0067,"y":109},{"x":0.0046,"y":191},{"x":0.0304,"y":122},{"x":0.052,"y":230},{"x":0.0617,"y":242},{"x":-0.0073,"y":248},{"x":0.0056,"y":249},{"x":0.0542,"y":192},{"x":-0.0084,"y":131},{"x":0.1145,"y":237},{"x":0.0671,"y":78},{"x":-0.0558,"y":135},{"x":0.0304,"y":244},{"x":-0.0256,"y":199},{"x":0.1048,"y":270},{"x":-0.0062,"y":164},{"x":-0.0472,"y":72},{"x":-0.0482,"y":96},{"x":0.0854,"y":306},{"x":-0.0127,"y":91},{"x":-0.0332,"y":214},{"x":-0.0073,"y":95},{"x":-0.0138,"y":216},{"x":0.0595,"y":263},{"x":0.0218,"y":178},{"x":0.0186,"y":113},{"x":-0.0116,"y":200},{"x":-0.003,"y":139},{"x":0.0175,"y":139},{"x":-0.0299,"y":88},{"x":-0.0202,"y":148},{"x":-0.0579,"y":88},{"x":0.0606,"y":243},{"x":-0.0407,"y":71},{"x":-0.072,"y":77},{"x":-0.0558,"y":109},{"x":0.0455,"y":272},{"x":-0.0094,"y":60},{"x":-0.0332,"y":54},{"x":0.0498,"y":221},{"x":-0.0849,"y":90},{"x":0.0056,"y":311},{"x":0.0207,"y":281},{"x":-0.0073,"y":182},{"x":0.1048,"y":321},{"x":-0.0245,"y":58},{"x":-0.0062,"y":262},{"x":-0.0385,"y":206},{"x":0.1371,"y":233},{"x":0.1706,"y":242},{"x":0.0024,"y":123},{"x":0.038,"y":167},{"x":-0.0579,"y":63},{"x":-0.0094,"y":197},{"x":-0.0235,"y":71},{"x":-0.0105,"y":168},{"x":-0.0342,"y":140},{"x":-0.003,"y":217},{"x":0.0682,"y":121},{"x":0.01,"y":235},{"x":0.0024,"y":245},{"x":-0.0385,"y":40},{"x":0.0261,"y":52},{"x":-0.0892,"y":104},{"x":0.0606,"y":132},{"x":-0.0288,"y":88},{"x":-0.0299,"y":69},{"x":-0.0191,"y":219},{"x":-0.0407,"y":72},{"x":0.0154,"y":201},{"x":-0.0245,"y":110},{"x":0.0013,"y":51},{"x":0.0692,"y":277},{"x":-0.0698,"y":63},{"x":-0.0299,"y":118},{"x":-0.0461,"y":69},{"x":0.0186,"y":273},{"x":0.0013,"y":258},{"x":-0.031,"y":43},{"x":-0.0041,"y":198},{"x":0.0154,"y":242},{"x":0.0229,"y":232},{"x":0.0455,"y":175},{"x":-0.045,"y":93},{"x":-0.0332,"y":168},{"x":0.0973,"y":275},{"x":0.0542,"y":293},{"x":0.1231,"y":281},{"x":-0.0806,"y":72},{"x":0.093,"y":140},{"x":-0.0504,"y":189},{"x":-0.0116,"y":181},{"x":-0.0278,"y":209},{"x":0.0585,"y":136},{"x":0.0854,"y":261},{"x":-0.0008,"y":113},{"x":0.0067,"y":131},{"x":0.0089,"y":174},{"x":0.08,"y":257},{"x":0.0714,"y":55},{"x":-0.0245,"y":84},{"x":-0.0547,"y":42},{"x":-0.0364,"y":146},{"x":0.0164,"y":212},{"x":0.0779,"y":233},{"x":-0.0396,"y":91},{"x":0.011,"y":111},{"x":-0.0407,"y":152},{"x":-0.0342,"y":120},{"x":0.0056,"y":67},{"x":0.0886,"y":310},{"x":-0.0332,"y":94},{"x":-0.0569,"y":183},{"x":-0.031,"y":66},{"x":0.0552,"y":173},{"x":-0.0601,"y":72},{"x":0.0013,"y":49},{"x":-0.0235,"y":64},{"x":-0.0741,"y":48},{"x":0.0197,"y":178},{"x":-0.0159,"y":104},{"x":-0.0159,"y":132},{"x":0.0391,"y":220},{"x":-0.073,"y":57}];
+
+const DIABETES_LINE = {"x0":-0.0903,"x1":0.1706,"y0":66.42,"y1":314.06,"coef":949.44,"intercept":152.13,"r2":0.3439};
+
+const FEATURE_KEYS   = ['sl','sw','pl','pw'];
+const FEATURE_LABELS = {
+  sl: 'Sepal Length (cm)',
+  sw: 'Sepal Width (cm)',
+  pl: 'Petal Length (cm)',
+  pw: 'Petal Width (cm)'
+};
+const SPECIES_COLORS = ['#06b6d4','#f59e0b','#c084fc'];
+const SPECIES_NAMES  = ['Setosa','Versicolor','Virginica'];
+
+// ─── Iris Chart ────────────────────────────────────────────────────
+let irisChart = null;
+
+function buildIrisDatasets(xKey, yKey) {
+  return SPECIES_NAMES.map((name, si) => ({
+    label: name,
+    data: IRIS_DATA.filter(d => d.s === si).map(d => ({ x: d[xKey], y: d[yKey] })),
+    backgroundColor: SPECIES_COLORS[si] + 'bb',
+    borderColor:     SPECIES_COLORS[si],
+    borderWidth: 1,
+    pointRadius: 5,
+    pointHoverRadius: 7,
+  }));
+}
+
+function updateIrisChart() {
+  const xKey = document.getElementById('xAxis').value;
+  const yKey = document.getElementById('yAxis').value;
+  const datasets = buildIrisDatasets(xKey, yKey);
+
+  if (irisChart) {
+    irisChart.data.datasets = datasets;
+    irisChart.options.scales.x.title.text = FEATURE_LABELS[xKey];
+    irisChart.options.scales.y.title.text = FEATURE_LABELS[yKey];
+    irisChart.update('active');
+  }
+}
+
+function initIrisChart() {
+  const ctx = document.getElementById('irisChart').getContext('2d');
+  irisChart = new Chart(ctx, {
+    type: 'scatter',
+    data: { datasets: buildIrisDatasets('pl', 'pw') },
+    options: {
+      responsive: true,
+      animation: { duration: 400 },
+      plugins: {
+        legend: {
+          display: true,
+          labels: { color: '#e8f0ff', font: { family: 'Space Grotesk', size: 12 }, pointStyle: 'circle', usePointStyle: true }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const p = ctx.raw;
+              return `  ${ctx.dataset.label}: (${p.x}, ${p.y})`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'Petal Length (cm)', color: '#6b7280', font: { family: 'Space Grotesk', size: 12 } },
+          ticks: { color: '#6b7280' },
+          grid: { color: 'rgba(255,255,255,0.05)' }
+        },
+        y: {
+          title: { display: true, text: 'Petal Width (cm)', color: '#6b7280', font: { family: 'Space Grotesk', size: 12 } },
+          ticks: { color: '#6b7280' },
+          grid: { color: 'rgba(255,255,255,0.05)' }
+        }
+      }
+    }
+  });
+}
+
+// ─── Diabetes Chart ────────────────────────────────────────────────
+function initDiabetesChart() {
+  const ctx = document.getElementById('diabetesChart').getContext('2d');
+  const { x0, x1, y0, y1 } = DIABETES_LINE;
+
+  new Chart(ctx, {
+    type: 'scatter',
+    data: {
+      datasets: [
+        {
+          label: 'Patient data',
+          data: DIABETES_SCATTER,
+          backgroundColor: 'rgba(59,130,246,0.35)',
+          borderColor:     'rgba(59,130,246,0.7)',
+          borderWidth: 1,
+          pointRadius: 3.5,
+          pointHoverRadius: 5,
+        },
+        {
+          label: 'Regression line (y = 949x + 152)',
+          data: [{ x: x0, y: y0 }, { x: x1, y: y1 }],
+          type: 'line',
+          backgroundColor: 'transparent',
+          borderColor: '#ef4444',
+          borderWidth: 2.5,
+          pointRadius: 0,
+          tension: 0,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          labels: { color: '#e8f0ff', font: { family: 'Space Grotesk', size: 12 }, usePointStyle: true }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              if (ctx.datasetIndex === 0) return `  BMI: ${ctx.raw.x.toFixed(3)}, Progression: ${ctx.raw.y}`;
+              return null;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'BMI (standardized)', color: '#6b7280', font: { family: 'Space Grotesk', size: 12 } },
+          ticks: { color: '#6b7280' },
+          grid: { color: 'rgba(255,255,255,0.05)' }
+        },
+        y: {
+          title: { display: true, text: 'Disease Progression (1 year)', color: '#6b7280', font: { family: 'Space Grotesk', size: 12 } },
+          ticks: { color: '#6b7280' },
+          grid: { color: 'rgba(255,255,255,0.05)' }
+        }
+      }
+    }
+  });
+}
+
+// ─── Code tabs ─────────────────────────────────────────────────────
+function switchTab(e, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+// ─── Init ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  initIrisChart();
+  initDiabetesChart();
+});
+</script>
+</body>
+</html>

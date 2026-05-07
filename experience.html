@@ -810,22 +810,22 @@
     /* ── Skills ── */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 26px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
     }
 
     .skill-card {
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 18px;
       background: rgba(255,255,255,0.84);
       box-shadow: var(--shadow);
-      padding: 22px;
+      padding: 16px;
     }
 
     .skill-card h3 {
-      margin: 0 0 14px;
-      font-size: 12px;
+      margin: 0 0 10px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -835,47 +835,52 @@
     .pill-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
 
     .pill {
-      padding: 7px 11px;
+      padding: 5px 9px;
       border-radius: 999px;
       border: 1px solid var(--line);
       background: var(--surface-soft);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       color: var(--muted);
     }
 
     /* ── Certs & Courses ── */
     .cert-grid {
-      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 24px;
+      margin-top: 18px;
     }
 
     .cert-card {
       display: flex;
       align-items: baseline;
-      gap: 16px;
-      padding: 13px 0 13px 20px;
+      gap: 12px;
+      padding: 10px 0 10px 16px;
       border-bottom: 1px solid var(--line);
     }
 
-    .cert-card:last-child {
+    .cert-card:last-child,
+    .cert-card:nth-last-child(2):nth-child(odd) {
       border-bottom: none;
     }
 
     .cert-card strong {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--text);
       flex-shrink: 0;
-      width: 320px;
+      min-width: 180px;
+      max-width: 220px;
     }
 
     .cert-card p {
       margin: 0;
-      font-size: 12.5px;
+      font-size: 12px;
       line-height: 1.5;
       color: var(--muted);
     }
@@ -1115,6 +1120,7 @@
       .contact-panel { grid-template-columns: 1fr; }
       .timeline { grid-template-columns: 1fr 1fr; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
       .edu-grid { grid-template-columns: 1fr; }
       .edu-card--main { grid-column: span 1; grid-template-columns: 1fr; }
       .edu-card__stats { text-align: left; }
@@ -1341,11 +1347,11 @@
       </div>
     </section>
 
-    <!-- ═══ SKILLS ═══ -->
+    <!-- ═══ SKILLS & CREDENTIALS ═══ -->
     <section>
-      <p class="section-label">Skills</p>
-      <h2 class="section-title">Platforms, tools, and working strengths.</h2>
-      <p class="section-intro">Creative execution paired with practical systems thinking — content, data, CRM, and lightweight product-style building.</p>
+      <p class="section-label">Skills &amp; Credentials</p>
+      <h2 class="section-title">Tools, strengths, and credentials.</h2>
+      <p class="section-intro">Creative execution paired with practical systems thinking — content, data, CRM, and product-style building.</p>
 
       <div class="skills-grid">
         <article class="skill-card">
@@ -1408,13 +1414,6 @@
           </div>
         </article>
       </div>
-    </section>
-
-    <!-- ═══ CERTIFICATIONS & PROJECTS ═══ -->
-    <section>
-      <p class="section-label">Credentials</p>
-      <h2 class="section-title">Certifications and projects.</h2>
-      <p class="section-intro">A mix of industry credentials, academic competitions, and hands-on system builds from coursework.</p>
 
       <div class="cert-grid">
         <article class="cert-card">

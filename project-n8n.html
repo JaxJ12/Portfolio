@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>n8n Agent Orchestrator — Jax Johnson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:      #0d0d14;
+      --surface: #13131f;
+      --card:    #1a1a2e;
+      --border:  rgba(255,255,255,0.07);
+      --text:    #f0eeff;
+      --muted:   rgba(240,238,255,0.52);
+      --gold:    #f59e0b;
+      --purple:  #8b5cf6;
+      --green:   #10b981;
+      --blue:    #3b82f6;
+      --red:     #ef4444;
+      --orange:  #f97316;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Back nav ── */
+    .back-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,13,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex; align-items: center; gap: 20px;
+    }
+
+    .back-nav a {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+      transition: color .15s;
+    }
+    .back-nav a:hover { color: var(--text); }
+    .back-nav .breadcrumb { font-size: 13px; color: var(--muted); }
+    .back-nav .breadcrumb span { color: var(--gold); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 120px 48px 60px;
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: var(--purple); border-radius: 999px;
+      padding: 5px 14px; font-size: 12px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.1; letter-spacing: -.02em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 em { font-style: normal; color: var(--purple); }
+
+    .hero-summary {
+      font-size: 1.1rem; line-height: 1.8;
+      color: var(--muted); max-width: 680px; margin-bottom: 32px;
+    }
+
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 0;
+    }
+
+    .stat {
+      display: flex; flex-direction: column;
+    }
+    .stat-num { font-size: 2rem; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+    /* ── Section layout ── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+
+    .section { margin-bottom: 56px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--purple); margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; margin-bottom: 18px; line-height: 1.2;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px;
+    }
+
+    .card-sm { padding: 20px; border-radius: 14px; }
+
+    .detail-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+
+    @media (max-width: 700px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    .detail-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .10em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+
+    .detail-body { font-size: 14px; line-height: 1.7; color: rgba(240,238,255,.8); }
+
+    /* ── Tool pills ── */
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill {
+      padding: 5px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      font-size: 12px; font-weight: 600; color: var(--muted);
+    }
+
+    .pill-purple { background: rgba(139,92,246,.15); border-color: rgba(139,92,246,.3); color: var(--purple); }
+    .pill-gold   { background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.3); color: var(--gold); }
+    .pill-green  { background: rgba(16,185,129,.12); border-color: rgba(16,185,129,.3); color: var(--green); }
+    .pill-blue   { background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.3); color: var(--blue); }
+
+    /* ══════════════════════════════════════
+       FLOW DIAGRAM
+    ══════════════════════════════════════ */
+    #flow-canvas-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 20px;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    #flow-canvas-wrap h3 {
+      font-size: 13px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: center; margin-bottom: 28px;
+    }
+
+    .flow-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      min-width: 360px;
+      position: relative;
+    }
+
+    .flow-node {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: all .2s;
+      width: 100%; max-width: 480px;
+      position: relative;
+    }
+
+    .flow-node:hover, .flow-node.active {
+      border-color: var(--purple);
+      background: rgba(139,92,246,.1);
+      transform: scale(1.02);
+    }
+
+    .flow-node.active { box-shadow: 0 0 0 2px rgba(139,92,246,.4); }
+
+    .node-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+
+    .node-icon-trigger { background: rgba(16,185,129,.2); }
+    .node-icon-set     { background: rgba(59,130,246,.2); }
+    .node-icon-http    { background: rgba(139,92,246,.2); }
+    .node-icon-email   { background: rgba(245,158,11,.2); }
+
+    .node-info { flex: 1; min-width: 0; }
+    .node-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .node-type { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+    .flow-arrow {
+      width: 2px; height: 24px;
+      background: linear-gradient(to bottom, rgba(139,92,246,.5), rgba(139,92,246,.2));
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .flow-arrow::after {
+      content: '▼';
+      position: absolute;
+      bottom: -10px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px; color: rgba(139,92,246,.7);
+    }
+
+    /* Node detail panel */
+    #node-panel {
+      background: rgba(139,92,246,.08);
+      border: 1px solid rgba(139,92,246,.25);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-top: 24px;
+      min-height: 80px;
+      transition: all .25s;
+    }
+
+    #node-panel h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    #node-panel p  { font-size: 13px; line-height: 1.7; color: rgba(240,238,255,.75); margin: 0; }
+
+    /* ── Code block ── */
+    .code-block {
+      background: #0a0a12;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 20px 22px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #a5b4fc;
+    }
+
+    .code-block .kw  { color: #c084fc; }
+    .code-block .str { color: #86efac; }
+    .code-block .cm  { color: #6b7280; }
+    .code-block .num { color: #fb923c; }
+
+    /* ── Timeline ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .tl-item {
+      display: grid; grid-template-columns: 40px 1fr;
+      gap: 16px; padding-bottom: 28px;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: ''; position: absolute;
+      left: 19px; top: 40px; bottom: 0; width: 2px;
+      background: var(--border);
+    }
+
+    .tl-item:last-child::before { display: none; }
+
+    .tl-dot {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(139,92,246,.2);
+      border: 2px solid var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0; z-index: 1;
+    }
+
+    .tl-content .tl-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .tl-content .tl-body  { font-size: 13px; line-height: 1.7; color: var(--muted); }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--muted); max-width: 1100px; margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Back Nav ── -->
+<nav class="back-nav">
+  <a href="class-projects.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Projects
+  </a>
+  <span class="breadcrumb">Projects / <span>n8n Agent Orchestrator</span></span>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="hero-tag">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+    n8n Workflow · Advanced Python · Spring 2026
+  </div>
+  <h1>Handyman <em>Agent Orchestrator</em><br/>built in n8n</h1>
+  <p class="hero-summary">
+    A production-grade multi-agent pipeline that watches a Google Form, routes each submission through four specialized AI agents — intake, pricing, scheduling, and communications — then fires a personalized Gmail confirmation automatically.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">AI Agents</span></div>
+    <div class="stat"><span class="stat-num">11</span><span class="stat-label">Workflow Nodes</span></div>
+    <div class="stat"><span class="stat-num">0</span><span class="stat-label">Lines of Code</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Automated</span></div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- ── Project Details ── -->
+  <section class="section">
+    <p class="section-label">Project Overview</p>
+    <div class="detail-grid">
+      <div class="card card-sm">
+        <p class="detail-label">Business Problem</p>
+        <p class="detail-body">Small handyman businesses lose bookings because they can't respond fast enough. A customer fills out a form and waits — often for hours. This orchestrator eliminates that lag entirely: a quote, available time slots, and a confirmation email go out in under 60 seconds, automatically.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">One-Sentence Summary</p>
+        <p class="detail-body">A no-code multi-agent n8n workflow that ingests handyman service requests from Google Forms and automatically returns a personalized quote, availability, and Gmail confirmation — zero human involvement required.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">My Role</p>
+        <p class="detail-body">Designed the entire agent architecture from scratch — defined what each agent would do, wired together the orchestration flow in n8n, built the data-passing strategy between nodes, and connected the Google Sheets trigger and Gmail send.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">Biggest Challenge</p>
+        <p class="detail-body">Passing context reliably between four separate agent webhooks without losing data. Each "Store" node acts as a state accumulator, re-attaching upstream results so downstream agents always have full context to work with.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">What I Learned</p>
+        <p class="detail-body">Orchestration is harder than individual agents. Designing clean handoffs between specialized agents — and deciding which agent owns which decision — taught me to think about AI systems architecturally, not just prompt-by-prompt.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">Tools Used</p>
+        <div class="pill-row" style="margin-top:8px;">
+          <span class="pill pill-purple">n8n Cloud</span>
+          <span class="pill pill-green">Google Sheets</span>
+          <span class="pill pill-gold">Google Forms</span>
+          <span class="pill pill-blue">Gmail API</span>
+          <span class="pill pill-purple">AI Agents (x4)</span>
+          <span class="pill">Webhooks</span>
+          <span class="pill">JSON</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Interactive Flow Diagram ── -->
+  <section class="section">
+    <p class="section-label">Interactive Workflow</p>
+    <p class="section-title">Click any node to see what it does</p>
+
+    <div id="flow-canvas-wrap">
+      <h3>Agent Orchestrator — Full Pipeline</h3>
+
+      <div class="flow-diagram" id="flowDiagram">
+        <!-- Nodes injected by JS -->
+      </div>
+
+      <!-- Detail panel -->
+      <div id="node-panel">
+        <h4 id="panel-title">👆 Click a node above</h4>
+        <p id="panel-body">Each node in the pipeline has a specific job. Click any step to learn what it does and why it matters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pipeline Walkthrough ── -->
+  <section class="section">
+    <p class="section-label">How It Works</p>
+    <p class="section-title">Step-by-step pipeline</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">📋</div>
+        <div class="tl-content">
+          <p class="tl-title">1. Customer fills out Google Form</p>
+          <p class="tl-body">The form captures name, email, service address, description of services needed, and preferred dates/times. Responses land in a connected Google Sheet.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">⚡</div>
+        <div class="tl-content">
+          <p class="tl-title">2. Google Sheets Trigger fires</p>
+          <p class="tl-body">n8n polls the sheet for new rows. The moment a submission appears, the workflow activates and extracts the four key fields into clean variables.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🤖</div>
+        <div class="tl-content">
+          <p class="tl-title">3. Intake Agent parses the request</p>
+          <p class="tl-body">The first AI agent reads the raw service description and structures it — identifying the service type, urgency, and key details that downstream agents will need.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">💰</div>
+        <div class="tl-content">
+          <p class="tl-title">4. Pricing Agent generates a quote</p>
+          <p class="tl-body">Using the structured job data, the pricing agent references the business's rate sheet and returns an itemized estimate with service type, complexity level, and final price.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">📅</div>
+        <div class="tl-content">
+          <p class="tl-title">5. Scheduling Agent finds availability</p>
+          <p class="tl-body">Checks the calendar against the customer's requested dates and returns 2–3 available appointment options formatted for the confirmation email.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">✉️</div>
+        <div class="tl-content">
+          <p class="tl-title">6. Comms Agent drafts the response</p>
+          <p class="tl-body">Takes the pricing + scheduling results and composes a professional, personalized email — including the customer's name, service summary, quote, and time options.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">📧</div>
+        <div class="tl-content">
+          <p class="tl-title">7. Gmail sends the confirmation</p>
+          <p class="tl-body">n8n's Gmail node fires the email directly to the customer's address from the form — fully automated, no human touch required. Average end-to-end time: under 60 seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Sample Email Output ── -->
+  <section class="section">
+    <p class="section-label">Sample Output</p>
+    <p class="section-title">What the customer receives</p>
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border);">
+        <div>
+          <p style="font-size:13px; color:var(--muted); margin-bottom:2px;">From: handyman@company.com</p>
+          <p style="font-size:13px; color:var(--muted); margin:0;">Subject: <strong style="color:var(--text);">Service Request Update for Marcus</strong></p>
+        </div>
+        <span class="pill pill-green">Auto-generated</span>
+      </div>
+      <div class="code-block" style="background: rgba(0,0,0,0.3);">
+<span class="cm">Hi Marcus,</span>
+
+<span class="cm">Thank you for reaching out. We have processed your service request
+and have a summary of the estimate and availability for you below.</span>
+
+<span class="kw">SERVICE:</span>  <span class="str">Ceiling Fan Installation</span>
+<span class="kw">ESTIMATE:</span> <span class="num">$185.00</span> <span class="cm">(standard complexity, 2hr appointment)</span>
+
+<span class="kw">AVAILABLE SLOTS:</span>
+  <span class="str">→ Tuesday, May 14  |  10:00 AM – 12:00 PM</span>
+  <span class="str">→ Wednesday, May 15 |  2:00 PM – 4:00 PM</span>
+  <span class="str">→ Friday, May 17    |  9:00 AM – 11:00 AM</span>
+
+<span class="cm">Please reply with your preferred slot and we'll confirm your booking.
+We look forward to working with you!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Key Features ── -->
+  <section class="section">
+    <p class="section-label">Key Features</p>
+    <div class="detail-grid">
+      <div class="card card-sm">
+        <p style="font-size:1.4rem; margin-bottom:8px;">🔗</p>
+        <p class="detail-label">Multi-Agent Architecture</p>
+        <p class="detail-body">Four specialized agents each own a distinct domain — intake, pricing, scheduling, and communication — keeping concerns separated and each agent's prompts tight and accurate.</p>
+      </div>
+      <div class="card card-sm">
+        <p style="font-size:1.4rem; margin-bottom:8px;">🔄</p>
+        <p class="detail-label">State Accumulation Pattern</p>
+        <p class="detail-body">Each "Store" node re-attaches all upstream context before passing to the next agent. Downstream agents always have complete job + pricing + scheduling data without redundant API calls.</p>
+      </div>
+      <div class="card card-sm">
+        <p style="font-size:1.4rem; margin-bottom:8px;">⚡</p>
+        <p class="detail-label">Fully Automated Trigger</p>
+        <p class="detail-body">The Google Sheets trigger polls continuously — no manual "run" step. The entire pipeline from form submission to customer email runs without any human intervention.</p>
+      </div>
+      <div class="card card-sm">
+        <p style="font-size:1.4rem; margin-bottom:8px;">📊</p>
+        <p class="detail-label">Real Business Data</p>
+        <p class="detail-body">Connected to real Google Sheets for pricing lookups and a live Google Calendar for availability — not mocked data. This mirrors how a production deployment would actually operate.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <span>Jax Johnson · Advanced Python · Baylor University</span>
+  <a href="class-projects.html" style="color:var(--purple); font-weight:600;">← All Projects</a>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+// FLOW DIAGRAM — NODE DATA
+// ═══════════════════════════════════════════
+const nodes = [
+  {
+    id: 'trigger',
+    name: 'Google Sheets Trigger',
+    type: 'n8n-nodes-base.googleSheetsTrigger',
+    icon: '📋',
+    iconClass: 'node-icon-trigger',
+    color: '#10b981',
+    title: '📋 Google Sheets Trigger',
+    desc: 'Polls the "MIS 4V98 (Responses)" Google Sheet for new rows. The moment a customer submits the Google Form, this node wakes up and extracts their Name, Email, Service Address, and Service Description.'
+  },
+  {
+    id: 'store-response',
+    name: 'Store Response',
+    type: 'n8n-nodes-base.set',
+    icon: '💾',
+    iconClass: 'node-icon-set',
+    color: '#3b82f6',
+    title: '💾 Store Response',
+    desc: 'A Set node that maps the raw Google Sheet columns into clean, named variables: Full Name, Email Address, Service Address, and Description. This makes downstream agents easy to read and debug.'
+  },
+  {
+    id: 'intake',
+    name: 'Call Intake Agent',
+    type: 'n8n-nodes-base.httpRequest',
+    icon: '🤖',
+    iconClass: 'node-icon-http',
+    color: '#8b5cf6',
+    title: '🤖 Intake Agent (HTTP Request)',
+    desc: 'POSTs the structured form data to the Intake Agent webhook at jaxjohnson.app.n8n.cloud/webhook/agent-intake. This agent parses the natural-language service description and structures it for downstream use — identifying service type, urgency, and job scope.'
+  },
+  {
+    id: 'store-job',
+    name: 'Store Job',
+    type: 'n8n-nodes-base.set',
+    icon: '💾',
+    iconClass: 'node-icon-set',
+    color: '#3b82f6',
+    title: '💾 Store Job',
+    desc: 'Saves the Intake Agent\'s parsed job summary. This node acts as state memory — it holds the structured job object so that downstream nodes can reference it without re-calling the intake agent.'
+  },
+  {
+    id: 'pricing',
+    name: 'Call Pricing Agent',
+    type: 'n8n-nodes-base.httpRequest',
+    icon: '💰',
+    iconClass: 'node-icon-http',
+    color: '#8b5cf6',
+    title: '💰 Pricing Agent (HTTP Request)',
+    desc: 'Sends the job details to the Pricing Agent webhook. This agent reads the business\'s Google Sheet rate card, matches the service type + complexity, and returns an itemized quote including service type, urgency, complexity level, estimated price, and explanation.'
+  },
+  {
+    id: 'store-pricing',
+    name: 'Store Pricing',
+    type: 'n8n-nodes-base.set',
+    icon: '💾',
+    iconClass: 'node-icon-set',
+    color: '#3b82f6',
+    title: '💾 Store Pricing',
+    desc: 'Accumulates state: saves the pricing result AND re-attaches the job from Store Job. Each accumulator node builds a richer context object so the final comms agent has everything it needs in one place.'
+  },
+  {
+    id: 'scheduling',
+    name: 'Call Scheduling Agent',
+    type: 'n8n-nodes-base.httpRequest',
+    icon: '📅',
+    iconClass: 'node-icon-http',
+    color: '#8b5cf6',
+    title: '📅 Scheduling Agent (HTTP Request)',
+    desc: 'Sends pricing + job context to the Scheduling Agent. This agent checks calendar availability against the customer\'s preferred dates and returns 2–3 open appointment slots formatted as display strings with ISO timestamps.'
+  },
+  {
+    id: 'store-scheduling',
+    name: 'Store Scheduling',
+    type: 'n8n-nodes-base.set',
+    icon: '💾',
+    iconClass: 'node-icon-set',
+    color: '#3b82f6',
+    title: '💾 Store Scheduling',
+    desc: 'Final accumulator — saves scheduling results and re-attaches both pricing and job data. After this node, the pipeline has a complete context object: job + price + slots, ready for the Comms Agent.'
+  },
+  {
+    id: 'comms',
+    name: 'Call Comms Agent',
+    type: 'n8n-nodes-base.httpRequest',
+    icon: '✍️',
+    iconClass: 'node-icon-http',
+    color: '#8b5cf6',
+    title: '✍️ Comms Agent (HTTP Request)',
+    desc: 'The final AI agent — takes the complete job + pricing + scheduling package and drafts a professional, personalized confirmation email. Uses the customer\'s first name, formats the quote clearly, and lists the available appointment options.'
+  },
+  {
+    id: 'store-comms',
+    name: 'Store Comms',
+    type: 'n8n-nodes-base.set',
+    icon: '💾',
+    iconClass: 'node-icon-set',
+    color: '#3b82f6',
+    title: '💾 Store Comms',
+    desc: 'Saves the drafted email content and assembles the final state object with all four agent outputs. This node is the last checkpoint before the email is sent — everything is in one place.'
+  },
+  {
+    id: 'gmail',
+    name: 'Send Gmail',
+    type: 'n8n-nodes-base.gmail',
+    icon: '📧',
+    iconClass: 'node-icon-email',
+    color: '#f59e0b',
+    title: '📧 Gmail — Send Confirmation',
+    desc: 'Fires the drafted email to the customer\'s address pulled from the original form response. The subject line is personalized ("Service Request Update for [First Name]"). End-to-end pipeline time: under 60 seconds from form submission.'
+  }
+];
+
+function renderFlow() {
+  const diagram = document.getElementById('flowDiagram');
+  diagram.innerHTML = '';
+
+  nodes.forEach((node, i) => {
+    // Arrow (not before first)
+    if (i > 0) {
+      const arrow = document.createElement('div');
+      arrow.className = 'flow-arrow';
+      diagram.appendChild(arrow);
+    }
+
+    const el = document.createElement('div');
+    el.className = 'flow-node';
+    el.dataset.id = node.id;
+    el.innerHTML = `
+      <div class="node-icon ${node.iconClass}">${node.icon}</div>
+      <div class="node-info">
+        <p class="node-name">${node.name}</p>
+        <p class="node-type">${node.type}</p>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    `;
+    el.addEventListener('click', () => showPanel(node, el));
+    diagram.appendChild(el);
+  });
+}
+
+function showPanel(node, el) {
+  // De-activate all
+  document.querySelectorAll('.flow-node').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+
+  const panel = document.getElementById('node-panel');
+  const title = document.getElementById('panel-title');
+  const body  = document.getElementById('panel-body');
+
+  title.textContent = node.title;
+  body.textContent  = node.desc;
+  panel.style.borderColor = node.color + '55';
+  panel.style.background  = node.color + '10';
+}
+
+renderFlow();
+</script>
+</body>
+</html>

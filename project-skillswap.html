@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campus SkillSwap — Jax Johnson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:      #0d0b18; --surface: #13112a; --card: #1a1730;
+      --border:  rgba(255,255,255,0.07); --text: #ede8ff;
+      --muted:   rgba(237,232,255,0.50);
+      --purple:  #8b5cf6; --violet: #7c3aed; --pink: #ec4899;
+      --green:   #10b981; --gold: #f59e0b; --blue: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .back-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,11,24,0.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border); padding: 14px 32px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .back-nav a { font-size: 13px; font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 6px; transition: color .15s; }
+    .back-nav a:hover { color: var(--text); }
+    .back-nav .sep { color: var(--border); }
+    .back-nav .crumb-active { font-size: 13px; color: var(--purple); font-weight: 600; }
+
+    /* ── HERO ── */
+    .hero { padding: 120px 48px 56px; max-width: 1100px; margin: 0 auto; position: relative; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(139,92,246,0.14); border: 1px solid rgba(139,92,246,0.3);
+      color: var(--purple); border-radius: 999px; padding: 5px 14px;
+      font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 18px; }
+    .hero h1 em { font-style: normal; color: var(--purple); }
+    .hero-summary { font-size: 1.05rem; line-height: 1.8; color: var(--muted); max-width: 680px; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 36px; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num { font-size: 2rem; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+    .section { margin-bottom: 60px; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 8px; }
+    .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 0 56px; }
+
+    /* ── MOCK UI ── */
+    .mock-browser {
+      background: #1a1730; border: 1px solid rgba(139,92,246,0.25); border-radius: 16px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .mock-topbar {
+      background: #0f0d20; border-bottom: 1px solid var(--border);
+      padding: 12px 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .mock-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .mock-url-bar {
+      flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: 6px; padding: 5px 12px; font-size: 12px; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .mock-navbar {
+      background: #0f0d20; border-bottom: 1px solid var(--border);
+      padding: 12px 24px; display: flex; align-items: center; gap: 20px;
+    }
+    .mock-brand { font-weight: 700; font-size: 15px; color: var(--purple); }
+    .mock-nav-links { display: flex; gap: 16px; margin-left: auto; align-items: center; }
+    .mock-nav-link { font-size: 13px; color: var(--muted); }
+    .mock-nav-btn {
+      background: var(--purple); color: white; border-radius: 7px;
+      padding: 6px 14px; font-size: 13px; font-weight: 600;
+    }
+
+    /* skill cards grid */
+    .mock-body { padding: 24px; }
+    .mock-search-row { display: flex; gap: 10px; margin-bottom: 20px; }
+    .mock-search {
+      flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--muted);
+    }
+    .mock-filter {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--muted); min-width: 130px;
+    }
+    .mock-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 700px) { .mock-cards { grid-template-columns: 1fr; } }
+    .mock-card {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px; transition: border-color .2s;
+    }
+    .mock-card:hover { border-color: rgba(139,92,246,0.4); }
+    .mock-card-tag {
+      display: inline-block; padding: 3px 9px; border-radius: 999px;
+      font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .tag-tech    { background: rgba(59,130,246,.15); color: var(--blue); border: 1px solid rgba(59,130,246,.25); }
+    .tag-tutor   { background: rgba(16,185,129,.15); color: var(--green); border: 1px solid rgba(16,185,129,.25); }
+    .tag-design  { background: rgba(236,72,153,.15); color: var(--pink); border: 1px solid rgba(236,72,153,.25); }
+    .mock-card-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .mock-card-desc { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+    .mock-card-foot { display: flex; align-items: center; justify-content: space-between; }
+    .mock-stars { color: var(--gold); font-size: 11px; }
+    .mock-price { font-size: 12px; font-weight: 700; color: var(--purple); }
+    .mock-book-btn {
+      display: block; width: 100%; margin-top: 10px; background: var(--purple);
+      color: white; border-radius: 7px; padding: 7px; font-size: 12px; font-weight: 600;
+      text-align: center; cursor: pointer; border: none;
+    }
+
+    /* ── SCHEMA DIAGRAM ── */
+    .schema-wrap { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; gap: 0; align-items: center; }
+    @media (max-width: 700px) { .schema-wrap { grid-template-columns: 1fr; gap: 12px; } .schema-arrow { display: none; } }
+    .schema-table {
+      background: var(--surface); border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 14px; overflow: hidden;
+    }
+    .schema-thead {
+      background: rgba(139,92,246,0.2); padding: 10px 16px;
+      font-size: 12px; font-weight: 700; color: var(--purple); letter-spacing: .06em; text-transform: uppercase;
+    }
+    .schema-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 16px; border-top: 1px solid var(--border); gap: 8px;
+    }
+    .schema-field { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text); }
+    .schema-type { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+    .schema-pk { color: var(--gold); }
+    .schema-fk { color: var(--blue); }
+    .schema-arrow { display: flex; align-items: center; justify-content: center; color: rgba(139,92,246,0.6); font-size: 22px; }
+
+    /* ── FEATURE WALKTHROUGH ── */
+    .feature-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+    .feat-btn {
+      padding: 8px 18px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; transition: all .15s;
+    }
+    .feat-btn.active { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.4); color: var(--purple); }
+    .feat-panel { display: none; }
+    .feat-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .feat-panel.active { grid-template-columns: 1fr; } }
+    .feat-info { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .feat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 12px; }
+    .feat-info p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 14px; }
+    .feat-code { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; overflow-x: auto; }
+    pre { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.8; white-space: pre; }
+    .kw { color: #c084fc; } .fn { color: #06b6d4; } .str { color: #86efac; }
+    .cm { color: #6b7280; font-style: italic; } .num { color: var(--gold); }
+    .dec { color: #fb923c; }
+
+    /* ── VIBE STORY ── */
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+    @media (max-width: 700px) { .story-grid { grid-template-columns: 1fr; } }
+    .story-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .story-num { font-size: 2.5rem; font-family: 'Playfair Display', serif; font-weight: 700; color: rgba(139,92,246,0.25); margin-bottom: 8px; line-height: 1; }
+    .story-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--purple); }
+    .story-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── DETAIL GRID ── */
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 700px) { .detail-grid { grid-template-columns: 1fr; } }
+    .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .detail-card.full { grid-column: 1 / -1; }
+    .detail-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; }
+    .detail-body { font-size: 14px; line-height: 1.75; color: rgba(237,232,255,.78); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .pill { padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--muted); }
+    .pill-purple { background: rgba(139,92,246,.13); border-color: rgba(139,92,246,.3); color: var(--purple); }
+    .pill-green  { background: rgba(16,185,129,.13); border-color: rgba(16,185,129,.3); color: var(--green); }
+
+    @media (max-width: 680px) {
+      .hero, .page { padding-left: 20px; padding-right: 20px; }
+      .hero { padding-top: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="back-nav">
+  <a href="class-projects.html">← Projects</a>
+  <span class="sep">|</span>
+  <span class="crumb-active">Campus SkillSwap</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">🐍 Django 4.2 · Python · SQLite · Bootstrap 5</div>
+  <h1>Campus <em>SkillSwap</em></h1>
+  <p class="hero-summary">
+    A full-stack student marketplace built from the ground up in Django — no tutorials followed,
+    no scaffolds cloned. Students post skills they can teach, browse what others offer, leave star
+    reviews, and send booking requests. Complete auth, CRUD, search, and a personal dashboard, all
+    wired together with Django's MVT pattern.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">DB Models</span></div>
+    <div class="stat"><span class="stat-num">7</span><span class="stat-label">Views</span></div>
+    <div class="stat"><span class="stat-num">9</span><span class="stat-label">Skill Categories</span></div>
+    <div class="stat"><span class="stat-num">5★</span><span class="stat-label">Rating System</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">From Scratch</span></div>
+  </div>
+</section>
+
+<main class="page">
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — LIVE MOCK UI
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Interface Preview</div>
+    <h2 class="section-title">The Skill Marketplace</h2>
+    <p class="section-sub">Browse view with live search + category filter. Every card links to a full detail page with reviews and booking form.</p>
+
+    <div class="mock-browser">
+      <div class="mock-topbar">
+        <div class="mock-dot" style="background:#ef4444"></div>
+        <div class="mock-dot" style="background:#f59e0b"></div>
+        <div class="mock-dot" style="background:#10b981"></div>
+        <div class="mock-url-bar">127.0.0.1:8000/skills/</div>
+      </div>
+      <div class="mock-navbar">
+        <span class="mock-brand">Campus SkillSwap</span>
+        <div class="mock-nav-links">
+          <span class="mock-nav-link">Browse</span>
+          <span class="mock-nav-link">Dashboard</span>
+          <span class="mock-nav-btn">+ Post a Skill</span>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-search-row">
+          <div class="mock-search">🔍  Search skills, e.g. "Python" or "guitar"…</div>
+          <div class="mock-filter">All Categories ▾</div>
+        </div>
+        <div class="mock-cards">
+          <div class="mock-card">
+            <span class="mock-card-tag tag-tech">Tech &amp; Coding</span>
+            <div class="mock-card-title">Python &amp; Django Tutoring</div>
+            <div class="mock-card-desc">Struggling with loops, OOP, or Django models? I'll pair-program with you until it clicks.</div>
+            <div class="mock-card-foot">
+              <span class="mock-stars">★★★★★</span>
+              <span class="mock-price">$15/hr</span>
+            </div>
+            <button class="mock-book-btn">Request Booking</button>
+          </div>
+          <div class="mock-card" style="border-color:rgba(139,92,246,0.4);">
+            <span class="mock-card-tag tag-tutor">Tutoring</span>
+            <div class="mock-card-title">MKTG 3310 Exam Prep</div>
+            <div class="mock-card-desc">Got an A in every marketing course. Let's go through past exams and concept review together.</div>
+            <div class="mock-card-foot">
+              <span class="mock-stars">★★★★☆</span>
+              <span class="mock-price">FREE</span>
+            </div>
+            <button class="mock-book-btn">Request Booking</button>
+          </div>
+          <div class="mock-card">
+            <span class="mock-card-tag tag-design">Design</span>
+            <div class="mock-card-title">Figma UI Design</div>
+            <div class="mock-card-desc">I'll teach you Figma from components to auto-layout. Great for MIS students building apps.</div>
+            <div class="mock-card-foot">
+              <span class="mock-stars">★★★★★</span>
+              <span class="mock-price">$20/hr</span>
+            </div>
+            <button class="mock-book-btn">Request Booking</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — DATABASE SCHEMA
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Data Model</div>
+    <h2 class="section-title">Database Schema</h2>
+    <p class="section-sub">Three models, two foreign key relationships. Django handles the SQL — you write the Python class, it creates the table.</p>
+
+    <div class="schema-wrap">
+      <!-- User (built-in) -->
+      <div class="schema-table">
+        <div class="schema-thead">👤 User (Django built-in)</div>
+        <div class="schema-row"><span class="schema-field schema-pk">id</span><span class="schema-type">PK · int</span></div>
+        <div class="schema-row"><span class="schema-field">username</span><span class="schema-type">CharField</span></div>
+        <div class="schema-row"><span class="schema-field">email</span><span class="schema-type">EmailField</span></div>
+        <div class="schema-row"><span class="schema-field">password</span><span class="schema-type">hashed</span></div>
+      </div>
+
+      <div class="schema-arrow">⇄</div>
+
+      <!-- Skill -->
+      <div class="schema-table">
+        <div class="schema-thead">🎯 Skill</div>
+        <div class="schema-row"><span class="schema-field schema-pk">id</span><span class="schema-type">PK · int</span></div>
+        <div class="schema-row"><span class="schema-field schema-fk">owner</span><span class="schema-type">FK → User</span></div>
+        <div class="schema-row"><span class="schema-field">title</span><span class="schema-type">CharField(120)</span></div>
+        <div class="schema-row"><span class="schema-field">description</span><span class="schema-type">TextField</span></div>
+        <div class="schema-row"><span class="schema-field">category</span><span class="schema-type">choices</span></div>
+        <div class="schema-row"><span class="schema-field">is_free / price</span><span class="schema-type">Bool / Decimal</span></div>
+        <div class="schema-row"><span class="schema-field">contact_pref</span><span class="schema-type">choices</span></div>
+        <div class="schema-row"><span class="schema-field">status</span><span class="schema-type">choices</span></div>
+        <div class="schema-row"><span class="schema-field">created_at</span><span class="schema-type">auto_now_add</span></div>
+      </div>
+
+      <div class="schema-arrow">⇄</div>
+
+      <!-- Review + BookingRequest stacked -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="schema-table">
+          <div class="schema-thead">⭐ Review</div>
+          <div class="schema-row"><span class="schema-field schema-pk">id</span><span class="schema-type">PK</span></div>
+          <div class="schema-row"><span class="schema-field schema-fk">skill</span><span class="schema-type">FK → Skill</span></div>
+          <div class="schema-row"><span class="schema-field schema-fk">reviewer</span><span class="schema-type">FK → User</span></div>
+          <div class="schema-row"><span class="schema-field">rating</span><span class="schema-type">1–5 int</span></div>
+          <div class="schema-row"><span class="schema-field">comment</span><span class="schema-type">TextField</span></div>
+          <div class="schema-row" style="font-size:10px;color:var(--gold);padding:6px 16px;">unique_together: (skill, reviewer)</div>
+        </div>
+        <div class="schema-table">
+          <div class="schema-thead">📅 BookingRequest</div>
+          <div class="schema-row"><span class="schema-field schema-pk">id</span><span class="schema-type">PK</span></div>
+          <div class="schema-row"><span class="schema-field schema-fk">skill</span><span class="schema-type">FK → Skill</span></div>
+          <div class="schema-row"><span class="schema-field schema-fk">requester</span><span class="schema-type">FK → User</span></div>
+          <div class="schema-row"><span class="schema-field">message</span><span class="schema-type">TextField</span></div>
+          <div class="schema-row"><span class="schema-field">proposed_time</span><span class="schema-type">CharField</span></div>
+          <div class="schema-row"><span class="schema-field">status</span><span class="schema-type">pending/accepted…</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — FEATURE WALKTHROUGH
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Feature Deep Dive</h2>
+    <p class="section-sub">Click a feature to see how it's built — from the URL pattern to the view logic.</p>
+
+    <div class="feature-tabs">
+      <button class="feat-btn active" onclick="showFeat(event,'search')">🔍 Search</button>
+      <button class="feat-btn" onclick="showFeat(event,'auth')">🔐 Auth</button>
+      <button class="feat-btn" onclick="showFeat(event,'booking')">📅 Booking</button>
+      <button class="feat-btn" onclick="showFeat(event,'dashboard')">📊 Dashboard</button>
+    </div>
+
+    <!-- SEARCH -->
+    <div id="feat-search" class="feat-panel active">
+      <div class="feat-info">
+        <h3>Keyword + Category Search</h3>
+        <p>The browse page supports simultaneous keyword search (title OR description) and category filter. Both are GET parameters so the URL stays shareable and the browser back button works perfectly.</p>
+        <p>Django's <strong style="color:var(--purple)">Q objects</strong> let you chain OR conditions on the queryset — no raw SQL needed. The <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">annotate()</code> call computes each skill's average rating in a single database query.</p>
+      </div>
+      <div class="feat-code"><pre><span class="cm"># skills/views.py — skill_list()</span>
+<span class="kw">from</span> django.db.models <span class="kw">import</span> Q, Avg
+
+<span class="kw">def</span> <span class="fn">skill_list</span>(request):
+    skills = Skill.objects.<span class="fn">filter</span>(
+        status=<span class="str">'available'</span>
+    ).<span class="fn">annotate</span>(
+        avg_rating=<span class="fn">Avg</span>(<span class="str">'reviews__rating'</span>)
+    )
+
+    query    = request.GET.<span class="fn">get</span>(<span class="str">'query'</span>, <span class="str">''</span>).<span class="fn">strip</span>()
+    category = request.GET.<span class="fn">get</span>(<span class="str">'category'</span>, <span class="str">''</span>)
+
+    <span class="kw">if</span> query:
+        skills = skills.<span class="fn">filter</span>(
+            <span class="fn">Q</span>(title__icontains=query) |
+            <span class="fn">Q</span>(description__icontains=query)
+        )
+    <span class="kw">if</span> category:
+        skills = skills.<span class="fn">filter</span>(category=category)
+
+    <span class="kw">return</span> <span class="fn">render</span>(request,
+        <span class="str">'skills/skill_list.html'</span>,
+        {<span class="str">'skills'</span>: skills, <span class="str">'query'</span>: query}
+    )</pre></div>
+    </div>
+
+    <!-- AUTH -->
+    <div id="feat-auth" class="feat-panel">
+      <div class="feat-info">
+        <h3>Registration &amp; Login</h3>
+        <p>Django's built-in <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">User</code> model handles password hashing and session management. The custom <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">RegisterForm</code> wraps <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">UserCreationForm</code> for consistent styling.</p>
+        <p>The <strong style="color:var(--purple)">@login_required</strong> decorator protects any view that modifies data — post a skill, edit, delete, or send a booking. Unauthenticated users get redirected to login and bounced back to their original destination after signing in.</p>
+      </div>
+      <div class="feat-code"><pre><span class="cm"># users/views.py</span>
+<span class="kw">from</span> django.contrib.auth <span class="kw">import</span> login
+<span class="kw">from</span> .forms <span class="kw">import</span> RegisterForm
+
+<span class="kw">def</span> <span class="fn">register</span>(request):
+    <span class="kw">if</span> request.method == <span class="str">'POST'</span>:
+        form = <span class="fn">RegisterForm</span>(request.POST)
+        <span class="kw">if</span> form.<span class="fn">is_valid</span>():
+            user = form.<span class="fn">save</span>()
+            <span class="fn">login</span>(request, user)
+            <span class="kw">return</span> <span class="fn">redirect</span>(<span class="str">'skills:dashboard'</span>)
+    <span class="kw">else</span>:
+        form = <span class="fn">RegisterForm</span>()
+    <span class="kw">return</span> <span class="fn">render</span>(request,
+        <span class="str">'registration/register.html'</span>,
+        {<span class="str">'form'</span>: form}
+    )
+
+<span class="cm"># Protect a view with one decorator:</span>
+<span class="dec">@login_required</span>
+<span class="kw">def</span> <span class="fn">skill_create</span>(request):
+    ...
+
+<span class="cm"># settings.py</span>
+LOGIN_REDIRECT_URL = <span class="str">'skills:dashboard'</span>
+LOGIN_URL          = <span class="str">'users:login'</span></pre></div>
+    </div>
+
+    <!-- BOOKING -->
+    <div id="feat-booking" class="feat-panel">
+      <div class="feat-info">
+        <h3>Booking Request System</h3>
+        <p>The skill detail page handles two separate form submissions in one view — a review form and a booking form — distinguished by a hidden field name in the POST body. Both forms are validated server-side with <strong style="color:var(--purple)">ModelForms</strong>.</p>
+        <p>Owners get an inbox of incoming requests on their dashboard and can accept, decline, or mark bookings complete via a single <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">booking_update</code> view that takes an <em>action</em> URL parameter.</p>
+      </div>
+      <div class="feat-code"><pre><span class="cm"># Dual-form POST handling</span>
+<span class="kw">if</span> request.method == <span class="str">'POST'</span>:
+    <span class="kw">if</span> <span class="str">'submit_review'</span> <span class="kw">in</span> request.POST:
+        <span class="cm"># handle star review</span>
+        review_form = <span class="fn">ReviewForm</span>(request.POST)
+        <span class="kw">if</span> review_form.<span class="fn">is_valid</span>():
+            review = review_form.<span class="fn">save</span>(commit=<span class="kw">False</span>)
+            review.skill    = skill
+            review.reviewer = request.user
+            review.<span class="fn">save</span>()
+
+    <span class="kw">elif</span> <span class="str">'submit_booking'</span> <span class="kw">in</span> request.POST:
+        <span class="cm"># handle booking request</span>
+        booking_form = <span class="fn">BookingRequestForm</span>(request.POST)
+        <span class="kw">if</span> booking_form.<span class="fn">is_valid</span>():
+            booking = booking_form.<span class="fn">save</span>(commit=<span class="kw">False</span>)
+            booking.skill     = skill
+            booking.requester = request.user
+            booking.<span class="fn">save</span>()
+
+<span class="cm"># Owner action URL: /skills/booking/&lt;pk&gt;/accept/</span>
+<span class="kw">def</span> <span class="fn">booking_update</span>(request, pk, action):
+    booking = <span class="fn">get_object_or_404</span>(BookingRequest, pk=pk)
+    <span class="kw">if</span> action == <span class="str">'accept'</span>:
+        booking.status = <span class="str">'accepted'</span>
+    booking.<span class="fn">save</span>()</pre></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="feat-dashboard" class="feat-panel">
+      <div class="feat-info">
+        <h3>Personal Dashboard</h3>
+        <p>Each user gets a dashboard showing their posted skills, incoming booking requests from other students, and their own outgoing requests — all pulled from the database in a single view with three querysets.</p>
+        <p>Stats (skill count, inbox count, sent count) are computed with Django's <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">.count()</code> and passed as a list of tuples so the template can loop over them cleanly.</p>
+      </div>
+      <div class="feat-code"><pre><span class="cm"># skills/views.py — dashboard()</span>
+<span class="dec">@login_required</span>
+<span class="kw">def</span> <span class="fn">dashboard</span>(request):
+    my_skills = Skill.objects.<span class="fn">filter</span>(
+        owner=request.user
+    )
+    incoming = BookingRequest.objects.<span class="fn">filter</span>(
+        skill__owner=request.user
+    ).<span class="fn">order_by</span>(<span class="str">'-created_at'</span>)
+
+    outgoing = BookingRequest.objects.<span class="fn">filter</span>(
+        requester=request.user
+    ).<span class="fn">order_by</span>(<span class="str">'-created_at'</span>)
+
+    stats = [
+        (<span class="str">'My Skills'</span>,         my_skills.<span class="fn">count</span>(),  <span class="str">'📋'</span>),
+        (<span class="str">'Incoming Requests'</span>, incoming.<span class="fn">count</span>(),  <span class="str">'📬'</span>),
+        (<span class="str">'Requests Sent'</span>,     outgoing.<span class="fn">count</span>(),  <span class="str">'📤'</span>),
+    ]
+
+    <span class="kw">return</span> <span class="fn">render</span>(request,
+        <span class="str">'skills/dashboard.html'</span>,
+        {<span class="str">'my_skills'</span>: my_skills,
+         <span class="str">'incoming'</span>:  incoming,
+         <span class="str">'outgoing'</span>:  outgoing,
+         <span class="str">'stats'</span>:     stats}
+    )</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — BUILD STORY
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">How It Got Built</div>
+    <h2 class="section-title">The Vibe-Coding Story</h2>
+
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="story-num">01</div>
+        <div class="story-title">Models First</div>
+        <div class="story-body">Started with <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">models.py</code> — designed the Skill, Review, and BookingRequest tables before writing a single view. Got the ForeignKey relationships right (especially <code>unique_together</code> on Review) before running migrations.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-num">02</div>
+        <div class="story-title">URLs &amp; Views</div>
+        <div class="story-body">Wired up URL namespacing with <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">app_name = 'skills'</code> so templates could use <code>{% url 'skills:skill_detail' pk=skill.pk %}</code>. Built all seven FBVs — list, detail, create, update, delete, dashboard, booking_update.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-num">03</div>
+        <div class="story-title">Forms &amp; Validation</div>
+        <div class="story-body">ModelForms saved hours — Django auto-generates form fields from model attributes. Added custom <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">clean()</code> validation to SkillForm: if <code>is_free=False</code> and <code>price</code> is blank, raise a ValidationError before the form ever hits the database.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-num">04</div>
+        <div class="story-title">Auth Flow</div>
+        <div class="story-body">Django's <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">@login_required</code> decorator handles redirect logic automatically. The hardest part was correctly setting <code>LOGIN_URL</code>, <code>LOGIN_REDIRECT_URL</code>, and <code>LOGOUT_REDIRECT_URL</code> in settings so the flow felt seamless.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-num">05</div>
+        <div class="story-title">Bootstrap Templates</div>
+        <div class="story-body">Built a shared <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">base.html</code> with Bootstrap 5 navbar and flash messages. Every other template extends it with <code>{% block content %}</code>. The Django messages framework showed success/error alerts across form submissions automatically.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-num">06</div>
+        <div class="story-title">Permissions &amp; Safety</div>
+        <div class="story-body">Every destructive operation checks <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">skill.owner == request.user</code> before proceeding. Tried reviewing my own skill — got blocked. Tried booking my own skill — blocked. Django's ORM makes these checks trivially easy to add.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 — DETAIL GRID (9-point rubric)
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Project Breakdown</div>
+    <h2 class="section-title">By the Numbers</h2>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-label">Business Problem</div>
+        <div class="detail-body">
+          College campuses have untapped peer expertise — students who could teach calculus, guitar,
+          Python, or Figma to their classmates, but there's no platform designed for that exchange.
+          Campus SkillSwap creates a marketplace specifically for student-to-student skill sharing
+          with built-in booking and review infrastructure.
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Summary</div>
+        <div class="detail-body">
+          A full-stack Django web application with user registration, skill CRUD, keyword + category
+          search with annotated average ratings, a 5-star review system (one per user per skill),
+          a booking request workflow with accept/decline/complete states, and a personal dashboard
+          tracking all activity in one place.
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Tools &amp; Stack</div>
+        <div class="detail-body">
+          <div class="pill-row">
+            <span class="pill pill-purple">Django 4.2</span>
+            <span class="pill pill-purple">Python 3.11</span>
+            <span class="pill pill-green">SQLite</span>
+            <span class="pill">Bootstrap 5.3</span>
+            <span class="pill">Bootstrap Icons</span>
+            <span class="pill">Django ORM</span>
+            <span class="pill">ModelForms</span>
+            <span class="pill">@login_required</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Key Features</div>
+        <div class="detail-body">
+          Full CRUD on skill listings with owner-only permissions. Dual-form POST handling on the
+          detail page (reviews + bookings). Q-object keyword search across title and description.
+          Avg rating annotation via <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">Avg('reviews__rating')</code>.
+          Booking lifecycle management (pending → accepted → completed). Flash messages on every action.
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">My Role</div>
+        <div class="detail-body">
+          Sole developer — designed all three models, wrote every view and URL pattern, built all
+          templates from scratch with Bootstrap, configured Django auth settings, and handled every
+          edge case (self-review prevention, self-booking prevention, owner-only edit/delete guards).
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">Biggest Challenge</div>
+        <div class="detail-body">
+          The dual-form view on skill detail — handling a review submission and a booking submission
+          from the same page required understanding how Django differentiates POST submitters. Using
+          <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">'submit_review' in request.POST</code> vs
+          <code style="color:var(--purple);font-family:'JetBrains Mono',monospace">'submit_booking' in request.POST</code>
+          as the branch condition was the key insight.
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-label">What I Learned</div>
+        <div class="detail-body">
+          Django's ORM eliminates boilerplate SQL but requires understanding queryset laziness —
+          queries only hit the database when evaluated, so structuring them efficiently matters.
+          I also learned why Django separates concerns so strictly: models, views, and templates
+          each have a single responsibility, which made debugging dramatically easier.
+        </div>
+      </div>
+
+      <div class="detail-card full">
+        <div class="detail-label">Course Context</div>
+        <div class="detail-body">
+          Built for Advanced Python (MIS 4V90) at Baylor University. The course requirement was to
+          build a Django application with at least two models, authentication, and CRUD operations.
+          Campus SkillSwap exceeds those requirements with three models, a booking workflow, search
+          with Q objects, average rating annotation, and full permission enforcement on all write operations.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+function showFeat(e, id) {
+  document.querySelectorAll('.feat-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.feat-panel').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('feat-' + id).classList.add('active');
+}
+</script>
+</body>
+</html>

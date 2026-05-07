@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Google AI Studio Media Project — Jax Johnson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:     #0a0a0f; --surface: #111118; --card: #17171f;
+      --border: rgba(255,255,255,0.07); --text: #f2f0ff;
+      --muted:  rgba(242,240,255,0.52);
+      --gold:   #f59e0b; --amber: #d97706; --red: #ef4444;
+      --blue:   #60a5fa; --purple: #a78bfa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    .back-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,10,15,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 14px 32px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .back-nav a { font-size: 13px; font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .back-nav a:hover { color: var(--text); }
+    .back-nav .breadcrumb { font-size: 13px; color: var(--muted); }
+    .back-nav .breadcrumb span { color: var(--gold); }
+
+    /* ── Cinematic Hero ── */
+    .hero {
+      position: relative; min-height: 420px;
+      background: linear-gradient(to bottom, #0a0a0f 0%, #1a0e00 50%, #0a0a0f 100%);
+      display: flex; align-items: flex-end; padding: 120px 48px 56px;
+      overflow: hidden;
+    }
+
+    .hero-grain {
+      position: absolute; inset: 0; opacity: .4;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+      color: var(--gold); border-radius: 999px; padding: 5px 14px;
+      font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1; letter-spacing: -.02em; margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero-summary { font-size: 1.05rem; line-height: 1.8; color: var(--muted); max-width: 640px; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 28px; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num { font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+    .section { margin-bottom: 60px; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px; }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+    .card-sm { padding: 20px; border-radius: 14px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .detail-grid { grid-template-columns: 1fr; } }
+    .detail-label { font-size: 11px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .detail-body { font-size: 14px; line-height: 1.7; color: rgba(242,240,255,.8); }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--muted); }
+    .pill-gold   { background: rgba(245,158,11,.15); border-color: rgba(245,158,11,.3); color: var(--gold); }
+    .pill-blue   { background: rgba(96,165,250,.12);  border-color: rgba(96,165,250,.3);  color: var(--blue); }
+    .pill-purple { background: rgba(167,139,250,.12); border-color: rgba(167,139,250,.3); color: var(--purple); }
+
+    /* ── Video Player ── */
+    .video-wrap {
+      background: #000; border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border); position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .video-wrap video { width: 100%; display: block; max-height: 520px; object-fit: contain; }
+
+    .video-caption {
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      padding: 10px 16px; border-top: 1px solid rgba(255,255,255,.06);
+      font-size: 12px; color: var(--muted); text-align: center;
+      font-style: italic; font-family: 'Playfair Display', serif;
+    }
+
+    /* ── Image Gallery ── */
+    .gallery {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    @media (max-width: 700px) { .gallery { grid-template-columns: 1fr; } }
+
+    .gallery-item {
+      border-radius: 12px; overflow: hidden; cursor: pointer;
+      border: 1px solid var(--border); position: relative;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      border-color: rgba(245,158,11,.3);
+    }
+    .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .gallery-item .img-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.8), transparent);
+      padding: 20px 10px 8px; font-size: 11px; color: rgba(255,255,255,.7);
+      font-family: 'Playfair Display', serif; font-style: italic;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 999;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-close {
+      position: absolute; top: 16px; right: 20px;
+      font-size: 28px; cursor: pointer; color: rgba(255,255,255,.5);
+      font-family: sans-serif; transition: color .15s;
+    }
+    .lightbox-close:hover { color: #fff; }
+
+    /* ── Prompt breakdown ── */
+    .prompt-steps { display: flex; flex-direction: column; gap: 16px; }
+    .prompt-step {
+      display: grid; grid-template-columns: 36px 1fr; gap: 14px;
+      background: rgba(255,255,255,.03); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 18px; align-items: start;
+    }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.3);
+      color: var(--gold); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .step-title { font-weight: 700; font-size: 14px; margin-bottom: 5px; }
+    .step-body  { font-size: 13px; line-height: 1.7; color: var(--muted); }
+    .prompt-quote {
+      background: rgba(0,0,0,.3); border-left: 3px solid rgba(245,158,11,.4);
+      border-radius: 0 8px 8px 0; padding: 10px 14px; margin-top: 8px;
+      font-size: 12.5px; font-style: italic; color: rgba(242,240,255,.6);
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── Spec table ── */
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table tr { border-bottom: 1px solid var(--border); }
+    .spec-table tr:last-child { border-bottom: none; }
+    .spec-table td { padding: 11px 14px; font-size: 13.5px; }
+    .spec-table td:first-child { color: var(--muted); font-weight: 600; width: 200px; }
+
+    .site-footer {
+      border-top: 1px solid var(--border); padding: 28px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--muted); max-width: 1100px; margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="class-projects.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Projects
+  </a>
+  <span class="breadcrumb">Projects / <span>Google AI Studio Media Project</span></span>
+</nav>
+
+<!-- ── Cinematic Hero ── -->
+<header class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-tag">🎬 Google AI Studio · Media Generation · Spring 2026</div>
+    <h1><em>"To live as a monster,<br/>or to die as a good man."</em></h1>
+    <p class="hero-summary">
+      A Google AI Studio video generation project — prompting an AI model to recreate the final scene of <em>Shutter Island</em> from three reference stills, with a custom line of dialogue and camera motion.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Reference Stills</span></div>
+      <div class="stat"><span class="stat-num">15s</span><span class="stat-label">Generated Video</span></div>
+      <div class="stat"><span class="stat-num">35mm</span><span class="stat-label">Simulated Aesthetic</span></div>
+      <div class="stat"><span class="stat-num">AI</span><span class="stat-label">Written Dialogue</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="page" style="padding-top: 48px;">
+
+  <!-- ── Video ── -->
+  <section class="section">
+    <p class="section-label">Generated Output</p>
+    <p class="section-title">The AI-generated video</p>
+    <div class="video-wrap">
+      <video controls preload="metadata" poster="">
+        <source src="shutter-island-ai.mp4" type="video/mp4"/>
+        Your browser doesn't support video playback.
+      </video>
+      <div class="video-caption">
+        "Ignorance only becomes bliss when it saves you from madness." — Andrew Laeddis walks off screen as the camera refocuses on the lighthouse.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Project Details ── -->
+  <section class="section">
+    <p class="section-label">Project Overview</p>
+    <div class="detail-grid">
+      <div class="card card-sm">
+        <p class="detail-label">Business Problem</p>
+        <p class="detail-body">Studios and content creators need to produce cinematic scene extensions, previsualization, or concept footage without full production crews. This project explores whether AI Studio can faithfully extend a specific visual style and emotional tone from reference images into generated video — a practical use case for pre-production and storyboarding.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">One-Sentence Summary</p>
+        <p class="detail-body">Used Google AI Studio to generate a 15-second cinematic video sequence by prompting the model with three reference stills from <em>Shutter Island</em>, a written scene context document, a custom line of dialogue, and specific camera motion instructions.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">My Role</p>
+        <p class="detail-body">Wrote the full scene context document analyzing cinematography, color grading, period wardrobe, and camera specs. Engineered the prompts iteratively — including multi-round refinements to fix character continuity (a background figure disappearing mid-shot) and direct the final camera refocus on the lighthouse.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">Biggest Challenge</p>
+        <p class="detail-body">Character consistency across frames. In early generations, the figure behind Andrew would disappear as the camera panned. Fixing it required multi-round prompt engineering — explicitly instructing the model to maintain all characters in frame until they naturally exit behind Andrew before the final lighthouse focus.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">What I Learned</p>
+        <p class="detail-body">AI video generation is deeply sensitive to visual anchors — the more specific and technical the reference (color temperature, lens type, film grain), the closer the output matches. It also taught me that prompt engineering for visual media is a different skill from text prompting: you're directing a camera, not describing words.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="detail-label">Tools Used</p>
+        <div class="pill-row" style="margin-top:8px;">
+          <span class="pill pill-gold">Google AI Studio</span>
+          <span class="pill pill-blue">Veo (Video Generation)</span>
+          <span class="pill pill-purple">Prompt Engineering</span>
+          <span class="pill">Cinematic Reference</span>
+          <span class="pill">Scene Context Writing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Reference Images ── -->
+  <section class="section">
+    <p class="section-label">Reference Stills</p>
+    <p class="section-title">The three input images</p>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">These screenshots from <em>Shutter Island</em> (2010) were provided as visual references to ground the AI's output in the correct color palette, character staging, and atmospheric conditions. Click to enlarge.</p>
+
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80" alt="Reference still 1 — establishing shot" onerror="this.style.background='#1a1a2e';this.style.height='200px'"/>
+        <div class="img-label">Shot 1 — The Doctor's arrival</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="https://images.unsplash.com/photo-1489945052260-4f21c52268b9?w=600&q=80" alt="Reference still 2 — reverse medium shot" onerror="this.style.background='#1a1a2e';this.style.height='200px'"/>
+        <div class="img-label">Shot 2 — Reverse medium (Andrew's POV)</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="https://images.unsplash.com/photo-1509909756405-be0199881695?w=600&q=80" alt="Reference still 3 — transition" onerror="this.style.background='#1a1a2e';this.style.height='200px'"/>
+        <div class="img-label">Shot 3 — The final decision</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Prompt Engineering ── -->
+  <section class="section">
+    <p class="section-label">Prompt Engineering</p>
+    <p class="section-title">How the video was directed</p>
+
+    <div class="prompt-steps">
+      <div class="prompt-step">
+        <div class="step-num">1</div>
+        <div>
+          <p class="step-title">Scene Context Document</p>
+          <p class="step-body">Before any video prompting, I wrote a detailed "Scene Context and Narrative" document analyzing the cinematography — lens type (35mm prime), color grading (cold, desaturated, slate grays), film grain texture, wardrobe period accuracy, and the emotional meaning of each visual element. This document was fed to the model as background context.</p>
+          <div class="prompt-quote">"The images utilize a cinematic 35mm film aesthetic... a cold, desaturated palette dominated by slate grays, muted browns, and mossy greens."</div>
+        </div>
+      </div>
+
+      <div class="prompt-step">
+        <div class="step-num">2</div>
+        <div>
+          <p class="step-title">Initial Generation Prompt</p>
+          <p class="step-body">The base prompt instructed AI Studio to generate a 15-second video continuation — Andrew sitting on the steps, cigarette in hand, as the doctor watches from above. Specified the lighthouse as a background element, the stone steps environment, and the period wardrobe.</p>
+        </div>
+      </div>
+
+      <div class="prompt-step">
+        <div class="step-num">3</div>
+        <div>
+          <p class="step-title">Dialogue + Camera Motion Refinement</p>
+          <p class="step-body">Second prompt added the custom line of dialogue and specific camera movement — Andrew delivers the line, then walks off screen. The camera slowly defocuses from him and refocuses on the distant lighthouse.</p>
+          <div class="prompt-quote">"Have him say the line 'ignorance only becomes bliss when it saves you from madness' and walk off the screen as the camera unfocuses on him and focuses on the lighthouse."</div>
+        </div>
+      </div>
+
+      <div class="prompt-step">
+        <div class="step-num">4</div>
+        <div>
+          <p class="step-title">Character Continuity Fix</p>
+          <p class="step-body">Early generations had a continuity error — the background figure would disappear mid-generation. Required additional prompting to maintain all characters in frame until they exit naturally behind Andrew, before the final camera transition.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Technical Specs ── -->
+  <section class="section">
+    <p class="section-label">Technical Specifications</p>
+    <p class="section-title">Cinematic parameters matched</p>
+    <div class="card">
+      <table class="spec-table">
+        <tr><td>Tool</td><td>Google AI Studio — Video Generation (Veo)</td></tr>
+        <tr><td>Reference Material</td><td>3 screenshots from <em>Shutter Island</em> (2010, dir. Martin Scorsese)</td></tr>
+        <tr><td>Output Duration</td><td>15 seconds</td></tr>
+        <tr><td>Simulated Lens</td><td>35mm prime — naturalistic perspective, soft background blur</td></tr>
+        <tr><td>Color Grading</td><td>Cold and desaturated — slate grays, muted browns, mossy greens</td></tr>
+        <tr><td>Film Aesthetic</td><td>High-grain, "lived-in" texture consistent with 1950s period pieces</td></tr>
+        <tr><td>Camera Motion</td><td>Static → slow defocus from character → refocus on lighthouse</td></tr>
+        <tr><td>Custom Dialogue</td><td>"Ignorance only becomes bliss when it saves you from madness."</td></tr>
+        <tr><td>Prompt Iterations</td><td>4 rounds of refinement</td></tr>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+  <img id="lightbox-img" src="" alt=""/>
+</div>
+
+<footer class="site-footer">
+  <span>Jax Johnson · Advanced Python · Baylor University</span>
+  <a href="class-projects.html" style="color:var(--gold); font-weight:600;">← All Projects</a>
+</footer>
+
+<script>
+const images = [
+  { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=85', alt: 'Reference still 1' },
+  { src: 'https://images.unsplash.com/photo-1489945052260-4f21c52268b9?w=1200&q=85', alt: 'Reference still 2' },
+  { src: 'https://images.unsplash.com/photo-1509909756405-be0199881695?w=1200&q=85', alt: 'Reference still 3' }
+];
+
+function openLightbox(i) {
+  document.getElementById('lightbox-img').src = images[i].src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+</script>
+</body>
+</html>

@@ -8,374 +8,273 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ── Page Theme: Cream & Gold ── */
+    /* ── Design Tokens (exact match to portfolio.html / experience.html) ── */
     :root {
       --bg:             #faf8f3;
-      --bg-soft:        #f4eee3;
-      --bg-deep:        #ebe3d3;
-      --surface:        rgba(255, 255, 255, 0.92);
-      --surface-strong: rgba(244, 238, 227, 0.97);
+      --surface:        #ffffff;
+      --surface-soft:   #f4eee3;
+      --surface-strong: #ebe3d3;
       --text:           #1c1710;
-      --muted:          rgba(28, 23, 16, 0.58);
+      --muted:          rgba(28, 23, 16, 0.62);
+      --faint:          rgba(28, 23, 16, 0.36);
       --line:           rgba(130, 100, 55, 0.14);
+      --line-strong:    rgba(130, 100, 55, 0.30);
       --gold:           #8c6a00;
       --gold-soft:      #b8911a;
-      --blue:           #8c6a00;
-      --shadow-panel:   0 24px 72px rgba(28, 23, 16, 0.10);
+      --shadow:         0 24px 64px rgba(28, 23, 16, 0.08);
+      --shadow-card:    0 4px 24px rgba(28, 23, 16, 0.06);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(184, 145, 26, 0.08), transparent 32%),
-        linear-gradient(180deg, #faf8f3 0%, #f7f2e8 100%);
+        radial-gradient(circle at top left, rgba(184,145,26,0.08), transparent 32%),
+        linear-gradient(180deg, #faf8f3 0%, #f6f0e4 100%);
       color: var(--text);
       font-family: "Space Grotesk", sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
 
-    @view-transition { navigation: auto; }
-    ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.62s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
-
-    /* ── Page Transition ── */
-    .page-transition { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
-    .page-transition__panel {
-      position: absolute; top: 50%; left: 50%;
-      width: min(34vw, 460px); height: min(22vw, 300px);
-      background: var(--bg-deep);
-      border: 1px solid rgba(255, 184, 28, 0.2);
-      border-radius: 28px;
-      transform: translate(-50%, -50%) scale(0.88);
-      opacity: 0; backdrop-filter: blur(16px);
-    }
-
-    /* ── Page Header ── */
-    .page-header { position: relative; min-height: 72vh; overflow: hidden; display: grid; place-items: end; }
-    .page-header__bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 22% 30%, rgba(184, 145, 26, 0.10), transparent 44%),
-        radial-gradient(ellipse at 78% 72%, rgba(140, 106, 0, 0.05), transparent 38%);
-    }
-    .page-header__grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255, 184, 28, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 184, 28, 0.04) 1px, transparent 1px);
-      background-size: 72px 72px;
-    }
-    .page-header__inner { position: relative; z-index: 2; width: min(1200px, calc(100% - 64px)); margin: 0 auto; padding: 18vh 0 8vh; }
-    .page-num { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
-    .page-num::before { content: ""; display: block; width: 32px; height: 1px; background: var(--gold); opacity: 0.7; }
-    .page-header__title { margin: 0; font-size: clamp(2.8rem, 6.5vw, 5.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 0.95; color: var(--text); max-width: 14ch; }
-    .page-header__title em { font-style: normal; color: var(--gold); }
-    .page-header__sub { margin: 22px 0 0; font-size: clamp(1rem, 1.4vw, 1.16rem); line-height: 1.72; color: var(--muted); max-width: 52ch; }
-    .header-metrics { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
-    .header-metric { display: flex; flex-direction: column; gap: 4px; }
-    .header-metric__num { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; letter-spacing: -0.04em; color: rgba(255,248,220,0.97); line-height: 1; }
-    .header-metric__num span { color: var(--gold); }
-    .header-metric__label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(225,200,140,0.6); }
-
-    /* ── Sections ── */
-    .section { width: min(1200px, calc(100% - 64px)); margin: 0 auto; padding: 72px 0; }
-    .section-rule { height: 1px; border: none; margin: 0 0 28px; background: linear-gradient(90deg, rgba(255,184,28,0.5), rgba(180,120,0,0.25), transparent 70%); }
-    .section-eyebrow { margin: 0 0 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
-    .section-title { margin: 0 0 36px; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
-
-    /* ── Featured Project ── */
-    .featured-project {
-      border: 1px solid rgba(255,184,28,0.28);
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at 15% 30%, rgba(200,140,0,0.14), transparent 40%),
-        var(--surface-strong);
-      overflow: hidden;
-      position: relative;
-      margin-bottom: 24px;
-    }
-
-    .featured-project::before {
-      content: ""; position: absolute; inset: 0 0 auto 0; height: 2px;
-      background: linear-gradient(90deg, var(--gold), rgba(180,120,0,0.5), transparent 70%);
-    }
-
-    .featured-banner {
-      width: 100%;
-      aspect-ratio: 16/6;
-      background:
-        radial-gradient(circle at 20% 40%, rgba(200,140,0,0.22), transparent 50%),
-        radial-gradient(circle at 80% 60%, rgba(255,184,28,0.1), transparent 44%),
-        #0c0900;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .featured-banner__num {
-      font-size: clamp(8rem, 18vw, 16rem);
-      font-weight: 700; letter-spacing: -0.06em;
-      color: rgba(255,184,28,0.08);
-      user-select: none; position: absolute;
-      right: 5%; bottom: -10%;
-      line-height: 1;
-    }
-
-    .featured-banner__label {
-      position: absolute; top: 20px; left: 24px;
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: rgba(225,200,140,0.56);
-      border: 1px solid var(--line); padding: 4px 12px;
-      border-radius: 999px; background: rgba(10,8,0,0.7); backdrop-filter: blur(6px);
-    }
-
-    .featured-banner__icon { font-size: 4rem; position: relative; z-index: 1; }
-
-    .featured-body {
-      padding: 32px 32px 34px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 32px; align-items: start;
-    }
-
-    .featured-body__left { display: flex; flex-direction: column; gap: 12px; }
-    .featured-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(225,200,140,0.58); }
-    .featured-title { margin: 0; font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.06; color: rgba(255,248,220,0.97); }
-    .featured-desc { font-size: 14px; line-height: 1.74; color: var(--muted); max-width: 60ch; }
-
-    .featured-pages {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
-    }
-
-    .page-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 12px; border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(225,200,140,0.7);
-      transition: border-color 0.2s, color 0.2s;
-      cursor: pointer;
-    }
-
-    .page-chip:hover { border-color: rgba(255,184,28,0.38); color: var(--gold-soft); }
-
-    .featured-body__right { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      min-height: 46px; padding: 0 22px; border-radius: 999px;
-      font-family: inherit; font-size: 12px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
-      border: 1px solid var(--line); background: rgba(255,255,255,0.05); color: var(--text);
-      transition: all 0.22s; text-align: center; white-space: nowrap;
-    }
-    .btn:hover { border-color: rgba(255,184,28,0.42); background: rgba(255,184,28,0.08); transform: translateY(-2px); }
-    .btn--gold { background: rgba(255,184,28,0.14); border-color: rgba(255,184,28,0.48); color: var(--gold-soft); }
-    .btn--gold:hover { background: rgba(255,184,28,0.24); border-color: rgba(255,184,28,0.72); }
-
-    .featured-stat { text-align: right; }
-    .featured-stat__num { font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; color: rgba(255,248,220,0.96); line-height: 1; }
-    .featured-stat__label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(225,200,140,0.54); margin-top: 4px; }
-
-    /* ── Projects Grid ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .project-card {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: var(--surface-strong);
-      padding: 24px 22px;
-      display: flex; flex-direction: column; gap: 10px;
-      transition: border-color 0.22s, transform 0.22s;
-    }
-
-    .project-card:hover { border-color: rgba(255,184,28,0.3); transform: translateY(-3px); }
-
-    .project-card--placeholder {
-      border-style: dashed; border-color: rgba(255,184,28,0.1);
-      background: rgba(255,255,255,0.02);
-      align-items: center; justify-content: center;
-      text-align: center; min-height: 160px;
-    }
-
-    .project-card__icon { font-size: 1.8rem; margin-bottom: 4px; }
-    .project-card__course { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(225,200,140,0.56); }
-    .project-card__title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; color: rgba(255,248,220,0.96); line-height: 1.15; }
-    .project-card__desc { font-size: 13px; line-height: 1.66; color: var(--muted); flex: 1; }
-    .project-card__tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tag { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); color: rgba(225,200,140,0.6); }
-    .tag--gold { border-color: rgba(255,184,28,0.3); color: var(--gold-soft); }
-    .placeholder-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(225,200,140,0.3); }
-
-    /* ── Skills Section ── */
-    .skills-bar {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;
-    }
-
-    .skill-pill {
-      padding: 8px 16px; border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,184,28,0.06);
-      font-size: 12px; font-weight: 600;
-      color: rgba(255,248,220,0.8);
-    }
-
-    /* ── Nav Island ── */
+    /* ── Nav (copied exactly from portfolio.html) ── */
     .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
+      position: sticky; top: 0; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
       padding: 16px 32px;
-      background: rgba(250, 248, 243, 0.92);
+      background: rgba(250,248,243,0.93);
       border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     }
     .top-nav__logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
     .top-nav__logo span { color: var(--gold); }
     .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
-    .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s ease; }
+    .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
     .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
-    .top-nav__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 999px; background: var(--text); color: #faf8f3; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .top-nav__cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 38px; padding: 0 18px; border-radius: 999px;
+      background: var(--text); color: #faf8f3;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    }
 
-    /* ── Footer ── */
-    .site-footer { width: min(1200px, calc(100% - 36px)); margin: 0 auto 116px; padding: 14px 20px; border: 1px solid var(--line); border-radius: 14px; background: #ffffff; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    /* ── Wrapper ── */
+    .page { width: min(1200px, calc(100% - 48px)); margin: 0 auto; padding-bottom: 80px; }
+
+    /* ── Section anatomy ── */
+    .section { padding: 72px 0 0; }
+    .section-rule { height: 1px; border: none; margin: 0 0 28px; background: linear-gradient(90deg, rgba(140,106,0,0.45), rgba(140,106,0,0.18), transparent 70%); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 0 0 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+    }
+    .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; opacity: 0.7; }
+    .section-title {
+      margin: 0 0 10px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    }
+    .section-copy { margin: 0 0 36px; max-width: 60ch; font-size: 15px; line-height: 1.74; color: var(--muted); }
+
+    /* ── FEATURED CARD ── */
+    .featured {
+      border: 1px solid var(--line-strong);
+      border-radius: 28px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .featured::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), rgba(184,145,26,0.4), transparent 70%);
+    }
+    /* Hero banner inside featured */
+    .featured-banner {
+      width: 100%; aspect-ratio: 16/5.5;
+      background:
+        radial-gradient(ellipse at 18% 40%, rgba(140,106,0,0.22), transparent 50%),
+        radial-gradient(ellipse at 82% 65%, rgba(184,145,26,0.10), transparent 44%),
+        #0f0c04;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .featured-banner__bg-num {
+      position: absolute; right: 4%; bottom: -12%;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(7rem, 16vw, 14rem);
+      font-weight: 700; letter-spacing: -0.06em;
+      color: rgba(255,184,28,0.06); user-select: none; line-height: 1;
+    }
+    .featured-banner__chip {
+      position: absolute; top: 20px; left: 24px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(225,200,140,0.65);
+      border: 1px solid rgba(225,200,140,0.2); border-radius: 999px;
+      padding: 5px 14px; background: rgba(15,12,4,0.7); backdrop-filter: blur(6px);
+    }
+    .featured-banner__emoji { font-size: 3.5rem; position: relative; z-index: 1; }
+
+    /* Featured card body */
+    .featured-body { padding: 32px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: start; }
+    @media (max-width: 720px) { .featured-body { grid-template-columns: 1fr; } }
+    .featured-body__tag { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .featured-body__title { margin: 0 0 12px; font-family: "Playfair Display", serif; font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: var(--text); }
+    .featured-body__desc { font-size: 14px; line-height: 1.74; color: var(--muted); max-width: 58ch; margin-bottom: 20px; }
+    .featured-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .featured-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: 999px;
+      border: 1px solid var(--line-strong); background: rgba(255,255,255,0.72);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); transition: border-color 0.2s, color 0.2s;
+    }
+    .featured-chip:hover { border-color: rgba(140,106,0,0.4); color: var(--gold); }
+    .featured-side { display: flex; flex-direction: column; gap: 14px; align-items: flex-end; }
+    @media (max-width: 720px) { .featured-side { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 12px; } }
+    .featured-stat { text-align: right; }
+    @media (max-width: 720px) { .featured-stat { text-align: left; } }
+    .featured-stat__num { font-family: "Playfair Display", serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--text); }
+    .featured-stat__label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-top: 4px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      min-height: 44px; padding: 0 22px; border-radius: 999px;
+      border: 1px solid var(--line-strong); background: rgba(255,255,255,0.7);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text); transition: all 0.2s; white-space: nowrap; cursor: pointer;
+    }
+    .btn:hover { border-color: rgba(140,106,0,0.42); background: rgba(140,106,0,0.07); transform: translateY(-2px); }
+    .btn--gold { background: var(--gold); border-color: var(--gold); color: #fff8f0; }
+    .btn--gold:hover { background: var(--gold-soft); border-color: var(--gold-soft); }
+
+    /* ── PROJECT CARDS GRID ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    @media (max-width: 900px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .projects-grid { grid-template-columns: 1fr; } }
+
+    .proj-card {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
+      padding: 26px 24px 22px;
+      gap: 0;
+      transition: border-color 0.22s, box-shadow 0.22s, transform 0.22s;
+      text-decoration: none; color: inherit;
+    }
+    .proj-card:hover {
+      border-color: var(--line-strong);
+      box-shadow: 0 8px 36px rgba(28,23,16,0.11);
+      transform: translateY(-3px);
+    }
+    .proj-card--muted { background: var(--surface-soft); box-shadow: none; }
+    .proj-card--placeholder {
+      background: none; border-style: dashed;
+      border-color: var(--line); box-shadow: none;
+      align-items: center; justify-content: center; min-height: 160px; text-align: center;
+    }
+    .proj-card--placeholder:hover { transform: none; box-shadow: none; }
+
+    /* Card icon strip */
+    .proj-icon-strip {
+      width: 100%; height: 80px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 18px; margin-bottom: 18px;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(140,106,0,0.12), transparent 60%),
+        var(--surface-strong);
+      position: relative; overflow: hidden;
+    }
+    .proj-icon-strip__num {
+      font-family: "Playfair Display", serif; font-size: 3.5rem; font-weight: 700;
+      letter-spacing: -0.05em; color: rgba(140,106,0,0.14); line-height: 1; user-select: none;
+    }
+    .proj-icon-strip__icon { font-size: 2rem; position: relative; z-index: 1; }
+
+    /* Card content */
+    .proj-course {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 7px;
+    }
+    .proj-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2;
+      color: var(--text); margin-bottom: 10px;
+    }
+    .proj-desc {
+      font-size: 13.5px; line-height: 1.68; color: var(--muted); flex: 1; margin-bottom: 18px;
+    }
+    /* Tags */
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .tag {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+      padding: 4px 9px; border-radius: 999px;
+      border: 1px solid var(--line-strong); color: var(--muted);
+      background: var(--surface-soft);
+    }
+    .tag--gold { border-color: rgba(140,106,0,0.3); color: var(--gold); background: rgba(140,106,0,0.07); }
+    /* CTA link inside card */
+    .proj-cta {
+      margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--gold); border-top: 1px solid var(--line); padding-top: 14px;
+      transition: gap 0.2s;
+    }
+    .proj-card:hover .proj-cta { gap: 10px; }
+    .proj-cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* placeholder label */
+    .placeholder-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+
+    /* ── SKILLS BAR ── */
+    .skills-bar { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-pill {
+      padding: 8px 16px; border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      width: min(1200px, calc(100% - 48px)); margin: 56px auto 40px;
+      padding: 14px 22px;
+      border: 1px solid var(--line); border-radius: 14px; background: var(--surface);
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
     .site-footer__name { font-size: 12px; font-weight: 700; color: var(--text); }
     .site-footer__meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-    .site-footer__legal { font-size: 11px; color: var(--muted); text-align: right; opacity: 0.7; }
+    .site-footer__legal { font-size: 11px; color: var(--faint); text-align: right; }
+    @media (max-width: 600px) { .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; } .site-footer__legal { text-align: left; } }
 
-    /* ── Responsive ── */
-    @media (max-width: 900px) { .featured-body { grid-template-columns: 1fr; } .featured-body__right { align-items: flex-start; } .featured-stat { text-align: left; } .projects-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 600px) { .projects-grid { grid-template-columns: 1fr; } .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; } .site-footer__legal { text-align: left; } }
+    /* ── Page transition ── */
+    .page-transition { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
+    .page-transition__panel {
+      position: absolute; top: 50%; left: 50%;
+      width: min(34vw, 460px); height: min(22vw, 300px);
+      background: var(--bg); border: 1px solid var(--line); border-radius: 28px;
+      transform: translate(-50%, -50%) scale(0.88); opacity: 0;
+    }
 
-    /* ── Reveal ── */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    /* ── Reveal animation ── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.52s ease, transform 0.52s ease; }
     .reveal.is-visible { opacity: 1; transform: none; }
-    .reveal--d1 { transition-delay: 0.1s; } .reveal--d2 { transition-delay: 0.2s; } .reveal--d3 { transition-delay: 0.3s; }
-
-    /* ── Standard Hero ── */
-    .page-shell {
-      width: min(1240px, calc(100% - 48px));
-      margin: 0 auto;
-    }
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
-      gap: clamp(24px, 4vw, 48px);
-      align-items: center;
-      padding: 60px clamp(48px, 7vw, 100px) 60px 0;
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 20px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-    .eyebrow::before {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: currentColor;
-      opacity: 0.7;
-    }
-    .hero__title {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2.8rem, 7vw, 5.4rem);
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      max-width: 10ch;
-    }
-    .hero__title span { color: var(--gold); }
-    .hero__copy {
-      margin: 22px 0 0;
-      max-width: 58ch;
-      font-size: 1.02rem;
-      line-height: 1.76;
-      color: var(--muted);
-    }
-    .hero__chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 22px 0 0;
-    }
-    .chip {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(130, 100, 55, 0.28);
-      background: rgba(255, 255, 255, 0.72);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .hero__panel {
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,238,227,0.94));
-      box-shadow: 0 28px 70px rgba(28, 23, 16, 0.08);
-      overflow: hidden;
-    }
-    .hero__photo {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      object-position: center top;
-      background:
-        radial-gradient(circle at top, rgba(184, 145, 26, 0.14), transparent 40%),
-        linear-gradient(180deg, #f7f2e8 0%, #eee5d6 100%);
-      padding: 0;
-    }
-    .hero__panel-copy {
-      padding: 18px 22px 20px;
-      border-top: 1px solid var(--line);
-    }
-    .hero__panel-copy strong {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .hero__panel-copy p {
-      margin: 0;
-      font-size: 13.5px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .page-shell { width: calc(100% - 32px); }
-    }
+    .reveal--d1 { transition-delay: 0.08s; } .reveal--d2 { transition-delay: 0.16s; } .reveal--d3 { transition-delay: 0.24s; }
   </style>
 </head>
 <body>
+
+  <!-- ── Page transition overlay ── -->
+  <div class="page-transition" aria-hidden="true"><div class="page-transition__panel"></div></div>
+
+  <!-- ── Nav ── -->
   <nav class="top-nav" aria-label="Portfolio navigation">
     <div class="top-nav__logo">Jax <span>Johnson</span></div>
     <div class="top-nav__links">
@@ -389,132 +288,294 @@
     <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
   </nav>
 
-  <div class="page-transition" aria-hidden="true">
-    <div class="page-transition__panel"></div>
-  </div>
-
   <main>
+    <div class="page">
 
+      <!-- ══════════════════════════════════════════════
+           HERO
+      ══════════════════════════════════════════════ -->
+      <section class="section reveal">
+        <div class="eyebrow">Academic Projects &bull; Baylor University</div>
+        <h1 class="section-title" style="font-size:clamp(2.6rem,6vw,4.8rem);letter-spacing:-0.04em;line-height:0.95;margin-bottom:20px;">
+          The Coursework
+        </h1>
+        <p class="section-copy" style="margin-bottom:0;">
+          Five engineering projects from Advanced Python (MIS 4V90) — AI agents, automation
+          workflows, machine learning models, a cinematic AI video, and a full-stack Django
+          marketplace — plus a flagship SAP corporate sponsorship pitch built for S3E.
+        </p>
+      </section>
 
+      <!-- ══════════════════════════════════════════════
+           FEATURED — SAP PITCH
+      ══════════════════════════════════════════════ -->
+      <section class="section reveal reveal--d1">
+        <hr class="section-rule" />
+        <div class="eyebrow">Featured Project</div>
+        <h2 class="section-title">The flagship</h2>
 
-    <!-- Featured: SAP Pitch -->
-    <section class="section reveal">
-      <hr class="section-rule" />
-      <p class="section-eyebrow">Featured Project</p>
-      <h2 class="section-title">The flagship</h2>
-
-      <div class="featured-project">
-        <div class="featured-banner">
-          <div class="featured-banner__num">01</div>
-          <span class="featured-banner__label">Multi-Page Interactive Site &middot; Live</span>
-          <div class="featured-banner__icon">🏟️</div>
-        </div>
-        <div class="featured-body">
-          <div class="featured-body__left">
-            <p class="featured-tag">Corporate Sponsorship Pitch &bull; S3E Program &bull; Spring 2026</p>
-            <h2 class="featured-title">Baylor Athletics &times; SAP<br />Partnership Proposal</h2>
-            <p class="featured-desc">A full executive-grade partnership pitch built as a 7-page interactive website — jersey patch sponsorship, premium suite activations, an executive keynote series, a custom AI fan app, and a Playfly-powered measurement framework. Includes an embedded AI briefing assistant.</p>
-            <div class="featured-pages">
-              <a class="page-chip" href="sap-index.html">Overview</a>
-              <a class="page-chip" href="https://sap-pitch-mqhs.vercel.app/sap-jersey-patch.html" target="_blank">Jersey Patch</a>
-              <a class="page-chip" href="https://sap-pitch-mqhs.vercel.app/sap-suites.html" target="_blank">Suites</a>
-              <a class="page-chip" href="https://sap-pitch-mqhs.vercel.app/sap-keynote.html" target="_blank">Keynotes</a>
-              <a class="page-chip" href="https://sap-pitch-mqhs.vercel.app/packages.html" target="_blank">App</a>
-              <a class="page-chip" href="https://sap-pitch-mqhs.vercel.app/measurement.html" target="_blank">Measurement</a>
-              <a class="page-chip" href="https://sap-pitch-mqhs.vercel.app/contact.html" target="_blank">Contact</a>
+        <div class="featured">
+          <div class="featured-banner">
+            <div class="featured-banner__bg-num">01</div>
+            <span class="featured-banner__chip">Multi-Page Interactive Site &middot; Live</span>
+            <div class="featured-banner__emoji">🏟️</div>
+          </div>
+          <div class="featured-body">
+            <div>
+              <p class="featured-body__tag">Corporate Sponsorship Pitch &bull; S3E Program &bull; Spring 2026</p>
+              <h3 class="featured-body__title">Baylor Athletics &times; SAP<br/>Partnership Proposal</h3>
+              <p class="featured-body__desc">
+                An executive-grade partnership pitch built as a 7-page interactive website — jersey
+                patch sponsorship, premium suite activations, a keynote series, a custom AI fan app,
+                and a Playfly-powered measurement framework. Includes an embedded AI briefing assistant.
+              </p>
+              <div class="featured-chips">
+                <a class="featured-chip" href="sap-index.html">Overview</a>
+                <a class="featured-chip" href="https://sap-pitch-mqhs.vercel.app/sap-jersey-patch.html" target="_blank">Jersey Patch ↗</a>
+                <a class="featured-chip" href="https://sap-pitch-mqhs.vercel.app/sap-suites.html" target="_blank">Suites ↗</a>
+                <a class="featured-chip" href="https://sap-pitch-mqhs.vercel.app/sap-keynote.html" target="_blank">Keynotes ↗</a>
+                <a class="featured-chip" href="https://sap-pitch-mqhs.vercel.app/packages.html" target="_blank">App ↗</a>
+                <a class="featured-chip" href="https://sap-pitch-mqhs.vercel.app/measurement.html" target="_blank">Measurement ↗</a>
+              </div>
+            </div>
+            <div class="featured-side">
+              <div class="featured-stat">
+                <p class="featured-stat__num">7</p>
+                <p class="featured-stat__label">Linked Pages</p>
+              </div>
+              <div class="featured-stat">
+                <p class="featured-stat__num">AI</p>
+                <p class="featured-stat__label">Built-In Assistant</p>
+              </div>
+              <a class="btn btn--gold" href="sap-index.html">Enter Site →</a>
             </div>
           </div>
-          <div class="featured-body__right">
-            <div class="featured-stat">
-              <p class="featured-stat__num">7</p>
-              <p class="featured-stat__label">Linked Pages</p>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           ADVANCED PYTHON PROJECTS
+      ══════════════════════════════════════════════ -->
+      <section class="section reveal">
+        <hr class="section-rule" />
+        <div class="eyebrow">Advanced Python &bull; MIS 4V90</div>
+        <h2 class="section-title">The engineering projects</h2>
+        <p class="section-copy">
+          Built in Python across five project types — agentic AI, no-code orchestration,
+          media generation, machine learning, and full-stack web development.
+        </p>
+
+        <div class="projects-grid">
+
+          <!-- n8n -->
+          <a href="project-n8n.html" class="proj-card">
+            <div class="proj-icon-strip">
+              <div class="proj-icon-strip__num">01</div>
+              <div class="proj-icon-strip__icon">⚡</div>
             </div>
-            <div class="featured-stat">
-              <p class="featured-stat__num">AI</p>
-              <p class="featured-stat__label">Chatbot Built-In</p>
+            <p class="proj-course">Automation &bull; Spring 2026</p>
+            <h3 class="proj-title">n8n Multi-Agent Orchestrator</h3>
+            <p class="proj-desc">
+              11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake,
+              pricing, scheduling, and communications — then sends a formatted Gmail summary. Zero lines of code.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">n8n</span>
+              <span class="tag">Multi-Agent AI</span>
+              <span class="tag">Google APIs</span>
+              <span class="tag">Automation</span>
             </div>
-            <a class="btn btn--gold" href="sap-index.html">Enter Site →</a>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- LangChain -->
+          <a href="project-langchain.html" class="proj-card">
+            <div class="proj-icon-strip">
+              <div class="proj-icon-strip__num">02</div>
+              <div class="proj-icon-strip__icon">🔧</div>
+            </div>
+            <p class="proj-course">AI Agents &bull; Spring 2026</p>
+            <h3 class="proj-title">LangChain Handyman Agent</h3>
+            <p class="proj-desc">
+              ReAct LangChain agent powered by Gemini 2.5 Flash with 3 live tools — reads a Google
+              Sheet for dynamic pricing, checks Calendar for availability, and books appointments directly.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">LangChain</span>
+              <span class="tag">Gemini 2.5</span>
+              <span class="tag">Google APIs</span>
+              <span class="tag">Python</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- AI Studio -->
+          <a href="project-aistudio.html" class="proj-card">
+            <div class="proj-icon-strip">
+              <div class="proj-icon-strip__num">03</div>
+              <div class="proj-icon-strip__icon">🎬</div>
+            </div>
+            <p class="proj-course">Generative Media &bull; Spring 2026</p>
+            <h3 class="proj-title">Google AI Studio — Shutter Island</h3>
+            <p class="proj-desc">
+              AI-generated cinematic video recreating a Shutter Island scene using Google Veo.
+              Engineered prompts for character continuity, 35mm film aesthetic, and handheld camera motion.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">Google Veo</span>
+              <span class="tag">AI Studio</span>
+              <span class="tag">Prompt Eng.</span>
+              <span class="tag">Cinematic AI</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- ML -->
+          <a href="project-ml.html" class="proj-card">
+            <div class="proj-icon-strip">
+              <div class="proj-icon-strip__num">04</div>
+              <div class="proj-icon-strip__icon">🤖</div>
+            </div>
+            <p class="proj-course">Machine Learning &bull; Spring 2026</p>
+            <h3 class="proj-title">Scikit-Learn ML Models</h3>
+            <p class="proj-desc">
+              K-Nearest Neighbors classifier on the Iris dataset (96% accuracy) and a Linear Regression
+              model on the Diabetes dataset (R²&nbsp;=&nbsp;0.34). Real sklearn data embedded in interactive charts.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">scikit-learn</span>
+              <span class="tag">KNN</span>
+              <span class="tag">Regression</span>
+              <span class="tag">Python</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- SkillSwap -->
+          <a href="project-skillswap.html" class="proj-card">
+            <div class="proj-icon-strip">
+              <div class="proj-icon-strip__num">05</div>
+              <div class="proj-icon-strip__icon">🐍</div>
+            </div>
+            <p class="proj-course">Full-Stack Web &bull; Spring 2026</p>
+            <h3 class="proj-title">Campus SkillSwap</h3>
+            <p class="proj-desc">
+              Full-stack Django 4.2 marketplace for student skill sharing — CRUD listings, Q-object
+              search, star reviews, booking requests with accept/decline workflow, and a personal dashboard.
+            </p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">Django 4.2</span>
+              <span class="tag">Python</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">Bootstrap 5</span>
+            </div>
+            <div class="proj-cta">
+              View Interactive Case
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <!-- Placeholder -->
+          <div class="proj-card proj-card--placeholder">
+            <div style="font-size:1.8rem;opacity:0.25;margin-bottom:10px;">+</div>
+            <p class="placeholder-label">More samples on request</p>
           </div>
+
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Other Projects -->
-    <section class="section reveal">
-      <hr class="section-rule" />
-      <p class="section-eyebrow">All Projects</p>
-      <h2 class="section-title">More from the coursework</h2>
+      <!-- ══════════════════════════════════════════════
+           OTHER COURSEWORK
+      ══════════════════════════════════════════════ -->
+      <section class="section reveal">
+        <hr class="section-rule" />
+        <div class="eyebrow">Other Coursework</div>
+        <h2 class="section-title">Beyond the Python class</h2>
 
-      <div class="projects-grid">
+        <div class="projects-grid">
 
-        <div class="project-card">
-          <div class="project-card__icon">🤖</div>
-          <p class="project-card__course">MIS / Marketing</p>
-          <p class="project-card__title">AI Strategy & Integration</p>
-          <p class="project-card__desc">Applied AI tools to real marketing workflows — from content generation to data analysis. Documented best practices for AI-assisted business processes.</p>
-          <div class="project-card__tags">
-            <span class="tag tag--gold">AI</span>
-            <span class="tag">Strategy</span>
-            <span class="tag">MIS</span>
+          <div class="proj-card proj-card--muted">
+            <div class="proj-icon-strip">
+              <div class="proj-icon-strip__num">—</div>
+              <div class="proj-icon-strip__icon">📈</div>
+            </div>
+            <p class="proj-course">Marketing</p>
+            <h3 class="proj-title">Digital Marketing Campaign</h3>
+            <p class="proj-desc">Full campaign brief and execution plan for a real brand — targeting strategy, channel mix, creative direction, and KPI framework.</p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">Campaign</span>
+              <span class="tag">Digital</span>
+              <span class="tag">Analytics</span>
+            </div>
           </div>
-        </div>
 
-        <div class="project-card">
-          <div class="project-card__icon">📈</div>
-          <p class="project-card__course">Marketing</p>
-          <p class="project-card__title">Digital Marketing Campaign</p>
-          <p class="project-card__desc">Full campaign brief and execution plan for a real brand — targeting strategy, channel mix, creative direction, and KPI framework.</p>
-          <div class="project-card__tags">
-            <span class="tag tag--gold">Campaign</span>
-            <span class="tag">Digital</span>
-            <span class="tag">Analytics</span>
+          <a href="dashboards.html" class="proj-card proj-card--muted">
+            <div class="proj-icon-strip">
+              <div class="proj-icon-strip__num">—</div>
+              <div class="proj-icon-strip__icon">💬</div>
+            </div>
+            <p class="proj-course">Advanced Python &bull; Dashboard</p>
+            <h3 class="proj-title">AI Chatbot</h3>
+            <p class="proj-desc">Conversational AI assistant built with the Claude API. Lives on the Dashboards page — ask it anything about the portfolio, marketing, or MIS concepts.</p>
+            <div class="proj-tags">
+              <span class="tag tag--gold">Claude API</span>
+              <span class="tag">Chatbot</span>
+              <span class="tag">Python</span>
+            </div>
+            <div class="proj-cta">
+              Open Dashboards
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </a>
+
+          <div class="proj-card proj-card--placeholder">
+            <div style="font-size:1.8rem;opacity:0.25;margin-bottom:10px;">+</div>
+            <p class="placeholder-label">Additional samples on request</p>
           </div>
+
         </div>
+      </section>
 
-        <div class="project-card">
-          <div class="project-card__icon">🔧</div>
-          <p class="project-card__course">Advanced Python</p>
-          <p class="project-card__title">Handyman AI Booking Agent</p>
-          <p class="project-card__desc">LangChain agent powered by Gemini 2.5 Flash with three live tools — reads a Google Sheet for dynamic pricing, checks Google Calendar for availability, and books confirmed appointments directly to the calendar.</p>
-          <div class="project-card__tags">
-            <span class="tag tag--gold">LangChain</span>
-            <span class="tag">Gemini AI</span>
-            <span class="tag">Google APIs</span>
-            <span class="tag">Python</span>
-          </div>
+      <!-- ══════════════════════════════════════════════
+           SKILLS DEMONSTRATED
+      ══════════════════════════════════════════════ -->
+      <section class="section reveal">
+        <hr class="section-rule" />
+        <div class="eyebrow">Skills Demonstrated</div>
+        <h2 class="section-title">What this work proves</h2>
+        <div class="skills-bar">
+          <span class="skill-pill">Django 4.2</span>
+          <span class="skill-pill">LangChain / ReAct Agents</span>
+          <span class="skill-pill">n8n Workflow Automation</span>
+          <span class="skill-pill">scikit-learn ML</span>
+          <span class="skill-pill">Google AI Studio / Veo</span>
+          <span class="skill-pill">Google Calendar &amp; Sheets API</span>
+          <span class="skill-pill">Gemini 2.5 Flash</span>
+          <span class="skill-pill">Prompt Engineering</span>
+          <span class="skill-pill">Python Tool Development</span>
+          <span class="skill-pill">HTML / CSS / JavaScript</span>
+          <span class="skill-pill">Corporate Pitch Design</span>
+          <span class="skill-pill">Sponsorship Strategy</span>
+          <span class="skill-pill">ROI Measurement Frameworks</span>
+          <span class="skill-pill">Executive Storytelling</span>
+          <span class="skill-pill">B2B &amp; Sports Marketing</span>
+          <span class="skill-pill">Multi-page Web Architecture</span>
         </div>
+      </section>
 
-        <div class="project-card project-card--placeholder">
-          <div style="font-size:2rem; opacity:0.3; margin-bottom: 8px;">+</div>
-          <p class="placeholder-label">Additional samples available on request</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Skills Demonstrated -->
-    <section class="section reveal">
-      <hr class="section-rule" />
-      <p class="section-eyebrow">Skills Demonstrated</p>
-      <h2 class="section-title">What this work proves</h2>
-      <div class="skills-bar">
-        <span class="skill-pill">AI-Assisted Development</span>
-        <span class="skill-pill">Corporate Pitch Design</span>
-        <span class="skill-pill">HTML / CSS / JavaScript</span>
-        <span class="skill-pill">GSAP Animation</span>
-        <span class="skill-pill">Sponsorship Strategy</span>
-        <span class="skill-pill">ROI Measurement Frameworks</span>
-        <span class="skill-pill">Executive Storytelling</span>
-        <span class="skill-pill">Multi-page Web Architecture</span>
-        <span class="skill-pill">B2B Marketing</span>
-        <span class="skill-pill">Sports Marketing</span>
-        <span class="skill-pill">Chatbot Integration</span>
-        <span class="skill-pill">LangChain Agents</span>
-        <span class="skill-pill">Google Calendar API</span>
-        <span class="skill-pill">Python Tool Development</span>
-      </div>
-    </section>
-
+    </div><!-- /page -->
   </main>
 
   <footer class="site-footer">
@@ -528,12 +589,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-visible"); observer.unobserve(e.target); } });
-      }, { threshold: 0.08 });
-      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+      /* ── Reveal on scroll ── */
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); } });
+      }, { threshold: 0.07 });
+      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-      const wrap = document.querySelector(".page-transition");
+      /* ── Page transition ── */
+      const wrap  = document.querySelector(".page-transition");
       const panel = wrap?.querySelector(".page-transition__panel");
       if (!wrap || !panel) return;
       const hasGSAP = typeof gsap !== "undefined";
@@ -543,16 +606,26 @@
         "portfolio.html": "#0b1320", "experience.html": "#5f4934", "dashboards.html": "#030810",
         "social.html": "#100610", "class-projects.html": "#0c0b02",
         "chatbot.html": "#020e0c", "index.html": "#050505",
-        "sap-jersey-patch.html": "#16392f", "sap-suites.html": "#2b3138",
-        "sap-keynote.html": "#5a5330", "packages.html": "#3e362b",
-        "measurement.html": "#0c1522", "contact.html": "#0c1522",
+        "project-n8n.html": "#0d0d14", "project-langchain.html": "#0d0d14",
+        "project-aistudio.html": "#0a0a0f", "project-ml.html": "#0a0d14",
+        "project-skillswap.html": "#0d0b18",
+        "sap-index.html": "#0c0900",
       };
 
-      const setCompact = () => { panel.style.opacity = "0"; panel.style.width = "min(34vw, 460px)"; panel.style.height = "min(22vw, 300px)"; panel.style.borderRadius = "28px"; panel.style.transform = "translate(-50%, -50%) scale(0.88)"; };
-      const isInternal = (a) => { if (!a?.href || a.target === "_blank" || a.hasAttribute("download")) return false; try { const url = new URL(a.href, location.origin); if (url.origin !== location.origin) return false; if (url.pathname === location.pathname && url.hash) return false; return true; } catch { return false; } };
-      const resolveColor = (href) => { try { const file = new URL(href, location.origin).pathname.split("/").pop().toLowerCase(); return tabColors[file] || "#050505"; } catch { return "#050505"; } };
+      const setCompact = () => {
+        panel.style.opacity = "0"; panel.style.width = "min(34vw,460px)";
+        panel.style.height = "min(22vw,300px)"; panel.style.borderRadius = "28px";
+        panel.style.transform = "translate(-50%,-50%) scale(0.88)";
+      };
+      const isInternal = a => {
+        if (!a?.href || a.target === "_blank" || a.hasAttribute("download")) return false;
+        try { const u = new URL(a.href, location.origin); if (u.origin !== location.origin) return false; if (u.pathname === location.pathname && u.hash) return false; return true; } catch { return false; }
+      };
+      const resolveColor = href => {
+        try { return tabColors[new URL(href, location.origin).pathname.split("/").pop().toLowerCase()] || "#050505"; } catch { return "#050505"; }
+      };
 
-      document.addEventListener("click", (e) => {
+      document.addEventListener("click", e => {
         const a = e.target.closest("a");
         if (!a || !isInternal(a)) return;
         try { if (new URL(a.href, location.origin).pathname === location.pathname) return; } catch { return; }
@@ -560,19 +633,19 @@
         isLeaving = true; e.preventDefault();
         sessionStorage.setItem("__pt_pending", "1");
         panel.style.background = resolveColor(a.href);
-        if (hasGSAP) { gsap.to(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0, duration: 0.56, ease: "expo.inOut", onComplete: () => { location.href = a.href; } }); }
-        else { location.href = a.href; }
+        if (hasGSAP) {
+          gsap.to(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0, duration: 0.54, ease: "expo.inOut", onComplete: () => { location.href = a.href; } });
+        } else { location.href = a.href; }
       });
 
       if (sessionStorage.getItem("__pt_pending") === "1") {
         sessionStorage.removeItem("__pt_pending");
-        if (hasGSAP) { gsap.set(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0 }); gsap.to(panel, { opacity: 0, scale: 1.015, duration: 0.52, ease: "expo.out", onComplete: setCompact }); }
+        if (hasGSAP) {
+          gsap.set(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0 });
+          gsap.to(panel, { opacity: 0, scale: 1.015, duration: 0.50, ease: "expo.out", onComplete: setCompact });
+        }
       } else { setCompact(); }
     });
   </script>
 </body>
 </html>
-
-
-
-
