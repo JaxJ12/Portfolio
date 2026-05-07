@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Do You Know Quotes? — Class Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1008;
+      --paper: #f5f0e8;
+      --paper-dark: #ede7d5;
+      --red: #8b1a1a;
+      --gold: #b8960c;
+      --gray: #6b6355;
+      --border: #2a1f0f;
+      --green: #2a7a3b;
+      --purple: #4a3080;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Playfair Display', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    .screen { display: none; min-height: 100vh; }
+    .screen.active { display: block; }
+
+    /* ─── MASTHEAD ────────────────────────────────────── */
+    .masthead {
+      text-align: center;
+      border-top: 4px solid var(--border);
+      border-bottom: 4px double var(--border);
+      padding: 10px 20px 14px;
+      background: var(--paper);
+    }
+    .masthead-eyebrow {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .masthead-title {
+      font-size: clamp(26px, 7vw, 52px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .masthead-sub {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+    .masthead-sub span { width: 30px; height: 1px; background: var(--gray); display: inline-block; }
+
+    /* ─── SECTION RULE ────────────────────────────────── */
+    .section-rule {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 20px;
+      border-bottom: 2px solid var(--border);
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .section-rule-label {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .section-rule-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-rule-count {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+    .section-rule-score {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--gold);
+    }
+
+    /* ─── LANDING ─────────────────────────────────────── */
+    .landing-body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+      text-align: center;
+    }
+    .landing-deck {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--gray);
+      margin: 16px 0 26px;
+    }
+    .landing-games { display: flex; flex-direction: column; gap: 12px; }
+    .game-card {
+      border: 2px solid var(--border);
+      background: white;
+      padding: 16px 50px 16px 18px;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      position: relative;
+    }
+    .game-card:hover, .game-card:active { background: var(--paper-dark); transform: translateY(-1px); }
+    .game-card-num {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 700;
+    }
+    .game-card-title { font-size: 20px; font-weight: 700; margin: 3px 0 5px; line-height: 1.2; }
+    .game-card-desc { font-family: 'Libre Baskerville', serif; font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .game-card-arrow { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 22px; color: var(--red); }
+    .divider-ornament { text-align: center; color: var(--gray); font-size: 18px; margin: 18px 0; letter-spacing: 8px; }
+
+    /* ─── GAME BODY ───────────────────────────────────── */
+    .game-body { max-width: 680px; margin: 0 auto; padding: 18px 16px 40px; }
+
+    /* ─── BACK ROW ────────────────────────────────────── */
+    .back-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      border-bottom: 1px solid #c9bfaa;
+      user-select: none;
+    }
+    .back-row:hover { color: var(--ink); }
+
+    /* ─── PROGRESS DOTS ───────────────────────────────── */
+    .progress-dots { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #c9bfaa; transition: background 0.3s; }
+    .dot.done { background: var(--ink); }
+    .dot.active { background: var(--red); }
+
+    /* ─── ZONE LABELS ─────────────────────────────────── */
+    .zone-label {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* ─── WORD BANK ───────────────────────────────────── */
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 56px;
+      padding: 12px;
+      background: white;
+      border: 1.5px solid #c9bfaa;
+      margin-bottom: 16px;
+    }
+    .answer-zone {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 60px;
+      padding: 12px;
+      background: var(--paper-dark);
+      border: 2px dashed #a89880;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .answer-zone.correct-flash { border-color: var(--green); border-style: solid; background: #eaf7ec; }
+    .answer-zone.wrong-flash   { border-color: var(--red);   border-style: solid; animation: shake 0.4s ease; }
+    .answer-zone-placeholder {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 13px;
+      color: #a89880;
+      font-style: italic;
+      align-self: center;
+      padding: 0 4px;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .word-tile {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'Libre Baskerville', serif;
+      font-size: 14px;
+      padding: 7px 12px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.12s, transform 0.1s;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    .word-tile:hover, .word-tile:active { background: var(--red); transform: scale(1.05); }
+    .word-tile.in-answer { background: var(--red); }
+    .word-tile.in-answer:hover { background: #6b1111; }
+
+    /* ─── BUTTONS ─────────────────────────────────────── */
+    .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
+    .btn {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 12px 28px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      touch-action: manipulation;
+    }
+    .btn-primary   { background: var(--ink); color: var(--paper); }
+    .btn-primary:hover { background: var(--red); border-color: var(--red); }
+    .btn-secondary { background: transparent; color: var(--ink); }
+    .btn-secondary:hover { background: var(--paper-dark); }
+    .btn-green { background: var(--green); color: white; border-color: var(--green); }
+    .btn-green:hover { background: #1e5e2c; }
+
+    /* ─── RESULT CARD (G1) ────────────────────────────── */
+    .result-card { display: none; border: 2px solid var(--border); background: white; padding: 20px; margin: 16px 0; text-align: center; }
+    .result-card.show { display: block; }
+    .result-card .correct-label { font-family: 'Libre Baskerville', serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
+    .result-card .quote-full { font-size: clamp(15px, 4vw, 19px); font-style: italic; line-height: 1.6; margin-bottom: 12px; }
+    .result-card .attribution { font-family: 'Libre Baskerville', serif; font-size: 14px; color: var(--red); font-weight: 700; letter-spacing: 1px; }
+
+    /* ─── QUOTE CARD (G2 & G3) ────────────────────────── */
+    .quote-card {
+      background: white;
+      border: 2px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      margin: 14px 0 18px;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quote-card-text {
+      font-size: clamp(17px, 4.5vw, 24px);
+      font-style: italic;
+      line-height: 1.55;
+    }
+
+    /* ─── VERDICT BUTTONS (G2) ────────────────────────── */
+    .verdict-row { display: flex; gap: 12px; margin-bottom: 14px; }
+    .verdict-btn {
+      flex: 1;
+      padding: 18px 10px;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      background: white;
+      color: var(--ink);
+      transition: background 0.14s, color 0.14s, transform 0.1s;
+      touch-action: manipulation;
+    }
+    .verdict-btn:hover:not(:disabled) { transform: scale(1.03); }
+    .verdict-btn-real:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+    .verdict-btn-fake:hover:not(:disabled) { background: var(--purple); color: white; border-color: var(--purple); }
+    .verdict-btn.v-correct { background: var(--green) !important; color: white !important; border-color: var(--green) !important; }
+    .verdict-btn.v-wrong   { background: var(--red)   !important; color: white !important; border-color: var(--red)   !important; }
+    .verdict-btn:disabled  { pointer-events: none; }
+    .verdict-btn.v-correct:disabled, .verdict-btn.v-wrong:disabled { opacity: 1; }
+    .verdict-btn:not(.v-correct):not(.v-wrong):disabled { opacity: 0.45; }
+
+    /* ─── FEEDBACK BANNER (G2) ───────────────────────── */
+    .feedback-banner {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+      padding: 12px 16px;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .feedback-banner.fb-correct { background: #eaf7ec; color: var(--green); border: 1.5px solid var(--green); display: block; }
+    .feedback-banner.fb-wrong   { background: #fceaea; color: var(--red);   border: 1.5px solid var(--red);   display: block; }
+
+    /* ─── ATTRIBUTION BUTTONS (G3) ───────────────────── */
+    .attr-row { display: flex; gap: 12px; margin-bottom: 14px; }
+    .attr-btn {
+      flex: 1;
+      padding: 20px 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(14px, 3.5vw, 18px);
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      background: white;
+      color: var(--ink);
+      transition: background 0.14s, color 0.14s, transform 0.1s;
+      touch-action: manipulation;
+      line-height: 1.3;
+    }
+    .attr-btn .attr-btn-name { display: block; font-size: clamp(18px, 5vw, 26px); font-weight: 900; }
+    .attr-btn:hover:not(:disabled) { transform: scale(1.03); }
+    .attr-btn-greg:hover:not(:disabled)   { background: #1a3a6b; color: white; border-color: #1a3a6b; }
+    .attr-btn-rodney:hover:not(:disabled) { background: #5a1a1a; color: white; border-color: #5a1a1a; }
+    .attr-btn.v-correct { background: var(--green) !important; color: white !important; border-color: var(--green) !important; }
+    .attr-btn.v-wrong   { background: var(--red)   !important; color: white !important; border-color: var(--red)   !important; }
+    .attr-btn:disabled  { pointer-events: none; }
+    .attr-btn.v-correct:disabled, .attr-btn.v-wrong:disabled { opacity: 1; }
+    .attr-btn:not(.v-correct):not(.v-wrong):disabled { opacity: 0.45; }
+
+    /* ─── STAMP (G3 REVEAL) ───────────────────────────── */
+    .answer-stamp {
+      display: none;
+      text-align: center;
+      padding: 22px 20px 18px;
+      border: 3px solid var(--border);
+      margin-bottom: 16px;
+      animation: stampIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .answer-stamp.show { display: block; }
+    .answer-stamp.is-correct { background: #eaf7ec; border-color: var(--green); }
+    .answer-stamp.is-wrong   { background: #fceaea; border-color: var(--red); }
+    @keyframes stampIn {
+      from { transform: scale(0.7) rotate(-3deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .stamp-label { font-size: clamp(24px, 8vw, 40px); font-weight: 900; line-height: 1.1; }
+    .answer-stamp.is-correct .stamp-label { color: var(--green); }
+    .answer-stamp.is-wrong   .stamp-label { color: var(--red); }
+    .stamp-sub { font-family: 'Libre Baskerville', serif; font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+
+    /* ─── FINALE ──────────────────────────────────────── */
+    .finale-body { max-width: 600px; margin: 0 auto; padding: 30px 20px; text-align: center; }
+    .finale-headline { font-size: clamp(28px, 8vw, 46px); font-weight: 900; line-height: 1.1; margin: 14px 0 10px; }
+    .finale-score-big { font-size: 80px; font-weight: 900; color: var(--red); line-height: 1; margin: 8px 0; }
+    .finale-deck { font-family: 'Libre Baskerville', serif; font-size: 15px; line-height: 1.7; color: var(--gray); margin: 12px 0 24px; }
+    .grade-line { font-family: 'Libre Baskerville', serif; font-size: 15px; color: var(--gray); font-style: italic; margin-bottom: 8px; }
+
+    /* ─── SCORE TALLY ─────────────────────────────────── */
+    .score-tally {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 12px 0 4px;
+      flex-wrap: wrap;
+    }
+    .tally-pip {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Libre Baskerville', serif;
+    }
+    .tally-pip.p-correct { background: var(--green); color: white; }
+    .tally-pip.p-wrong   { background: var(--red);   color: white; }
+    .tally-pip.p-empty   { background: #c9bfaa; }
+
+    /* ─── HIDDEN ──────────────────────────────────────── */
+    .hidden { display: none !important; }
+    .ornament { color: var(--gold); font-size: 20px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LANDING
+══════════════════════════════════════ -->
+<div id="landing" class="screen active">
+  <div class="masthead">
+    <div class="masthead-eyebrow">Baylor University — Department of Journalism</div>
+    <div class="masthead-title">Do You Know Quotes?</div>
+    <div class="masthead-sub"><span></span>Class Edition &bull; Spring 2026<span></span></div>
+  </div>
+
+  <div class="landing-body">
+    <p class="landing-deck">Three games. Real words. Can you tell the difference — and do you know who said what?</p>
+
+    <div class="landing-games">
+      <div class="game-card" onclick="startGame1()">
+        <div class="game-card-num">Game I</div>
+        <div class="game-card-title">Unscramble the Quote</div>
+        <div class="game-card-desc">Three quotes from journalists who've sat where you sit. Reassemble their words.</div>
+        <div class="game-card-arrow">→</div>
+      </div>
+
+      <div class="game-card" onclick="startGame2()">
+        <div class="game-card-num">Game II</div>
+        <div class="game-card-title">Quote: Real or Fake?</div>
+        <div class="game-card-desc">Six quotes. Some from real reporters. Some written by AI. You vote and get scored.</div>
+        <div class="game-card-arrow">→</div>
+      </div>
+
+      <div class="game-card" onclick="startGame3()">
+        <div class="game-card-num">Game III</div>
+        <div class="game-card-title">Who Said It?</div>
+        <div class="game-card-desc">Eight quotes — both Greg Perkins and Rodney Hawkins. Lightning round. Who said which?</div>
+        <div class="game-card-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="divider-ornament">✦ ✦ ✦</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     GAME 1 — UNSCRAMBLE
+══════════════════════════════════════ -->
+<div id="game1" class="screen">
+  <div class="masthead">
+    <div class="masthead-eyebrow">Baylor University — Department of Journalism</div>
+    <div class="masthead-title">Do You Know Quotes?</div>
+    <div class="masthead-sub"><span></span>Game I — Unscramble the Quote<span></span></div>
+  </div>
+  <div class="back-row" onclick="goHome()">← Back to Games</div>
+  <div class="section-rule">
+    <span class="section-rule-label" id="g1-section-label">Quote 1</span>
+    <div class="section-rule-right">
+      <span class="section-rule-count" id="g1-count">1 of 3</span>
+    </div>
+  </div>
+
+  <div class="game-body">
+    <div class="progress-dots" id="g1-dots"></div>
+
+    <div id="g1-byline" style="font-family:'Libre Baskerville',serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;text-align:center;margin:14px 0 4px;"></div>
+
+    <div class="zone-label" style="margin-top:12px;">Word Bank</div>
+    <div class="word-bank" id="g1-bank"></div>
+
+    <div class="zone-label">Your Answer</div>
+    <div class="answer-zone" id="g1-answer">
+      <span class="answer-zone-placeholder" id="g1-placeholder">Tap words above to place them here…</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="g1Clear()">Clear</button>
+      <button class="btn btn-primary" onclick="g1Check()">Check Answer</button>
+    </div>
+
+    <div class="result-card" id="g1-result">
+      <div class="correct-label">✓ Correct!</div>
+      <div class="quote-full" id="g1-quote-full"></div>
+      <div class="attribution" id="g1-attribution"></div>
+      <div style="margin-top:18px;">
+        <button class="btn btn-green" id="g1-next-btn" onclick="g1Next()">Next Quote →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     GAME 1 FINALE
+══════════════════════════════════════ -->
+<div id="game1-finale" class="screen">
+  <div class="masthead">
+    <div class="masthead-eyebrow">Baylor University — Department of Journalism</div>
+    <div class="masthead-title">Do You Know Quotes?</div>
+    <div class="masthead-sub"><span></span>Game I — Complete<span></span></div>
+  </div>
+  <div class="finale-body">
+    <div class="ornament">✦</div>
+    <div class="finale-headline">All Three Quotes Solved!</div>
+    <p class="finale-deck">Journalism lives in the details — and you found every word. That's the job.</p>
+    <div class="btn-row" style="flex-direction:column;align-items:center;gap:12px;margin-top:8px;">
+      <button class="btn btn-primary" onclick="startGame2()">Play Game II: Real or Fake? →</button>
+      <button class="btn btn-secondary" onclick="goHome()">← Back to Menu</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     GAME 2 — REAL OR FAKE (SCORED)
+══════════════════════════════════════ -->
+<div id="game2" class="screen">
+  <div class="masthead">
+    <div class="masthead-eyebrow">Baylor University — Department of Journalism</div>
+    <div class="masthead-title">Quote: Real or Fake?</div>
+    <div class="masthead-sub"><span></span>Game II — Scored Round<span></span></div>
+  </div>
+  <div class="back-row" onclick="goHome()">← Back to Games</div>
+  <div class="section-rule">
+    <span class="section-rule-label" id="g2-section-label">Quote 1</span>
+    <div class="section-rule-right">
+      <span class="section-rule-score" id="g2-score-display">0 / 0</span>
+      <span class="section-rule-count" id="g2-count">1 of 6</span>
+    </div>
+  </div>
+
+  <div class="game-body">
+    <div class="progress-dots" id="g2-dots"></div>
+
+    <div class="quote-card">
+      <div class="quote-card-text" id="g2-quote-text"></div>
+    </div>
+
+    <div class="verdict-row">
+      <button class="verdict-btn verdict-btn-real" id="g2-btn-real" onclick="g2Guess('Real')">📰 Real</button>
+      <button class="verdict-btn verdict-btn-fake" id="g2-btn-fake" onclick="g2Guess('Fake')">🤖 Fake</button>
+    </div>
+
+    <div class="feedback-banner" id="g2-feedback"></div>
+
+    <div class="btn-row hidden" id="g2-next-row">
+      <button class="btn btn-primary" id="g2-next-btn" onclick="g2Next()">Next →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     GAME 2 FINALE
+══════════════════════════════════════ -->
+<div id="game2-finale" class="screen">
+  <div class="masthead">
+    <div class="masthead-eyebrow">Baylor University — Department of Journalism</div>
+    <div class="masthead-title">Quote: Real or Fake?</div>
+    <div class="masthead-sub"><span></span>Final Score<span></span></div>
+  </div>
+  <div class="finale-body">
+    <div class="ornament">✦</div>
+    <div class="finale-headline" id="g2-final-headline"></div>
+    <div class="finale-score-big" id="g2-final-score"></div>
+    <div class="score-tally" id="g2-tally"></div>
+    <div class="grade-line" id="g2-grade-line"></div>
+    <p class="finale-deck" id="g2-final-deck"></p>
+    <div class="btn-row" style="flex-direction:column;align-items:center;gap:12px;">
+      <button class="btn btn-primary" onclick="startGame3()">Play Game III: Who Said It? →</button>
+      <button class="btn btn-secondary" onclick="startGame2()">Play Again</button>
+      <button class="btn btn-secondary" onclick="goHome()">← Back to Menu</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     GAME 3 — WHO SAID IT?
+══════════════════════════════════════ -->
+<div id="game3" class="screen">
+  <div class="masthead">
+    <div class="masthead-eyebrow">Baylor University — Department of Journalism</div>
+    <div class="masthead-title">Who Said It?</div>
+    <div class="masthead-sub"><span></span>Game III — Lightning Round<span></span></div>
+  </div>
+  <div class="back-row" onclick="goHome()">← Back to Games</div>
+  <div class="section-rule">
+    <span class="section-rule-label" id="g3-section-label">Quote 1</span>
+    <div class="section-rule-right">
+      <span class="section-rule-score" id="g3-score-display">0 / 0</span>
+      <span class="section-rule-count" id="g3-count">1 of 8</span>
+    </div>
+  </div>
+
+  <div class="game-body">
+    <div class="progress-dots" id="g3-dots"></div>
+
+    <div class="quote-card">
+      <div class="quote-card-text" id="g3-quote-text"></div>
+    </div>
+
+    <div class="attr-row">
+      <button class="attr-btn attr-btn-greg" id="g3-btn-greg" onclick="g3Guess('Greg Perkins')">
+        <span class="attr-btn-name">Greg</span>Perkins
+      </button>
+      <button class="attr-btn attr-btn-rodney" id="g3-btn-rodney" onclick="g3Guess('Rodney Hawkins')">
+        <span class="attr-btn-name">Rodney</span>Hawkins
+      </button>
+    </div>
+
+    <div class="answer-stamp" id="g3-stamp">
+      <div class="stamp-label" id="g3-stamp-label"></div>
+      <div class="stamp-sub" id="g3-stamp-sub"></div>
+    </div>
+
+    <div class="btn-row hidden" id="g3-next-row">
+      <button class="btn btn-primary" id="g3-next-btn" onclick="g3Next()">Next →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     GAME 3 FINALE
+══════════════════════════════════════ -->
+<div id="game3-finale" class="screen">
+  <div class="masthead">
+    <div class="masthead-eyebrow">Baylor University — Department of Journalism</div>
+    <div class="masthead-title">Who Said It?</div>
+    <div class="masthead-sub"><span></span>Final Score<span></span></div>
+  </div>
+  <div class="finale-body">
+    <div class="ornament">✦</div>
+    <div class="finale-headline" id="g3-final-headline"></div>
+    <div class="finale-score-big" id="g3-final-score"></div>
+    <div class="score-tally" id="g3-tally"></div>
+    <div class="grade-line" id="g3-grade-line"></div>
+    <p class="finale-deck" id="g3-final-deck"></p>
+    <div class="btn-row" style="flex-direction:column;align-items:center;gap:12px;">
+      <button class="btn btn-primary" onclick="startGame3()">Play Again</button>
+      <button class="btn btn-secondary" onclick="goHome()">← Back to Menu</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ──────────────────────────────────────────
+   DATA
+────────────────────────────────────────── */
+const QUOTES = [
+  { text: "Don't stop dreaming. Push yourself, make it to the finish line",        speaker: "Greg Perkins",   title: "Journalist & Guest Speaker" },
+  { text: "Be authentic. Show the human experience. Go out and tell those stories", speaker: "Rodney Hawkins", title: "Journalist & Guest Speaker" },
+  { text: "Bond money was put together in the class to get the professor out of jail", speaker: "Dr. Burleson", title: "Baylor Department of Journalism" }
+];
+
+const HEADLINES = [
+  { text: "I'm looking across this pasture and I've got all my cattle running down.", type: "Real" },
+  { text: "Our agricultural assets are currently optimized for maximum grazing efficiency.", type: "Fake" },
+  { text: "There's always one piece of the puzzle that you might not see right now.", type: "Real" },
+  { text: "Identifying missing data points is essential for comprehensive narrative synthesis.", type: "Fake" },
+  { text: "I said no — I am sick with you — and I just take her and handcuff her.", type: "Real" },
+  { text: "The legal representative initiated a standard custodial procedure.", type: "Fake" }
+];
+
+const ATTRIBUTION_CHALLENGE = [
+  { text: "There's always a ram in the bush that's sitting there waiting for you to humble yourself.", speaker: "Greg Perkins" },
+  { text: "It was actually a resource for me to reenergize me in my career.", speaker: "Rodney Hawkins" },
+  { text: "I'm not mainly the raise, it's just I'm growing, and I'm learning.", speaker: "Greg Perkins" },
+  { text: "Who are you missing? There's always one piece of the puzzle that you might not see.", speaker: "Rodney Hawkins" },
+  { text: "You can't continue to just do the same thing over and over and expect success.", speaker: "Greg Perkins" },
+  { text: "I thought it was beyond something that I needed to do because it really scared me.", speaker: "Rodney Hawkins" },
+  { text: "I wanted to be a cop. I wanted to be the hero because they saved everybody.", speaker: "Greg Perkins" },
+  { text: "Despite this being a document that shows my ancestor as an asset, it still documents that he existed.", speaker: "Rodney Hawkins" }
+];
+
+
+/* ──────────────────────────────────────────
+   HELPERS
+────────────────────────────────────────── */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+function goHome() { showScreen('landing'); }
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function makeDots(containerId, total, activeIndex) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i < activeIndex ? ' done' : i === activeIndex ? ' active' : '');
+    el.appendChild(d);
+  }
+}
+
+function buildTally(containerId, results) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  results.forEach(r => {
+    const pip = document.createElement('div');
+    pip.className = 'tally-pip ' + (r ? 'p-correct' : 'p-wrong');
+    pip.textContent = r ? '✓' : '✗';
+    el.appendChild(pip);
+  });
+}
+
+function scoreMessage(score, total) {
+  const pct = score / total;
+  if (pct === 1)   return { h: 'Perfect Score!',    g: 'You didn\'t miss a single one.',       d: 'Every answer correct. That\'s exactly the kind of precision that good journalism demands.' };
+  if (pct >= 0.75) return { h: 'Sharp Eye!',         g: 'Solid performance.',                   d: 'You got most of them. The tricky ones are designed to sound just plausible enough to fool you.' };
+  if (pct >= 0.5)  return { h: 'Not Bad.',            g: 'Right more often than not.',           d: 'The details are always in the phrasing. Real voices have texture a language model can\'t fake.' };
+  return              { h: 'Tough Round.',           g: 'The machines had you this time.',      d: 'That\'s what makes this hard. Keep listening for the human specificity beneath the words.' };
+}
+
+
+/* ──────────────────────────────────────────
+   GAME 1 — UNSCRAMBLE
+────────────────────────────────────────── */
+let g1Index = 0, g1BankWords = [], g1AnswerWords = [], g1Solved = false;
+
+function startGame1() { g1Index = 0; loadG1Quote(); showScreen('game1'); }
+
+function loadG1Quote() {
+  g1Solved = false; g1BankWords = []; g1AnswerWords = [];
+  const q = QUOTES[g1Index];
+  const words = q.text.split(' ');
+  let scrambled;
+  do { scrambled = shuffle(words); } while (scrambled.join(' ') === words.join(' '));
+  scrambled.forEach((w, i) => g1BankWords.push({ word: w, id: 'w' + i }));
+
+  document.getElementById('g1-section-label').textContent = 'Quote ' + (g1Index + 1);
+  document.getElementById('g1-count').textContent = (g1Index + 1) + ' of ' + QUOTES.length;
+  document.getElementById('g1-byline').textContent = '— ' + q.speaker + ', ' + q.title;
+  document.getElementById('g1-result').classList.remove('show');
+  makeDots('g1-dots', QUOTES.length, g1Index);
+  renderG1();
+}
+
+function renderG1() {
+  const bank = document.getElementById('g1-bank');
+  const answer = document.getElementById('g1-answer');
+  bank.innerHTML = ''; answer.innerHTML = '';
+  answer.classList.remove('correct-flash', 'wrong-flash');
+
+  g1BankWords.forEach(item => {
+    const t = document.createElement('button');
+    t.className = 'word-tile'; t.textContent = item.word;
+    t.onclick = () => g1MoveToAnswer(item.id);
+    bank.appendChild(t);
+  });
+
+  if (g1AnswerWords.length === 0) {
+    const p = document.createElement('span');
+    p.className = 'answer-zone-placeholder'; p.id = 'g1-placeholder';
+    p.textContent = 'Tap words above to place them here…';
+    answer.appendChild(p);
+  } else {
+    g1AnswerWords.forEach(item => {
+      const t = document.createElement('button');
+      t.className = 'word-tile in-answer'; t.textContent = item.word;
+      t.onclick = () => g1MoveToBank(item.id);
+      answer.appendChild(t);
+    });
+  }
+}
+
+function g1MoveToAnswer(id) {
+  if (g1Solved) return;
+  const idx = g1BankWords.findIndex(w => w.id === id); if (idx === -1) return;
+  g1AnswerWords.push(g1BankWords.splice(idx, 1)[0]); renderG1();
+}
+function g1MoveToBank(id) {
+  if (g1Solved) return;
+  const idx = g1AnswerWords.findIndex(w => w.id === id); if (idx === -1) return;
+  g1BankWords.push(g1AnswerWords.splice(idx, 1)[0]); renderG1();
+}
+function g1Clear() {
+  if (g1Solved) return;
+  g1AnswerWords.forEach(item => g1BankWords.push(item)); g1AnswerWords = []; renderG1();
+}
+function g1Check() {
+  if (g1Solved) return;
+  const q = QUOTES[g1Index];
+  const correct = q.text.split(' ');
+  const attempt = g1AnswerWords.map(w => w.word);
+  if (attempt.length !== correct.length || !correct.every((w, i) => w.toLowerCase() === attempt[i].toLowerCase())) {
+    flashG1('wrong'); return;
+  }
+  g1Solved = true; flashG1('correct');
+  setTimeout(() => {
+    document.getElementById('g1-quote-full').textContent = '"' + q.text + '"';
+    document.getElementById('g1-attribution').textContent = '— ' + q.speaker + ', ' + q.title;
+    document.getElementById('g1-next-btn').textContent = g1Index === QUOTES.length - 1 ? 'Finish Game I ✓' : 'Next Quote →';
+    document.getElementById('g1-result').classList.add('show');
+  }, 500);
+}
+function flashG1(type) {
+  const z = document.getElementById('g1-answer');
+  z.classList.remove('correct-flash', 'wrong-flash'); void z.offsetWidth;
+  z.classList.add(type === 'correct' ? 'correct-flash' : 'wrong-flash');
+}
+function g1Next() {
+  g1Index++;
+  if (g1Index >= QUOTES.length) showScreen('game1-finale'); else loadG1Quote();
+}
+
+
+/* ──────────────────────────────────────────
+   GAME 2 — REAL OR FAKE (SCORED)
+────────────────────────────────────────── */
+let g2Index = 0, g2Score = 0, g2Results = [], g2Order = [];
+
+function startGame2() {
+  g2Index = 0; g2Score = 0; g2Results = [];
+  g2Order = shuffle([...Array(HEADLINES.length).keys()]);
+  loadG2(); showScreen('game2');
+}
+
+function loadG2() {
+  const h = HEADLINES[g2Order[g2Index]];
+  const total = HEADLINES.length;
+
+  document.getElementById('g2-quote-text').textContent = '"' + h.text + '"';
+  document.getElementById('g2-section-label').textContent = 'Quote ' + (g2Index + 1);
+  document.getElementById('g2-count').textContent = (g2Index + 1) + ' of ' + total;
+  document.getElementById('g2-score-display').textContent = g2Score + ' / ' + g2Index;
+
+  const fb = document.getElementById('g2-feedback');
+  fb.className = 'feedback-banner'; fb.textContent = '';
+
+  const bR = document.getElementById('g2-btn-real'), bF = document.getElementById('g2-btn-fake');
+  bR.className = 'verdict-btn verdict-btn-real'; bR.disabled = false;
+  bF.className = 'verdict-btn verdict-btn-fake'; bF.disabled = false;
+  document.getElementById('g2-next-row').classList.add('hidden');
+
+  makeDots('g2-dots', total, g2Index);
+}
+
+function g2Guess(choice) {
+  const h = HEADLINES[g2Order[g2Index]];
+  const correct = choice === h.type;
+  if (correct) g2Score++;
+  g2Results.push(correct);
+
+  const bR = document.getElementById('g2-btn-real'), bF = document.getElementById('g2-btn-fake');
+  if (h.type === 'Real') {
+    bR.classList.add('v-correct');
+    if (choice === 'Fake') bF.classList.add('v-wrong');
+  } else {
+    bF.classList.add('v-correct');
+    if (choice === 'Real') bR.classList.add('v-wrong');
+  }
+  bR.disabled = true; bF.disabled = true;
+
+  document.getElementById('g2-score-display').textContent = g2Score + ' / ' + (g2Index + 1);
+
+  const fb = document.getElementById('g2-feedback');
+  fb.className = 'feedback-banner ' + (correct ? 'fb-correct' : 'fb-wrong');
+  fb.textContent = correct
+    ? '✓ Correct! That was a ' + h.type + ' quote.'
+    : '✗ Nope — that was ' + h.type + '. ' + (h.type === 'Real' ? 'A real reporter said this.' : 'This one was AI-generated.');
+
+  const nr = document.getElementById('g2-next-row');
+  nr.classList.remove('hidden');
+  document.getElementById('g2-next-btn').textContent = g2Index === HEADLINES.length - 1 ? 'See My Score →' : 'Next →';
+}
+
+function g2Next() {
+  g2Index++;
+  if (g2Index >= HEADLINES.length) showG2Finale(); else loadG2();
+}
+
+function showG2Finale() {
+  const total = HEADLINES.length;
+  const msg = scoreMessage(g2Score, total);
+  document.getElementById('g2-final-headline').textContent = msg.h;
+  document.getElementById('g2-final-score').textContent = g2Score + ' / ' + total;
+  document.getElementById('g2-grade-line').textContent = msg.g;
+  document.getElementById('g2-final-deck').textContent = msg.d;
+  buildTally('g2-tally', g2Results);
+  showScreen('game2-finale');
+}
+
+
+/* ──────────────────────────────────────────
+   GAME 3 — WHO SAID IT?
+────────────────────────────────────────── */
+let g3Index = 0, g3Score = 0, g3Results = [], g3Order = [];
+
+function startGame3() {
+  g3Index = 0; g3Score = 0; g3Results = [];
+  g3Order = shuffle([...Array(ATTRIBUTION_CHALLENGE.length).keys()]);
+  loadG3(); showScreen('game3');
+}
+
+function loadG3() {
+  const q = ATTRIBUTION_CHALLENGE[g3Order[g3Index]];
+  const total = ATTRIBUTION_CHALLENGE.length;
+
+  document.getElementById('g3-quote-text').textContent = '"' + q.text + '"';
+  document.getElementById('g3-section-label').textContent = 'Quote ' + (g3Index + 1);
+  document.getElementById('g3-count').textContent = (g3Index + 1) + ' of ' + total;
+  document.getElementById('g3-score-display').textContent = g3Score + ' / ' + g3Index;
+
+  const stamp = document.getElementById('g3-stamp');
+  stamp.className = 'answer-stamp';
+
+  const bG = document.getElementById('g3-btn-greg'), bR = document.getElementById('g3-btn-rodney');
+  bG.className = 'attr-btn attr-btn-greg'; bG.disabled = false;
+  bR.className = 'attr-btn attr-btn-rodney'; bR.disabled = false;
+  document.getElementById('g3-next-row').classList.add('hidden');
+
+  makeDots('g3-dots', total, g3Index);
+}
+
+function g3Guess(choice) {
+  const q = ATTRIBUTION_CHALLENGE[g3Order[g3Index]];
+  const correct = choice === q.speaker;
+  if (correct) g3Score++;
+  g3Results.push(correct);
+
+  const bG = document.getElementById('g3-btn-greg'), bR = document.getElementById('g3-btn-rodney');
+  if (q.speaker === 'Greg Perkins') {
+    bG.classList.add('v-correct');
+    if (choice === 'Rodney Hawkins') bR.classList.add('v-wrong');
+  } else {
+    bR.classList.add('v-correct');
+    if (choice === 'Greg Perkins') bG.classList.add('v-wrong');
+  }
+  bG.disabled = true; bR.disabled = true;
+
+  document.getElementById('g3-score-display').textContent = g3Score + ' / ' + (g3Index + 1);
+
+  const stamp = document.getElementById('g3-stamp');
+  stamp.className = 'answer-stamp show ' + (correct ? 'is-correct' : 'is-wrong');
+  document.getElementById('g3-stamp-label').textContent = correct ? '✓ ' + q.speaker : '✗ ' + q.speaker;
+  document.getElementById('g3-stamp-sub').textContent = correct
+    ? 'You got it.'
+    : '"' + q.text.slice(0, 60) + (q.text.length > 60 ? '…' : '') + '"';
+
+  const nr = document.getElementById('g3-next-row');
+  nr.classList.remove('hidden');
+  document.getElementById('g3-next-btn').textContent = g3Index === ATTRIBUTION_CHALLENGE.length - 1 ? 'See My Score →' : 'Next →';
+
+  setTimeout(() => stamp.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+}
+
+function g3Next() {
+  g3Index++;
+  if (g3Index >= ATTRIBUTION_CHALLENGE.length) showG3Finale(); else loadG3();
+}
+
+function showG3Finale() {
+  const total = ATTRIBUTION_CHALLENGE.length;
+  const msg = scoreMessage(g3Score, total);
+  document.getElementById('g3-final-headline').textContent = msg.h;
+  document.getElementById('g3-final-score').textContent = g3Score + ' / ' + total;
+  document.getElementById('g3-grade-line').textContent = msg.g;
+  document.getElementById('g3-final-deck').textContent = msg.d;
+  buildTally('g3-tally', g3Results);
+  showScreen('game3-finale');
+}
+</script>
+</body>
+</html>

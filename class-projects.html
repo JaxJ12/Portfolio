@@ -199,16 +199,33 @@
       width: 100%; height: 80px; border-radius: 14px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 18px; margin-bottom: 18px;
-      background:
-        radial-gradient(circle at 20% 50%, rgba(140,106,0,0.12), transparent 60%),
-        var(--surface-strong);
+      background: var(--surface-strong);
       position: relative; overflow: hidden;
     }
-    .proj-icon-strip__num {
-      font-family: "Playfair Display", serif; font-size: 3.5rem; font-weight: 700;
-      letter-spacing: -0.05em; color: rgba(140,106,0,0.14); line-height: 1; user-select: none;
+    .proj-icon-strip__label {
+      font-family: "Playfair Display", serif; font-size: 1.6rem; font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1; z-index: 1;
     }
+    .proj-icon-strip__sub {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0.6; margin-top: 4px;
+    }
+    .proj-icon-strip__left { display: flex; flex-direction: column; z-index: 1; }
     .proj-icon-strip__icon { font-size: 2rem; position: relative; z-index: 1; }
+
+    /* Per-project strip themes */
+    .proj-strip--n8n       { background: linear-gradient(135deg, rgba(249,115,22,0.13), rgba(251,191,36,0.06)); }
+    .proj-strip--n8n .proj-icon-strip__label { color: #f97316; }
+    .proj-strip--langchain { background: linear-gradient(135deg, rgba(99,102,241,0.14), rgba(139,92,246,0.06)); }
+    .proj-strip--langchain .proj-icon-strip__label { color: #6366f1; }
+    .proj-strip--aistudio  { background: linear-gradient(135deg, rgba(168,85,247,0.13), rgba(236,72,153,0.06)); }
+    .proj-strip--aistudio .proj-icon-strip__label { color: #a855f7; }
+    .proj-strip--ml        { background: linear-gradient(135deg, rgba(16,185,129,0.13), rgba(5,150,105,0.06)); }
+    .proj-strip--ml .proj-icon-strip__label { color: #10b981; }
+    .proj-strip--skillswap { background: linear-gradient(135deg, rgba(139,92,246,0.13), rgba(124,58,237,0.06)); }
+    .proj-strip--skillswap .proj-icon-strip__label { color: #8b5cf6; }
+    .proj-strip--chatbot   { background: linear-gradient(135deg, rgba(6,182,212,0.13), rgba(8,145,178,0.06)); }
+    .proj-strip--chatbot .proj-icon-strip__label { color: #06b6d4; }
 
     /* Card content */
     .proj-course {
@@ -257,10 +274,7 @@
 
     /* ── FOOTER ── */
     .site-footer {
-      width: min(1200px, calc(100% - 48px)); margin: 56px auto 40px;
-      padding: 14px 22px;
-      border: 1px solid var(--line); border-radius: 14px; background: var(--surface);
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      width: min(1200px, calc(100% - 48px)); margin: 0 auto; padding: 32px 0 52px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 16px;
     }
     .site-footer__name { font-size: 12px; font-weight: 700; color: var(--text); }
     .site-footer__meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
@@ -323,7 +337,6 @@
            FEATURED — SAP PITCH
       ══════════════════════════════════════════════ -->
       <section class="section reveal reveal--d1">
-        <hr class="section-rule" />
         <div class="eyebrow">Featured Project</div>
         <h2 class="section-title">The flagship</h2>
 
@@ -380,10 +393,67 @@
       </section>
 
       <!-- ══════════════════════════════════════════════
+           FEATURED — JOURNALISM GAME
+      ══════════════════════════════════════════════ -->
+      <section class="section reveal">
+        <div class="eyebrow">Journalism &bull; Web Build</div>
+        <h2 class="section-title">Baylor Journalism Quote Game</h2>
+
+        <div class="featured">
+          <div class="featured-browser">
+            <div class="featured-browser__bar">
+              <div class="featured-browser__dots">
+                <div class="featured-browser__dot"></div>
+                <div class="featured-browser__dot"></div>
+                <div class="featured-browser__dot"></div>
+              </div>
+              <div class="featured-browser__url">journalism-game-index.html</div>
+              <span class="featured-browser__live">● Live</span>
+            </div>
+            <iframe
+              class="featured-browser__frame"
+              src="journalism-game-index.html"
+              title="Do You Know Quotes? — Baylor Journalism Class Edition"
+              loading="lazy"
+              scrolling="yes"
+            ></iframe>
+          </div>
+          <div class="featured-body">
+            <div>
+              <p class="featured-body__tag">Journalism Class &bull; Baylor University &bull; Spring 2026</p>
+              <h3 class="featured-body__title">Do You Know Quotes?<br/>Class Edition</h3>
+              <p class="featured-body__desc">
+                A newspaper-themed interactive quote-matching game built for a Baylor journalism class.
+                Players are shown a quote and must identify which classmate said it — styled as a vintage
+                broadsheet with a masthead, section rules, and full scoring system. Built entirely in HTML,
+                CSS, and vanilla JavaScript with no dependencies.
+              </p>
+              <div class="featured-chips">
+                <span class="featured-chip">HTML / CSS / JS</span>
+                <span class="featured-chip">Newspaper Design</span>
+                <span class="featured-chip">Interactive Game</span>
+                <span class="featured-chip">Vanilla JS</span>
+              </div>
+            </div>
+            <div class="featured-side">
+              <div class="featured-stat">
+                <p class="featured-stat__num">0</p>
+                <p class="featured-stat__label">Dependencies</p>
+              </div>
+              <div class="featured-stat">
+                <p class="featured-stat__num">980</p>
+                <p class="featured-stat__label">Lines of Code</p>
+              </div>
+              <a class="btn btn--gold" href="https://github.com/JaxJ12/baylor-jounrnalism-game" target="_blank">GitHub →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
            ADVANCED PYTHON PROJECTS
       ══════════════════════════════════════════════ -->
       <section class="section reveal">
-        <hr class="section-rule" />
         <div class="eyebrow">Advanced Python &bull; MIS 4V90</div>
         <h2 class="section-title">The engineering projects</h2>
         <p class="section-copy">
@@ -395,9 +465,24 @@
 
           <!-- n8n -->
           <a href="project-n8n.html" class="proj-card">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">01</div>
-              <div class="proj-icon-strip__icon">⚡</div>
+            <div class="proj-icon-strip proj-strip--n8n">
+              <div class="proj-icon-strip__left">
+                <div class="proj-icon-strip__label">n8n</div>
+                <div class="proj-icon-strip__sub">11 nodes · 4 agents</div>
+              </div>
+              <!-- Workflow node graph -->
+              <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="8" cy="21" r="7" fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-width="1.5"/>
+                <circle cx="8" cy="21" r="3" fill="#f97316"/>
+                <line x1="15" y1="21" x2="24" y2="12" stroke="#f97316" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+                <line x1="15" y1="21" x2="24" y2="30" stroke="#f97316" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+                <circle cx="30" cy="12" r="5.5" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="1.2"/>
+                <circle cx="30" cy="30" r="5.5" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="1.2"/>
+                <line x1="35.5" y1="12" x2="42" y2="21" stroke="#f97316" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+                <line x1="35.5" y1="30" x2="42" y2="21" stroke="#f97316" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+                <circle cx="48" cy="21" r="6" fill="rgba(249,115,22,0.25)" stroke="#f97316" stroke-width="1.5"/>
+                <path d="M45 21h6M48 18l3 3-3 3" stroke="#f97316" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
             <p class="proj-course">Automation &bull; Spring 2026</p>
             <h3 class="proj-title">n8n Multi-Agent Orchestrator</h3>
@@ -419,9 +504,26 @@
 
           <!-- LangChain -->
           <a href="project-langchain.html" class="proj-card">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">02</div>
-              <div class="proj-icon-strip__icon">🔧</div>
+            <div class="proj-icon-strip proj-strip--langchain">
+              <div class="proj-icon-strip__left">
+                <div class="proj-icon-strip__label">LangChain</div>
+                <div class="proj-icon-strip__sub">ReAct · Gemini 2.5</div>
+              </div>
+              <!-- ReAct loop: Think → Act → Observe -->
+              <svg width="66" height="38" viewBox="0 0 66 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="1" y="9" width="18" height="20" rx="4" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.3"/>
+                <text x="10" y="17.5" text-anchor="middle" font-size="5.5" fill="#6366f1" font-weight="700" font-family="sans-serif">LLM</text>
+                <text x="10" y="24.5" text-anchor="middle" font-size="4.5" fill="#6366f1" fill-opacity="0.7" font-family="sans-serif">think</text>
+                <path d="M19 19 L26 19" stroke="#6366f1" stroke-width="1" stroke-opacity="0.5"/>
+                <polygon points="24,16 28,19 24,22" fill="#6366f1" fill-opacity="0.5"/>
+                <rect x="28" y="9" width="18" height="20" rx="4" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.3"/>
+                <text x="37" y="17.5" text-anchor="middle" font-size="5.5" fill="#6366f1" font-weight="700" font-family="sans-serif">TOOL</text>
+                <text x="37" y="24.5" text-anchor="middle" font-size="4.5" fill="#6366f1" fill-opacity="0.7" font-family="sans-serif">act</text>
+                <path d="M46 19 L53 19" stroke="#6366f1" stroke-width="1" stroke-opacity="0.5"/>
+                <polygon points="51,16 55,19 51,22" fill="#6366f1" fill-opacity="0.5"/>
+                <rect x="55" y="9" width="10" height="20" rx="4" fill="rgba(99,102,241,0.28)" stroke="#6366f1" stroke-width="1.3"/>
+                <circle cx="60" cy="19" r="3.5" fill="#6366f1"/>
+              </svg>
             </div>
             <p class="proj-course">AI Agents &bull; Spring 2026</p>
             <h3 class="proj-title">LangChain Handyman Agent</h3>
@@ -443,254 +545,6 @@
 
           <!-- AI Studio -->
           <a href="project-aistudio.html" class="proj-card">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">03</div>
-              <div class="proj-icon-strip__icon">🎬</div>
-            </div>
-            <p class="proj-course">Generative Media &bull; Spring 2026</p>
-            <h3 class="proj-title">Google AI Studio — Shutter Island</h3>
-            <p class="proj-desc">
-              AI-generated cinematic video recreating a Shutter Island scene using Google Veo.
-              Engineered prompts for character continuity, 35mm film aesthetic, and handheld camera motion.
-            </p>
-            <div class="proj-tags">
-              <span class="tag tag--gold">Google Veo</span>
-              <span class="tag">AI Studio</span>
-              <span class="tag">Prompt Eng.</span>
-              <span class="tag">Cinematic AI</span>
-            </div>
-            <div class="proj-cta">
-              View Interactive Case
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </div>
-          </a>
-
-          <!-- ML -->
-          <a href="project-ml.html" class="proj-card">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">04</div>
-              <div class="proj-icon-strip__icon">🤖</div>
-            </div>
-            <p class="proj-course">Machine Learning &bull; Spring 2026</p>
-            <h3 class="proj-title">Scikit-Learn ML Models</h3>
-            <p class="proj-desc">
-              K-Nearest Neighbors classifier on the Iris dataset (96% accuracy) and a Linear Regression
-              model on the Diabetes dataset (R²&nbsp;=&nbsp;0.34). Real sklearn data embedded in interactive charts.
-            </p>
-            <div class="proj-tags">
-              <span class="tag tag--gold">scikit-learn</span>
-              <span class="tag">KNN</span>
-              <span class="tag">Regression</span>
-              <span class="tag">Python</span>
-            </div>
-            <div class="proj-cta">
-              View Interactive Case
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </div>
-          </a>
-
-          <!-- SkillSwap -->
-          <a href="project-skillswap.html" class="proj-card">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">05</div>
-              <div class="proj-icon-strip__icon">🐍</div>
-            </div>
-            <p class="proj-course">Full-Stack Web &bull; Spring 2026</p>
-            <h3 class="proj-title">Campus SkillSwap</h3>
-            <p class="proj-desc">
-              Full-stack Django 4.2 marketplace for student skill sharing — CRUD listings, Q-object
-              search, star reviews, booking requests with accept/decline workflow, and a personal dashboard.
-            </p>
-            <div class="proj-tags">
-              <span class="tag tag--gold">Django 4.2</span>
-              <span class="tag">Python</span>
-              <span class="tag">SQLite</span>
-              <span class="tag">Bootstrap 5</span>
-            </div>
-            <div class="proj-cta">
-              View Interactive Case
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </div>
-          </a>
-
-          <!-- Chatbot -->
-          <a href="project-chatbot.html" class="proj-card">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">06</div>
-              <div class="proj-icon-strip__icon">🤖</div>
-            </div>
-            <p class="proj-course">Conversational AI &bull; Spring 2026</p>
-            <h3 class="proj-title">Python Chatbot — Gemini API</h3>
-            <p class="proj-desc">
-              A context-aware conversational chatbot built in Python using the Gemini API — maintains
-              multi-turn conversation history, a custom system prompt for persona, and a clean terminal
-              interface with formatted output.
-            </p>
-            <div class="proj-tags">
-              <span class="tag tag--gold">Gemini API</span>
-              <span class="tag">Python</span>
-              <span class="tag">Conversational AI</span>
-              <span class="tag">Prompt Eng.</span>
-            </div>
-            <div class="proj-cta">
-              View Interactive Case
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </div>
-          </a>
-
-        </div>
-      </section>
-
-      <!-- ══════════════════════════════════════════════
-           OTHER COURSEWORK
-      ══════════════════════════════════════════════ -->
-      <section class="section reveal">
-        <hr class="section-rule" />
-        <div class="eyebrow">Other Coursework</div>
-        <h2 class="section-title">Beyond the Python class</h2>
-
-        <div class="projects-grid">
-
-          <div class="proj-card proj-card--muted">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">—</div>
-              <div class="proj-icon-strip__icon">📈</div>
-            </div>
-            <p class="proj-course">Marketing</p>
-            <h3 class="proj-title">Digital Marketing Campaign</h3>
-            <p class="proj-desc">Full campaign brief and execution plan for a real brand — targeting strategy, channel mix, creative direction, and KPI framework.</p>
-            <div class="proj-tags">
-              <span class="tag tag--gold">Campaign</span>
-              <span class="tag">Digital</span>
-              <span class="tag">Analytics</span>
-            </div>
-          </div>
-
-          <a href="dashboards.html" class="proj-card proj-card--muted">
-            <div class="proj-icon-strip">
-              <div class="proj-icon-strip__num">—</div>
-              <div class="proj-icon-strip__icon">💬</div>
-            </div>
-            <p class="proj-course">Advanced Python &bull; Dashboard</p>
-            <h3 class="proj-title">AI Chatbot</h3>
-            <p class="proj-desc">Conversational AI assistant built with the Claude API. Lives on the Dashboards page — ask it anything about the portfolio, marketing, or MIS concepts.</p>
-            <div class="proj-tags">
-              <span class="tag tag--gold">Claude API</span>
-              <span class="tag">Chatbot</span>
-              <span class="tag">Python</span>
-            </div>
-            <div class="proj-cta">
-              Open Dashboards
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </div>
-          </a>
-
-          <div class="proj-card proj-card--placeholder">
-            <div style="font-size:1.8rem;opacity:0.25;margin-bottom:10px;">+</div>
-            <p class="placeholder-label">Additional samples on request</p>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ══════════════════════════════════════════════
-           SKILLS DEMONSTRATED
-      ══════════════════════════════════════════════ -->
-      <section class="section reveal">
-        <hr class="section-rule" />
-        <div class="eyebrow">Skills Demonstrated</div>
-        <h2 class="section-title">What this work proves</h2>
-        <div class="skills-bar">
-          <span class="skill-pill">Django 4.2</span>
-          <span class="skill-pill">LangChain / ReAct Agents</span>
-          <span class="skill-pill">n8n Workflow Automation</span>
-          <span class="skill-pill">scikit-learn ML</span>
-          <span class="skill-pill">Google AI Studio / Veo</span>
-          <span class="skill-pill">Google Calendar &amp; Sheets API</span>
-          <span class="skill-pill">Gemini 2.5 Flash</span>
-          <span class="skill-pill">Prompt Engineering</span>
-          <span class="skill-pill">Python Tool Development</span>
-          <span class="skill-pill">HTML / CSS / JavaScript</span>
-          <span class="skill-pill">Corporate Pitch Design</span>
-          <span class="skill-pill">Sponsorship Strategy</span>
-          <span class="skill-pill">ROI Measurement Frameworks</span>
-          <span class="skill-pill">Executive Storytelling</span>
-          <span class="skill-pill">B2B &amp; Sports Marketing</span>
-          <span class="skill-pill">Multi-page Web Architecture</span>
-        </div>
-      </section>
-
-    </div><!-- /page -->
-  </main>
-
-  <footer class="site-footer">
-    <div>
-      <p class="site-footer__name">Jax Johnson</p>
-      <p class="site-footer__meta">Academic Projects &bull; Marketing &amp; MIS &bull; Baylor University</p>
-    </div>
-    <span class="site-footer__legal">Section 04 / 05</span>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      /* ── Reveal on scroll ── */
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); } });
-      }, { threshold: 0.07 });
-      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-
-      /* ── Page transition ── */
-      const wrap  = document.querySelector(".page-transition");
-      const panel = wrap?.querySelector(".page-transition__panel");
-      if (!wrap || !panel) return;
-      const hasGSAP = typeof gsap !== "undefined";
-      let isLeaving = false;
-
-      const tabColors = {
-        "portfolio.html": "#0b1320", "experience.html": "#5f4934", "dashboards.html": "#030810",
-        "social.html": "#100610", "class-projects.html": "#0c0b02",
-        "chatbot.html": "#020e0c", "index.html": "#050505",
-        "project-n8n.html": "#0d0d14", "project-langchain.html": "#0d0d14",
-        "project-aistudio.html": "#0a0a0f", "project-ml.html": "#0a0d14",
-        "project-skillswap.html": "#0d0b18",
-        "sap-index.html": "#0c0900",
-      };
-
-      const setCompact = () => {
-        panel.style.opacity = "0"; panel.style.width = "min(34vw,460px)";
-        panel.style.height = "min(22vw,300px)"; panel.style.borderRadius = "28px";
-        panel.style.transform = "translate(-50%,-50%) scale(0.88)";
-      };
-      const isInternal = a => {
-        if (!a?.href || a.target === "_blank" || a.hasAttribute("download")) return false;
-        try { const u = new URL(a.href, location.origin); if (u.origin !== location.origin) return false; if (u.pathname === location.pathname && u.hash) return false; return true; } catch { return false; }
-      };
-      const resolveColor = href => {
-        try { return tabColors[new URL(href, location.origin).pathname.split("/").pop().toLowerCase()] || "#050505"; } catch { return "#050505"; }
-      };
-
-      document.addEventListener("click", e => {
-        const a = e.target.closest("a");
-        if (!a || !isInternal(a)) return;
-        try { if (new URL(a.href, location.origin).pathname === location.pathname) return; } catch { return; }
-        if (isLeaving) return;
-        isLeaving = true; e.preventDefault();
-        sessionStorage.setItem("__pt_pending", "1");
-        panel.style.background = resolveColor(a.href);
-        if (hasGSAP) {
-          gsap.to(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0, duration: 0.54, ease: "expo.inOut", onComplete: () => { location.href = a.href; } });
-        } else { location.href = a.href; }
-      });
-
-      if (sessionStorage.getItem("__pt_pending") === "1") {
-        sessionStorage.removeItem("__pt_pending");
-        if (hasGSAP) {
-          gsap.set(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0 });
-          gsap.to(panel, { opacity: 0, scale: 1.015, duration: 0.50, ease: "expo.out", onComplete: setCompact });
-        }
-      } else { setCompact(); }
-    });
-  </script>
-</body>
-</html>
+            <div class="proj-icon-strip proj-strip--aistudio">
+              <div class="proj-icon-strip__left">
+                <div class="proj-icon-strip__l
