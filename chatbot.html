@@ -3,388 +3,389 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conversational AI Projects | Jax Johnson</title>
+  <title>Conversational AI | Jax Johnson</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ── Page Theme: Cream & Gold ── */
+    /* ── Design Tokens ── */
     :root {
       --bg:             #faf8f3;
-      --bg-soft:        #f4eee3;
-      --bg-deep:        #ebe3d3;
-      --surface:        rgba(255, 255, 255, 0.92);
-      --surface-strong: rgba(244, 238, 227, 0.97);
+      --surface:        #ffffff;
+      --surface-soft:   #f4eee3;
+      --surface-strong: #ebe3d3;
       --text:           #1c1710;
-      --muted:          rgba(28, 23, 16, 0.58);
+      --muted:          rgba(28, 23, 16, 0.62);
+      --faint:          rgba(28, 23, 16, 0.36);
       --line:           rgba(130, 100, 55, 0.14);
+      --line-strong:    rgba(130, 100, 55, 0.30);
       --gold:           #8c6a00;
       --gold-soft:      #b8911a;
-      --blue:           #8c6a00;
-      --shadow-panel:   0 24px 72px rgba(28, 23, 16, 0.10);
+      --shadow:         0 24px 64px rgba(28, 23, 16, 0.08);
+      --shadow-card:    0 4px 24px rgba(28, 23, 16, 0.06);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(184, 145, 26, 0.08), transparent 32%),
-        linear-gradient(180deg, #faf8f3 0%, #f7f2e8 100%);
+        radial-gradient(circle at top left, rgba(184,145,26,0.08), transparent 32%),
+        linear-gradient(180deg, #faf8f3 0%, #f6f0e4 100%);
       color: var(--text);
       font-family: "Space Grotesk", sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
     @view-transition { navigation: auto; }
-    ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.62s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    ::view-transition-old(root), ::view-transition-new(root) {
+      animation-duration: 0.62s;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
     /* ── Page Transition ── */
     .page-transition { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
     .page-transition__panel {
       position: absolute; top: 50%; left: 50%;
       width: min(34vw, 460px); height: min(22vw, 300px);
-      background: var(--bg-deep);
-      border: 1px solid rgba(0, 210, 160, 0.2);
+      background: var(--bg);
+      border: 1px solid var(--line-strong);
       border-radius: 28px;
       transform: translate(-50%, -50%) scale(0.88);
-      opacity: 0; backdrop-filter: blur(16px);
+      opacity: 0;
     }
 
-    /* ── Page Header ── */
-    .page-header { position: relative; min-height: 68vh; overflow: hidden; display: grid; place-items: end; }
-    .page-header__bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 22% 35%, rgba(184, 145, 26, 0.10), transparent 44%), radial-gradient(ellipse at 76% 68%, rgba(140, 106, 0, 0.05), transparent 38%); }
-    .page-header__grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(130, 100, 55, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(130, 100, 55, 0.06) 1px, transparent 1px); background-size: 72px 72px; }
-    .page-header__inner { position: relative; z-index: 2; width: min(1200px, calc(100% - 64px)); margin: 0 auto; padding: 16vh 0 7vh; }
-    .page-num { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
-    .page-num::before { content: ""; display: block; width: 32px; height: 1px; background: var(--gold); opacity: 0.7; }
-    .page-header__title { margin: 0; font-size: clamp(2.8rem, 6.5vw, 5.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 0.95; color: var(--text); max-width: 14ch; }
-    .page-header__title em { font-style: normal; color: var(--gold); }
-    .page-header__sub { margin: 22px 0 0; font-size: clamp(1rem, 1.4vw, 1.16rem); line-height: 1.72; color: var(--muted); max-width: 52ch; }
-    .header-metrics { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
-    .header-metric { display: flex; flex-direction: column; gap: 4px; }
-    .header-metric__num { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; letter-spacing: -0.04em; color: rgba(220,255,245,0.97); line-height: 1; }
-    .header-metric__num span { color: var(--gold); }
-    .header-metric__label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(160,220,200,0.6); }
+    /* ── Nav ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      padding: 16px 32px;
+      background: rgba(250,248,243,0.93);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    }
+    .top-nav__logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+    .top-nav__logo span { color: var(--gold); }
+    .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
+    .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
+    .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
+    .top-nav__cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 38px; padding: 0 18px; border-radius: 999px;
+      background: var(--text); color: #faf8f3;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ── Wrapper ── */
+    .page { width: min(1200px, calc(100% - 48px)); margin: 0 auto; padding-bottom: 80px; }
+
+    /* ── Hero ── */
+    .hero-wrap {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 64px 0 56px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 0;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 0 0 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+    }
+    .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; opacity: 0.7; }
+    .hero__title {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.8rem, 6.5vw, 5.4rem);
+      line-height: 0.95; letter-spacing: -0.04em; font-weight: 700;
+      max-width: 12ch;
+    }
+    .hero__title em { font-style: normal; color: var(--gold); }
+    .hero__copy {
+      margin: 22px 0 0;
+      max-width: 56ch; font-size: 1.02rem; line-height: 1.76; color: var(--muted);
+    }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .chip {
+      padding: 7px 14px; border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    }
 
     /* ── Sections ── */
-    .section { width: min(1200px, calc(100% - 64px)); margin: 0 auto; padding: 64px 0; }
-    .section-rule { height: 1px; border: none; margin: 0 0 28px; background: linear-gradient(90deg, rgba(0,210,160,0.5), rgba(0,120,90,0.25), transparent 70%); }
-    .section-eyebrow { margin: 0 0 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
-    .section-title { margin: 0 0 32px; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+    .section { padding: 72px 0 0; }
+    .section-rule {
+      height: 1px; border: none; margin: 0 0 28px;
+      background: linear-gradient(90deg, rgba(140,106,0,0.45), rgba(140,106,0,0.18), transparent 70%);
+    }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 0 0 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+    }
+    .section-eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; opacity: 0.7; }
+    .section-title {
+      margin: 0 0 10px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    }
+    .section-copy { margin: 0 0 36px; max-width: 60ch; font-size: 15px; line-height: 1.74; color: var(--muted); }
 
-    /* ── Chat Demo ── */
+    /* ── Chat Layout ── */
     .chat-layout {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 28px;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
       align-items: start;
     }
-
-    .chat-info { display: flex; flex-direction: column; gap: 20px; }
+    .chat-info { display: flex; flex-direction: column; gap: 18px; }
 
     .chat-feature {
       border: 1px solid var(--line);
       border-radius: 18px;
-      background: var(--surface-strong);
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
       padding: 20px 22px;
       display: flex; gap: 14px; align-items: flex-start;
     }
-
     .chat-feature__icon {
       width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
+      background: var(--surface-soft);
       border: 1px solid var(--line);
-      background: rgba(140, 106, 0, 0.06);
     }
+    .chat-feature__title { font-size: 13px; font-weight: 700; color: var(--text); margin: 0 0 5px; }
+    .chat-feature__desc { font-size: 12.5px; line-height: 1.66; color: var(--muted); margin: 0; }
 
-    .chat-feature__title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
-    .chat-feature__desc { font-size: 12.5px; line-height: 1.66; color: var(--muted); }
-
-    /* ── Live Chat UI ── */
+    /* ── Live Chat Window ── */
     .chat-window {
-      border: 1px solid rgba(130, 100, 55, 0.16);
+      border: 1px solid var(--line-strong);
       border-radius: 24px;
-      background: var(--surface-strong);
+      background: var(--surface);
+      box-shadow: var(--shadow);
       overflow: hidden;
       position: sticky;
-      top: 24px;
+      top: 80px;
     }
+    .chat-window::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), rgba(184,145,26,0.4), transparent 70%);
+    }
+    .chat-window { position: sticky; top: 80px; }
 
     .chat-window__header {
       padding: 16px 20px;
       border-bottom: 1px solid var(--line);
       display: flex; align-items: center; gap: 12px;
-      background: rgba(0,210,160,0.06);
+      background: var(--surface-soft);
     }
-
     .chat-window__avatar {
       width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, rgba(0,180,130,0.6), rgba(0,220,170,0.3));
-      border: 1px solid rgba(0,210,160,0.3);
+      background: linear-gradient(135deg, rgba(140,106,0,0.25), rgba(184,145,26,0.15));
+      border: 1px solid var(--line-strong);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
+      font-size: 1rem; flex-shrink: 0;
     }
-
-    .chat-window__name { font-size: 13px; font-weight: 700; color: rgba(220,255,245,0.94); }
-    .chat-window__status { font-size: 10px; color: var(--gold); font-weight: 600; letter-spacing: 0.08em; }
-
+    .chat-window__name { font-size: 13px; font-weight: 700; color: var(--text); margin: 0; }
+    .chat-window__status { font-size: 10px; color: var(--gold); font-weight: 600; letter-spacing: 0.08em; margin: 0; }
     .chat-window__status-dot {
       display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--gold); margin-right: 5px;
+      background: #5a9e5a; margin-right: 5px;
       animation: pulse 2s ease-in-out infinite;
     }
-
     @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.75); } }
 
     .chat-body {
-      padding: 20px; min-height: 320px;
+      padding: 20px; min-height: 300px;
       display: flex; flex-direction: column; gap: 14px;
+      background: var(--bg);
     }
-
-    .msg { max-width: 82%; display: flex; flex-direction: column; gap: 4px; }
+    .msg { max-width: 84%; display: flex; flex-direction: column; gap: 4px; }
     .msg--ai { align-self: flex-start; }
     .msg--user { align-self: flex-end; }
 
     .msg__bubble {
       padding: 10px 14px; border-radius: 14px;
-      font-size: 13px; line-height: 1.6;
+      font-size: 13px; line-height: 1.62;
     }
-
     .msg--ai .msg__bubble {
-      background: rgba(140, 106, 0, 0.08);
-      border: 1px solid rgba(130, 100, 55, 0.18);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
       color: var(--text);
       border-radius: 4px 14px 14px 14px;
     }
-
     .msg--user .msg__bubble {
-      background: rgba(244, 238, 227, 0.80);
-      border: 1px solid rgba(130, 100, 55, 0.14);
+      background: var(--surface-strong);
+      border: 1px solid var(--line-strong);
       color: var(--text);
       border-radius: 14px 14px 4px 14px;
     }
-
-    .msg__label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(160,220,200,0.5); }
+    .msg__label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 0; }
     .msg--user .msg__label { text-align: right; }
 
     .chat-input-row {
       padding: 14px 16px;
       border-top: 1px solid var(--line);
       display: flex; gap: 10px; align-items: center;
+      background: var(--surface);
     }
-
     .chat-input {
-      flex: 1; background: rgba(0,210,160,0.06);
-      border: 1px solid var(--line); border-radius: 10px;
+      flex: 1;
+      background: var(--surface-soft);
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
       padding: 10px 14px;
       font-family: inherit; font-size: 12.5px;
-      color: rgba(220,255,245,0.9);
+      color: var(--text);
       outline: none;
+      transition: border-color 0.2s;
     }
-
-    .chat-input::placeholder { color: rgba(160,220,200,0.4); }
+    .chat-input::placeholder { color: var(--faint); }
+    .chat-input:focus { border-color: var(--gold-soft); }
 
     .chat-send {
       width: 38px; height: 38px; border-radius: 10px;
-      background: rgba(0,210,160,0.2); border: 1px solid rgba(0,210,160,0.32);
-      color: var(--gold); font-size: 1rem;
+      background: var(--text);
+      border: 1px solid var(--text);
+      color: #faf8f3; font-size: 1rem;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; flex-shrink: 0;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
     }
-    .chat-send:hover { background: rgba(0,210,160,0.32); }
+    .chat-send:hover { opacity: 0.8; }
 
-    /* ── Upcoming Features ── */
+    /* ── Chat action buttons ── */
+    .chat-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      min-height: 44px; padding: 0 20px; border-radius: 999px;
+      font-family: inherit; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.22s;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .btn:hover { background: var(--surface-strong); transform: translateY(-2px); }
+    .btn--primary {
+      background: var(--text); border-color: var(--text); color: #faf8f3;
+    }
+    .btn--primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn--gold {
+      background: rgba(140,106,0,0.10);
+      border-color: rgba(140,106,0,0.35);
+      color: var(--gold);
+    }
+    .btn--gold:hover { background: rgba(140,106,0,0.16); transform: translateY(-2px); }
+
+    /* ── Roadmap ── */
     .roadmap-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
-
     .roadmap-item {
       border: 1px solid var(--line);
       border-radius: 18px;
       background: var(--surface);
+      box-shadow: var(--shadow-card);
       padding: 22px 20px;
       display: flex; flex-direction: column; gap: 10px;
     }
-
-    .roadmap-item__status {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 10px; font-weight: 700;
+    .status-badge {
+      padding: 4px 10px; border-radius: 999px;
+      font-size: 9px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       width: fit-content;
     }
-
-    .status-badge {
-      padding: 3px 9px; border-radius: 999px;
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
+    .status-badge--live {
+      background: rgba(90,158,90,0.12);
+      border: 1px solid rgba(90,158,90,0.28);
+      color: #3d7a3d;
     }
+    .status-badge--building {
+      background: rgba(184,145,26,0.12);
+      border: 1px solid rgba(184,145,26,0.30);
+      color: var(--gold);
+    }
+    .status-badge--planned {
+      background: var(--surface-soft);
+      border: 1px solid var(--line-strong);
+      color: var(--muted);
+    }
+    .roadmap-item__title {
+      font-size: 1rem; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--text); margin: 0;
+    }
+    .roadmap-item__desc { font-size: 13px; line-height: 1.66; color: var(--muted); flex: 1; margin: 0; }
 
-    .status-badge--live { background: rgba(0,210,160,0.16); border: 1px solid rgba(0,210,160,0.3); color: var(--gold); }
-    .status-badge--building { background: rgba(255,184,28,0.12); border: 1px solid rgba(255,184,28,0.28); color: #ffd97c; }
-    .status-badge--planned { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(220,255,245,0.5); }
-
-    .roadmap-item__title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; color: rgba(220,255,245,0.96); }
-    .roadmap-item__desc { font-size: 13px; line-height: 1.66; color: var(--muted); flex: 1; }
-
-    /* ── Buttons ── */
-    .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 22px; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border: 1px solid var(--line); background: rgba(255,255,255,0.05); color: var(--text); transition: all 0.22s; }
-    .btn:hover { border-color: rgba(0,210,160,0.4); background: rgba(0,210,160,0.08); transform: translateY(-2px); }
-    .btn--teal { background: rgba(0,140,100,0.8); border-color: rgba(0,210,160,0.7); color: #e0fff8; }
-    .btn--teal:hover { background: rgba(0,180,130,0.9); }
-
-    /* ── Nav Island ── */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    /* ── Class Project Mini Cards ── */
+    .class-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 18px;
-      padding: 16px 32px;
-      background: rgba(250, 248, 243, 0.92);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      margin-bottom: 28px;
     }
-    .top-nav__logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
-    .top-nav__logo span { color: var(--gold); }
-    .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
-    .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s ease; }
-    .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
-    .top-nav__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 999px; background: var(--text); color: #faf8f3; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .class-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+    .class-card__emoji { font-size: 1.8rem; margin-bottom: 10px; }
+    .class-card__label {
+      font-size: 11px; font-weight: 700; color: var(--gold);
+      text-transform: uppercase; letter-spacing: .1em; margin: 0 0 6px;
+    }
+    .class-card__text { font-size: 13px; color: var(--muted); line-height: 1.65; margin: 0; }
 
     /* ── Footer ── */
-    .site-footer { width: min(1200px, calc(100% - 36px)); margin: 0 auto 116px; padding: 14px 20px; border: 1px solid var(--line); border-radius: 14px; background: #ffffff; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .site-footer__name { font-size: 12px; font-weight: 700; color: var(--text); }
-    .site-footer__meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .site-footer {
+      width: min(1200px, calc(100% - 36px)); margin: 64px auto 80px;
+      padding: 14px 20px;
+      border: 1px solid var(--line); border-radius: 14px;
+      background: var(--surface);
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .site-footer__name { font-size: 12px; font-weight: 700; color: var(--text); margin: 0; }
+    .site-footer__meta { font-size: 11px; color: var(--muted); margin: 2px 0 0; }
     .site-footer__legal { font-size: 11px; color: var(--muted); text-align: right; opacity: 0.7; }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) { .chat-layout { grid-template-columns: 1fr; } .chat-window { position: static; } .roadmap-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 560px) { .roadmap-grid { grid-template-columns: 1fr; } .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; } .site-footer__legal { text-align: left; } }
 
     /* ── Reveal ── */
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
     .reveal.is-visible { opacity: 1; transform: none; }
-    .reveal--d1 { transition-delay: 0.1s; } .reveal--d2 { transition-delay: 0.2s; } .reveal--d3 { transition-delay: 0.3s; }
+    .reveal--d1 { transition-delay: 0.1s; }
+    .reveal--d2 { transition-delay: 0.2s; }
+    .reveal--d3 { transition-delay: 0.3s; }
 
-    /* ── Standard Hero ── */
-    .page-shell {
-      width: min(1240px, calc(100% - 48px));
-      margin: 0 auto;
-    }
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
-      gap: clamp(24px, 4vw, 48px);
-      align-items: center;
-      padding: 60px clamp(48px, 7vw, 100px) 60px 0;
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 20px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-    .eyebrow::before {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: currentColor;
-      opacity: 0.7;
-    }
-    .hero__title {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2.8rem, 7vw, 5.4rem);
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      max-width: 10ch;
-    }
-    .hero__title span { color: var(--gold); }
-    .hero__copy {
-      margin: 22px 0 0;
-      max-width: 58ch;
-      font-size: 1.02rem;
-      line-height: 1.76;
-      color: var(--muted);
-    }
-    .hero__chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 22px 0 0;
-    }
-    .chip {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(130, 100, 55, 0.28);
-      background: rgba(255, 255, 255, 0.72);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .hero__panel {
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,238,227,0.94));
-      box-shadow: 0 28px 70px rgba(28, 23, 16, 0.08);
-      overflow: hidden;
-    }
-    .hero__photo {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      object-position: center top;
-      background:
-        radial-gradient(circle at top, rgba(184, 145, 26, 0.14), transparent 40%),
-        linear-gradient(180deg, #f7f2e8 0%, #eee5d6 100%);
-      padding: 0;
-    }
-    .hero__panel-copy {
-      padding: 18px 22px 20px;
-      border-top: 1px solid var(--line);
-    }
-    .hero__panel-copy strong {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .hero__panel-copy p {
-      margin: 0;
-      font-size: 13.5px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
+    /* ── Responsive ── */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .page-shell { width: calc(100% - 32px); }
+      .chat-layout { grid-template-columns: 1fr; }
+      .chat-window { position: static; }
+      .roadmap-grid { grid-template-columns: 1fr 1fr; }
+      .class-cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .class-cards { grid-template-columns: 1fr; }
+      .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .site-footer__legal { text-align: left; }
+      .top-nav__links { gap: 14px; }
+      .top-nav { padding: 14px 20px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Nav -->
   <nav class="top-nav" aria-label="Portfolio navigation">
     <div class="top-nav__logo">Jax <span>Johnson</span></div>
     <div class="top-nav__links">
@@ -398,167 +399,179 @@
     <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
   </nav>
 
+  <!-- Page Transition Overlay -->
   <div class="page-transition" aria-hidden="true">
     <div class="page-transition__panel"></div>
   </div>
 
+  <!-- Hero -->
+  <div class="hero-wrap reveal">
+    <p class="eyebrow">Conversational AI</p>
+    <h1 class="hero__title">Building AI that <em>talks back</em></h1>
+    <p class="hero__copy">From a terminal chatbot in Python to an embedded briefing assistant inside a live pitch deck — a running thread of projects exploring what it means to give software a voice.</p>
+    <div class="hero-chips">
+      <span class="chip">Gemini API</span>
+      <span class="chip">Python</span>
+      <span class="chip">LangChain</span>
+      <span class="chip">n8n</span>
+      <span class="chip">Prompt Engineering</span>
+    </div>
+  </div>
+
   <main>
+    <div class="page">
 
+      <!-- ── The Briefing Assistant ── -->
+      <section class="section reveal">
+        <hr class="section-rule" />
+        <p class="section-eyebrow">Now Live</p>
+        <h2 class="section-title">The Briefing Assistant</h2>
+        <p class="section-copy">The first chatbot I shipped lives inside the Baylor × SAP pitch — a briefing assistant that knows every activation, every data point, and every talking point in the proposal. Executives can ask it questions, compare options, and prep for conversations, all within the site.</p>
 
+        <div class="chat-layout">
+          <div class="chat-info">
 
-    <!-- Current Chatbot -->
-    <section class="section reveal">
-      <hr class="section-rule" />
-      <p class="section-eyebrow">Now Live</p>
-      <h2 class="section-title">The Briefing Assistant</h2>
+            <div class="chat-feature reveal reveal--d1">
+              <div class="chat-feature__icon">📋</div>
+              <div>
+                <p class="chat-feature__title">Context-Aware</p>
+                <p class="chat-feature__desc">Knows the full SAP pitch — jersey patch ROI, suite packages, keynote logistics, app features, measurement methodology.</p>
+              </div>
+            </div>
 
-      <div class="chat-layout">
-        <div class="chat-info">
-          <p style="font-size: 15px; line-height: 1.74; color: var(--muted); max-width: 56ch; margin: 0 0 24px;">The first chatbot built lives inside the Baylor × SAP pitch — a briefing assistant that knows every activation, every data point, and every talking point in the proposal. Executives can ask it questions, compare options, and prep for conversations, all within the site.</p>
+            <div class="chat-feature reveal reveal--d2">
+              <div class="chat-feature__icon">⚡</div>
+              <div>
+                <p class="chat-feature__title">Instant Answers</p>
+                <p class="chat-feature__desc">Answers questions in natural language without digging through slides. Ask about valuation, compare activation tiers, get ROI numbers.</p>
+              </div>
+            </div>
 
-          <div class="chat-feature">
-            <div class="chat-feature__icon">📋</div>
-            <div>
-              <p class="chat-feature__title">Context-Aware</p>
-              <p class="chat-feature__desc">Knows the full SAP pitch — jersey patch ROI, suite packages, keynote logistics, app features, measurement methodology.</p>
+            <div class="chat-feature reveal reveal--d3">
+              <div class="chat-feature__icon">🔗</div>
+              <div>
+                <p class="chat-feature__title">Embedded in the Site</p>
+                <p class="chat-feature__desc">Accessible from any page in the SAP pitch via a persistent floating panel — no separate login or tool required.</p>
+              </div>
+            </div>
+
+            <div class="chat-actions">
+              <a class="btn btn--primary" href="widget.html" target="_blank">Open Chatbot ↗</a>
+              <a class="btn" href="index.html">See It In Context →</a>
             </div>
           </div>
 
-          <div class="chat-feature">
-            <div class="chat-feature__icon">⚡</div>
-            <div>
-              <p class="chat-feature__title">Instant Answers</p>
-              <p class="chat-feature__desc">Answers questions in natural language without digging through slides. Ask about valuation, compare activation tiers, get ROI numbers.</p>
+          <!-- Simulated Chat UI -->
+          <div class="chat-window" aria-label="Chatbot demo preview">
+            <div class="chat-window__header">
+              <div class="chat-window__avatar">🤖</div>
+              <div>
+                <p class="chat-window__name">Briefing Assistant</p>
+                <p class="chat-window__status"><span class="chat-window__status-dot"></span>Online</p>
+              </div>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg--user">
+                <p class="msg__label">You</p>
+                <div class="msg__bubble">What's the ROI case for the jersey patch?</div>
+              </div>
+              <div class="msg msg--ai">
+                <p class="msg__label">Briefing Assistant</p>
+                <div class="msg__bubble">The jersey patch delivers logo placement across 4.2M annual TV viewers and 300k+ home attendees. It's the first B2B tech patch in the South — a first-mover position in the I-35 corridor where SAP is targeting $500M–$2B companies.</div>
+              </div>
+              <div class="msg msg--user">
+                <p class="msg__label">You</p>
+                <div class="msg__bubble">How does the suite pricing work?</div>
+              </div>
+              <div class="msg msg--ai">
+                <p class="msg__label">Briefing Assistant</p>
+                <div class="msg__bubble">The suite packages offer tiered executive hospitality — open the Suites page for a full breakdown. Want me to compare activation tiers?</div>
+              </div>
+            </div>
+            <div class="chat-input-row">
+              <input class="chat-input" type="text" placeholder="Ask about the pitch…" aria-label="Chat input demo" />
+              <button class="chat-send" aria-label="Send">↑</button>
             </div>
           </div>
-
-          <div class="chat-feature">
-            <div class="chat-feature__icon">🔗</div>
-            <div>
-              <p class="chat-feature__title">Embedded in the Site</p>
-              <p class="chat-feature__desc">Accessible from any page in the SAP pitch via a persistent floating panel — no separate login or tool required.</p>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
-            <a class="btn btn--teal" href="widget.html" target="_blank">Open Chatbot</a>
-            <a class="btn" href="index.html">See It In Context →</a>
-          </div>
         </div>
+      </section>
 
-        <!-- Simulated Chat UI -->
-        <div class="chat-window" aria-label="Chatbot demo preview">
-          <div class="chat-window__header">
-            <div class="chat-window__avatar">🤖</div>
-            <div>
-              <p class="chat-window__name">Briefing Assistant</p>
-              <p class="chat-window__status"><span class="chat-window__status-dot"></span>Online</p>
-            </div>
+      <!-- ── Roadmap ── -->
+      <section class="section reveal">
+        <hr class="section-rule" />
+        <p class="section-eyebrow">What's Coming</p>
+        <h2 class="section-title">The full AI layer</h2>
+        <p class="section-copy">Every part of this portfolio eventually gets an AI interface — projects, dashboards, social brands. Here's the build order.</p>
+
+        <div class="roadmap-grid">
+          <div class="roadmap-item">
+            <span class="status-badge status-badge--live">Live Now</span>
+            <p class="roadmap-item__title">SAP Briefing Assistant</p>
+            <p class="roadmap-item__desc">Embedded in the Baylor × SAP pitch. Answers questions about all 7 pages of the proposal in natural language.</p>
           </div>
-          <div class="chat-body">
-            <div class="msg msg--user">
-              <p class="msg__label">You</p>
-              <div class="msg__bubble">What's the ROI case for the jersey patch?</div>
-            </div>
-            <div class="msg msg--ai">
-              <p class="msg__label">Briefing Assistant</p>
-              <div class="msg__bubble">The jersey patch delivers logo placement across 4.2M annual TV viewers and 300k+ home attendees. It's the first B2B tech patch in the South — a first-mover position in the I-35 corridor where SAP is targeting $500M–$2B companies.</div>
-            </div>
-            <div class="msg msg--user">
-              <p class="msg__label">You</p>
-              <div class="msg__bubble">How does the suite pricing work?</div>
-            </div>
-            <div class="msg msg--ai">
-              <p class="msg__label">Briefing Assistant</p>
-              <div class="msg__bubble">The suite packages offer tiered executive hospitality — open the Suites page for full breakdown. Want me to compare activation tiers?</div>
-            </div>
+          <div class="roadmap-item">
+            <span class="status-badge status-badge--building">In Progress</span>
+            <p class="roadmap-item__title">Portfolio-Wide Bot</p>
+            <p class="roadmap-item__desc">A single AI that knows every project in this portfolio — ask it about dashboards, social strategy, class work, or my background.</p>
           </div>
-          <div class="chat-input-row">
-            <input class="chat-input" type="text" placeholder="Ask about the pitch…" aria-label="Chat input demo" />
-            <button class="chat-send" aria-label="Send">↑</button>
+          <div class="roadmap-item">
+            <span class="status-badge status-badge--planned">Planned</span>
+            <p class="roadmap-item__title">Social Media AI</p>
+            <p class="roadmap-item__desc">AI assistant trained on each brand's voice and strategy — generates captions, answers questions about content approach, and analyzes performance.</p>
+          </div>
+          <div class="roadmap-item">
+            <span class="status-badge status-badge--planned">Planned</span>
+            <p class="roadmap-item__title">Dashboard AI Layer</p>
+            <p class="roadmap-item__desc">Natural language interface for the personal and business dashboards — ask questions about your data instead of reading charts.</p>
+          </div>
+          <div class="roadmap-item">
+            <span class="status-badge status-badge--planned">Planned</span>
+            <p class="roadmap-item__title">Recruiting Assistant</p>
+            <p class="roadmap-item__desc">An AI that answers recruiter and employer questions about my experience, projects, and skills — available 24/7 directly from this portfolio.</p>
+          </div>
+          <div class="roadmap-item" style="border-style: dashed; background: transparent; display:flex; align-items:center; justify-content:center; text-align:center; min-height:140px;">
+            <p style="font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); margin:0;">More to come</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Roadmap -->
-    <section class="section reveal">
-      <hr class="section-rule" />
-      <p class="section-eyebrow">What's Coming</p>
-      <h2 class="section-title">The full AI layer</h2>
+      <!-- ── Class Project ── -->
+      <section class="section reveal">
+        <hr class="section-rule" />
+        <p class="section-eyebrow">Class Project &bull; MIS 4V90</p>
+        <h2 class="section-title">Where it started: the Python chatbot</h2>
+        <p class="section-copy">Before the SAP Briefing Assistant, before the roadmap — there was a terminal window and a blinking cursor. The class project chatbot is where I first learned how language model APIs actually work: stateless calls, manual context management, and the power of a well-written system prompt.</p>
 
-      <div class="roadmap-grid">
-        <div class="roadmap-item">
-          <span class="status-badge status-badge--live">Live Now</span>
-          <p class="roadmap-item__title">SAP Briefing Assistant</p>
-          <p class="roadmap-item__desc">Embedded in the Baylor × SAP pitch. Answers questions about all 7 pages of the proposal in natural language.</p>
+        <div class="class-cards">
+          <div class="class-card">
+            <div class="class-card__emoji">🐍</div>
+            <p class="class-card__label">Stack</p>
+            <p class="class-card__text">Python 3.11 + Gemini API — no frameworks, no frontend. Just a <code style="color:var(--gold); font-size:12px;">while True</code> loop and an API key.</p>
+          </div>
+          <div class="class-card">
+            <div class="class-card__emoji">🧠</div>
+            <p class="class-card__label">Key Insight</p>
+            <p class="class-card__text">LLM APIs are stateless — memory is always the developer's job. The fix: send the full conversation history on every single call.</p>
+          </div>
+          <div class="class-card">
+            <div class="class-card__emoji">🎭</div>
+            <p class="class-card__label">System Prompt</p>
+            <p class="class-card__text">Custom persona baked in at init — tone, constraints, and capabilities defined before the first message is ever sent.</p>
+          </div>
         </div>
-        <div class="roadmap-item">
-          <span class="status-badge status-badge--building">In Progress</span>
-          <p class="roadmap-item__title">Portfolio-Wide Bot</p>
-          <p class="roadmap-item__desc">A single AI that knows every project in this portfolio — ask it about dashboards, social strategy, class work, or my background.</p>
-        </div>
-        <div class="roadmap-item">
-          <span class="status-badge status-badge--planned">Planned</span>
-          <p class="roadmap-item__title">Social Media AI</p>
-          <p class="roadmap-item__desc">AI assistant trained on each brand's voice and strategy — generates captions, answers questions about content approach, and analyzes performance.</p>
-        </div>
-        <div class="roadmap-item">
-          <span class="status-badge status-badge--planned">Planned</span>
-          <p class="roadmap-item__title">Dashboard AI Layer</p>
-          <p class="roadmap-item__desc">Natural language interface for the personal and business dashboards — ask questions about your data instead of reading charts.</p>
-        </div>
-        <div class="roadmap-item">
-          <span class="status-badge status-badge--planned">Planned</span>
-          <p class="roadmap-item__title">Recruiting Assistant</p>
-          <p class="roadmap-item__desc">An AI that answers recruiter and employer questions about my experience, projects, and skills — available 24/7 directly from this portfolio.</p>
-        </div>
-        <div class="roadmap-item" style="border-style: dashed; border-color: rgba(0,210,160,0.1); background: rgba(255,255,255,0.02); display:flex; align-items:center; justify-content:center; text-align:center; min-height:140px;">
-          <p style="font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:rgba(160,220,200,0.3);">More to come</p>
-        </div>
-      </div>
-    </section>
 
+        <a href="project-chatbot.html" class="btn btn--gold">
+          View Full Project Case →
+        </a>
+      </section>
 
-    <!-- Class Project: Python Chatbot -->
-    <section class="section reveal">
-      <hr class="section-rule" />
-      <p class="section-eyebrow">Class Project &bull; MIS 4V90</p>
-      <h2 class="section-title">Where it started: the Python chatbot</h2>
-      <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.74; color: var(--muted); max-width: 64ch;">
-        Before the SAP Briefing Assistant, before the roadmap &mdash; there was a terminal window
-        and a blinking cursor. The class project chatbot is where I first learned how language
-        model APIs actually work: stateless calls, manual context management, and the power of
-        a well-written system prompt.
-      </p>
-      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 28px;">
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(130,100,55,0.16); border-radius: 18px; padding: 22px;">
-          <div style="font-size: 1.8rem; margin-bottom: 10px;">&#x1F40D;</div>
-          <p style="font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px;">Stack</p>
-          <p style="font-size: 13px; color: var(--muted); line-height: 1.65;">Python 3.11 + Gemini API &mdash; no frameworks, no frontend. Just a <code style="color:var(--gold)">while True</code> loop and an API key.</p>
-        </div>
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(130,100,55,0.16); border-radius: 18px; padding: 22px;">
-          <div style="font-size: 1.8rem; margin-bottom: 10px;">&#x1F9E0;</div>
-          <p style="font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px;">Key Insight</p>
-          <p style="font-size: 13px; color: var(--muted); line-height: 1.65;">LLM APIs are stateless &mdash; memory is always the developer's job. The fix: send the full conversation history on every single call.</p>
-        </div>
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(130,100,55,0.16); border-radius: 18px; padding: 22px;">
-          <div style="font-size: 1.8rem; margin-bottom: 10px;">&#x1F3AD;</div>
-          <p style="font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px;">System Prompt</p>
-          <p style="font-size: 13px; color: var(--muted); line-height: 1.65;">Custom persona baked in at init &mdash; tone, constraints, and capabilities defined before the first message is ever sent.</p>
-        </div>
-      </div>
-      <a href="project-chatbot.html" style="display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:999px; background:rgba(140,106,0,0.12); border:1px solid rgba(140,106,0,0.3); color:var(--gold); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; text-decoration:none;">
-        View Full Project Case &rarr;
-      </a>
-    </section>
-
+    </div><!-- /.page -->
   </main>
 
   <footer class="site-footer">
     <div>
       <p class="site-footer__name">Jax Johnson</p>
-      <p class="site-footer__meta">Conversational AI Projects &bull; Marketing &amp; MIS &bull; Baylor University</p>
+      <p class="site-footer__meta">Conversational AI &bull; Marketing &amp; MIS &bull; Baylor University</p>
     </div>
     <span class="site-footer__legal">Section 05 / 05</span>
   </footer>
@@ -566,11 +579,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // Reveal on scroll
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-visible"); observer.unobserve(e.target); } });
-      }, { threshold: 0.08 });
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add("is-visible"); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.06 });
       document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
+      // Page transitions
       const wrap = document.querySelector(".page-transition");
       const panel = wrap?.querySelector(".page-transition__panel");
       if (!wrap || !panel) return;
@@ -580,12 +597,29 @@
       const tabColors = {
         "portfolio.html": "#0b1320", "experience.html": "#5f4934", "dashboards.html": "#030810",
         "social.html": "#100610", "class-projects.html": "#0c0b02",
-        "chatbot.html": "#020e0c", "index.html": "#050505",
+        "chatbot.html": "#1a1710", "index.html": "#050505",
       };
 
-      const setCompact = () => { panel.style.opacity = "0"; panel.style.width = "min(34vw, 460px)"; panel.style.height = "min(22vw, 300px)"; panel.style.borderRadius = "28px"; panel.style.transform = "translate(-50%, -50%) scale(0.88)"; };
-      const isInternal = (a) => { if (!a?.href || a.target === "_blank" || a.hasAttribute("download")) return false; try { const url = new URL(a.href, location.origin); if (url.origin !== location.origin) return false; if (url.pathname === location.pathname && url.hash) return false; return true; } catch { return false; } };
-      const resolveColor = (href) => { try { const file = new URL(href, location.origin).pathname.split("/").pop().toLowerCase(); return tabColors[file] || "#050505"; } catch { return "#050505"; } };
+      const setCompact = () => {
+        panel.style.opacity = "0";
+        panel.style.width = "min(34vw, 460px)";
+        panel.style.height = "min(22vw, 300px)";
+        panel.style.borderRadius = "28px";
+        panel.style.transform = "translate(-50%, -50%) scale(0.88)";
+      };
+      const isInternal = (a) => {
+        if (!a?.href || a.target === "_blank" || a.hasAttribute("download")) return false;
+        try {
+          const url = new URL(a.href, location.origin);
+          if (url.origin !== location.origin) return false;
+          if (url.pathname === location.pathname && url.hash) return false;
+          return true;
+        } catch { return false; }
+      };
+      const resolveColor = (href) => {
+        try { const file = new URL(href, location.origin).pathname.split("/").pop().toLowerCase(); return tabColors[file] || "#1a1710"; }
+        catch { return "#1a1710"; }
+      };
 
       document.addEventListener("click", (e) => {
         const a = e.target.closest("a");
@@ -595,20 +629,19 @@
         isLeaving = true; e.preventDefault();
         sessionStorage.setItem("__pt_pending", "1");
         panel.style.background = resolveColor(a.href);
-        if (hasGSAP) { gsap.to(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0, duration: 0.56, ease: "expo.inOut", onComplete: () => { location.href = a.href; } }); }
-        else { location.href = a.href; }
+        if (hasGSAP) {
+          gsap.to(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0, duration: 0.56, ease: "expo.inOut", onComplete: () => { location.href = a.href; } });
+        } else { location.href = a.href; }
       });
 
       if (sessionStorage.getItem("__pt_pending") === "1") {
         sessionStorage.removeItem("__pt_pending");
-        if (hasGSAP) { gsap.set(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0 }); gsap.to(panel, { opacity: 0, scale: 1.015, duration: 0.52, ease: "expo.out", onComplete: setCompact }); }
+        if (hasGSAP) {
+          gsap.set(panel, { opacity: 1, scale: 1, width: "100vw", height: "100vh", borderRadius: 0 });
+          gsap.to(panel, { opacity: 0, scale: 1.015, duration: 0.52, ease: "expo.out", onComplete: setCompact });
+        }
       } else { setCompact(); }
     });
   </script>
 </body>
 </html>
-
-
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
