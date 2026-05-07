@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha & Omega — Transcript Processor</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0b09;
+    --surface: #161310;
+    --surface2: #1d1a16;
+    --line: rgba(255,255,255,0.1);
+    --gold: #c9971f;
+    --gold-dim: rgba(201,151,31,0.18);
+    --text: #f0ece4;
+    --muted: rgba(240,236,228,0.55);
+    --green: #22c55e;
+    --red: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: "Space Grotesk", sans-serif; font-size: 13px; line-height: 1.6; min-height: 100vh; }
+
+  /* ── Header ── */
+  .header { background: var(--surface); border-bottom: 1px solid var(--line); padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+  .header__logo { width: 32px; height: 32px; border-radius: 8px; background: var(--gold-dim); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .header__title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .header__sub { font-size: 11px; color: var(--muted); }
+  .header__badge { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: var(--gold-dim); border: 1px solid rgba(201,151,31,0.3); border-radius: 20px; padding: 3px 10px; }
+
+  /* ── Layout ── */
+  .app { display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 57px); }
+  .pane { overflow-y: auto; padding: 20px; }
+  .pane--left { border-right: 1px solid var(--line); }
+
+  /* ── Form ── */
+  .field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  input, textarea { width: 100%; background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; color: var(--text); font-family: inherit; font-size: 12px; outline: none; transition: border-color 0.15s; resize: none; }
+  input:focus, textarea:focus { border-color: var(--gold); }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
+  .transcript-area { height: 160px; margin-bottom: 16px; line-height: 1.5; }
+  .btn-process { width: 100%; padding: 12px; background: var(--gold); color: #0d0b09; font-family: inherit; font-size: 13px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; transition: opacity 0.15s; }
+  .btn-process:hover { opacity: 0.88; }
+  .btn-process:disabled { opacity: 0.4; cursor: default; }
+  .hint { font-size: 11px; color: var(--muted); margin-top: 10px; text-align: center; }
+
+  /* ── Sample transcript ── */
+  .sample-btn { display: inline-block; font-size: 11px; color: var(--gold); cursor: pointer; text-decoration: underline; margin-bottom: 12px; background: none; border: none; font-family: inherit; }
+
+  /* ── Section dividers ── */
+  .section-hdr { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 18px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+
+  /* ── Result cards ── */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .card__title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .card__value { font-size: 13px; color: var(--text); }
+  .card__big { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-right: 4px; margin-bottom: 4px; }
+  .badge--gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,151,31,0.3); }
+  .badge--green { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .badge--red { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+
+  /* ── Task list ── */
+  .task-item { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--text); }
+  .task-item:last-child { border-bottom: none; }
+  .task-num { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--gold-dim); border: 1px solid rgba(201,151,31,0.3); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--gold); margin-top: 1px; }
+
+  /* ── Email draft ── */
+  .email-draft { background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font-size: 12px; color: var(--text); line-height: 1.7; white-space: pre-wrap; font-family: monospace; max-height: 260px; overflow-y: auto; }
+  .copy-btn { margin-top: 8px; padding: 7px 14px; background: transparent; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); font-family: inherit; font-size: 11px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+  .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── Plan chips ── */
+  .plan-chip { background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin-bottom: 8px; }
+  .plan-chip__name { font-weight: 700; font-size: 12px; margin-bottom: 2px; }
+  .plan-chip__price { font-size: 11px; color: var(--gold); }
+
+  /* ── Empty state ── */
+  .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .empty__icon { font-size: 36px; margin-bottom: 14px; opacity: 0.4; }
+  .empty__text { font-size: 13px; }
+
+  /* ── Loading ── */
+  .processing { text-align: center; padding: 40px 20px; }
+  .spinner { display: inline-block; width: 28px; height: 28px; border: 2px solid var(--line); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; margin-bottom: 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Concerns ── */
+  .concern-tag { display: inline-block; font-size: 11px; color: var(--muted); background: var(--surface2); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; margin: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header__logo">A&amp;Ω</div>
+  <div>
+    <div class="header__title">Alpha &amp; Omega Transcript Processor</div>
+    <div class="header__sub">Insurance call automation — client-side processing</div>
+  </div>
+  <span class="header__badge">Live Tool</span>
+</div>
+
+<div class="app">
+
+  <!-- ── INPUT PANE ── -->
+  <div class="pane pane--left">
+    <div class="section-hdr">Client Info (optional)</div>
+    <div class="field-row">
+      <div>
+        <div class="field-label">Full Name</div>
+        <input id="clientName" type="text" placeholder="Margaret R.">
+      </div>
+      <div>
+        <div class="field-label">Email</div>
+        <input id="clientEmail" type="email" placeholder="margaret@email.com">
+      </div>
+    </div>
+    <div class="field-row">
+      <div>
+        <div class="field-label">Phone</div>
+        <input id="clientPhone" type="text" placeholder="(555) 123-4567">
+      </div>
+      <div>
+        <div class="field-label">Notes</div>
+        <input id="clientNotes" type="text" placeholder="Turning 65 in March...">
+      </div>
+    </div>
+
+    <div class="section-hdr">Call Transcript</div>
+    <button class="sample-btn" onclick="loadSample()">↓ Load sample transcript</button>
+    <textarea class="transcript-area" id="transcript" placeholder="Paste the call transcript here — any length or format. The tool will extract client details, identify plans discussed, build a task list, and draft a follow-up email automatically."></textarea>
+
+    <button class="btn-process" id="processBtn" onclick="process()">Process Transcript →</button>
+    <p class="hint">All processing happens in your browser — nothing is sent to a server.</p>
+  </div>
+
+  <!-- ── OUTPUT PANE ── -->
+  <div class="pane" id="outputPane">
+    <div class="empty">
+      <div class="empty__icon">📋</div>
+      <div class="empty__text">Paste a transcript and click Process to generate the full automation package.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Ported logic from route.js ─────────────────────────────────────
+
+const WEBSITE_URL = 'https://alphaandomegaagency.com/';
+const CALENDLY_URL = 'https://calendly.com/jayjohnson2000';
+const SUNFIRE_URL  = 'https://www.sunfirematrix.com/app/consumer/ember/?sfpath=spa&sfagid=21318914#/';
+
+const VIDEO_LIBRARY = [
+  { title: 'Medicare Overview Video', url: 'https://www.youtube.com/watch?v=gpHno2oTLQU', tags: ['medicare','overview','basics','part a','part b','plan'] }
+];
+
+function detectPriority(text) {
+  if (/urgent|asap|immediately|today|critical/.test(text)) return 'high';
+  if (/soon|this week|next week/.test(text)) return 'normal';
+  return 'low';
+}
+
+function inferAgeGroup(text) {
+  if (/turning 65|age 65|medicare birthday/.test(text)) return 'New Medicare';
+  if (/retire|retiring|leaving employer/.test(text)) return 'Retiring';
+  return 'Existing Beneficiary';
+}
+
+function extractClientProfile(txt, ci = {}) {
+  const text = txt.toLowerCase();
+  const phoneMatch = txt.match(/\+?1?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/);
+  const emailMatch = txt.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi);
+  return {
+    fullName: ci.fullName || 'Client',
+    email: ci.email || (emailMatch ? emailMatch[0] : null),
+    phone: ci.phone || (phoneMatch ? phoneMatch[0] : null),
+    notes: ci.notes || null,
+    ageGroup: inferAgeGroup(text),
+    concerns: [
+      /prescription|medication|rx/.test(text) ? 'Prescription costs' : null,
+      /doctor|specialist|network/.test(text) ? 'Provider network match' : null,
+      /premium|price|cost|budget/.test(text) ? 'Monthly affordability' : null,
+      /travel|out of state/.test(text) ? 'Out-of-state coverage' : null
+    ].filter(Boolean)
+  };
+}
+
+function extractPricingMentions(s) {
+  const hits = [...s.matchAll(/\$\s?\d{1,4}(?:,\d{3})*(?:\.\d{1,2})?/g)].map(m => m[0].replace(/\s+/g,''));
+  if (/zero premium|no premium|\$0 premium/.test(s.toLowerCase()) && !hits.includes('$0')) hits.push('$0');
+  return hits;
+}
+
+function buildRecommendedPlans(txt) {
+  const patterns = [
+    { planName:'Medicare Advantage', keywords:['medicare advantage','advantage plan','advantage'] },
+    { planName:'Medicare Supplement', keywords:['medicare supplement','medigap','supplement plan'] },
+    { planName:'Part D Drug Plan', keywords:['part d','drug plan','prescription plan','rx plan'] },
+    { planName:'HMO Plan', keywords:['hmo'] },
+    { planName:'PPO Plan', keywords:['ppo'] },
+    { planName:'Plan G', keywords:['plan g'] },
+    { planName:'Plan N', keywords:['plan n'] }
+  ];
+  const sentences = txt.split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(Boolean);
+  const found = [];
+  for (const s of sentences) {
+    const lo = s.toLowerCase();
+    const pricing = extractPricingMentions(s);
+    const matched = patterns.filter(p => p.keywords.some(k => new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`,'i').test(lo)));
+    const singleMatch = matched.length === 1;
+    for (const p of matched) {
+      const existing = found.find(f => f.planName === p.planName);
+      if (existing) { if (singleMatch) for (const pr of pricing) if (!existing.pricing.includes(pr)) existing.pricing.push(pr); continue; }
+      found.push({ planName: p.planName, pricing: singleMatch ? pricing : [], excerpt: s.slice(0,120) });
+    }
+  }
+  return found;
+}
+
+function buildTasks(text) {
+  const tasks = [];
+  if (/quote|proposal|plan options|pricing/.test(text)) tasks.push('Prepare and send personalized plan comparison.');
+  if (/follow up|follow-up|call back|callback|next week/.test(text)) tasks.push('Schedule follow-up call and confirm exact time.');
+  if (/email|send over|send me/.test(text)) tasks.push('Send recap email with recommendations and pricing table.');
+  if (/doctor|specialist|network/.test(text)) tasks.push('Verify preferred doctors in-network for recommended plans.');
+  if (/prescription|medication|rx/.test(text)) tasks.push('Run medication list through each plan formulary.');
+  if (tasks.length === 0) tasks.push('Complete standard post-call review and send recommendations.');
+  return tasks;
+}
+
+function inferCallCategory(text) {
+  const lo = text.toLowerCase();
+  const med = [/medicare/,/part\s*[abcd]/,/medigap/,/supplement/,/advantage/,/plan\s*[gn]/].filter(p=>p.test(lo)).length;
+  const life = [/life\s*insurance/,/term\s*life/,/whole\s*life/,/beneficiary/,/death\s*benefit/,/final\s*expense/].filter(p=>p.test(lo)).length;
+  if (life > med && life > 0) return 'life_insurance';
+  if (med > 0) return 'medicare';
+  return 'general';
+}
+
+function pickVideos(text) {
+  const sel = VIDEO_LIBRARY.filter(v => v.tags.some(t => text.includes(t)));
+  return sel.length > 0 ? sel.slice(0,2) : [];
+}
+
+function buildEmail(profile, tasks, plans, videos) {
+  const planLines = plans.length
+    ? plans.map((p,i) => `${i+1}. ${p.planName}${p.pricing.length ? ' — ' + p.pricing.join(', ') : ''}`).join('\n')
+    : 'No specific plans were explicitly discussed on this call.';
+  const videoLines = videos.length ? ['', 'Helpful resources:', ...videos.map((v,i)=>`${i+1}. ${v.title}: ${v.url}`)] : [];
+  return [
+    `Hi ${profile.fullName},`,
+    '',
+    'Thank you for speaking with me today. Based on our conversation, here is a summary of your personalized options:',
+    '',
+    'Plans discussed:',
+    planLines,
+    ...videoLines,
+    '',
+    'Your next steps:',
+    tasks.map((t,i)=>`${i+1}. ${t}`).join('\n'),
+    '',
+    'I will follow up within 24 hours to walk through these options together.',
+    '',
+    'Best regards,',
+    'Alpha & Omega Insurance Agency'
+  ].join('\n');
+}
+
+// ── UI ─────────────────────────────────────────────────────────────
+
+const SAMPLE = `Agent: Hi Margaret, thanks for calling Alpha and Omega today. How can I help you?
+
+Margaret: Hi, I'm turning 65 in March and I'm starting to look into Medicare. My doctor said I should call before I retire.
+
+Agent: Perfect timing. Are you still on your employer's plan?
+
+Margaret: Yes, leaving it in February when I retire.
+
+Agent: Got it. With your timeline, we want to look at both Medicare Advantage plans and Supplement options — Plan G is popular for people who want predictable costs. Do you have any prescriptions?
+
+Margaret: Yes, I take metformin for type 2 diabetes and lisinopril for blood pressure.
+
+Agent: We'll want to run those through the Part D formulary. Budget-wise, what are you comfortable with per month?
+
+Margaret: I was thinking $300 to maybe $400.
+
+Agent: That works well. I'll put together a comparison of Plan G versus a Medicare Advantage PPO with Part D included, and send it over by email. Want to also schedule a call next week to walk through it?
+
+Margaret: That sounds great. My email is margaret.r@gmail.com.
+
+Agent: Perfect. I'll send that over today and follow up about the quote.`;
+
+function loadSample() {
+  document.getElementById('transcript').value = SAMPLE;
+  document.getElementById('clientName').value = 'Margaret R.';
+  document.getElementById('clientEmail').value = 'margaret.r@gmail.com';
+}
+
+function process() {
+  const txt = document.getElementById('transcript').value.trim();
+  if (!txt) { alert('Please paste a call transcript first.'); return; }
+
+  const btn = document.getElementById('processBtn');
+  btn.disabled = true;
+  btn.textContent = 'Processing…';
+  document.getElementById('outputPane').innerHTML = '<div class="processing"><div class="spinner"></div><p style="color:var(--muted);font-size:12px;">Analyzing transcript…</p></div>';
+
+  setTimeout(() => {
+    const ci = {
+      fullName: document.getElementById('clientName').value.trim() || undefined,
+      email: document.getElementById('clientEmail').value.trim() || undefined,
+      phone: document.getElementById('clientPhone').value.trim() || undefined,
+      notes: document.getElementById('clientNotes').value.trim() || undefined,
+    };
+
+    const profile  = extractClientProfile(txt, ci);
+    const tasks    = buildTasks(txt.toLowerCase());
+    const plans    = buildRecommendedPlans(txt);
+    const category = inferCallCategory(txt);
+    const priority = detectPriority(txt.toLowerCase());
+    const videos   = pickVideos(txt.toLowerCase());
+    const email    = buildEmail(profile, tasks, plans, videos);
+
+    const priorityClass = priority === 'high' ? 'badge--red' : priority === 'normal' ? 'badge--gold' : 'badge--green';
+    const categoryLabel = category === 'medicare' ? 'Medicare' : category === 'life_insurance' ? 'Life Insurance' : 'General';
+
+    const plansHtml = plans.length
+      ? plans.map(p => `<div class="plan-chip"><div class="plan-chip__name">${p.planName}</div>${p.pricing.length ? `<div class="plan-chip__price">${p.pricing.join(' · ')}</div>` : '<div style="font-size:11px;color:var(--muted)">No pricing discussed</div>'}</div>`).join('')
+      : '<p style="color:var(--muted);font-size:12px;">No specific plans detected</p>';
+
+    const tasksHtml = tasks.map((t,i) => `<div class="task-item"><div class="task-num">${i+1}</div><span>${t}</span></div>`).join('');
+
+    const concernsHtml = profile.concerns.length
+      ? profile.concerns.map(c => `<span class="concern-tag">${c}</span>`).join('')
+      : '<span style="color:var(--muted);font-size:12px;">None detected</span>';
+
+    document.getElementById('outputPane').innerHTML = `
+      <div class="section-hdr">Call Summary</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px;">
+        <div class="card" style="text-align:center;">
+          <div class="card__title">Category</div>
+          <div class="card__value"><span class="badge badge--gold">${categoryLabel}</span></div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card__title">Priority</div>
+          <div class="card__value"><span class="badge ${priorityClass}">${priority.charAt(0).toUpperCase()+priority.slice(1)}</span></div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card__title">Age Group</div>
+          <div class="card__value" style="font-size:12px;">${profile.ageGroup}</div>
+        </div>
+      </div>
+
+      <div class="section-hdr">Client Profile</div>
+      <div class="card">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><div class="card__title">Name</div><div class="card__value">${profile.fullName}</div></div>
+          <div><div class="card__title">Email</div><div class="card__value" style="font-size:12px;">${profile.email || '—'}</div></div>
+          <div><div class="card__title">Phone</div><div class="card__value" style="font-size:12px;">${profile.phone || '—'}</div></div>
+          <div><div class="card__title">Notes</div><div class="card__value" style="font-size:12px;">${profile.notes || '—'}</div></div>
+        </div>
+        <div style="margin-top:12px;"><div class="card__title" style="margin-bottom:6px;">Detected concerns</div>${concernsHtml}</div>
+      </div>
+
+      <div class="section-hdr">Plans Detected</div>
+      ${plansHtml}
+
+      <div class="section-hdr">Action Tasks (${tasks.length})</div>
+      <div class="card">${tasksHtml}</div>
+
+      <div class="section-hdr">Draft Follow-Up Email</div>
+      <div class="email-draft" id="emailDraft">${email.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      <button class="copy-btn" onclick="copyEmail()">Copy email to clipboard</button>
+    `;
+
+    btn.disabled = false;
+    btn.textContent = 'Process Transcript →';
+  }, 400);
+}
+
+function copyEmail() {
+  const draft = document.getElementById('emailDraft');
+  if (!draft) return;
+  navigator.clipboard.writeText(draft.innerText).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => btn.textContent = 'Copy email to clipboard', 2000);
+  });
+}
+</script>
+</body>
+</html>
