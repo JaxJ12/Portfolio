@@ -247,6 +247,26 @@
           <span class="pill">Scene Context Writing</span>
         </div>
       </div>
+
+      <div class="card card-sm">
+        <p class="detail-label">Key Features</p>
+        <p class="detail-body">
+          Multi-round iterative prompt refinement to achieve character continuity across frames.
+          Written scene context document (color grading, lens specs, film grain, wardrobe period)
+          fed as background context. Three reference stills used as visual anchors. Custom dialogue
+          line integrated into the generated scene. Camera direction for handheld motion and
+          final lighthouse refocus. Output: 15-second cinematic video clip.
+        </p>
+      </div>
+
+      <div class="card card-sm">
+        <p class="detail-label">GitHub &amp; Demo</p>
+        <p class="detail-body">
+          No code repository — this is a generative media project using Google AI Studio's
+          web interface. The deliverable is the generated video (embedded above). The full prompt
+          engineering document and scene context write-up are available on request.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -258,15 +278,15 @@
 
     <div class="gallery">
       <div class="gallery-item" onclick="openLightbox(0)">
-        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80" alt="Reference still 1 — establishing shot" onerror="this.style.background='#1a1a2e';this.style.height='200px'"/>
+        <img src="Generate_a_picture_2k_202602171447%20(1).jpeg" alt="Reference still 1 — establishing shot"/>
         <div class="img-label">Shot 1 — The Doctor's arrival</div>
       </div>
       <div class="gallery-item" onclick="openLightbox(1)">
-        <img src="https://images.unsplash.com/photo-1489945052260-4f21c52268b9?w=600&q=80" alt="Reference still 2 — reverse medium shot" onerror="this.style.background='#1a1a2e';this.style.height='200px'"/>
+        <img src="Image_202602171622%20(1)%20(1).jpeg" alt="Reference still 2 — reverse medium shot"/>
         <div class="img-label">Shot 2 — Reverse medium (Andrew's POV)</div>
       </div>
       <div class="gallery-item" onclick="openLightbox(2)">
-        <img src="https://images.unsplash.com/photo-1509909756405-be0199881695?w=600&q=80" alt="Reference still 3 — transition" onerror="this.style.background='#1a1a2e';this.style.height='200px'"/>
+        <img src="Image_202602171622%20(2).jpeg" alt="Reference still 3 — transition"/>
         <div class="img-label">Shot 3 — The final decision</div>
       </div>
     </div>
@@ -348,9 +368,9 @@
 
 <script>
 const images = [
-  { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=85', alt: 'Reference still 1' },
-  { src: 'https://images.unsplash.com/photo-1489945052260-4f21c52268b9?w=1200&q=85', alt: 'Reference still 2' },
-  { src: 'https://images.unsplash.com/photo-1509909756405-be0199881695?w=1200&q=85', alt: 'Reference still 3' }
+  { src: 'Generate_a_picture_2k_202602171447%20(1).jpeg', alt: 'Reference still 1 — The Doctor\'s arrival' },
+  { src: 'Image_202602171622%20(1)%20(1).jpeg', alt: 'Reference still 2 — Reverse medium (Andrew\'s POV)' },
+  { src: 'Image_202602171622%20(2).jpeg', alt: 'Reference still 3 — The final decision' }
 ];
 
 function openLightbox(i) {
