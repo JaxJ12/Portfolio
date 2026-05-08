@@ -523,12 +523,15 @@
 
     .preview-iframe {
       display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 1440px;
       height: 900px;
       border: none;
       transform-origin: top left;
       pointer-events: none;
-      transition: opacity 0.22s ease;
+      transition: opacity 0.28s ease;
     }
 
     .preview-browser__badge {
@@ -875,7 +878,6 @@
               <div class="preview-browser__status">Live preview</div>
             </div>
             <div class="preview-browser__frame" id="preview-frame">
-              <iframe id="preview-stage-iframe" class="preview-iframe" src="experience.html" title="Experience and Skills preview" loading="lazy"></iframe>
               <div class="preview-browser__badge" id="preview-stage-badge">Profile</div>
             </div>
           </div>
@@ -1054,47 +1056,43 @@
 
   <script>
     const previewLinks = Array.from(document.querySelectorAll(".preview-link"));
-    const previewFrame  = document.getElementById("preview-frame");
-    const previewIframe = document.getElementById("preview-stage-iframe");
-    const previewUrl    = document.getElementById("preview-stage-url");
-    const previewBadge  = document.getElementById("preview-stage-badge");
+    const previewFrame = document.getElementById("preview-frame");
+    const previewUrl   = document.getElementById("preview-stage-url");
+    const previewBadge = document.getElementById("preview-stage-badge");
+    const badge        = document.getElementById("preview-stage-badge");
 
-    /* Scale the iframe to fill the frame width at every size */
-    function scaleIframe() {
-      if (!previewFrame || !previewIframe) return;
-      const w = previewFrame.offsetWidth;
-      const scale = w / 1440;
-      previewIframe.style.transform = `scale(${scale})`;
+    /* Pre-load one iframe per link — no src-swapping, no reload flicker */
+    const iframes = previewLinks.map((link) => {
+      const src = link.getAttribute("href");
+      const f = document.createElement("iframe");
+      f.className = "preview-iframe";
+      f.src = src;
+      f.title = link.dataset.previewTitle || src;
+      f.loading = "lazy";
+      f.style.opacity = "0";
+      previewFrame.insertBefore(f, badge);
+      return f;
+    });
+
+    /* Scale all iframes to fill the frame at every viewport size */
+    function scaleIframes() {
+      if (!previewFrame) return;
+      const scale = previewFrame.offsetWidth / 1440;
       previewFrame.style.height = Math.round(900 * scale) + "px";
+      iframes.forEach((f) => { f.style.transform = `scale(${scale})`; });
     }
-    scaleIframe();
-    window.addEventListener("resize", scaleIframe);
-    new ResizeObserver(scaleIframe).observe(previewFrame);
+    scaleIframes();
+    window.addEventListener("resize", scaleIframes);
+    new ResizeObserver(scaleIframes).observe(previewFrame);
 
+    /* Switch active preview — pure opacity swap, already-loaded pages */
     function setActivePreview(link) {
+      const idx = previewLinks.indexOf(link);
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
-      const data = link.dataset;
-      const href = link.getAttribute("href");
-      previewUrl.textContent = href;
-      previewBadge.textContent = data.previewBadge;
-      /* Swap the iframe src — fade out/in for smooth transition */
-      previewIframe.style.opacity = "0";
-      setTimeout(() => {
-        previewIframe.src = href;
-        previewIframe.style.opacity = "1";
-      }, 160);
+      previewUrl.textContent  = link.getAttribute("href");
+      previewBadge.textContent = link.dataset.previewBadge;
+      iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
     }
 
     previewLinks.forEach((link) => {
-      ["mouseenter", "focus"].forEach((eventName) => {
-        link.addEventListener(eventName, () => setActivePreview(link));
-      });
-      link.addEventListener("click", () => setActivePreview(link));
-    });
-
-    if (previewLinks[0]) {
-      setActivePreview(previewLinks[0]);
-    }
-  </script>
-</body>
-</html>
+      ["mouseenter", "focus"].forEach((ev) => link.addEven
