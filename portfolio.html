@@ -449,7 +449,7 @@
       background: rgba(255, 255, 255, 0.88);
       box-shadow: var(--shadow);
       position: sticky;
-      top: 72px;
+      top: clamp(72px, calc(50vh - 260px), 160px);
     }
 
     .preview-browser {
@@ -513,35 +513,22 @@
 
     .preview-browser__frame {
       position: relative;
-      aspect-ratio: 16 / 10;
       overflow: hidden;
       border: 1px solid var(--line);
       border-top: none;
       border-radius: 0 0 20px 20px;
       background: #efe5d4;
+      /* height is set dynamically by JS to match iframe scale */
     }
 
-    .preview-browser__frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      transform: scale(1);
-      transition: transform 0.42s ease, filter 0.42s ease;
-      filter: saturate(0.96) contrast(1.02);
-    }
-
-    .preview-stage:hover .preview-browser__frame img {
-      transform: scale(1.025);
-    }
-
-    .preview-browser__wash {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(28,23,16,0.06), rgba(28,23,16,0.18)),
-        linear-gradient(0deg, rgba(255,255,255,0.08), rgba(255,255,255,0.08));
+    .preview-iframe {
+      display: block;
+      width: 1440px;
+      height: 900px;
+      border: none;
+      transform-origin: top left;
       pointer-events: none;
+      transition: opacity 0.22s ease;
     }
 
     .preview-browser__badge {
@@ -558,42 +545,6 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--gold);
-    }
-
-    .preview-stage__body {
-      padding: 24px 24px 26px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .preview-stage__label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .preview-stage__title {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(1.85rem, 2.8vw, 2.5rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-
-    .preview-stage__copy {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.76;
-      color: var(--muted);
-      max-width: 60ch;
-    }
-
-    .preview-stage__tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
     }
 
     .preview-stage__meta {
@@ -864,10 +815,9 @@
         <p class="eyebrow">Portfolio Overview</p>
         <h1 class="hero__title">Marketing, MIS,<br><span>Social Media, AI building</span>.</h1>
         <p class="hero__copy">
-          Marketing &amp; MIS student at Baylor University building across social media,
-          AI tools, and portfolio-ready business work. The focus here is content that
-          performs, systems that support smarter execution, and projects that show how
-          those skills connect in practice.
+          Marketing &amp; MIS at Baylor building across social media, AI tools, and
+          portfolio-ready work. Content that performs, systems that support smarter
+          execution, and projects that show how those skills connect.
         </p>
         <div class="hero__chips">
           <span class="chip">Baylor University</span>
@@ -921,37 +871,13 @@
           <div class="preview-browser">
             <div class="preview-browser__chrome">
               <div class="preview-browser__dots"><span></span><span></span><span></span></div>
-              <div class="preview-browser__url" id="preview-stage-url">portfolio/experience.html</div>
+              <div class="preview-browser__url" id="preview-stage-url">experience.html</div>
               <div class="preview-browser__status">Live preview</div>
             </div>
-            <div class="preview-browser__frame">
-              <img id="preview-stage-image" src="jax-headshot-bw.png" alt="Experience and skills page preview" />
-              <div class="preview-browser__wash"></div>
+            <div class="preview-browser__frame" id="preview-frame">
+              <iframe id="preview-stage-iframe" class="preview-iframe" src="experience.html" title="Experience and Skills preview" loading="lazy"></iframe>
               <div class="preview-browser__badge" id="preview-stage-badge">Profile</div>
             </div>
-          </div>
-          <div class="preview-stage__body">
-            <div class="preview-stage__label" id="preview-stage-label">Experience</div>
-            <h3 class="preview-stage__title" id="preview-stage-title">Experience and Skills</h3>
-            <p class="preview-stage__copy" id="preview-stage-copy">
-              Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best.
-            </p>
-            <div class="preview-stage__tags" id="preview-stage-tags">
-              <span class="tag">Experience</span>
-              <span class="tag">Leadership</span>
-              <span class="tag">Certifications</span>
-            </div>
-            <div class="preview-stage__meta">
-              <div class="preview-stage__meta-item">
-                <span>Best for</span>
-                <strong id="preview-stage-meta-1">Recruiters and hiring managers</strong>
-              </div>
-              <div class="preview-stage__meta-item">
-                <span>Proof type</span>
-                <strong id="preview-stage-meta-2">Timeline, fit, and technical range</strong>
-              </div>
-            </div>
-            <a class="btn btn--primary preview-stage__cta" id="preview-stage-link" href="experience.html">Open Experience and Skills</a>
           </div>
         </article>
 
@@ -1128,40 +1054,35 @@
 
   <script>
     const previewLinks = Array.from(document.querySelectorAll(".preview-link"));
-    const previewStage = {
-      url: document.getElementById("preview-stage-url"),
-      image: document.getElementById("preview-stage-image"),
-      badge: document.getElementById("preview-stage-badge"),
-      label: document.getElementById("preview-stage-label"),
-      title: document.getElementById("preview-stage-title"),
-      copy: document.getElementById("preview-stage-copy"),
-      tags: document.getElementById("preview-stage-tags"),
-      meta1: document.getElementById("preview-stage-meta-1"),
-      meta2: document.getElementById("preview-stage-meta-2"),
-      link: document.getElementById("preview-stage-link")
-    };
+    const previewFrame  = document.getElementById("preview-frame");
+    const previewIframe = document.getElementById("preview-stage-iframe");
+    const previewUrl    = document.getElementById("preview-stage-url");
+    const previewBadge  = document.getElementById("preview-stage-badge");
+
+    /* Scale the iframe to fill the frame width at every size */
+    function scaleIframe() {
+      if (!previewFrame || !previewIframe) return;
+      const w = previewFrame.offsetWidth;
+      const scale = w / 1440;
+      previewIframe.style.transform = `scale(${scale})`;
+      previewFrame.style.height = Math.round(900 * scale) + "px";
+    }
+    scaleIframe();
+    window.addEventListener("resize", scaleIframe);
+    new ResizeObserver(scaleIframe).observe(previewFrame);
 
     function setActivePreview(link) {
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
       const data = link.dataset;
-      previewStage.url.textContent = data.previewUrl;
-      previewStage.image.src = data.previewImage;
-      previewStage.image.alt = data.previewAlt;
-      previewStage.image.style.objectFit = data.previewFit || "cover";
-      previewStage.image.style.objectPosition = data.previewPosition || "top center";
-      previewStage.badge.textContent = data.previewBadge;
-      previewStage.label.textContent = data.previewLabel;
-      previewStage.title.textContent = data.previewTitle;
-      previewStage.copy.textContent = data.previewCopy;
-      previewStage.meta1.textContent = data.previewMeta1;
-      previewStage.meta2.textContent = data.previewMeta2;
-      previewStage.link.href = link.getAttribute("href");
-      previewStage.link.textContent = `Open ${data.previewTitle}`;
-      previewStage.tags.innerHTML = (data.previewTags || "")
-        .split("|")
-        .filter(Boolean)
-        .map((tag) => `<span class="tag">${tag}</span>`)
-        .join("");
+      const href = link.getAttribute("href");
+      previewUrl.textContent = href;
+      previewBadge.textContent = data.previewBadge;
+      /* Swap the iframe src — fade out/in for smooth transition */
+      previewIframe.style.opacity = "0";
+      setTimeout(() => {
+        previewIframe.src = href;
+        previewIframe.style.opacity = "1";
+      }, 160);
     }
 
     previewLinks.forEach((link) => {
