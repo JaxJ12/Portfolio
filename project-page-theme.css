@@ -8,6 +8,22 @@ body.project-page {
   --ink-line: rgba(130, 100, 55, 0.16);
   --ink-line-strong: rgba(130, 100, 55, 0.28);
   --paper-shadow: 0 28px 70px rgba(28, 23, 16, 0.08);
+  --surface: #f8f3ea;
+  --card: #fffdfa;
+  --border: rgba(130, 100, 55, 0.14);
+  --text: #1c1710;
+  --muted: rgba(28, 23, 16, 0.64);
+  --gold: #8c6a00;
+  --gold-soft: #b8911a;
+  --amber: #9b7a26;
+  --orange: #9b7a26;
+  --blue: #8c6a00;
+  --purple: #8c6a00;
+  --violet: #8c6a00;
+  --teal: #8c6a00;
+  --cyan: #8c6a00;
+  --green: #7b6b31;
+  --red: #9c6a52;
   background:
     radial-gradient(circle at top left, rgba(var(--project-accent-rgb), 0.14), transparent 34%),
     radial-gradient(circle at 88% 12%, rgba(184, 145, 26, 0.1), transparent 28%),
@@ -160,6 +176,19 @@ body.project-page .section-title {
   color: var(--ink);
 }
 
+body.project-page .section-label,
+body.project-page .section-title,
+body.project-page .section-sub,
+body.project-page .detail-label,
+body.project-page .detail-body,
+body.project-page .detail-card,
+body.project-page .detail-card h3,
+body.project-page .detail-card p,
+body.project-page .detail-grid > .card,
+body.project-page .detail-grid > .card-sm {
+  color: var(--ink);
+}
+
 body.project-page .section-sub,
 body.project-page .detail-body,
 body.project-page .feat-info p,
@@ -189,6 +218,190 @@ body.project-page .feat-info h3,
 body.project-page .story-title,
 body.project-page .detail-card h3 {
   color: var(--ink);
+}
+
+body.project-page .mock-browser,
+body.project-page .mock-terminal,
+body.project-page .chat-wrap,
+body.project-page .tool-diagram,
+body.project-page #tool-panel,
+body.project-page .code-block,
+body.project-page .feat-code,
+body.project-page .chart-wrap,
+body.project-page .cm-wrap,
+body.project-page .schema-table,
+body.project-page .mock-card,
+body.project-page .mock-search,
+body.project-page .mock-filter,
+body.project-page .mock-topbar,
+body.project-page .mock-navbar,
+body.project-page .mock-term-bar,
+body.project-page .video-wrap,
+body.project-page .prompt-step,
+body.project-page .prompt-quote,
+body.project-page .gallery-item,
+body.project-page .flow-card,
+body.project-page .flow-node,
+body.project-page .tool-box,
+body.project-page .agent-center,
+body.project-page .chat-input,
+body.project-page .chat-input-row,
+body.project-page .tab-content.active,
+body.project-page .code-panel.active {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 242, 232, 0.94)) !important;
+  border-color: var(--ink-line) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 14px 34px rgba(28, 23, 16, 0.05);
+}
+
+body.project-page .mock-browser,
+body.project-page .mock-terminal,
+body.project-page .chat-wrap,
+body.project-page .video-wrap {
+  overflow: hidden;
+}
+
+body.project-page .mock-url-bar,
+body.project-page .mock-search,
+body.project-page .mock-filter,
+body.project-page .chat-input,
+body.project-page .ctrl-select,
+body.project-page .code-panel,
+body.project-page pre,
+body.project-page .spec-table td,
+body.project-page .tool-sub,
+body.project-page .terminal__copy {
+  color: var(--ink-muted) !important;
+}
+
+body.project-page .mock-brand,
+body.project-page .mock-price,
+body.project-page .story-num,
+body.project-page .story-title,
+body.project-page .tool-name,
+body.project-page .cm-title,
+body.project-page .reg-stat-val,
+body.project-page .acc-badge,
+body.project-page .tool-call-badge,
+body.project-page .chat-status,
+body.project-page .section-label,
+body.project-page .detail-label {
+  color: var(--project-accent) !important;
+}
+
+body.project-page .mock-nav-btn,
+body.project-page .mock-book-btn,
+body.project-page .chat-send {
+  background: var(--project-accent) !important;
+  color: #faf8f3 !important;
+  border: 1px solid rgba(var(--project-accent-rgb), 0.24) !important;
+}
+
+body.project-page .mock-card-tag,
+body.project-page .tag-tech,
+body.project-page .tag-tutor,
+body.project-page .tag-design,
+body.project-page .pill,
+body.project-page .pill-green,
+body.project-page .pill-blue,
+body.project-page .pill-gold,
+body.project-page .pill-purple,
+body.project-page .pill-teal,
+body.project-page .pill-cyan {
+  background: rgba(140, 106, 0, 0.08) !important;
+  border-color: rgba(140, 106, 0, 0.18) !important;
+  color: var(--project-accent) !important;
+}
+
+body.project-page .cm-correct {
+  background: rgba(140, 106, 0, 0.14) !important;
+  border-color: rgba(140, 106, 0, 0.22) !important;
+  color: var(--project-accent) !important;
+}
+
+body.project-page .cm-error {
+  background: rgba(156, 106, 82, 0.14) !important;
+  border-color: rgba(156, 106, 82, 0.22) !important;
+  color: #8a593f !important;
+}
+
+body.project-page .cm-zero {
+  background: rgba(255, 255, 255, 0.78) !important;
+  color: rgba(28, 23, 16, 0.28) !important;
+}
+
+body.project-page .node-icon-trigger,
+body.project-page .node-icon-set,
+body.project-page .node-icon-http,
+body.project-page .node-icon-email,
+body.project-page .mock-dot:nth-child(1),
+body.project-page .legend-item:nth-child(1) .legend-dot {
+  background: rgba(140, 106, 0, 0.16) !important;
+}
+
+body.project-page .mock-dot:nth-child(2),
+body.project-page .legend-item:nth-child(2) .legend-dot {
+  background: rgba(184, 145, 26, 0.38) !important;
+}
+
+body.project-page .mock-dot:nth-child(3),
+body.project-page .legend-item:nth-child(3) .legend-dot {
+  background: rgba(120, 108, 49, 0.62) !important;
+}
+
+body.project-page .tool-box:hover,
+body.project-page .tool-box.active,
+body.project-page .flow-node.active,
+body.project-page .mock-card:hover,
+body.project-page .gallery-item:hover,
+body.project-page .chat-input:focus,
+body.project-page .ctrl-select:focus {
+  border-color: rgba(140, 106, 0, 0.28) !important;
+  box-shadow: 0 0 0 1px rgba(140, 106, 0, 0.08), 0 14px 34px rgba(28, 23, 16, 0.06);
+}
+
+body.project-page .tool-arrow,
+body.project-page .schema-arrow,
+body.project-page .flow-card::after {
+  color: rgba(140, 106, 0, 0.46) !important;
+}
+
+body.project-page .chat-avatar {
+  background: linear-gradient(135deg, rgba(140, 106, 0, 0.94), rgba(184, 145, 26, 0.82)) !important;
+}
+
+body.project-page .user .msg-bubble,
+body.project-page .agent .msg-bubble,
+body.project-page .tool-call-badge,
+body.project-page .acc-badge {
+  background: rgba(140, 106, 0, 0.08) !important;
+  border-color: rgba(140, 106, 0, 0.18) !important;
+  color: var(--ink) !important;
+}
+
+body.project-page .kw,
+body.project-page .fn,
+body.project-page .str,
+body.project-page .num,
+body.project-page .dec,
+body.project-page .var {
+  color: #7a5a14 !important;
+}
+
+body.project-page .cm {
+  color: rgba(28, 23, 16, 0.4) !important;
+}
+
+body.project-page .gallery-item .img-label,
+body.project-page .video-caption {
+  background: linear-gradient(to top, rgba(28, 23, 16, 0.84), rgba(28, 23, 16, 0.1)) !important;
+  color: rgba(250, 248, 243, 0.88) !important;
+}
+
+body.project-page .prompt-quote,
+body.project-page .schema-thead,
+body.project-page .tool-call-badge {
+  border-left-color: rgba(140, 106, 0, 0.26) !important;
 }
 
 body.project-page .pill,
