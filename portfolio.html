@@ -435,6 +435,272 @@
       color: var(--text);
     }
 
+    .preview-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .preview-stage {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .preview-browser {
+      padding: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(184,145,26,0.16), transparent 34%),
+        linear-gradient(180deg, #f7f1e6 0%, #ece2d1 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .preview-browser__chrome {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px 14px 0 0;
+      background: rgba(255,255,255,0.85);
+    }
+
+    .preview-browser__dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .preview-browser__dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(140,106,0,0.22);
+    }
+
+    .preview-browser__dots span:nth-child(2) { background: rgba(184,145,26,0.34); }
+    .preview-browser__dots span:nth-child(3) { background: rgba(140,106,0,0.48); }
+
+    .preview-browser__url {
+      flex: 1;
+      min-width: 0;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preview-browser__status {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(140,106,0,0.22);
+      background: rgba(140,106,0,0.08);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-browser__frame {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-top: none;
+      border-radius: 0 0 20px 20px;
+      background: #efe5d4;
+    }
+
+    .preview-browser__frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transform: scale(1);
+      transition: transform 0.42s ease, filter 0.42s ease;
+      filter: saturate(0.96) contrast(1.02);
+    }
+
+    .preview-stage:hover .preview-browser__frame img {
+      transform: scale(1.025);
+    }
+
+    .preview-browser__wash {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(28,23,16,0.06), rgba(28,23,16,0.18)),
+        linear-gradient(0deg, rgba(255,255,255,0.08), rgba(255,255,255,0.08));
+      pointer-events: none;
+    }
+
+    .preview-browser__badge {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(130,100,55,0.18);
+      backdrop-filter: blur(8px);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-stage__body {
+      padding: 24px 24px 26px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .preview-stage__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-stage__title {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.85rem, 2.8vw, 2.5rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .preview-stage__copy {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.76;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .preview-stage__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preview-stage__meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .preview-stage__meta-item {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .preview-stage__meta-item span {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 6px;
+    }
+
+    .preview-stage__meta-item strong {
+      display: block;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .preview-stage__cta {
+      width: fit-content;
+    }
+
+    .preview-rail {
+      display: grid;
+      gap: 12px;
+    }
+
+    .preview-link {
+      display: grid;
+      gap: 10px;
+      padding: 18px 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 10px 26px rgba(28,23,16,0.05);
+      transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+    }
+
+    .preview-link:hover,
+    .preview-link:focus-visible,
+    .preview-link.is-active {
+      transform: translateX(4px);
+      border-color: var(--line-strong);
+      background: rgba(255,255,255,0.94);
+      outline: none;
+    }
+
+    .preview-link.is-active {
+      box-shadow: 0 18px 36px rgba(28,23,16,0.08);
+    }
+
+    .preview-link__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .preview-link__kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-link__route {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .preview-link__title {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: 1.35rem;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .preview-link__copy {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .preview-link__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     .note-panel {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
@@ -521,6 +787,8 @@
       .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .metric:nth-child(2) { border-right: none; }
       .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .preview-shell { grid-template-columns: 1fr; }
+      .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 900px) {
@@ -535,6 +803,7 @@
       .note-panel {
         grid-template-columns: 1fr;
       }
+      .preview-stage__meta { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -551,6 +820,7 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      .preview-rail { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -617,35 +887,264 @@
     <section class="section" aria-labelledby="pages-title">
       <div class="section-head">
         <div class="section-head__label">Explore the Work</div>
-        <h2 id="pages-title">Five sections. One through-line.</h2>
+        <h2 id="pages-title">Six pages. One portfolio system.</h2>
         <p>
-          Experience covers my roles at Baylor, ESPN, and beyond. Social breaks down every account, platform, and brand deal with real numbers. Dashboards shows the AI tools I've built from scratch. Projects digs into class and client work including a full corporate pitch for SAP. And the Chatbot is a live AI assistant I built and deployed myself.
+          Hover or click through the preview rail to swap the featured mockup on the left. The goal is to let recruiters, collaborators, and professors see how each section feels before they open it, while keeping the overview page tighter and more intentional than a simple card wall.
         </p>
       </div>
 
-      <div class="page-grid">
-        <a class="page-card" href="experience.html">
-          <div class="page-card__media">
-            <img src="jax-headshot-bw.png" alt="Jax Johnson portrait" />
+      <div class="preview-shell">
+        <article class="preview-stage" aria-live="polite">
+          <div class="preview-browser">
+            <div class="preview-browser__chrome">
+              <div class="preview-browser__dots"><span></span><span></span><span></span></div>
+              <div class="preview-browser__url" id="preview-stage-url">portfolio/experience.html</div>
+              <div class="preview-browser__status">Live preview</div>
+            </div>
+            <div class="preview-browser__frame">
+              <img id="preview-stage-image" src="jax-headshot-bw.png" alt="Experience and skills page preview" />
+              <div class="preview-browser__wash"></div>
+              <div class="preview-browser__badge" id="preview-stage-badge">Profile</div>
+            </div>
           </div>
-          <div class="page-card__body">
-            <div class="page-card__label">Profile</div>
-            <h3 class="page-card__title">Experience and Skills</h3>
-            <p class="page-card__copy">Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best.</p>
-            <div class="page-card__tags">
+          <div class="preview-stage__body">
+            <div class="preview-stage__label" id="preview-stage-label">Experience</div>
+            <h3 class="preview-stage__title" id="preview-stage-title">Experience and Skills</h3>
+            <p class="preview-stage__copy" id="preview-stage-copy">
+              Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best.
+            </p>
+            <div class="preview-stage__tags" id="preview-stage-tags">
               <span class="tag">Experience</span>
               <span class="tag">Leadership</span>
               <span class="tag">Certifications</span>
             </div>
-            <div class="page-card__footer">Open page</div>
+            <div class="preview-stage__meta">
+              <div class="preview-stage__meta-item">
+                <span>Best for</span>
+                <strong id="preview-stage-meta-1">Recruiters and hiring managers</strong>
+              </div>
+              <div class="preview-stage__meta-item">
+                <span>Proof type</span>
+                <strong id="preview-stage-meta-2">Timeline, fit, and technical range</strong>
+              </div>
+            </div>
+            <a class="btn btn--primary preview-stage__cta" id="preview-stage-link" href="experience.html">Open Experience and Skills</a>
           </div>
-        </a>
+        </article>
 
-        <a class="page-card" href="social.html">
-          <div class="page-card__media">
-            <img src="instagram-profile.png" alt="Instagram profile screenshot" />
-          </div>
-          <div class="page-card__body">
-            <div class="page-card__label">Case Studies</div>
-            <h3 class="page-card__title">Social Media Systems</h3>
-            <p class="page-card__copy">How I run different voices, audiences, and content systems acros
+        <div class="preview-rail">
+          <a class="preview-link is-active" href="experience.html"
+             data-preview-label="Experience"
+             data-preview-badge="Profile"
+             data-preview-title="Experience and Skills"
+             data-preview-copy="Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best."
+             data-preview-tags="Experience|Leadership|Certifications"
+             data-preview-url="portfolio/experience.html"
+             data-preview-image="jax-headshot-bw.png"
+             data-preview-alt="Experience and skills page preview"
+             data-preview-fit="cover"
+             data-preview-position="center top"
+             data-preview-meta-1="Recruiters and hiring managers"
+             data-preview-meta-2="Timeline, fit, and technical range">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Profile</span>
+              <span class="preview-link__route">Start here</span>
+            </div>
+            <h3 class="preview-link__title">Experience and Skills</h3>
+            <p class="preview-link__copy">Roles, leadership, certifications, and the cleanest recruiter-facing read on your background.</p>
+            <div class="preview-link__tags"><span class="tag">Experience</span><span class="tag">Leadership</span></div>
+          </a>
+
+          <a class="preview-link" href="social.html"
+             data-preview-label="Social"
+             data-preview-badge="Case studies"
+             data-preview-title="Social Media Systems"
+             data-preview-copy="How I run different voices, audiences, and content systems across multiple brands with real follower growth and platform proof."
+             data-preview-tags="TikTok|Instagram|Brand voice"
+             data-preview-url="portfolio/social.html"
+             data-preview-image="instagram-profile.png"
+             data-preview-alt="Social media page preview"
+             data-preview-fit="cover"
+             data-preview-position="top center"
+             data-preview-meta-1="Brands and marketing teams"
+             data-preview-meta-2="Audience growth, content systems, and platform proof">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Case Studies</span>
+              <span class="preview-link__route">Audience proof</span>
+            </div>
+            <h3 class="preview-link__title">Social Media Systems</h3>
+            <p class="preview-link__copy">Brand voices, content strategy, follower growth, and monetizable platform traction.</p>
+            <div class="preview-link__tags"><span class="tag">TikTok</span><span class="tag">Instagram</span></div>
+          </a>
+
+          <a class="preview-link" href="dashboards.html"
+             data-preview-label="Dashboards"
+             data-preview-badge="AI tools"
+             data-preview-title="Dashboards and AI Builds"
+             data-preview-copy="The AI-assisted dashboards, analytics interfaces, and workflow concepts I have built to make decision-making and execution cleaner."
+             data-preview-tags="Dashboards|AI workflows|Analytics"
+             data-preview-url="portfolio/dashboards.html"
+             data-preview-image="sap-suite-analytics.png"
+             data-preview-alt="Dashboards page preview"
+             data-preview-fit="cover"
+             data-preview-position="top center"
+             data-preview-meta-1="Operators and product-minded teams"
+             data-preview-meta-2="Systems thinking, interfaces, and workflow design">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Systems</span>
+              <span class="preview-link__route">AI layer</span>
+            </div>
+            <h3 class="preview-link__title">Dashboards and AI Builds</h3>
+            <p class="preview-link__copy">Interactive interfaces, measurement views, and the AI workflow side of the portfolio.</p>
+            <div class="preview-link__tags"><span class="tag">Dashboards</span><span class="tag">Analytics</span></div>
+          </a>
+
+          <a class="preview-link" href="class-projects.html"
+             data-preview-label="Projects"
+             data-preview-badge="Builds"
+             data-preview-title="Academic and Client Projects"
+             data-preview-copy="A polished look at the AI course work, the SAP pitch ecosystem, and the project pages that show how the thinking translates into deliverables."
+             data-preview-tags="4V98|SAP pitch|Client work"
+             data-preview-url="portfolio/class-projects.html"
+             data-preview-image="jerseys_mockup.png"
+             data-preview-alt="Projects page preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Professors, clients, and reviewers"
+             data-preview-meta-2="Process, presentation quality, and technical range">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Builds</span>
+              <span class="preview-link__route">Course + client</span>
+            </div>
+            <h3 class="preview-link__title">Academic and Client Projects</h3>
+            <p class="preview-link__copy">The project hub for AI coursework, client-style thinking, and the SAP ecosystem build.</p>
+            <div class="preview-link__tags"><span class="tag">4V98</span><span class="tag">SAP</span></div>
+          </a>
+
+          <a class="preview-link" href="chatbot.html"
+             data-preview-label="Chatbot"
+             data-preview-badge="Live assistant"
+             data-preview-title="Deployed Chatbot Experience"
+             data-preview-copy="A live AI assistant page that shows the deployed front-end layer, conversation patterns, and how I package AI interactions in a user-facing way."
+             data-preview-tags="Chatbot|Prompting|Deployment"
+             data-preview-url="portfolio/chatbot.html"
+             data-preview-image="alpha-omega-logo.png"
+             data-preview-alt="Chatbot page preview"
+             data-preview-fit="contain"
+             data-preview-position="center center"
+             data-preview-meta-1="AI product and prompt-curious viewers"
+             data-preview-meta-2="Conversation design and front-end packaging">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Conversation</span>
+              <span class="preview-link__route">Live feel</span>
+            </div>
+            <h3 class="preview-link__title">Deployed Chatbot Experience</h3>
+            <p class="preview-link__copy">The user-facing AI layer of the portfolio, presented as a polished conversation surface.</p>
+            <div class="preview-link__tags"><span class="tag">Chatbot</span><span class="tag">AI UX</span></div>
+          </a>
+
+          <a class="preview-link" href="about.html"
+             data-preview-label="About"
+             data-preview-badge="Personal context"
+             data-preview-title="About and Contact"
+             data-preview-copy="The page that frames the through-line behind the portfolio and gives a more direct, human read on what I want to build and where I fit."
+             data-preview-tags="About|Contact|Positioning"
+             data-preview-url="portfolio/about.html"
+             data-preview-image="baylor-mic.jpg"
+             data-preview-alt="About page preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Anyone deciding whether to reach out"
+             data-preview-meta-2="Positioning, contact routes, and personal fit">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Context</span>
+              <span class="preview-link__route">Human read</span>
+            </div>
+            <h3 class="preview-link__title">About and Contact</h3>
+            <p class="preview-link__copy">The positioning layer behind the work, plus the cleanest path to get in touch.</p>
+            <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="route-title">
+      <div class="note-panel">
+        <div>
+          <h3 id="route-title">A cleaner way to navigate the portfolio</h3>
+          <p>
+            The overview now acts like a front door instead of a folder of links. The featured preview gives a quick read on tone and substance, while the rail helps different viewers self-select the route that matters most to them.
+          </p>
+        </div>
+        <ul class="note-panel__list">
+          <li>Recruiter route: start with Experience, then About, then Social for proof.</li>
+          <li>Brand route: open Social first, then Experience for credibility and breadth.</li>
+          <li>AI route: go from Dashboards to Projects to Chatbot for the clearest build story.</li>
+          <li>Professor or reviewer route: Projects first, then the supporting pages that show context and communication range.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer page-shell">
+    <div>Jax Johnson — Marketing, MIS, Social Media, AI building</div>
+    <div class="site-footer__links">
+      <a href="experience.html">Experience</a>
+      <a href="social.html">Social</a>
+      <a href="dashboards.html">Dashboards</a>
+      <a href="class-projects.html">Projects</a>
+      <a href="about.html">About</a>
+    </div>
+  </footer>
+
+  <script>
+    const previewLinks = Array.from(document.querySelectorAll(".preview-link"));
+    const previewStage = {
+      url: document.getElementById("preview-stage-url"),
+      image: document.getElementById("preview-stage-image"),
+      badge: document.getElementById("preview-stage-badge"),
+      label: document.getElementById("preview-stage-label"),
+      title: document.getElementById("preview-stage-title"),
+      copy: document.getElementById("preview-stage-copy"),
+      tags: document.getElementById("preview-stage-tags"),
+      meta1: document.getElementById("preview-stage-meta-1"),
+      meta2: document.getElementById("preview-stage-meta-2"),
+      link: document.getElementById("preview-stage-link")
+    };
+
+    function setActivePreview(link) {
+      previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
+      const data = link.dataset;
+      previewStage.url.textContent = data.previewUrl;
+      previewStage.image.src = data.previewImage;
+      previewStage.image.alt = data.previewAlt;
+      previewStage.image.style.objectFit = data.previewFit || "cover";
+      previewStage.image.style.objectPosition = data.previewPosition || "top center";
+      previewStage.badge.textContent = data.previewBadge;
+      previewStage.label.textContent = data.previewLabel;
+      previewStage.title.textContent = data.previewTitle;
+      previewStage.copy.textContent = data.previewCopy;
+      previewStage.meta1.textContent = data.previewMeta1;
+      previewStage.meta2.textContent = data.previewMeta2;
+      previewStage.link.href = link.getAttribute("href");
+      previewStage.link.textContent = `Open ${data.previewTitle}`;
+      previewStage.tags.innerHTML = (data.previewTags || "")
+        .split("|")
+        .filter(Boolean)
+        .map((tag) => `<span class="tag">${tag}</span>`)
+        .join("");
+    }
+
+    previewLinks.forEach((link) => {
+      ["mouseenter", "focus"].forEach((eventName) => {
+        link.addEventListener(eventName, () => setActivePreview(link));
+      });
+      link.addEventListener("click", () => setActivePreview(link));
+    });
+
+    if (previewLinks[0]) {
+      setActivePreview(previewLinks[0]);
+    }
+  </script>
+</body>
+</html>
