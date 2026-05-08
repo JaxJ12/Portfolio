@@ -220,6 +220,45 @@ body.project-page .detail-card h3 {
   color: var(--ink);
 }
 
+body.project-page .overview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+body.project-page .overview-list > .card,
+body.project-page .overview-list > .detail-card {
+  display: grid;
+  grid-template-columns: minmax(160px, 210px) minmax(0, 1fr);
+  gap: 14px 18px;
+  align-items: start;
+  padding: 16px 18px;
+  margin: 0;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(28, 23, 16, 0.04);
+}
+
+body.project-page .overview-list > .card.card-sm,
+body.project-page .overview-list > .detail-card.full {
+  grid-template-columns: minmax(160px, 210px) minmax(0, 1fr);
+}
+
+body.project-page .overview-list .detail-label {
+  margin: 0;
+  padding-top: 2px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+body.project-page .overview-list .detail-body,
+body.project-page .overview-list .detail-body p {
+  margin: 0;
+}
+
+body.project-page .overview-list .pill-row {
+  margin-top: 0 !important;
+}
+
 body.project-page .mock-browser,
 body.project-page .mock-terminal,
 body.project-page .chat-wrap,
@@ -445,6 +484,13 @@ body.project-page .divider {
     border-radius: 26px;
     margin-top: 14px;
     padding-top: 102px;
+  }
+
+  body.project-page .overview-list > .card,
+  body.project-page .overview-list > .detail-card,
+  body.project-page .overview-list > .detail-card.full {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 
