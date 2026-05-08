@@ -1,11 +1,9 @@
-const fs = require("fs");
-const path = require("path");
+const context = require("../portfolio-context.json");
 
 const MODEL = "gemini-2.0-flash";
 
 function loadContext() {
-  const contextPath = path.join(process.cwd(), "portfolio-context.json");
-  return JSON.parse(fs.readFileSync(contextPath, "utf8"));
+  return context;
 }
 
 function buildSystemPrompt(context) {
