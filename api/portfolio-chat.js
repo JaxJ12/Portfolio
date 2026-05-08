@@ -1,6 +1,6 @@
 const context = require("../portfolio-context.json");
 
-const MODEL = "gemini-2.0-flash";
+const MODEL = "gemini-2.0-flash-lite";
 
 function loadContext() {
   return context;
