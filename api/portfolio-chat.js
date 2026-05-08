@@ -79,6 +79,6 @@ module.exports = async (req, res) => {
     return res.status(200).json({ reply: text });
   } catch (error) {
     console.error("portfolio-chat error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({ error: error?.message || "Internal server error" });
   }
 };

@@ -218,7 +218,7 @@
         thinking.remove();
 
         if (!response.ok) {
-          renderMessage("assistant", "Sorry, I hit a server error. Try again shortly.", "agent");
+          renderMessage("assistant", "Server error: " + (data?.error || response.status), "agent");
         } else {
           const reply = data.reply || "Sorry, I could not generate a response.";
           messages.push({ role: "assistant", content: reply });
