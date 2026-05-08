@@ -114,13 +114,19 @@
     .doc-card__footer { padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
 
     /* ── Contact ── */
-    .contact-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.4fr); gap: 48px; align-items: start; }
-    .contact-intro { font-size: 15px; color: var(--muted); line-height: 1.76; margin: 0 0 28px; max-width: 48ch; }
-    .channels { display: flex; flex-direction: column; gap: 10px; }
-    .channel { display: flex; align-items: center; gap: 14px; padding: 13px 18px; background: rgba(255,255,255,0.82); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 2px 8px rgba(28,23,16,0.04); }
-    .channel__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-    .channel__type { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); width: 68px; flex-shrink: 0; }
-    .channel__email { font-size: 12px; color: var(--muted); }
+    .contact-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); gap: 48px; align-items: start; }
+    .contact-intro { font-size: 15px; color: var(--muted); line-height: 1.76; margin: 0 0 24px; max-width: 48ch; }
+    .contact-links { display: flex; flex-direction: column; gap: 9px; }
+    .contact-link-row { display: flex; flex-direction: column; gap: 3px; padding: 12px 16px; background: rgba(255,255,255,0.82); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 2px 8px rgba(28,23,16,0.04); transition: border-color 0.18s; }
+    .contact-link-row:hover { border-color: var(--line-strong); }
+    .contact-link-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+    .contact-link-val { font-size: 12.5px; color: var(--muted); transition: color 0.18s; }
+    .contact-link-val:hover { color: var(--text); }
+    /* Routing indicator */
+    .form-route { display: none; align-items: center; gap: 10px; margin-top: 8px; padding: 9px 14px; background: rgba(140,106,0,0.06); border: 1px solid rgba(140,106,0,0.2); border-radius: 10px; }
+    .form-route.is-visible { display: flex; }
+    .form-route__label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+    .form-route__email { font-size: 12px; color: var(--muted); }
 
     /* Form */
     .form-card { background: rgba(255,255,255,0.9); border: 1px solid var(--line-strong); border-radius: 28px; padding: 36px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
@@ -338,13 +344,29 @@
           <p class="contact-intro">
             Whether it's a job opportunity, brand partnership, academic question,
             or social media collab — select the inquiry type and the form routes
-            straight to the right inbox.
+            straight to the right inbox automatically.
           </p>
-          <div class="channels">
-            <div class="channel"><span class="channel__dot"></span><span class="channel__type">Personal</span><span class="channel__email">Jaxjohnson2027@gmail.com</span></div>
-            <div class="channel"><span class="channel__dot"></span><span class="channel__type">School</span><span class="channel__email">Jax_Johnson2@baylor.edu</span></div>
-            <div class="channel"><span class="channel__dot"></span><span class="channel__type">Social</span><span class="channel__email">Jaxjtiktok@gmail.com</span></div>
-            <div class="channel"><span class="channel__dot"></span><span class="channel__type">Creed</span><span class="channel__email">Jax@usecreed.com</span></div>
+          <div class="contact-links">
+            <div class="contact-link-row">
+              <span class="contact-link-label">Phone</span>
+              <a href="tel:4699784476" class="contact-link-val">(469) 978-4476</a>
+            </div>
+            <div class="contact-link-row">
+              <span class="contact-link-label">LinkedIn</span>
+              <a href="https://linkedin.com/in/jax-johnson" target="_blank" class="contact-link-val">linkedin.com/in/jax-johnson ↗</a>
+            </div>
+            <div class="contact-link-row">
+              <span class="contact-link-label">Personal TikTok</span>
+              <a href="https://tiktok.com/@notjax" target="_blank" class="contact-link-val">@notjax ↗</a>
+            </div>
+            <div class="contact-link-row">
+              <span class="contact-link-label">Creed TikTok</span>
+              <a href="https://tiktok.com/@jax.praise" target="_blank" class="contact-link-val">@jax.praise ↗</a>
+            </div>
+            <div class="contact-link-row">
+              <span class="contact-link-label">Insight Timer TikTok</span>
+              <a href="https://tiktok.com/@jax.relates" target="_blank" class="contact-link-val">@jax.relates ↗</a>
+            </div>
           </div>
         </div>
 
@@ -359,13 +381,17 @@
           </div>
           <div class="form-row">
             <label for="inquiry">Inquiry Type</label>
-            <select id="inquiry">
+            <select id="inquiry" onchange="updateRoute(this)">
               <option value="">Select an inquiry type…</option>
               <option value="Jaxjohnson2027@gmail.com">Personal — general / jobs / opportunities</option>
               <option value="Jax_Johnson2@baylor.edu">School — academic / Baylor-related</option>
               <option value="Jaxjtiktok@gmail.com">Social — brand deals / creator collabs</option>
               <option value="Jax@usecreed.com">Creed — business / product inquiries</option>
             </select>
+            <div class="form-route" id="formRoute">
+              <span class="form-route__label">Sends to</span>
+              <span class="form-route__email" id="routeEmail"></span>
+            </div>
           </div>
           <div class="form-row">
             <label for="subject">Subject</label>
@@ -392,6 +418,17 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
+    function updateRoute(sel) {
+      const route = document.getElementById('formRoute');
+      const email = document.getElementById('routeEmail');
+      if (sel.value) {
+        email.textContent = sel.value;
+        route.classList.add('is-visible');
+      } else {
+        route.classList.remove('is-visible');
+      }
+    }
+
     function submitForm() {
       const fname   = document.getElementById('fname').value.trim();
       const lname   = document.getElementById('lname').value.trim();

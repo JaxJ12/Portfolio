@@ -437,8 +437,8 @@
 
     .preview-shell {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-      gap: 20px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+      gap: 24px;
       align-items: start;
     }
 
@@ -448,6 +448,8 @@
       overflow: hidden;
       background: rgba(255, 255, 255, 0.88);
       box-shadow: var(--shadow);
+      position: sticky;
+      top: 72px;
     }
 
     .preview-browser {
@@ -635,26 +637,27 @@
 
     .preview-link {
       display: grid;
-      gap: 10px;
-      padding: 18px 18px 20px;
+      gap: 12px;
+      padding: 22px 22px 24px;
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 22px;
       background: rgba(255,255,255,0.82);
       box-shadow: 0 10px 26px rgba(28,23,16,0.05);
-      transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+      transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
     }
 
     .preview-link:hover,
     .preview-link:focus-visible,
     .preview-link.is-active {
-      transform: translateX(4px);
+      transform: translateX(5px);
       border-color: var(--line-strong);
-      background: rgba(255,255,255,0.94);
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 18px 38px rgba(28,23,16,0.09);
       outline: none;
     }
 
     .preview-link.is-active {
-      box-shadow: 0 18px 36px rgba(28,23,16,0.08);
+      border-color: rgba(140,106,0,0.28);
     }
 
     .preview-link__top {
@@ -683,16 +686,32 @@
     .preview-link__title {
       margin: 0;
       font-family: "Playfair Display", serif;
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       line-height: 1.05;
       letter-spacing: -0.02em;
     }
 
     .preview-link__copy {
       margin: 0;
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 13.5px;
+      line-height: 1.72;
       color: var(--muted);
+    }
+
+    .preview-link__best-for {
+      font-size: 11px;
+      color: var(--faint);
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .preview-link__best-for strong {
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+      margin-right: 6px;
     }
 
     .preview-link__tags {
@@ -789,6 +808,7 @@
       .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
       .preview-shell { grid-template-columns: 1fr; }
       .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .preview-stage { position: static; }
     }
 
     @media (max-width: 900px) {
@@ -844,7 +864,10 @@
         <p class="eyebrow">Portfolio Overview</p>
         <h1 class="hero__title">Marketing, MIS,<br><span>Social Media, AI building</span>.</h1>
         <p class="hero__copy">
-          This site is structured as a multi-page portfolio across marketing, MIS, social media, and AI building so each category of work can stand on its own. Recruiters can move through experience, social case studies, dashboard work, academic projects, and chatbot concepts without having to scroll one long page.
+          Marketing &amp; MIS student at Baylor University building across social media,
+          AI tools, and portfolio-ready business work. The focus here is content that
+          performs, systems that support smarter execution, and projects that show how
+          those skills connect in practice.
         </p>
         <div class="hero__chips">
           <span class="chip">Baylor University</span>
@@ -889,7 +912,7 @@
         <div class="section-head__label">Explore the Work</div>
         <h2 id="pages-title">Six pages. One portfolio system.</h2>
         <p>
-          Hover or click through the preview rail to swap the featured mockup on the left. The goal is to let recruiters, collaborators, and professors see how each section feels before they open it, while keeping the overview page tighter and more intentional than a simple card wall.
+          Hover or click any card on the right to preview what's inside — the featured view on the left locks in place as you scroll so you can always see which page is active. Each section is built to stand on its own for a different audience.
         </p>
       </div>
 
@@ -937,7 +960,7 @@
              data-preview-label="Experience"
              data-preview-badge="Profile"
              data-preview-title="Experience and Skills"
-             data-preview-copy="Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best."
+             data-preview-copy="Roles, certifications, leadership timeline, and the full technical skills breakdown — all in one recruiter-ready view. This is where background turns into proof."
              data-preview-tags="Experience|Leadership|Certifications"
              data-preview-url="portfolio/experience.html"
              data-preview-image="jax-headshot-bw.png"
@@ -951,15 +974,16 @@
               <span class="preview-link__route">Start here</span>
             </div>
             <h3 class="preview-link__title">Experience and Skills</h3>
-            <p class="preview-link__copy">Roles, leadership, certifications, and the cleanest recruiter-facing read on your background.</p>
-            <div class="preview-link__tags"><span class="tag">Experience</span><span class="tag">Leadership</span></div>
+            <p class="preview-link__copy">Full work history, certifications, and technical skill areas organized for quick recruiter review. Covers everything from leadership roles to platform proficiency.</p>
+            <div class="preview-link__tags"><span class="tag">Experience</span><span class="tag">Leadership</span><span class="tag">Certifications</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Recruiters, hiring managers, and anyone vetting professional background.</div>
           </a>
 
           <a class="preview-link" href="social.html"
              data-preview-label="Social"
              data-preview-badge="Case studies"
              data-preview-title="Social Media Systems"
-             data-preview-copy="How I run different voices, audiences, and content systems across multiple brands with real follower growth and platform proof."
+             data-preview-copy="Three distinct brand voices, real follower growth data, and the content systems behind each account — from personal to faith-based to AI-focused."
              data-preview-tags="TikTok|Instagram|Brand voice"
              data-preview-url="portfolio/social.html"
              data-preview-image="instagram-profile.png"
@@ -973,15 +997,16 @@
               <span class="preview-link__route">Audience proof</span>
             </div>
             <h3 class="preview-link__title">Social Media Systems</h3>
-            <p class="preview-link__copy">Brand voices, content strategy, follower growth, and monetizable platform traction.</p>
-            <div class="preview-link__tags"><span class="tag">TikTok</span><span class="tag">Instagram</span></div>
+            <p class="preview-link__copy">Multi-account content strategy across TikTok and Instagram — different niches, different voices, same execution discipline. Includes follower metrics, posting cadence, and monetization context.</p>
+            <div class="preview-link__tags"><span class="tag">TikTok</span><span class="tag">Instagram</span><span class="tag">Brand Voice</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Brands, marketing teams, and agencies evaluating content range and platform fluency.</div>
           </a>
 
           <a class="preview-link" href="dashboards.html"
              data-preview-label="Dashboards"
              data-preview-badge="AI tools"
              data-preview-title="Dashboards and AI Builds"
-             data-preview-copy="The AI-assisted dashboards, analytics interfaces, and workflow concepts I have built to make decision-making and execution cleaner."
+             data-preview-copy="Three live, AI-built tools — a personal performance dashboard, a Gartner vendor scoring system, and an insurance call automation tool used by a real business."
              data-preview-tags="Dashboards|AI workflows|Analytics"
              data-preview-url="portfolio/dashboards.html"
              data-preview-image="sap-suite-analytics.png"
@@ -995,15 +1020,16 @@
               <span class="preview-link__route">AI layer</span>
             </div>
             <h3 class="preview-link__title">Dashboards and AI Builds</h3>
-            <p class="preview-link__copy">Interactive interfaces, measurement views, and the AI workflow side of the portfolio.</p>
-            <div class="preview-link__tags"><span class="tag">Dashboards</span><span class="tag">Analytics</span></div>
+            <p class="preview-link__copy">Interactive analytics interfaces and AI workflow tools built from scratch — no templates. Each one is embedded live and interactable directly on the page.</p>
+            <div class="preview-link__tags"><span class="tag">Dashboards</span><span class="tag">Analytics</span><span class="tag">AI Tools</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Operators, product-minded teams, and anyone evaluating systems or workflow thinking.</div>
           </a>
 
           <a class="preview-link" href="class-projects.html"
              data-preview-label="Projects"
              data-preview-badge="Builds"
              data-preview-title="Academic and Client Projects"
-             data-preview-copy="A polished look at the AI course work, the SAP pitch ecosystem, and the project pages that show how the thinking translates into deliverables."
+             data-preview-copy="The SAP pitch ecosystem, AI coursework from 4V98, and client-style projects that show how strategic thinking translates into polished deliverables."
              data-preview-tags="4V98|SAP pitch|Client work"
              data-preview-url="portfolio/class-projects.html"
              data-preview-image="jerseys_mockup.png"
@@ -1017,15 +1043,16 @@
               <span class="preview-link__route">Course + client</span>
             </div>
             <h3 class="preview-link__title">Academic and Client Projects</h3>
-            <p class="preview-link__copy">The project hub for AI coursework, client-style thinking, and the SAP ecosystem build.</p>
-            <div class="preview-link__tags"><span class="tag">4V98</span><span class="tag">SAP</span></div>
+            <p class="preview-link__copy">A curated set of course projects and client-style builds — SAP pitch decks, AI analysis deliverables, and jersey design mockups — showing how ideas get packaged into finished work.</p>
+            <div class="preview-link__tags"><span class="tag">4V98</span><span class="tag">SAP</span><span class="tag">Client Work</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Professors, reviewers, and clients evaluating process and delivery quality.</div>
           </a>
 
           <a class="preview-link" href="chatbot.html"
              data-preview-label="Chatbot"
              data-preview-badge="Live assistant"
              data-preview-title="Deployed Chatbot Experience"
-             data-preview-copy="A live AI assistant page that shows the deployed front-end layer, conversation patterns, and how I package AI interactions in a user-facing way."
+             data-preview-copy="A live, interactive AI assistant built and deployed as a portfolio piece — shows conversation design, prompt engineering, and how AI gets packaged into a user-facing product."
              data-preview-tags="Chatbot|Prompting|Deployment"
              data-preview-url="portfolio/chatbot.html"
              data-preview-image="alpha-omega-logo.png"
@@ -1039,15 +1066,16 @@
               <span class="preview-link__route">Live feel</span>
             </div>
             <h3 class="preview-link__title">Deployed Chatbot Experience</h3>
-            <p class="preview-link__copy">The user-facing AI layer of the portfolio, presented as a polished conversation surface.</p>
-            <div class="preview-link__tags"><span class="tag">Chatbot</span><span class="tag">AI UX</span></div>
+            <p class="preview-link__copy">A fully working AI assistant interface built for the portfolio — demonstrates how I think about user-facing AI design, prompt structure, and deploying conversational products.</p>
+            <div class="preview-link__tags"><span class="tag">Chatbot</span><span class="tag">AI UX</span><span class="tag">Prompting</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> AI-focused teams, product managers, and anyone curious about applied prompt engineering.</div>
           </a>
 
           <a class="preview-link" href="about.html"
              data-preview-label="About"
              data-preview-badge="Personal context"
              data-preview-title="About and Contact"
-             data-preview-copy="The page that frames the through-line behind the portfolio and gives a more direct, human read on what I want to build and where I fit."
+             data-preview-copy="The human layer behind the work — background, positioning, what I'm looking to build, and every route to get in touch depending on what kind of conversation it is."
              data-preview-tags="About|Contact|Positioning"
              data-preview-url="portfolio/about.html"
              data-preview-image="baylor-mic.jpg"
@@ -1061,8 +1089,9 @@
               <span class="preview-link__route">Human read</span>
             </div>
             <h3 class="preview-link__title">About and Contact</h3>
-            <p class="preview-link__copy">The positioning layer behind the work, plus the cleanest path to get in touch.</p>
-            <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span></div>
+            <p class="preview-link__copy">The through-line behind the portfolio — who I am, what I'm building toward, and a contact form that routes to the right inbox depending on the type of inquiry.</p>
+            <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span><span class="tag">Positioning</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Anyone deciding whether to reach out — and finding the right channel to do it.</div>
           </a>
         </div>
       </div>

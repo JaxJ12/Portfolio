@@ -798,62 +798,40 @@
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+      <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:24px;">
 
-        <!-- Left: what it does -->
-        <div style="background:rgba(28,23,16,0.04); border:1px solid rgba(130,100,55,0.14); border-radius:16px; padding:28px 28px 24px;">
-          <p style="font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin:0 0 16px;">How it works</p>
-          <div style="display:flex; flex-direction:column; gap:16px;">
-            <div style="display:flex; gap:14px; align-items:flex-start;">
-              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">1</span>
-              <div>
-                <p style="margin:0 0 3px; font-size:13px
-                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Paste a call transcript</p>
-                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Drop in a raw call recording transcript — any length, any format.</p>
-              </div>
+        <div class="try-it" style="flex:1; min-width:240px; margin-bottom:0;">
+          <div class="try-it__heading">
+            <span class="try-it__label">Try it yourself — Process a call</span>
+          </div>
+          <div class="try-it__steps">
+            <div class="try-it__step">
+              <div class="try-it__num">1</div>
+              <p>Click <strong>↓ Load sample transcript</strong> in the tool below to load a real insurance call example.</p>
             </div>
-            <div style="display:flex; gap:14px; align-items:flex-start;">
-              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">2</span>
-              <div>
-                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">AI extracts everything</p>
-                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Client name, age, health details, coverage needs, relevant plans, and pricing — all pulled automatically.</p>
-              </div>
-            </div>
-            <div style="display:flex; gap:14px; align-items:flex-start;">
-              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">3</span>
-              <div>
-                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Step-by-step action list</p>
-                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Generates a prioritised next-step checklist so the agent knows exactly what to do after the call.</p>
-              </div>
-            </div>
-            <div style="display:flex; gap:14px; align-items:flex-start;">
-              <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:rgba(140,106,0,0.1); border:1px solid rgba(140,106,0,0.22); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--gold);">4</span>
-              <div>
-                <p style="margin:0 0 3px; font-size:13px; font-weight:600; color:var(--text);">Draft &amp; send follow-up email</p>
-                <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Writes a personalised follow-up email with the extracted plan details — and optionally sends it on the spot.</p>
-              </div>
+            <div class="try-it__step">
+              <div class="try-it__num">2</div>
+              <p>Click <strong>Process Transcript →</strong> and watch it extract the client profile, plans, and action list automatically.</p>
             </div>
           </div>
         </div>
 
-        <!-- Right: outcomes -->
-        <div style="background:rgba(28,23,16,0.04); border:1px solid rgba(130,100,55,0.14); border-radius:16px; padding:28px 28px 24px;">
-          <p style="font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin:0 0 16px;">Why it matters</p>
-          <div style="display:flex; flex-direction:column; gap:20px;">
-            <div>
-              <p style="margin:0 0 4px; font-size:24px; font-weight:700; color:var(--text); font-family:'Playfair Display', serif;">~45 min</p>
-              <p style="margin:0; font-size:12px; color:var(--muted);">saved per call — no manual data entry or follow-up drafting</p>
+        <div class="try-it" style="flex:1; min-width:240px; margin-bottom:0;">
+          <div class="try-it__heading">
+            <span class="try-it__label">Try it yourself — Follow-up email</span>
+          </div>
+          <div class="try-it__steps">
+            <div class="try-it__step">
+              <div class="try-it__num">1</div>
+              <p>After processing, find the <strong>Draft Follow-Up Email</strong> section in the right output pane.</p>
             </div>
-            <div>
-              <p style="margin:0 0 4px; font-size:24px; font-weight:700; color:var(--text); font-family:'Playfair Display', serif;">100%</p>
-              <p style="margin:0; font-size:12px; color:var(--muted);">AI-built — designed, prompted, and deployed without writing code</p>
-            </div>
-            <div>
-              <p style="margin:0 0 4px; font-size:24px; font-weight:700; color:var(--text); font-family:'Playfair Display', serif;">Live</p>
-              <p style="margin:0; font-size:12px; color:var(--muted);">in active use by Alpha &amp; Omega Insurance agents today</p>
+            <div class="try-it__step">
+              <div class="try-it__num">2</div>
+              <p>Click <strong>Copy email to clipboard</strong> — it's ready to paste and send with zero edits needed.</p>
             </div>
           </div>
         </div>
+
       </div>
 
       <div class="embed-block">
