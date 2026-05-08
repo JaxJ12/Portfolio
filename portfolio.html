@@ -518,6 +518,7 @@
       border-top: none;
       border-radius: 0 0 20px 20px;
       background: #efe5d4;
+      min-height: 280px; /* placeholder until JS sets exact height */
       /* height is set dynamically by JS to match iframe scale */
     }
 
@@ -1081,7 +1082,12 @@
       previewFrame.style.height = Math.round(900 * scale) + "px";
       iframes.forEach((f) => { f.style.transform = `scale(${scale})`; });
     }
-    scaleIframes();
+    /* Defer first scale until browser has completed layout */
+    requestAnimationFrame(() => {
+      scaleIframes();
+      /* Retry once more after any async font/image shifts */
+      setTimeout(scaleIframes, 120);
+    });
     window.addEventListener("resize", scaleIframes);
     new ResizeObserver(scaleIframes).observe(previewFrame);
 
@@ -1095,4 +1101,11 @@
     }
 
     previewLinks.forEach((link) => {
-      ["mouseenter", "focus"].forEach((ev) => link.addEven
+      ["mouseenter", "focus"].forEach((ev) => link.addEventListener(ev, () => setActivePreview(link)));
+      link.addEventListener("click", () => setActivePreview(link));
+    });
+
+    if (previewLinks[0]) setActivePreview(previewLinks[0]);
+  </script>
+</body>
+</html>
