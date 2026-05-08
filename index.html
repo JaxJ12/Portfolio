@@ -437,8 +437,8 @@
 
     .preview-shell {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-      gap: 20px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+      gap: 24px;
       align-items: start;
     }
 
@@ -448,6 +448,8 @@
       overflow: hidden;
       background: rgba(255, 255, 255, 0.88);
       box-shadow: var(--shadow);
+      position: sticky;
+      top: clamp(72px, calc(50vh - 260px), 160px);
     }
 
     .preview-browser {
@@ -511,35 +513,25 @@
 
     .preview-browser__frame {
       position: relative;
-      aspect-ratio: 16 / 10;
       overflow: hidden;
       border: 1px solid var(--line);
       border-top: none;
       border-radius: 0 0 20px 20px;
       background: #efe5d4;
+      min-height: 280px;
     }
 
-    .preview-browser__frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      transform: scale(1);
-      transition: transform 0.42s ease, filter 0.42s ease;
-      filter: saturate(0.96) contrast(1.02);
-    }
-
-    .preview-stage:hover .preview-browser__frame img {
-      transform: scale(1.025);
-    }
-
-    .preview-browser__wash {
+    .preview-iframe {
+      display: block;
       position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(28,23,16,0.06), rgba(28,23,16,0.18)),
-        linear-gradient(0deg, rgba(255,255,255,0.08), rgba(255,255,255,0.08));
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      border: none;
+      transform-origin: top left;
       pointer-events: none;
+      transition: opacity 0.28s ease;
     }
 
     .preview-browser__badge {
@@ -556,42 +548,6 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--gold);
-    }
-
-    .preview-stage__body {
-      padding: 24px 24px 26px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .preview-stage__label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .preview-stage__title {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(1.85rem, 2.8vw, 2.5rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-
-    .preview-stage__copy {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.76;
-      color: var(--muted);
-      max-width: 60ch;
-    }
-
-    .preview-stage__tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
     }
 
     .preview-stage__meta {
@@ -633,28 +589,40 @@
       gap: 12px;
     }
 
+    .preview-rail__divider {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 8px 0 4px;
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
+    }
+
     .preview-link {
       display: grid;
-      gap: 10px;
-      padding: 18px 18px 20px;
+      gap: 12px;
+      padding: 22px 22px 24px;
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 22px;
       background: rgba(255,255,255,0.82);
       box-shadow: 0 10px 26px rgba(28,23,16,0.05);
-      transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+      transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
     }
 
     .preview-link:hover,
     .preview-link:focus-visible,
     .preview-link.is-active {
-      transform: translateX(4px);
+      transform: translateX(5px);
       border-color: var(--line-strong);
-      background: rgba(255,255,255,0.94);
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 18px 38px rgba(28,23,16,0.09);
       outline: none;
     }
 
     .preview-link.is-active {
-      box-shadow: 0 18px 36px rgba(28,23,16,0.08);
+      border-color: rgba(140,106,0,0.28);
     }
 
     .preview-link__top {
@@ -683,16 +651,32 @@
     .preview-link__title {
       margin: 0;
       font-family: "Playfair Display", serif;
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       line-height: 1.05;
       letter-spacing: -0.02em;
     }
 
     .preview-link__copy {
       margin: 0;
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 13.5px;
+      line-height: 1.72;
       color: var(--muted);
+    }
+
+    .preview-link__best-for {
+      font-size: 11px;
+      color: var(--faint);
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .preview-link__best-for strong {
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+      margin-right: 6px;
     }
 
     .preview-link__tags {
@@ -789,6 +773,7 @@
       .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
       .preview-shell { grid-template-columns: 1fr; }
       .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .preview-stage { position: static; }
     }
 
     @media (max-width: 900px) {
@@ -845,7 +830,9 @@
         <p class="eyebrow">Portfolio Overview</p>
         <h1 class="hero__title">Marketing, MIS,<br><span>Social Media, AI building</span>.</h1>
         <p class="hero__copy">
-          This site is structured as a multi-page portfolio across marketing, MIS, social media, and AI building so each category of work can stand on its own. Recruiters can move through experience, social case studies, dashboard work, academic projects, and chatbot concepts without having to scroll one long page.
+          Marketing &amp; MIS at Baylor building across social media, AI tools, and
+          portfolio-ready work. Content that performs, systems that support smarter
+          execution, and projects that show how those skills connect.
         </p>
         <div class="hero__chips">
           <span class="chip">Baylor University</span>
@@ -890,7 +877,7 @@
         <div class="section-head__label">Explore the Work</div>
         <h2 id="pages-title">Six pages. One portfolio system.</h2>
         <p>
-          Hover or click through the preview rail to swap the featured mockup on the left. The goal is to let recruiters, collaborators, and professors see how each section feels before they open it, while keeping the overview page tighter and more intentional than a simple card wall.
+          Hover or click any card on the right to preview what's inside — the featured view on the left locks in place as you scroll so you can always see which page is active. Each section is built to stand on its own for a different audience.
         </p>
       </div>
 
@@ -899,37 +886,12 @@
           <div class="preview-browser">
             <div class="preview-browser__chrome">
               <div class="preview-browser__dots"><span></span><span></span><span></span></div>
-              <div class="preview-browser__url" id="preview-stage-url">portfolio/experience.html</div>
+              <div class="preview-browser__url" id="preview-stage-url">experience.html</div>
               <div class="preview-browser__status">Live preview</div>
             </div>
-            <div class="preview-browser__frame">
-              <img id="preview-stage-image" src="jax-headshot-bw.png" alt="Experience and skills page preview" />
-              <div class="preview-browser__wash"></div>
+            <div class="preview-browser__frame" id="preview-frame">
               <div class="preview-browser__badge" id="preview-stage-badge">Profile</div>
             </div>
-          </div>
-          <div class="preview-stage__body">
-            <div class="preview-stage__label" id="preview-stage-label">Experience</div>
-            <h3 class="preview-stage__title" id="preview-stage-title">Experience and Skills</h3>
-            <p class="preview-stage__copy" id="preview-stage-copy">
-              Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best.
-            </p>
-            <div class="preview-stage__tags" id="preview-stage-tags">
-              <span class="tag">Experience</span>
-              <span class="tag">Leadership</span>
-              <span class="tag">Certifications</span>
-            </div>
-            <div class="preview-stage__meta">
-              <div class="preview-stage__meta-item">
-                <span>Best for</span>
-                <strong id="preview-stage-meta-1">Recruiters and hiring managers</strong>
-              </div>
-              <div class="preview-stage__meta-item">
-                <span>Proof type</span>
-                <strong id="preview-stage-meta-2">Timeline, fit, and technical range</strong>
-              </div>
-            </div>
-            <a class="btn btn--primary preview-stage__cta" id="preview-stage-link" href="experience.html">Open Experience and Skills</a>
           </div>
         </article>
 
@@ -938,7 +900,7 @@
              data-preview-label="Experience"
              data-preview-badge="Profile"
              data-preview-title="Experience and Skills"
-             data-preview-copy="Background, timeline, certifications, technical skills, and the recruiter-facing summary of where I fit best."
+             data-preview-copy="Roles, certifications, leadership timeline, and the full technical skills breakdown — all in one recruiter-ready view. This is where background turns into proof."
              data-preview-tags="Experience|Leadership|Certifications"
              data-preview-url="portfolio/experience.html"
              data-preview-image="jax-headshot-bw.png"
@@ -952,15 +914,16 @@
               <span class="preview-link__route">Start here</span>
             </div>
             <h3 class="preview-link__title">Experience and Skills</h3>
-            <p class="preview-link__copy">Roles, leadership, certifications, and the cleanest recruiter-facing read on your background.</p>
-            <div class="preview-link__tags"><span class="tag">Experience</span><span class="tag">Leadership</span></div>
+            <p class="preview-link__copy">Full work history, certifications, and technical skill areas organized for quick recruiter review. Covers everything from leadership roles to platform proficiency.</p>
+            <div class="preview-link__tags"><span class="tag">Experience</span><span class="tag">Leadership</span><span class="tag">Certifications</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Recruiters, hiring managers, and anyone vetting professional background.</div>
           </a>
 
           <a class="preview-link" href="social.html"
              data-preview-label="Social"
              data-preview-badge="Case studies"
              data-preview-title="Social Media Systems"
-             data-preview-copy="How I run different voices, audiences, and content systems across multiple brands with real follower growth and platform proof."
+             data-preview-copy="Three distinct brand voices, real follower growth data, and the content systems behind each account — from personal to faith-based to AI-focused."
              data-preview-tags="TikTok|Instagram|Brand voice"
              data-preview-url="portfolio/social.html"
              data-preview-image="instagram-profile.png"
@@ -974,15 +937,16 @@
               <span class="preview-link__route">Audience proof</span>
             </div>
             <h3 class="preview-link__title">Social Media Systems</h3>
-            <p class="preview-link__copy">Brand voices, content strategy, follower growth, and monetizable platform traction.</p>
-            <div class="preview-link__tags"><span class="tag">TikTok</span><span class="tag">Instagram</span></div>
+            <p class="preview-link__copy">Multi-account content strategy across TikTok and Instagram — different niches, different voices, same execution discipline. Includes follower metrics, posting cadence, and monetization context.</p>
+            <div class="preview-link__tags"><span class="tag">TikTok</span><span class="tag">Instagram</span><span class="tag">Brand Voice</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Brands, marketing teams, and agencies evaluating content range and platform fluency.</div>
           </a>
 
           <a class="preview-link" href="dashboards.html"
              data-preview-label="Dashboards"
              data-preview-badge="AI tools"
              data-preview-title="Dashboards and AI Builds"
-             data-preview-copy="The AI-assisted dashboards, analytics interfaces, and workflow concepts I have built to make decision-making and execution cleaner."
+             data-preview-copy="Three live, AI-built tools — a personal performance dashboard, a Gartner vendor scoring system, and an insurance call automation tool used by a real business."
              data-preview-tags="Dashboards|AI workflows|Analytics"
              data-preview-url="portfolio/dashboards.html"
              data-preview-image="sap-suite-analytics.png"
@@ -996,15 +960,16 @@
               <span class="preview-link__route">AI layer</span>
             </div>
             <h3 class="preview-link__title">Dashboards and AI Builds</h3>
-            <p class="preview-link__copy">Interactive interfaces, measurement views, and the AI workflow side of the portfolio.</p>
-            <div class="preview-link__tags"><span class="tag">Dashboards</span><span class="tag">Analytics</span></div>
+            <p class="preview-link__copy">Interactive analytics interfaces and AI workflow tools built from scratch — no templates. Each one is embedded live and interactable directly on the page.</p>
+            <div class="preview-link__tags"><span class="tag">Dashboards</span><span class="tag">Analytics</span><span class="tag">AI Tools</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Operators, product-minded teams, and anyone evaluating systems or workflow thinking.</div>
           </a>
 
           <a class="preview-link" href="class-projects.html"
              data-preview-label="Projects"
              data-preview-badge="Builds"
              data-preview-title="Academic and Client Projects"
-             data-preview-copy="A polished look at the AI course work, the SAP pitch ecosystem, and the project pages that show how the thinking translates into deliverables."
+             data-preview-copy="The SAP pitch ecosystem, AI coursework from 4V98, and client-style projects that show how strategic thinking translates into polished deliverables."
              data-preview-tags="4V98|SAP pitch|Client work"
              data-preview-url="portfolio/class-projects.html"
              data-preview-image="jerseys_mockup.png"
@@ -1018,15 +983,16 @@
               <span class="preview-link__route">Course + client</span>
             </div>
             <h3 class="preview-link__title">Academic and Client Projects</h3>
-            <p class="preview-link__copy">The project hub for AI coursework, client-style thinking, and the SAP ecosystem build.</p>
-            <div class="preview-link__tags"><span class="tag">4V98</span><span class="tag">SAP</span></div>
+            <p class="preview-link__copy">A curated set of course projects and client-style builds — SAP pitch decks, AI analysis deliverables, and jersey design mockups — showing how ideas get packaged into finished work.</p>
+            <div class="preview-link__tags"><span class="tag">4V98</span><span class="tag">SAP</span><span class="tag">Client Work</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Professors, reviewers, and clients evaluating process and delivery quality.</div>
           </a>
 
           <a class="preview-link" href="chatbot.html"
              data-preview-label="Chatbot"
              data-preview-badge="Live assistant"
              data-preview-title="Deployed Chatbot Experience"
-             data-preview-copy="A live AI assistant page that shows the deployed front-end layer, conversation patterns, and how I package AI interactions in a user-facing way."
+             data-preview-copy="A live, interactive AI assistant built and deployed as a portfolio piece — shows conversation design, prompt engineering, and how AI gets packaged into a user-facing product."
              data-preview-tags="Chatbot|Prompting|Deployment"
              data-preview-url="portfolio/chatbot.html"
              data-preview-image="alpha-omega-logo.png"
@@ -1040,15 +1006,16 @@
               <span class="preview-link__route">Live feel</span>
             </div>
             <h3 class="preview-link__title">Deployed Chatbot Experience</h3>
-            <p class="preview-link__copy">The user-facing AI layer of the portfolio, presented as a polished conversation surface.</p>
-            <div class="preview-link__tags"><span class="tag">Chatbot</span><span class="tag">AI UX</span></div>
+            <p class="preview-link__copy">A fully working AI assistant interface built for the portfolio — demonstrates how I think about user-facing AI design, prompt structure, and deploying conversational products.</p>
+            <div class="preview-link__tags"><span class="tag">Chatbot</span><span class="tag">AI UX</span><span class="tag">Prompting</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> AI-focused teams, product managers, and anyone curious about applied prompt engineering.</div>
           </a>
 
           <a class="preview-link" href="about.html"
              data-preview-label="About"
              data-preview-badge="Personal context"
              data-preview-title="About and Contact"
-             data-preview-copy="The page that frames the through-line behind the portfolio and gives a more direct, human read on what I want to build and where I fit."
+             data-preview-copy="The human layer behind the work — background, positioning, what I'm looking to build, and every route to get in touch depending on what kind of conversation it is."
              data-preview-tags="About|Contact|Positioning"
              data-preview-url="portfolio/about.html"
              data-preview-image="baylor-mic.jpg"
@@ -1062,8 +1029,149 @@
               <span class="preview-link__route">Human read</span>
             </div>
             <h3 class="preview-link__title">About and Contact</h3>
-            <p class="preview-link__copy">The positioning layer behind the work, plus the cleanest path to get in touch.</p>
-            <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span></div>
+            <p class="preview-link__copy">The through-line behind the portfolio — who I am, what I'm building toward, and a contact form that routes to the right inbox depending on the type of inquiry.</p>
+            <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span><span class="tag">Positioning</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Anyone deciding whether to reach out — and finding the right channel to do it.</div>
+          </a>
+
+          <div class="preview-rail__divider">AI: Principles &amp; Applications — 4V98</div>
+
+          <a class="preview-link" href="project-n8n.html"
+             data-preview-label="n8n"
+             data-preview-badge="Automation"
+             data-preview-title="n8n Multi-Agent Orchestrator"
+             data-preview-copy="11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake, scheduling, pricing, and dispatch."
+             data-preview-tags="n8n|Agents|Automation"
+             data-preview-url="portfolio/project-n8n.html"
+             data-preview-image=""
+             data-preview-alt="n8n multi-agent project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Automation systems"
+             data-preview-meta-2="Multi-agent orchestration">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Automation</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">n8n Multi-Agent Orchestrator</h3>
+            <p class="preview-link__copy">11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake, scheduling, pricing, and dispatch.</p>
+            <div class="preview-link__tags"><span class="tag">n8n</span><span class="tag">Agents</span><span class="tag">Automation</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Ops teams and builders evaluating orchestration logic.</div>
+          </a>
+
+          <a class="preview-link" href="project-langchain.html"
+             data-preview-label="LangChain"
+             data-preview-badge="AI agent"
+             data-preview-title="LangChain Booking Agent"
+             data-preview-copy="A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming."
+             data-preview-tags="LangChain|ReAct|Python"
+             data-preview-url="portfolio/project-langchain.html"
+             data-preview-image=""
+             data-preview-alt="LangChain booking agent preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Agent workflows"
+             data-preview-meta-2="Tool-using reasoning">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">AI Agent</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">LangChain Booking Agent</h3>
+            <p class="preview-link__copy">A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming.</p>
+            <div class="preview-link__tags"><span class="tag">LangChain</span><span class="tag">ReAct</span><span class="tag">Python</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Teams exploring agentic workflows.</div>
+          </a>
+
+          <a class="preview-link" href="project-aistudio.html"
+             data-preview-label="AI video"
+             data-preview-badge="AI video"
+             data-preview-title="Cinematic AI Video — Google Veo"
+             data-preview-copy="A 15-second cinematic shot generated entirely with Google Veo and AI Studio — prompt engineering for visual output."
+             data-preview-tags="Google Veo|AI Studio|Prompting"
+             data-preview-url="portfolio/project-aistudio.html"
+             data-preview-image=""
+             data-preview-alt="Google Veo cinematic AI video preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Generative video"
+             data-preview-meta-2="Prompt-driven visuals">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">AI Video</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">Cinematic AI Video — Google Veo</h3>
+            <p class="preview-link__copy">A 15-second cinematic shot generated entirely with Google Veo and AI Studio — prompt engineering for visual output.</p>
+            <div class="preview-link__tags"><span class="tag">Google Veo</span><span class="tag">AI Studio</span><span class="tag">Prompting</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Creative teams exploring AI video pipelines.</div>
+          </a>
+
+          <a class="preview-link" href="project-ml.html"
+             data-preview-label="Machine learning"
+             data-preview-badge="ML models"
+             data-preview-title="Classification and Regression"
+             data-preview-copy="Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic Regression, KNN, SVM, and Decision Tree."
+             data-preview-tags="scikit-learn|Python|ML"
+             data-preview-url="portfolio/project-ml.html"
+             data-preview-image=""
+             data-preview-alt="ML classification and regression project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Model comparison"
+             data-preview-meta-2="Classification + regression">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Machine Learning</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">Classification &amp; Regression</h3>
+            <p class="preview-link__copy">Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic Regression, KNN, SVM, and Decision Tree.</p>
+            <div class="preview-link__tags"><span class="tag">scikit-learn</span><span class="tag">Python</span><span class="tag">ML</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Anyone comparing classical ML approaches.</div>
+          </a>
+
+          <a class="preview-link" href="project-skillswap.html"
+             data-preview-label="Full-stack"
+             data-preview-badge="Marketplace"
+             data-preview-title="SkillSwap — Django Marketplace"
+             data-preview-copy="A full-stack Django marketplace where students list skills they can teach and request skills they want to learn."
+             data-preview-tags="Django|Full-Stack|Marketplace"
+             data-preview-url="portfolio/project-skillswap.html"
+             data-preview-image=""
+             data-preview-alt="SkillSwap Django marketplace preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Full-stack product"
+             data-preview-meta-2="Marketplace UX">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Full-Stack</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">SkillSwap — Django Marketplace</h3>
+            <p class="preview-link__copy">A full-stack Django marketplace where students list skills they can teach and request skills they want to learn.</p>
+            <div class="preview-link__tags"><span class="tag">Django</span><span class="tag">Full-Stack</span><span class="tag">Marketplace</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Teams assessing end-to-end product builds.</div>
+          </a>
+
+          <a class="preview-link" href="project-chatbot.html"
+             data-preview-label="AI chatbot"
+             data-preview-badge="NLP"
+             data-preview-title="AI Chatbot — Gemini and Context"
+             data-preview-copy="Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow."
+             data-preview-tags="Gemini|NLP|Chatbot"
+             data-preview-url="portfolio/project-chatbot.html"
+             data-preview-image=""
+             data-preview-alt="Gemini chatbot project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Conversational AI"
+             data-preview-meta-2="Prompting + context">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">NLP</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">AI Chatbot — Gemini &amp; Context</h3>
+            <p class="preview-link__copy">Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow.</p>
+            <div class="preview-link__tags"><span class="tag">Gemini</span><span class="tag">NLP</span><span class="tag">Chatbot</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> AI product and UX reviewers.</div>
           </a>
         </div>
       </div>
@@ -1100,53 +1208,57 @@
 
   <script>
     const previewLinks = Array.from(document.querySelectorAll(".preview-link"));
-    const previewStage = {
-      url: document.getElementById("preview-stage-url"),
-      image: document.getElementById("preview-stage-image"),
-      badge: document.getElementById("preview-stage-badge"),
-      label: document.getElementById("preview-stage-label"),
-      title: document.getElementById("preview-stage-title"),
-      copy: document.getElementById("preview-stage-copy"),
-      tags: document.getElementById("preview-stage-tags"),
-      meta1: document.getElementById("preview-stage-meta-1"),
-      meta2: document.getElementById("preview-stage-meta-2"),
-      link: document.getElementById("preview-stage-link")
-    };
+    const previewFrame = document.getElementById("preview-frame");
+    const previewUrl   = document.getElementById("preview-stage-url");
+    const previewBadge = document.getElementById("preview-stage-badge");
+    const badge        = document.getElementById("preview-stage-badge");
 
+    /* Pre-load one iframe per link — no src-swapping, no reload flicker */
+    const iframes = previewLinks.map((link) => {
+      const src = link.getAttribute("href");
+      const f = document.createElement("iframe");
+      f.className = "preview-iframe";
+      f.src = src;
+      f.title = link.dataset.previewTitle || src;
+      f.loading = "lazy";
+      f.style.opacity = "0";
+      previewFrame.insertBefore(f, badge);
+      return f;
+    });
+
+    /* Scale all iframes to fill the frame at every viewport size */
+    function scaleIframes() {
+      if (!previewFrame) return;
+      const scale = previewFrame.offsetWidth / 1440;
+      previewFrame.style.height = Math.round(900 * scale) + "px";
+      iframes.forEach((f) => { f.style.transform = `scale(${scale})`; });
+    }
+    /* Defer first scale until browser has completed layout */
+    requestAnimationFrame(() => {
+      scaleIframes();
+      /* Retry once more after any async font/image shifts */
+      setTimeout(scaleIframes, 120);
+    });
+    window.addEventListener("resize", scaleIframes);
+    new ResizeObserver(scaleIframes).observe(previewFrame);
+
+    /* Switch active preview — pure opacity swap, already-loaded pages */
     function setActivePreview(link) {
+      const idx = previewLinks.indexOf(link);
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
-      const data = link.dataset;
-      previewStage.url.textContent = data.previewUrl;
-      previewStage.image.src = data.previewImage;
-      previewStage.image.alt = data.previewAlt;
-      previewStage.image.style.objectFit = data.previewFit || "cover";
-      previewStage.image.style.objectPosition = data.previewPosition || "top center";
-      previewStage.badge.textContent = data.previewBadge;
-      previewStage.label.textContent = data.previewLabel;
-      previewStage.title.textContent = data.previewTitle;
-      previewStage.copy.textContent = data.previewCopy;
-      previewStage.meta1.textContent = data.previewMeta1;
-      previewStage.meta2.textContent = data.previewMeta2;
-      previewStage.link.href = link.getAttribute("href");
-      previewStage.link.textContent = `Open ${data.previewTitle}`;
-      previewStage.tags.innerHTML = (data.previewTags || "")
-        .split("|")
-        .filter(Boolean)
-        .map((tag) => `<span class="tag">${tag}</span>`)
-        .join("");
+      previewUrl.textContent  = link.getAttribute("href");
+      previewBadge.textContent = link.dataset.previewBadge;
+      iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
     }
 
     previewLinks.forEach((link) => {
-      ["mouseenter", "focus"].forEach((eventName) => {
-        link.addEventListener(eventName, () => setActivePreview(link));
-      });
+      ["mouseenter", "focus"].forEach((ev) => link.addEventListener(ev, () => setActivePreview(link)));
       link.addEventListener("click", () => setActivePreview(link));
     });
 
-    if (previewLinks[0]) {
-      setActivePreview(previewLinks[0]);
-    }
+    if (previewLinks[0]) setActivePreview(previewLinks[0]);
   </script>
+
   <script src="transition.js"></script>
 </body>
 </html>
