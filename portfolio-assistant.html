@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Assistant | Jax Johnson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --surface: #10161d;
+      --surface-2: #141c24;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(184, 145, 26, 0.55);
+      --text: #f3f5f7;
+      --muted: rgba(243, 245, 247, 0.6);
+      --gold: #b8911a;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      overflow: hidden;
+    }
+    .widget {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      height: 100%;
+      min-height: 100%;
+      background: var(--bg);
+    }
+    .prompt-bar {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .prompt-bar__label {
+      margin: 0 0 7px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .prompt-bar__chips {
+      display: grid;
+      gap: 6px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .chip {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 500;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--gold); }
+    .messages {
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .msg {
+      max-width: 92%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      font-size: 12.5px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+    .msg.agent {
+      align-self: flex-start;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--surface-2);
+      border-color: rgba(184, 145, 26, 0.4);
+      color: var(--text);
+    }
+    .msg.thinking {
+      align-self: flex-start;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      padding: 0 12px;
+    }
+    .input {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(78px, auto);
+      align-items: stretch;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .input input {
+      min-width: 0;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 12.5px;
+      outline: none;
+    }
+    .input input:focus { border-color: var(--gold); }
+    .send {
+      min-width: 78px;
+      min-height: 44px;
+      padding: 0 11px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .send:hover { border-color: var(--gold); }
+    .send:disabled, .input input:disabled { opacity: 0.6; cursor: default; }
+
+    @media (max-width: 640px) {
+      .prompt-bar__chips { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="prompt-bar">
+      <p class="prompt-bar__label">Try asking</p>
+      <div class="prompt-bar__chips">
+        <button class="chip" onclick="sendChip(this)">What should I read first?</button>
+        <button class="chip" onclick="sendChip(this)">What are your strongest projects?</button>
+        <button class="chip" onclick="sendChip(this)">What is your AI and chatbot work?</button>
+        <button class="chip" onclick="sendChip(this)">How can I contact you?</button>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="msg agent">Hi, I am the portfolio assistant for Jax Johnson. Ask me about his experience, projects, or where to find something in the portfolio.</div>
+    </div>
+
+    <div class="input">
+      <input id="userInput" type="text" placeholder="Ask about the portfolio..." onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button class="send" id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const messages = [
+      { role: "assistant", content: "Hi, I am the portfolio assistant for Jax Johnson. Ask me about his experience, projects, or where to find something in the portfolio." }
+    ];
+
+    const messagesEl = document.getElementById("messages");
+    const inputEl = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function renderMessage(role, text, cssClass) {
+      const el = document.createElement("div");
+      el.className = `msg ${cssClass || role}`;
+      el.textContent = text;
+      messagesEl.appendChild(el);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return el;
+    }
+
+    function setSending(isSending) {
+      sendBtn.disabled = isSending;
+      inputEl.disabled = isSending;
+    }
+
+    function sendChip(btn) {
+      if (!btn?.textContent) return;
+      inputEl.value = btn.textContent;
+      sendMessage();
+    }
+
+    async function sendMessage() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      messages.push({ role: "user", content: text });
+      renderMessage("user", text, "user");
+      inputEl.value = "";
+
+      const thinking = renderMessage("assistant", "Thinking...", "thinking");
+      setSending(true);
+
+      try {
+        const response = await fetch("/api/portfolio-chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages })
+        });
+
+        const data = await response.json();
+        thinking.remove();
+
+        if (!response.ok) {
+          renderMessage("assistant", "Sorry, I hit a server error. Try again shortly.", "agent");
+        } else {
+          const reply = data.reply || "Sorry, I could not generate a response.";
+          messages.push({ role: "assistant", content: reply });
+          renderMessage("assistant", reply, "agent");
+        }
+      } catch (err) {
+        thinking.remove();
+        renderMessage("assistant", "Sorry, I could not reach the server.", "agent");
+      } finally {
+        setSending(false);
+      }
+    }
+  </script>
+</body>
+</html>

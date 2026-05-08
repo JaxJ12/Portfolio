@@ -1,0 +1,85 @@
+{
+  "name": "Jax Johnson",
+  "focus": [
+    "Marketing",
+    "Management Information Systems (MIS)",
+    "Social media strategy",
+    "AI product thinking",
+    "Analytics and dashboards"
+  ],
+  "education": "Baylor University",
+  "summary": "Portfolio for Jax Johnson covering experience, social media systems, dashboards and AI builds, academic/client projects, and AI chatbot work.",
+  "pages": [
+    {
+      "title": "Overview",
+      "url": "portfolio.html",
+      "summary": "High-level guide to the portfolio with previews for each section and recommended routes for different audiences."
+    },
+    {
+      "title": "Experience and Skills",
+      "url": "experience.html",
+      "summary": "Work history, leadership, certifications, and technical skills."
+    },
+    {
+      "title": "Social Media Systems",
+      "url": "social.html",
+      "summary": "Multi-account content strategy across TikTok and Instagram with growth metrics and systems."
+    },
+    {
+      "title": "Dashboards and AI Builds",
+      "url": "dashboards.html",
+      "summary": "Interactive analytics interfaces and AI workflow tools built from scratch."
+    },
+    {
+      "title": "Academic and Client Projects",
+      "url": "class-projects.html",
+      "summary": "SAP pitch ecosystem, AI coursework, and client-style deliverables."
+    },
+    {
+      "title": "Deployed Chatbot Experience",
+      "url": "chatbot.html",
+      "summary": "Conversational AI work including prompt design, context management, and user-facing chatbot delivery."
+    },
+    {
+      "title": "About and Contact",
+      "url": "about.html",
+      "summary": "Background, positioning, and contact paths."
+    }
+  ],
+  "projects": [
+    {
+      "title": "n8n Multi-Agent Orchestrator",
+      "url": "project-n8n.html",
+      "summary": "11-node workflow routing handyman jobs through specialized AI agents."
+    },
+    {
+      "title": "LangChain Booking Agent",
+      "url": "project-langchain.html",
+      "summary": "ReAct-loop AI agent for end-to-end handyman booking."
+    },
+    {
+      "title": "Cinematic AI Video — Google Veo",
+      "url": "project-aistudio.html",
+      "summary": "AI-generated video with prompt-driven visuals."
+    },
+    {
+      "title": "Classification and Regression",
+      "url": "project-ml.html",
+      "summary": "Iris classifier with multiple scikit-learn models."
+    },
+    {
+      "title": "SkillSwap — Django Marketplace",
+      "url": "project-skillswap.html",
+      "summary": "Full-stack Django marketplace for skill exchange."
+    },
+    {
+      "title": "AI Chatbot — Gemini and Context",
+      "url": "project-chatbot.html",
+      "summary": "Conversational AI chatbot with Gemini, context management, and conversation flow."
+    }
+  ],
+  "contact": {
+    "url": "about.html",
+    "note": "Direct visitors to the About page for contact routes."
+  }
+}

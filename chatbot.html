@@ -412,8 +412,31 @@
   </style>
   <link rel="stylesheet" href="transition.css" />
   <script src="transition.js" defer></script>
+  <link rel="stylesheet" href="assistant.css" />
 </head>
 <body>
+  <div class="site-assistant" data-site-assistant>
+    <button class="site-assistant__toggle" type="button" data-site-assistant-toggle aria-expanded="false" aria-controls="site-assistant-panel">
+      <span class="site-assistant__toggle-mark">AI</span>
+      <span class="site-assistant__toggle-copy">
+        <strong>Portfolio Assistant</strong>
+        <span>Ask about experience, projects, or where to look.</span>
+      </span>
+    </button>
+    <div class="site-assistant__panel" id="site-assistant-panel" data-site-assistant-panel hidden>
+      <div class="site-assistant__header">
+        <div>
+          <p class="site-assistant__eyebrow">Portfolio</p>
+          <p class="site-assistant__title">Portfolio Assistant</p>
+          <p class="site-assistant__subcopy">Ask questions about the work, projects, or how to get in touch.</p>
+        </div>
+        <button class="site-assistant__close" type="button" data-site-assistant-close aria-label="Close portfolio assistant">x</button>
+      </div>
+      <div class="site-assistant__frame-wrap">
+        <iframe class="site-assistant__frame" title="Portfolio Assistant" data-site-assistant-frame data-src="portfolio-assistant.html" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- Nav -->
   <nav class="top-nav" aria-label="Portfolio navigation">
@@ -761,5 +784,6 @@ Answer questions concisely and professionally. Under 4 sentences when possible. 
       });
     });
   </script>
+  <script src="assistant.js"></script>
 </body>
 </html>
