@@ -1,10 +1,6 @@
 const context = require("../portfolio-context.json");
 
-const MODEL = "gemini-2.0-flash-lite";
-
-function loadContext() {
-  return context;
-}
+const MODEL = "claude-haiku-4-5-20251001";
 
 function buildSystemPrompt(context) {
   return [
@@ -41,40 +37,40 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: "Invalid messages payload" });
     }
 
-    const context = loadContext();
-    const systemPrompt = buildSystemPrompt(context);
-
-    const geminiContents = messages.map((msg) => ({
-      role: msg.role === "assistant" ? "model" : "user",
-      parts: [{ text: String(msg.content || "") }]
-    }));
-
-    const geminiPayload = {
-      systemInstruction: { parts: [{ text: systemPrompt }] },
-      contents: geminiContents
-    };
-
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: "Missing GEMINI_API_KEY" });
+      return res.status(500).json({ error: "Missing ANTHROPIC_API_KEY" });
     }
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(geminiPayload)
-      }
-    );
+    const systemPrompt = buildSystemPrompt(context);
+
+    // Anthropic requires alternating user/assistant roles — filter out system messages
+    // and ensure the conversation starts with a user message
+    const anthropicMessages = messages
+      .filter((m) => m.role === "user" || m.role === "assistant")
+      .map((m) => ({ role: m.role, content: String(m.content || "") }));
+
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01"
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 512,
+        system: systemPrompt,
+        messages: anthropicMessages
+      })
+    });
 
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error?.message || "Gemini API error");
+      throw new Error(data.error?.message || "Anthropic API error");
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Sorry, I could not generate a response.";
+    const text = data.content?.[0]?.text || "Sorry, I could not generate a response.";
 
     return res.status(200).json({ reply: text });
   } catch (error) {
