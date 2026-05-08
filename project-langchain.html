@@ -196,11 +196,13 @@
     }
   </style>
   <link rel="stylesheet" href="project-page-theme.css"/>
+  <link rel="stylesheet" href="transition.css" />
+  <script src="transition.js" defer></script>
 </head>
 <body class="project-page" style="--project-accent:#8c6a00; --project-accent-rgb:140,106,0;">
 
 <nav class="back-nav">
-  <a href="class-projects.html">
+  <a href="class-projects.html#proj-langchain">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Projects
   </a>
@@ -468,7 +470,7 @@ Pricing: {json.dumps(pricing_records)}
 
 <footer class="site-footer">
   <span>Jax Johnson · AI: Principles and Application · Baylor University</span>
-  <a href="class-projects.html" style="color:var(--green); font-weight:600;">← All Projects</a>
+  <a href="class-projects.html#proj-langchain" style="color:var(--green); font-weight:600;">← All Projects</a>
 </footer>
 
 <script>

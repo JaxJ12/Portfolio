@@ -518,8 +518,7 @@
       border-top: none;
       border-radius: 0 0 20px 20px;
       background: #efe5d4;
-      min-height: 280px; /* placeholder until JS sets exact height */
-      /* height is set dynamically by JS to match iframe scale */
+      min-height: 280px;
     }
 
     .preview-iframe {
@@ -588,6 +587,17 @@
     .preview-rail {
       display: grid;
       gap: 12px;
+    }
+
+    .preview-rail__divider {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 8px 0 4px;
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
     }
 
     .preview-link {
@@ -798,6 +808,7 @@
       .preview-rail { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="transition.css" />
 </head>
 <body>
   <nav class="top-nav" aria-label="Portfolio navigation">
@@ -1022,6 +1033,146 @@
             <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span><span class="tag">Positioning</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Anyone deciding whether to reach out — and finding the right channel to do it.</div>
           </a>
+
+          <div class="preview-rail__divider">AI: Principles &amp; Applications — 4V98</div>
+
+          <a class="preview-link" href="project-n8n.html"
+             data-preview-label="n8n"
+             data-preview-badge="Automation"
+             data-preview-title="n8n Multi-Agent Orchestrator"
+             data-preview-copy="11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake, scheduling, pricing, and dispatch."
+             data-preview-tags="n8n|Agents|Automation"
+             data-preview-url="portfolio/project-n8n.html"
+             data-preview-image=""
+             data-preview-alt="n8n multi-agent project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Automation systems"
+             data-preview-meta-2="Multi-agent orchestration">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Automation</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">n8n Multi-Agent Orchestrator</h3>
+            <p class="preview-link__copy">11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake, scheduling, pricing, and dispatch.</p>
+            <div class="preview-link__tags"><span class="tag">n8n</span><span class="tag">Agents</span><span class="tag">Automation</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Ops teams and builders evaluating orchestration logic.</div>
+          </a>
+
+          <a class="preview-link" href="project-langchain.html"
+             data-preview-label="LangChain"
+             data-preview-badge="AI agent"
+             data-preview-title="LangChain Booking Agent"
+             data-preview-copy="A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming."
+             data-preview-tags="LangChain|ReAct|Python"
+             data-preview-url="portfolio/project-langchain.html"
+             data-preview-image=""
+             data-preview-alt="LangChain booking agent preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Agent workflows"
+             data-preview-meta-2="Tool-using reasoning">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">AI Agent</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">LangChain Booking Agent</h3>
+            <p class="preview-link__copy">A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming.</p>
+            <div class="preview-link__tags"><span class="tag">LangChain</span><span class="tag">ReAct</span><span class="tag">Python</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Teams exploring agentic workflows.</div>
+          </a>
+
+          <a class="preview-link" href="project-aistudio.html"
+             data-preview-label="AI video"
+             data-preview-badge="AI video"
+             data-preview-title="Cinematic AI Video — Google Veo"
+             data-preview-copy="A 15-second cinematic shot generated entirely with Google Veo and AI Studio — prompt engineering for visual output."
+             data-preview-tags="Google Veo|AI Studio|Prompting"
+             data-preview-url="portfolio/project-aistudio.html"
+             data-preview-image=""
+             data-preview-alt="Google Veo cinematic AI video preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Generative video"
+             data-preview-meta-2="Prompt-driven visuals">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">AI Video</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">Cinematic AI Video — Google Veo</h3>
+            <p class="preview-link__copy">A 15-second cinematic shot generated entirely with Google Veo and AI Studio — prompt engineering for visual output.</p>
+            <div class="preview-link__tags"><span class="tag">Google Veo</span><span class="tag">AI Studio</span><span class="tag">Prompting</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Creative teams exploring AI video pipelines.</div>
+          </a>
+
+          <a class="preview-link" href="project-ml.html"
+             data-preview-label="Machine learning"
+             data-preview-badge="ML models"
+             data-preview-title="Classification and Regression"
+             data-preview-copy="Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic Regression, KNN, SVM, and Decision Tree."
+             data-preview-tags="scikit-learn|Python|ML"
+             data-preview-url="portfolio/project-ml.html"
+             data-preview-image=""
+             data-preview-alt="ML classification and regression project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Model comparison"
+             data-preview-meta-2="Classification + regression">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Machine Learning</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">Classification &amp; Regression</h3>
+            <p class="preview-link__copy">Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic Regression, KNN, SVM, and Decision Tree.</p>
+            <div class="preview-link__tags"><span class="tag">scikit-learn</span><span class="tag">Python</span><span class="tag">ML</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Anyone comparing classical ML approaches.</div>
+          </a>
+
+          <a class="preview-link" href="project-skillswap.html"
+             data-preview-label="Full-stack"
+             data-preview-badge="Marketplace"
+             data-preview-title="SkillSwap — Django Marketplace"
+             data-preview-copy="A full-stack Django marketplace where students list skills they can teach and request skills they want to learn."
+             data-preview-tags="Django|Full-Stack|Marketplace"
+             data-preview-url="portfolio/project-skillswap.html"
+             data-preview-image=""
+             data-preview-alt="SkillSwap Django marketplace preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Full-stack product"
+             data-preview-meta-2="Marketplace UX">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Full-Stack</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">SkillSwap — Django Marketplace</h3>
+            <p class="preview-link__copy">A full-stack Django marketplace where students list skills they can teach and request skills they want to learn.</p>
+            <div class="preview-link__tags"><span class="tag">Django</span><span class="tag">Full-Stack</span><span class="tag">Marketplace</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Teams assessing end-to-end product builds.</div>
+          </a>
+
+          <a class="preview-link" href="project-chatbot.html"
+             data-preview-label="AI chatbot"
+             data-preview-badge="NLP"
+             data-preview-title="AI Chatbot — Gemini and Context"
+             data-preview-copy="Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow."
+             data-preview-tags="Gemini|NLP|Chatbot"
+             data-preview-url="portfolio/project-chatbot.html"
+             data-preview-image=""
+             data-preview-alt="Gemini chatbot project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Conversational AI"
+             data-preview-meta-2="Prompting + context">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">NLP</span>
+              <span class="preview-link__route">4V98 build</span>
+            </div>
+            <h3 class="preview-link__title">AI Chatbot — Gemini &amp; Context</h3>
+            <p class="preview-link__copy">Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow.</p>
+            <div class="preview-link__tags"><span class="tag">Gemini</span><span class="tag">NLP</span><span class="tag">Chatbot</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> AI product and UX reviewers.</div>
+          </a>
         </div>
       </div>
     </section>
@@ -1107,5 +1258,7 @@
 
     if (previewLinks[0]) setActivePreview(previewLinks[0]);
   </script>
+
+  <script src="transition.js"></script>
 </body>
 </html>

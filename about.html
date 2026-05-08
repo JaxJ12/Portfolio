@@ -100,18 +100,24 @@
 
     /* ── Document preview cards ── */
     .doc-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
-    .doc-card { display: grid; grid-template-rows: 200px auto; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: rgba(255,255,255,0.86); box-shadow: var(--shadow); transition: transform 0.22s, border-color 0.22s; color: var(--text); }
-    .doc-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+    .doc-card { display: grid; grid-template-rows: 200px auto; border: 1px solid var(--line); border-radius: 26px; overflow: hidden; background: rgba(255,255,255,0.9); box-shadow: var(--shadow); transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s; color: var(--text); position: relative; }
+    .doc-card:hover { transform: translateY(-5px); border-color: var(--line-strong); box-shadow: 0 30px 70px rgba(28,23,16,0.12); }
     .doc-card__thumb { display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
     .doc-card__thumb--dark { background: linear-gradient(135deg,#1c1710 0%,#2e2416 100%); }
     .doc-card__thumb--cream { background: radial-gradient(circle at top,rgba(184,145,26,0.12),transparent 38%), linear-gradient(180deg,#f6f0e4 0%,#ece2d1 100%); }
     .doc-card__thumb--soft { background: linear-gradient(135deg,#faf8f3 0%,#ebe3d3 100%); }
     .doc-card__thumb::after { content:""; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),rgba(184,145,26,0.4),transparent 70%); }
+    .doc-card__thumb::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 50%); }
     .doc-card__body { padding: 22px 22px 24px; display: grid; gap: 10px; }
+    .doc-card__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .doc-pill { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(140,106,0,0.08); font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+    .doc-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
     .doc-card__label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
     .doc-card__title { margin: 0; font-family: "Playfair Display", serif; font-size: 1.4rem; line-height: 1.05; letter-spacing: -0.02em; }
     .doc-card__copy { margin: 0; font-size: 13px; line-height: 1.7; color: var(--muted); }
-    .doc-card__footer { padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
+    .doc-card__footer { padding-top: 12px; border-top: 1px solid var(--line); }
+    .doc-card__cta { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
+    .doc-card:hover .doc-card__cta { border-color: rgba(140,106,0,0.5); background: rgba(140,106,0,0.08); }
 
     /* ── Contact ── */
     .contact-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); gap: 48px; align-items: start; }
@@ -178,6 +184,7 @@
       .hero__contact { grid-template-columns: 1fr 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="transition.css" />
 </head>
 <body>
   <div class="page-transition" aria-hidden="true"><div class="page-transition__panel"></div></div>
@@ -264,7 +271,7 @@
 
       <div class="doc-grid">
 
-        <a class="doc-card" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">
+        <a class="doc-card" href="March%202026%20Resume-%20Jax%20Johnson.pdf" target="_blank">
           <div class="doc-card__thumb doc-card__thumb--dark">
             <svg width="72" height="82" viewBox="0 0 72 82" fill="none">
               <rect x="10" y="6" width="44" height="58" rx="4" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/>
@@ -277,10 +284,14 @@
             </svg>
           </div>
           <div class="doc-card__body">
+            <div class="doc-card__meta">
+              <span class="doc-pill">PDF</span>
+              <span class="doc-meta">Portfolio</span>
+            </div>
             <p class="doc-card__label">PDF Portfolio</p>
-            <h3 class="doc-card__title">March 2026 Portfolio</h3>
+            <h3 class="doc-card__title">Spring Resume</h3>
             <p class="doc-card__copy">Full-length portfolio document covering experience, projects, social brands, and credentials.</p>
-            <p class="doc-card__footer">Open PDF ↗</p>
+            <div class="doc-card__footer"><span class="doc-card__cta">Open PDF ↗</span></div>
           </div>
         </a>
 
@@ -298,10 +309,14 @@
             </svg>
           </div>
           <div class="doc-card__body">
+            <div class="doc-card__meta">
+              <span class="doc-pill">PDF</span>
+              <span class="doc-meta">Resume</span>
+            </div>
             <p class="doc-card__label">Résumé</p>
-            <h3 class="doc-card__title">Jax Johnson — Résumé</h3>
+            <h3 class="doc-card__title">Social Media Portfolio</h3>
             <p class="doc-card__copy">One-page résumé with experience, education, and key projects — ready for applications.</p>
-            <p class="doc-card__footer">View Résumé ↗</p>
+            <div class="doc-card__footer"><span class="doc-card__cta">View Résumé ↗</span></div>
           </div>
         </a>
 
@@ -318,10 +333,14 @@
             </svg>
           </div>
           <div class="doc-card__body">
+            <div class="doc-card__meta">
+              <span class="doc-pill">Web</span>
+              <span class="doc-meta">Skills</span>
+            </div>
             <p class="doc-card__label">Skills &amp; Credentials</p>
             <h3 class="doc-card__title">Full Skills Breakdown</h3>
             <p class="doc-card__copy">Every tool, certification, and credential — with proficiency levels across four skill areas.</p>
-            <p class="doc-card__footer">View Skills →</p>
+            <div class="doc-card__footer"><span class="doc-card__cta">View Skills →</span></div>
           </div>
         </a>
 
@@ -466,5 +485,6 @@
       });
     });
   </script>
+  <script src="transition.js"></script>
 </body>
 </html>

@@ -75,8 +75,9 @@ body.project-page .hero {
   isolation: isolate;
   overflow: hidden;
   max-width: 1200px;
-  margin: 22px auto 0;
-  padding: 120px 56px 52px;
+  width: min(1200px, calc(100% - 40px));
+  margin: 96px auto 0;
+  padding: 88px 56px 52px;
   border: 1px solid var(--ink-line);
   border-radius: 32px;
   background:
