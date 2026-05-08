@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact | Baylor x SAP</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="shortcut icon" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -283,7 +283,7 @@
     .hero__copy {
       max-width: 740px;
       padding-left: 18px;
-      border-left: 1px solid rgba(15, 124, 201, 0.3);
+      border-left: 1px solid rgba(181, 199, 221, 0.5);
       transform: translateY(-24px);
     }
     .eyebrow {
@@ -292,7 +292,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(225, 232, 240, 0.62);
+      color: rgba(181, 199, 221, 0.86);
     }
     .title {
       margin: 0;
@@ -304,6 +304,12 @@
       max-width: 16ch;
     }
     .title span { color: #0f7cc9; }
+    .hero__title {
+      color: rgba(255, 255, 255, 0.96);
+    }
+    .hero__title span {
+      color: inherit;
+    }
     .lead {
       margin: 4px 0 0;
       max-width: 700px;
@@ -311,6 +317,13 @@
       font-size: clamp(0.95rem, 1.28vw, 1.14rem);
       line-height: 1.72;
       color: var(--muted);
+    }
+    .hero__guide {
+      max-width: 700px;
+      margin: 14px 0 0;
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(181, 199, 221, 0.82);
     }
     .hero__actions {
       display: flex;
@@ -1164,35 +1177,36 @@
   <main>
     <section class="hero">
       <div class="hero__media">
-        <img src="mclane_stadium.png" alt="McLane Stadium and Baylor x SAP partnership environment" />
+        <img src="mclane_stadium_night.jpg" alt="McLane Stadium at night for the Baylor x SAP partnership proposal" />
       </div>
       <div class="hero__shade"></div>
       <div class="hero__grid"></div>
       <div class="hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow">Contact · Enterprise brief</p>
-          <h1 class="title">Move from presentation to a <span>formal partnership</span></h1>
-          <p class="lead">This page closes the proposal by consolidating the narrative, pricing logic, asset structure, and measurement model in one place, giving decision-makers a clear bridge from concept to professional follow-up.</p>
+          <p class="eyebrow">Baylor x SAP &middot; Executive Close</p>
+          <h1 class="title hero__title">Move from proposal to a <span>formal next step</span></h1>
+          <p class="lead">This final page closes the loop with a concise decision path, the right contact channel, and a clean executive summary so SAP can move from presentation mode into a real partnership conversation.</p>
+          <p class="hero__guide">The same logic from the overview carries through here: define the scope, align the package structure, and choose whether the right next move is an annual platform, a flagship integration, or a custom patch-led discussion.</p>
           <div class="hero__actions">
-            <a class="button button--primary" href="index.html">Review Overview</a>
-            <a class="button" href="packages.html">Return To App</a>
+            <a class="button button--primary" href="sap-index.html">Return to Overview</a>
+            <a class="button" href="packages.html">Review Packages</a>
           </div>
         </div>
         <aside class="terminal">
-          <p class="terminal__label">Strategic Roadmap: 2027 and Beyond</p>
-          <h2 class="terminal__title">Define the scope first, then scale the integration.</h2>
-          <p class="terminal__copy">The negotiation model is built for 2027 and beyond, helping SAP understand whether the right next step is a single-year enterprise platform or a multi-year flagship integration with the patch valued on a separate track.</p>
+          <p class="terminal__label">Decision Brief</p>
+          <h2 class="terminal__title">Define the scope first, then formalize the partnership path.</h2>
+          <p class="terminal__copy">The close is structured the same way as the opening overview: anchor on SAP's business objective, align to the activation tier that solves it best, and use the printable summary plus official contact channel to carry the discussion into a boardroom-ready follow-up.</p>
           <div class="terminal__meta">
             <div class="terminal__metric">
               <p class="metric__label">Annual envelope</p>
               <strong>$1.5M-$2.0M</strong>
             </div>
             <div class="terminal__metric">
-              <p class="metric__label">Patch framework</p>
-              <strong>Custom Power 4 valuation</strong>
+              <p class="metric__label">Next step</p>
+              <strong>Executive review + pricing alignment</strong>
             </div>
           </div>
-          <a class="terminal__link" href="javascript:window.print()">Open Printable Brief</a>
+          <a class="terminal__link" href="javascript:window.print()">Print Executive Summary</a>
         </aside>
       </div>
     </section>
@@ -1296,7 +1310,7 @@
   </footer>
 
   <nav class="nav-island" aria-label="Primary navigation">
-    <a href="index.html">Overview</a>
+    <a href="sap-index.html">Overview</a>
     <a href="sap-jersey-patch.html">Patch</a>
     <a href="sap-suites.html">Suites</a>
     <a href="sap-keynote.html">Keynotes</a>
