@@ -1,6 +1,9 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": null,
-  "outputDirectory": "."
+  "buildCommand": "git submodule update --init --recursive",
+  "outputDirectory": ".",
+  "git": {
+    "deploymentEnabled": true
+  }
 }
