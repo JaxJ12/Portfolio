@@ -1,0 +1,1336 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Baylor x SAP</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1522;
+      --bg-soft: #101c2b;
+      --surface: rgba(15, 25, 39, 0.82);
+      --surface-strong: rgba(18, 31, 49, 0.94);
+      --surface-highlight: rgba(23, 40, 62, 0.94);
+      --text: rgba(255, 255, 255, 0.94);
+      --muted: rgba(225, 232, 240, 0.74);
+      --line: rgba(181, 199, 221, 0.16);
+      --line-strong: rgba(15, 124, 201, 0.58);
+      --gold: #ffb81c;
+      --blue: #0f7cc9;
+      --shadow-soft: 0 18px 48px rgba(3, 8, 18, 0.28);
+      --shadow-panel: 0 24px 72px rgba(2, 10, 24, 0.34);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(15, 124, 201, 0.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255, 184, 28, 0.08), transparent 24%),
+        linear-gradient(180deg, #0b1420 0%, #101b2a 46%, #0b1320 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .page-transition__panel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(34vw, 460px);
+      height: min(22vw, 300px);
+      background: #132131;
+      border-radius: 28px;
+      transform: translate(-50%, -50%) scale(0.88);
+      opacity: 0;
+      will-change: transform, opacity, border-radius, width, height;
+      backface-visibility: hidden;
+      box-shadow: 0 32px 96px rgba(5, 18, 14, 0.28);
+    }
+    .page-transition.is-leaving { pointer-events: all; }
+    body.is-transitioning { overflow: hidden; }
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background: transparent;
+    }
+    .hero__media,
+    .hero__shade,
+    .hero__grid {
+      position: absolute;
+      inset: 0;
+    }
+    .hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.15);
+      filter: saturate(0.84) contrast(1.02);
+    }
+    .hero__shade {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(15, 124, 201, 0.28), transparent 34%),
+        linear-gradient(180deg, rgba(6, 12, 22, 0.16), rgba(7, 13, 24, 0.76));
+    }
+    .hero__grid {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      opacity: 0.52;
+    }
+    .hero__inner,
+    .print-bar__inner,
+    .contact__inner {
+      position: relative;
+      z-index: 2;
+      width: min(1320px, calc(100% - 72px));
+      margin: 0 auto;
+    }
+    .hero__inner {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: end;
+      padding: 12vh 0 18vh;
+    }
+    .hero__copy {
+      max-width: 740px;
+      padding-left: 18px;
+      border-left: 1px solid rgba(181, 199, 221, 0.5);
+      transform: translateY(-24px);
+    }
+    .eyebrow {
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(181, 199, 221, 0.86);
+    }
+    .title {
+      margin: 0;
+      font-size: clamp(2.35rem, 5.4vw, 4.35rem);
+      line-height: 0.99;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      text-wrap: balance;
+      max-width: 16ch;
+    }
+    .title span { color: #0f7cc9; }
+    .lead {
+      margin: 4px 0 0;
+      max-width: 700px;
+      text-wrap: pretty;
+      font-size: clamp(0.95rem, 1.28vw, 1.14rem);
+      line-height: 1.72;
+      color: var(--muted);
+    }
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .button:hover {
+      border-color: rgba(181, 199, 221, 0.74);
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+    .button--primary {
+      border-color: rgba(181, 199, 221, 0.95);
+      background: rgba(15, 124, 201, 0.96);
+      color: #f5fbff;
+    }
+    .button--primary:hover {
+      background: #1691eb;
+      color: #ffffff;
+    }
+    .terminal,
+    .print-card,
+    .contact-panel,
+    .form-shell {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface-strong);
+      box-shadow: var(--shadow-panel);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .terminal {
+      width: 100%;
+      padding: 24px;
+      min-height: 320px;
+      align-self: end;
+      transform: translateY(-78px);
+    }
+    .terminal__label,
+    .metric__label,
+    .field label,
+    .info-block h3 {
+      margin: 0;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(205, 217, 231, 0.6);
+    }
+    .terminal__title {
+      margin: 14px 0 0;
+      font-size: clamp(1.32rem, 1.9vw, 1.78rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      max-width: 100%;
+    }
+    .terminal__copy,
+    .contact-panel p,
+    .form-shell > p,
+    .form-note,
+    .success {
+      margin: 18px 0 0;
+      font-size: 14px;
+      line-height: 1.78;
+      color: var(--muted);
+    }
+    .terminal__meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .terminal__metric strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(243, 245, 247, 0.94);
+    }
+    .terminal__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .terminal__link::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line-strong);
+    }
+    .terminal__link:hover { color: var(--gold); }
+    .print-bar,
+    .contact {
+      position: relative;
+      padding: 36px 0;
+      background: transparent;
+    }
+    .print-bar::before,
+    .contact::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 24%, rgba(15, 124, 201, 0.08), transparent 26%),
+        radial-gradient(circle at 84% 16%, rgba(255, 184, 28, 0.06), transparent 20%);
+    }
+    .print-card {
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      border-radius: 26px;
+    }
+    .print-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.78;
+      color: var(--muted);
+      max-width: 760px;
+    }
+    .contact__inner {
+      display: grid;
+      grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      padding-bottom: 140px;
+    }
+    .contact-panel,
+    .form-shell {
+      padding: 30px;
+      border-radius: 28px;
+    }
+    .contact-panel h2,
+    .form-shell h2 {
+      margin: 10px 0 0;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    .contact-panel {
+      position: sticky;
+      top: 28px;
+    }
+    .contact-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid rgba(181, 199, 221, 0.16);
+      border-radius: 999px;
+      background: rgba(9, 17, 28, 0.34);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(233, 239, 246, 0.8);
+    }
+    .info-block {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(181, 199, 221, 0.12);
+    }
+    .info-block p { margin: 10px 0 0; }
+    .info-block a:hover { color: var(--gold); }
+    .list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.78;
+    }
+    .list li + li { margin-top: 10px; }
+    .form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 24px 0 6px;
+    }
+    .process-card {
+      padding: 16px;
+      border: 1px solid rgba(181, 199, 221, 0.12);
+      border-radius: 18px;
+      background: rgba(9, 17, 28, 0.34);
+    }
+    .process-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(205, 217, 231, 0.62);
+    }
+    .process-card span {
+      display: block;
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(241, 245, 249, 0.86);
+    }
+    .brief-summary {
+      position: relative;
+      padding: 0 0 36px;
+      background: transparent;
+    }
+    .brief-summary__inner {
+      width: min(1320px, calc(100% - 72px));
+      margin: 0 auto;
+    }
+    .brief-summary__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .brief-summary__card {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(19, 31, 49, 0.96) 0%, rgba(12, 22, 34, 0.96) 100%);
+      box-shadow: var(--shadow-panel);
+    }
+    .brief-summary__card h3 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    .brief-summary__card p,
+    .brief-summary__card li {
+      font-size: 14px;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+    .brief-summary__card ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+    .brief-summary__card li + li {
+      margin-top: 8px;
+    }
+    .brief-summary__card--brand {
+      overflow: hidden;
+    }
+    .partner-lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(181, 199, 221, 0.14);
+      background:
+        linear-gradient(135deg, rgba(20, 62, 51, 0.96) 0%, rgba(16, 36, 31, 0.96) 100%);
+    }
+    .partner-lockup__bu {
+      font-size: 2rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--gold);
+    }
+    .partner-lockup__x {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.68);
+    }
+    .partner-lockup__playfly {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .partner-lockup__playfly strong {
+      font-size: 1.35rem;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.94);
+    }
+    .partner-lockup__playfly span {
+      margin-top: 4px;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(205, 217, 231, 0.72);
+    }
+    .field {
+      display: grid;
+      gap: 10px;
+    }
+    .field--full { grid-column: 1 / -1; }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 14px 16px;
+      border: 1px solid rgba(181, 199, 221, 0.18);
+      border-radius: 16px;
+      background: rgba(9, 17, 28, 0.42);
+      color: #fff;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+    .field select { appearance: none; }
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(205, 217, 231, 0.36);
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(15, 124, 201, 0.72);
+      background: rgba(12, 22, 35, 0.72);
+      box-shadow: 0 0 0 4px rgba(15, 124, 201, 0.12);
+    }
+    .form-actions {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .success {
+      display: none;
+      padding: 14px 16px;
+      border: 1px solid rgba(15, 124, 201, 0.35);
+      border-radius: 16px;
+      background: rgba(11, 26, 41, 0.58);
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 8px;
+    }
+    .nav-island {
+      position: fixed;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: clamp(0.6rem, 0.95vw, 0.95rem);
+      width: max-content;
+      max-width: calc(100% - 24px);
+      justify-content: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+      background: rgba(10, 20, 34, 0.84);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.88rem 1.1rem;
+      border-radius: 100px;
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 44px rgba(3, 8, 18, 0.28);
+      z-index: 100;
+      scrollbar-width: none;
+    }
+    .nav-island::-webkit-scrollbar { display: none; }
+    .nav-island a {
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.9);
+      opacity: 0.72;
+      transition: opacity 0.25s ease, color 0.25s ease;
+      white-space: nowrap;
+    }
+    .nav-island a:hover,
+    .nav-island a.is-active {
+      opacity: 1;
+      color: var(--gold);
+    }
+    @media (max-width: 1100px) {
+      .hero__inner,
+      .contact__inner,
+      .print-card {
+        grid-template-columns: 1fr;
+      }
+      .print-card { display: grid; }
+    }
+    @media (max-width: 820px) {
+      .hero__inner,
+      .print-bar__inner,
+      .brief-summary__inner,
+      .contact__inner {
+        width: calc(100% - 32px);
+      }
+      .title { font-size: clamp(3rem, 14vw, 5.6rem); }
+      .lead { font-size: 1.02rem; }
+      .terminal__meta,
+      .form,
+      .process-grid,
+      .brief-summary__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .nav-island {
+        width: calc(100% - 24px);
+        gap: 1rem;
+        justify-content: space-between;
+        padding: 0.9rem 1rem;
+        bottom: 22px;
+      }
+      .nav-island a { font-size: 10px; }
+      .hero__inner,
+      .print-bar__inner,
+      .brief-summary__inner,
+      .contact__inner {
+        width: calc(100% - 24px);
+      }
+    }
+    @page { size: letter portrait; margin: 0; }
+
+    /* @media print handled by #print-brief block at bottom of body */
+
+        .site-footer {
+      width: min(1200px, calc(100% - 36px));
+      margin: 18px auto 120px;
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-strong);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .site-footer__title {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(243, 245, 247, 0.9);
+    }
+    .site-footer__meta {
+      margin: 2px 0 0;
+      font-size: 11px;
+      color: rgba(205, 217, 231, 0.7);
+    }
+    .site-footer__links { display: none; }
+    .site-footer__legal {
+      margin: 0;
+      font-size: 11px;
+      text-align: right;
+      color: rgba(205, 217, 231, 0.62);
+      white-space: nowrap;
+      align-self: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="page-transition" aria-hidden="true"><div class="page-transition__panel"></div></div>
+    <main>
+    <section class="hero">
+      <div class="hero__media">
+        <img src="mclane_stadium.png" alt="McLane Stadium and Baylor x SAP partnership environment">
+      </div>
+      <div class="hero__shade"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow">Contact · Enterprise brief</p>
+          <h1 class="title">Move from presentation to <span>official handoff</span></h1>
+          <p class="lead">This page closes the pitch by summarizing the story, pricing logic, asset mix, and measurement model in one place. It gives judges and decision-makers a clean bridge from concept presentation to a professional sponsorship follow-up.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#contact-form">Open Inquiry Form</a>
+            <a class="button" href="baylor-sap-executive-brief.pdf" target="_blank">Print Action Brief</a>
+          </div>
+        </div>
+        <aside class="terminal">
+          <p class="terminal__label">Partnership architecture</p>
+          <h2 class="terminal__title">Technology integration first. Patch valuation second.</h2>
+          <p class="terminal__copy">The negotiation model protects Baylor's flagship asset while giving SAP a clear annual integration path across suites, keynotes, app intelligence, content syndication, and full stadium integration.</p>
+          <div class="terminal__meta">
+            <div class="terminal__metric">
+              <p class="metric__label">Annual range</p>
+              <strong>$4,500,000 / yr</strong>
+            </div>
+            <div class="terminal__metric">
+              <p class="metric__label">Patch path</p>
+              <strong>Custom Power 4 and Big 12 valuation</strong>
+            </div>
+          </div>
+          <a class="terminal__link" href="baylor-sap-executive-brief.pdf" target="_blank">View Printable Brief</a>
+        </aside>
+      </div>
+    </section>
+    <section style="padding: 4rem 1.5rem; max-width: 900px; margin: 0 auto; text-align: center; font-family: 'Space Grotesk', sans-serif;">
+
+    <div class="sec" id="valuation">
+  <p class="sl">The Investment</p>
+  <h2>$4.5 Million Annual Investment</h2>
+
+  <div class="tiers" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 4rem;">
+    <div class="tier">
+      <h4>1. Foundational Enterprise Platform</h4>
+      <div class="tier-p">$1,850,000 <span style="font-size: 1rem; color: var(--muted);">/ yr</span></div>
+      <p>Includes VIP Suites, S3E Academic Keynotes, LED Takeovers, and Social Media Execution. Offset via SAP Analytics Cloud VIK.</p>
+    </div>
+    <div class="tier">
+      <h4>2. Power 4 Jersey Patch Rights</h4>
+      <div class="tier-p">$2,650,000 <span style="font-size: 1rem; color: var(--muted);">/ yr</span></div>
+      <p>Activates 2027. Anchored above G5 floor of $2.2M/yr. First-mover Power 4 scarcity — total category dominance in the Big 12.</p>
+    </div>
+  </div>
+
+</section>
+    <section class="print-bar">
+      <div class="print-bar__inner">
+        <div class="print-card">
+          <p>Use the one-pager when the room needs a fast board-level summary. It now captures story framing, rubric coverage, pricing architecture, and measures of success so the pitch can function as both a presentation and a leave-behind.</p>
+          <a class="button" href="baylor-sap-executive-brief.pdf" target="_blank">Print Action Steps</a>
+        </div>
+      </div>
+    </section>
+    <section class="contact" id="contact-form">
+      <div class="contact__inner">
+        <aside class="contact-panel">
+          <p class="eyebrow">Official contact</p>
+          <h2>Scott Yacyshyn</h2>
+          <p>Director of Partnership Sales · Baylor Sports Properties powered by Playfly</p>
+          <div class="contact-pills">
+            <span class="contact-pill">Official channel</span>
+            <span class="contact-pill">Boardroom brief ready</span>
+            <span class="contact-pill">Enterprise negotiation path</span>
+          </div>
+          <div class="info-block">
+            <h3>Email</h3>
+            <p><a href="mailto:Scott.Yacyshyn@Playfly.com">Scott.Yacyshyn@Playfly.com</a></p>
+          </div>
+          <div class="info-block">
+            <h3>Recommended sequence</h3>
+            <ul class="list">
+              <li>Confirm whether the conversation is about enterprise integration only or includes the custom jersey patch track.</li>
+              <li>Identify which activation lane should anchor the follow-up: suites, keynotes, or SAP App intelligence.</li>
+              <li>Use the printable brief if the conversation needs a boardroom summary before a formal response.</li>
+            </ul>
+          </div>
+        </aside>
+        <div class="form-shell">
+          <p class="eyebrow">Inquiry form</p>
+          <h2>Start the email handoff</h2>
+          <p>The form still uses the current official backend flow. Submitting it opens a prefilled email draft addressed to Scott Yacyshyn so the inquiry can be sent directly through the correct contact channel with a clear record of the activation path, package interest, and next-step intent.</p>
+          <div class="process-grid" aria-hidden="true">
+            <div class="process-card">
+              <strong>Step 01</strong>
+              <span>Choose the activation path you want to discuss first.</span>
+            </div>
+            <div class="process-card">
+              <strong>Step 02</strong>
+              <span>Open the prefilled email draft through the official contact route.</span>
+            </div>
+            <div class="process-card">
+              <strong>Step 03</strong>
+              <span>Use the printable brief if leadership needs a one-page leave-behind.</span>
+            </div>
+          </div>
+          <form id="contactForm" class="form" onsubmit="submitForm(event)">
+            <div class="field">
+              <label for="first_name">First name *</label>
+              <input id="first_name" name="first_name" type="text" placeholder="Dan" required="">
+            </div>
+            <div class="field">
+              <label for="last_name">Last name *</label>
+              <input id="last_name" name="last_name" type="text" placeholder="Fleetwood" required="">
+            </div>
+            <div class="field">
+              <label for="company">Organization *</label>
+              <input id="company" name="company" type="text" placeholder="SAP" required="">
+            </div>
+            <div class="field">
+              <label for="email">Work email *</label>
+              <input id="email" name="email" type="email" placeholder="dan@sap.com" required="">
+            </div>
+            <div class="field field--full">
+              <label for="interest">Primary interest *</label>
+              <select id="interest" name="interest" required="">
+                <option value="">Select an activation focus</option>
+                <option>Enterprise integration package</option>
+                <option>First-mover jersey patch</option>
+                <option>Suites and executive hospitality</option>
+                <option>Monthly keynote series</option>
+                <option>SAP App intelligence</option>
+              </select>
+            </div>
+            <div class="field field--full">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" placeholder="We would like to review the enterprise integration structure and discuss how the keynote platform could support SAP's regional executive engagement goals." required=""></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="button button--primary" id="submitBtn" type="submit">Open Official Inquiry</button>
+              <div class="form-note">Submitting this form opens a prefilled email draft addressed to the official Baylor Sports Properties contact.</div>
+              <div class="success" id="formSuccess">Your email draft is ready. If your email client did not open automatically, send your note directly to Scott.Yacyshyn@Playfly.com.</div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <nav class="nav-island" aria-label="Primary navigation">
+    <a href="index.html">Index</a>
+    <a href="sap-keynote.html">Keynotes</a>
+    <a href="sap-suites.html">Suites</a>
+    <a href="packages.html">App</a>
+    <a href="sap-jersey-patch.html">Patch</a>
+    <a href="measurement.html">Integration</a>
+    <a class="is-active" href="contact.html">Contact</a>
+  </nav>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    const CONTACT_EMAIL = "Scott.Yacyshyn@Playfly.com";
+    async function submitForm(event) {
+      event.preventDefault();
+      const form = event.target;
+      const submitButton = document.getElementById("submitBtn");
+      const success = document.getElementById("formSuccess");
+      submitButton.textContent = "Opening Email Draft...";
+      submitButton.disabled = true;
+      success.style.display = "none";
+      const data = new FormData(form);
+      const firstName = data.get("first_name");
+      const lastName = data.get("last_name");
+      const company = data.get("company");
+      const email = data.get("email");
+      const interest = data.get("interest");
+      const message = data.get("message");
+      const subject = `${company} inquiry regarding Baylor x SAP partnership`;
+      const body = [
+        "Hello Scott,",
+        "",
+        `My name is ${firstName} ${lastName} from ${company}.`,
+        `Our primary area of interest is: ${interest}.`,
+        "",
+        "Message:",
+        `${message}`,
+        "",
+        `Preferred follow-up email: ${email}`,
+        "",
+        "Thank you,",
+        `${firstName} ${lastName}`
+      ].join("\n");
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      success.style.display = "block";
+      submitButton.textContent = "Open Official Inquiry";
+      submitButton.disabled = false;
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const siteHost = window.location.host || "live proposal URL";
+      const printHost = document.getElementById("printHost");
+      if (printHost) printHost.textContent = siteHost;
+      const transitionWrap = document.querySelector(".page-transition");
+      const panel = transitionWrap?.querySelector(".page-transition__panel");
+      const hasGSAP = typeof gsap !== "undefined";
+      const hasScrollTrigger = typeof ScrollTrigger !== "undefined";
+      const supportsNativeViewTransition = typeof CSS !== "undefined" && CSS.supports("view-transition-name: none") && "startViewTransition" in document;
+      let parallaxInitialized = false;
+      let isLeaving = false;
+      const prefetchedHrefs = new Set();
+      if (!transitionWrap || !panel) return;
+      const pageNodes = [
+        document.querySelector("main"),
+        document.querySelector(".nav-island")
+      ].filter(Boolean);
+      const setCompactPanel = () => {
+        panel.style.opacity = "0";
+        panel.style.left = "50%";
+        panel.style.top = "50%";
+        panel.style.width = "min(34vw, 460px)";
+        panel.style.height = "min(22vw, 300px)";
+        panel.style.borderRadius = "28px";
+        panel.style.transform = "translate(-50%, -50%) scale(0.88)";
+      };
+      const cleanupPageNodes = () => {
+        pageNodes.forEach((node) => {
+          node.style.removeProperty("opacity");
+          node.style.removeProperty("transform");
+          node.style.removeProperty("will-change");
+        });
+      };
+      const initParallax = () => {
+        if (!hasGSAP || !hasScrollTrigger) return;
+        gsap.registerPlugin(ScrollTrigger);
+        if (!parallaxInitialized) {
+          const heroImg = document.querySelector(".hero__media img");
+          if (heroImg) {
+            gsap.to(heroImg, {
+              yPercent: 18,
+              ease: "none",
+              scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+              }
+            });
+          }
+          parallaxInitialized = true;
+        }
+        ScrollTrigger.refresh();
+      };
+      const playEntrance = () => {
+        document.body.classList.remove("is-transitioning");
+        if (hasGSAP) {
+          gsap.set(panel, {
+            opacity: 1,
+            left: "50%",
+            top: "50%",
+            width: "100vw",
+            height: "100vh",
+            borderRadius: 0,
+            scale: 1,
+            xPercent: -50,
+            yPercent: -50
+          });
+          gsap.set(pageNodes, {
+            opacity: 0,
+            scale: 0.985,
+            y: 18,
+            transformOrigin: "50% 50%",
+            willChange: "transform, opacity"
+          });
+          const tl = gsap.timeline({
+            onComplete: () => {
+              transitionWrap.classList.remove("is-entering", "is-leaving");
+              setCompactPanel();
+              cleanupPageNodes();
+              initParallax();
+            }
+          });
+          tl.to(panel, {
+            opacity: 0,
+            duration: 0.38,
+            ease: "power2.out"
+          }, 0).to(pageNodes, {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.56,
+            ease: "power3.out",
+            stagger: 0.03
+          }, 0.06);
+        } else {
+          setCompactPanel();
+        }
+      };
+      const playExit = (targetURL, triggerElement) => {
+        if (isLeaving) return;
+        isLeaving = true;
+        transitionWrap.classList.add("is-leaving");
+        document.body.classList.add("is-transitioning");
+
+        const nextTabColor = resolveTabColor(targetURL);
+        if (nextTabColor) {
+          panel.style.background = nextTabColor;
+        }
+
+        if (hasGSAP) {
+          const rect = triggerElement?.getBoundingClientRect?.();
+          if (rect && rect.width && rect.height) {
+            gsap.set(panel, {
+              opacity: 1,
+              left: rect.left + rect.width / 2,
+              top: rect.top + rect.height / 2,
+              width: Math.max(rect.width, 92),
+              height: Math.max(rect.height, 44),
+              borderRadius: Math.min(Math.max(rect.height * 0.5, 18), 28),
+              scale: 1,
+              xPercent: -50,
+              yPercent: -50
+            });
+          } else {
+            gsap.set(panel, {
+              opacity: 1,
+              left: "50%",
+              top: "50%",
+              width: "min(34vw, 460px)",
+              height: "min(22vw, 300px)",
+              borderRadius: 28,
+              scale: 0.88,
+              xPercent: -50,
+              yPercent: -50
+            });
+          }
+          const tl = gsap.timeline({
+            onComplete: () => {
+              window.location.href = targetURL;
+            }
+          });
+          tl.to(pageNodes, {
+            opacity: 0.24,
+            scale: 0.992,
+            y: -10,
+            duration: 0.22,
+            ease: "power2.out",
+            stagger: 0.01
+          }, 0).to(panel, {
+            left: "50%",
+            top: "50%",
+            width: "100vw",
+            height: "100vh",
+            borderRadius: 0,
+            scale: 1,
+            duration: 0.44,
+            ease: "power3.inOut"
+          }, 0.05);
+        } else {
+          window.location.href = targetURL;
+        }
+      };
+
+      const tabColorByFile = {
+        "": "#050505",
+        "index.html": "#050505",
+        "sap-jersey-patch.html": "#16392f",
+        "sap-suites.html": "#2b3138",
+        "sap-keynote.html": "#5a5330",
+        "packages.html": "#3e362b",
+        "measurement.html": "#170f13",
+        "contact.html": "#0c1522"
+      };
+
+      const resolveTabColor = (targetURL) => {
+        try {
+          const url = new URL(targetURL, window.location.origin);
+          const fileName = url.pathname.split("/").pop().toLowerCase();
+          return tabColorByFile[fileName] || null;
+        } catch {
+          return null;
+        }
+      };
+
+      const prefetchInternalLink = (href) => {
+        if (!href || prefetchedHrefs.has(href)) return;
+        try {
+          const url = new URL(href, window.location.origin);
+          if (url.origin !== window.location.origin) return;
+          const link = document.createElement("link");
+          link.rel = "prefetch";
+          link.as = "document";
+          link.href = url.href;
+          document.head.appendChild(link);
+          prefetchedHrefs.add(url.href);
+        } catch {
+          return;
+        }
+      };
+
+      const isInternalLink = (anchor) => {
+        if (!anchor || !anchor.href) return false;
+        if (anchor.target === "_blank") return false;
+        if (anchor.hasAttribute("download")) return false;
+        try {
+          const url = new URL(anchor.href, window.location.origin);
+          if (url.origin !== window.location.origin) return false;
+          if (url.pathname === window.location.pathname && url.hash) return false;
+          if (anchor.protocol === "javascript:" || anchor.protocol === "mailto:") return false;
+          return true;
+        } catch {
+          return false;
+        }
+      };
+      document.addEventListener("click", (event) => {
+        const anchor = event.target.closest("a");
+        if (!anchor || !isInternalLink(anchor)) return;
+        try {
+          const target = new URL(anchor.href, window.location.origin);
+          if (target.pathname === window.location.pathname) return;
+        } catch {
+          return;
+        }
+        prefetchInternalLink(anchor.href);
+        if (supportsNativeViewTransition) return;
+        event.preventDefault();
+        sessionStorage.setItem("__pt_pending", "1");
+        playExit(anchor.href, anchor);
+      });
+      document.addEventListener("pointerenter", (event) => {
+        const anchor = event.target.closest("a");
+        if (!anchor || !isInternalLink(anchor)) return;
+        prefetchInternalLink(anchor.href);
+      }, true);
+
+      const shouldEnter = !supportsNativeViewTransition && sessionStorage.getItem("__pt_pending") === "1";
+      if (shouldEnter) {
+        sessionStorage.removeItem("__pt_pending");
+        playEntrance();
+      } else {
+        setCompactPanel();
+        cleanupPageNodes();
+        initParallax();
+      }
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+          isLeaving = false;
+          transitionWrap.classList.remove("is-leaving");
+          setCompactPanel();
+          cleanupPageNodes();
+          initParallax();
+        }
+      });
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+  <footer class="site-footer" aria-label="Proposal footer">
+    <p class="site-footer__title">Baylor Athletics x SAP Partnership Proposal</p>
+    <p class="site-footer__meta">Student Pitch &bull; Baylor University S3E Program &bull; 2027 Launch Roadmap</p>
+    <div class="site-footer__links">
+      <a href="index.html">Overview</a>
+      <a href="measurement.html">Integration</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p class="site-footer__legal">Baylor Sports Properties powered by Playfly</p>
+  </footer>
+
+  <div class="site-assistant" data-site-assistant>
+    <button class="site-assistant__toggle" type="button" data-site-assistant-toggle aria-expanded="false" aria-controls="site-assistant-panel">
+      <span class="site-assistant__toggle-mark">AI</span>
+      <span class="site-assistant__toggle-copy">
+        <strong>Briefing Assistant</strong>
+        <span>Ask about the pitch, valuation, or next steps.</span>
+      </span>
+    </button>
+    <div class="site-assistant__panel" id="site-assistant-panel" data-site-assistant-panel hidden>
+      <div class="site-assistant__header">
+        <div>
+          <p class="site-assistant__eyebrow">Baylor x SAP</p>
+          <p class="site-assistant__title">Briefing Assistant</p>
+          <p class="site-assistant__subcopy">Use the chatbot to navigate the proposal, compare activations, and sharpen executive talking points.</p>
+        </div>
+        <button class="site-assistant__close" type="button" data-site-assistant-close aria-label="Close briefing assistant">×</button>
+      </div>
+      <div class="site-assistant__frame-wrap">
+        <iframe class="site-assistant__frame" title="Baylor x SAP Briefing Assistant" data-site-assistant-frame data-src="widget.html" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+  <script src="assistant.js"></script>
+
+<div id="print-brief">
+<style>
+  /* ── SCREEN: hidden ── */
+  #print-brief { display: none; }
+
+  /* ── PRINT: full letter-size 2-pager ── */
+  @media print {
+    body > * { display: none !important; }
+    body > #print-brief { display: block !important; }
+    @page { margin: 0.4in; size: letter portrait; }
+    body { background: white !important; margin: 0 !important; padding: 0 !important;
+           -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    /* Layout */
+    #print-brief .pages { display: block !important; }
+    #print-brief .page {
+      width: 100% !important; height: auto !important;
+      overflow: visible !important; border-radius: 0 !important;
+      box-shadow: none !important; margin: 0 !important;
+      display: flex !important; flex-direction: column !important;
+      page-break-after: always !important; break-after: page !important;
+    }
+    #print-brief .page:last-child {
+      page-break-after: auto !important; break-after: auto !important;
+    }
+    #print-brief .body { overflow: visible !important; }
+
+    /* Scale fonts up from mini-card to letter */
+    #print-brief .ptitle h1  { font-size: 22pt !important; }
+    #print-brief .ptitle .sub{ font-size: 9pt !important; }
+    #print-brief .kn         { font-size: 16pt !important; }
+    #print-brief .kl         { font-size: 8pt !important; }
+    #print-brief .sl         { font-size: 7.5pt !important; }
+    #print-brief .sec h2     { font-size: 12pt !important; }
+    #print-brief .sec p,
+    #print-brief .sec li     { font-size: 9.5pt !important; }
+    #print-brief .roi        { font-size: 8.5pt !important; }
+    #print-brief .phe        { font-size: 8pt !important; }
+    #print-brief .pht        { font-size: 32pt !important; }
+    #print-brief .phb        { font-size: 8.5pt !important; }
+    #print-brief .tier h4    { font-size: 9pt !important; }
+    #print-brief .tier-p     { font-size: 16pt !important; }
+    #print-brief .tier p     { font-size: 8pt !important; }
+    #print-brief .sn         { font-size: 8pt !important; }
+    #print-brief .sb         { font-size: 8.5pt !important; }
+    #print-brief .pf .fl,
+    #print-brief .pf .fr     { font-size: 7.5pt !important; }
+    #print-brief .lp         { height: 28px !important; padding: 0 12px !important; font-size: 10px !important; }
+    #print-brief .ls         { font-size: 14px !important; }
+    #print-brief .lx         { font-size: 18px !important; }
+
+    /* Scale spacing up */
+    #print-brief .ph      { padding: 14px 20px 10px !important; }
+    #print-brief .body    { padding: 12px 20px 10px !important; gap: 10px !important; }
+    #print-brief .kpis    { gap: 8px !important; }
+    #print-brief .kc      { padding: 8px 10px !important; }
+    #print-brief .g2      { gap: 10px !important; }
+    #print-brief .sec     { padding: 10px 14px !important; }
+    #print-brief .ph-hero { padding: 14px 16px !important; }
+    #print-brief .tiers   { gap: 10px !important; }
+    #print-brief .tier    { padding: 8px 12px !important; }
+    #print-brief .steps   { gap: 10px !important; margin-top: 6px !important; }
+    #print-brief .pf      { padding: 8px 20px !important; }
+    #print-brief .sec ul  { gap: 5px !important; }
+    #print-brief .sec li  { padding-left: 14px !important; }
+    #print-brief .roi     { padding: 5px 10px !important; margin-top: 8px !important; }
+  }
+</style>
+
+<div class="pages">
+<div class="page">
+  <div class="ph">
+    <div class="logos">
+      <div class="lp lb">Baylor Athletics</div>
+      <span class="lx">×</span>
+      <div class="lp ls">SAP</div>
+    </div>
+    <div class="phm">
+      <p class="e">Confidential Executive Brief</p>
+      <p class="t">Partnership Proposal · 2027 Launch</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="ptitle">
+      <h1>Enterprise <span>Partnership</span> Proposal</h1>
+      <p class="sub">Baylor Sports Properties powered by Playfly · Prepared for SAP Leadership</p>
+    </div>
+    <div class="kpis">
+      <div class="kc kg"><div class="kn g">$13.5M</div><div class="kl">3-Year Total Value</div></div>
+      <div class="kc kb"><div class="kn b">$1.85M</div><div class="kl">Base Platform / yr</div></div>
+      <div class="kc"><div class="kn">3.5×</div><div class="kl">Projected ROI</div></div>
+      <div class="kc kg"><div class="kn g">2027</div><div class="kl">Launch Year</div></div>
+    </div>
+    <div class="sec gr">
+      <p class="sl">The Opportunity</p>
+      <h2>Strategic Opportunity — The I-35 Corridor</h2>
+      <p>SAP currently lacks a major college athletics presence in the South. Baylor delivers the definitive entry point into the <strong>Dallas–Waco–Austin corridor</strong> — the fastest-growing mid-market B2B sector in the US. Targets the $500M–$2B enterprise demographic, repositioning SAP from "Fortune 500 only" to the accessible intelligence layer for Texas business.</p>
+    </div>
+    <div class="g2">
+      <div class="sec">
+        <p class="sl">Business Back Anchor</p>
+        <h2>Live Tech Reference Story</h2>
+        <ul>
+          <li><strong>VIK Migration:</strong> Baylor formally adopts SAP Analytics Cloud to run stadium operations and backend infrastructure.</li>
+          <li><strong>First-Mover Patch:</strong> SAP logo on Baylor basketball jerseys — visible, on-court symbol of the backend migration. Launches 2027.</li>
+          <li><strong>Sapphire &amp; TechEd:</strong> Baylor becomes a live collegiate B2B case study at SAP's global conferences.</li>
+        </ul>
+        <div class="roi">&#8627; $12M est. annual media equivalence — linear TV, highlights &amp; EA Sports.</div>
+      </div>
+      <div class="sec gd">
+        <p class="sl g">Corporate Pillar Alignment</p>
+        <h2>Mapped to SAP's 4 Pillars</h2>
+        <ul>
+          <li><strong>Brand &amp; VIK:</strong> Category exclusivity + live reference architecture for global B2B sales teams.</li>
+          <li><strong>Demand Gen:</strong> Direct I-35 CEO/CFO/CTO pipeline via premium suite hosting.</li>
+          <li><strong>People:</strong> Suites double as SAP co-working hubs for Austin/Dallas teams.</li>
+          <li><strong>Academic:</strong> S3E integration — capturing elite tech sales talent pre-graduation.</li>
+        </ul>
+        <div class="roi">&#8627; $5M+ B2B pipeline projected · 22% est. recruiting cost reduction.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span class="fl">Baylor Sports Properties powered by Playfly · S3E Program</span>
+    <div class="fr"><span class="fc">Scott Yacyshyn · Scott.Yacyshyn@Playfly.com</span><br>Director of Partnership Sales</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="ph">
+    <div class="logos">
+      <div class="lp lb">Baylor Athletics</div>
+      <span class="lx">×</span>
+      <div class="lp ls">SAP</div>
+    </div>
+    <div class="phm">
+      <p class="e">The Math &amp; The Ask</p>
+      <p class="t">Assets · Measurement · Pricing</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="g2">
+      <div class="sec">
+        <p class="sl">Multiplier Effect</p>
+        <h2>Heavyweight Inventory</h2>
+        <ul>
+          <li><strong>SAP Stat of the Game:</strong> 30 LinkedIn/X posts — one per regular-season basketball game, 500K+ combined reach.</li>
+          <li><strong>5 IG Reels:</strong> Premium Collaborative Reels spotlighting the SAP Executive Suite for C-suite audiences.</li>
+          <li><strong>LED Takeover:</strong> 2 full minutes of 360° LED ribbon board per half — broadcast-visible nationally.</li>
+          <li><strong>SAP Crunch Time:</strong> Official naming rights to the under-4-minute timeout — spoken by announcers every home game.</li>
+          <li><strong>12 Keynote Events:</strong> Full room ownership + SAP-moderated B2B executive panels at Baylor Club.</li>
+        </ul>
+      </div>
+      <div class="sec gd">
+        <p class="sl g">Bulletproof Data</p>
+        <h2>Measurement Framework</h2>
+        <ul>
+          <li><strong>Nielsen Sports:</strong> Broadcast TV audience tracking and logo exposure valuation — hard media equivalency for SAP internal ROI reporting.</li>
+          <li><strong>Zoomph:</strong> Real-time social media exposure valuation. SAP marketing receives live dashboard access updated continuously in-season.</li>
+          <li><strong>Playfly Analytics:</strong> Strict database population matching — measures actual B2B brand recall, not proxy impressions.</li>
+          <li><strong>Annual Recap:</strong> Quarterly KPI scorecard against SAP's 4 internal pillars with YOY benchmarking.</li>
+        </ul>
+        <div class="roi">&#8627; ROO-first model: Return on Objective + B2B pipeline value, not just media impressions.</div>
+      </div>
+    </div>
+    <div class="ph-hero">
+      <p class="phe">Total 3-Year Partnership Agreement</p>
+      <div class="pht">$13,500,000</div>
+      <div class="phb">Projected Blended ROI: 3.5×</div>
+      <div class="tiers">
+        <div class="tier">
+          <h4>1. Base Enterprise Platform</h4>
+          <div class="tier-p">$1,850,000 / yr</div>
+          <p>VIP Suites, 35 social activations, LED Takeovers, SAP Crunch Time naming rights, Academic Keynotes. Offset by SAP Analytics Cloud VIK integration.</p>
+        </div>
+        <div class="tier">
+          <h4>2. Power 4 Jersey Patch Rights</h4>
+          <div class="tier-p">$2,650,000 / yr</div>
+          <p>Activates 2027. Anchored above G5 floor of $2.2M/yr. First-mover Power 4 scarcity — total category dominance in the Big 12.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <p class="sl">Path to Approval</p>
+      <h2>Recommended Next Steps</h2>
+      <div class="steps">
+        <div><p class="sn" style="color:#c8920e">Step 1 — Align</p><p class="sb">Route to Dan's Strategy &amp; Ops team for B2B ROI validation. Present Nielsen + Zoomph as the internal business case for board approval.</p></div>
+        <div><p class="sn" style="color:#0f7cc9">Step 2 — Approve</p><p class="sb">CMO sign-off on the $1.85M base platform. Jersey patch initiated as separate valuation post Year 1 proof — protecting Baylor's flagship inventory.</p></div>
+        <div><p class="sn" style="color:#0c1a2e">Step 3 — Activate</p><p class="sb">Lock 2027 calendar, suite inventory, keynote schedule, and SAP Analytics Cloud VIK implementation timeline with Playfly.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span class="fl">Baylor Sports Properties powered by Playfly · S3E Program · 2027 Launch Roadmap</span>
+    <div class="fr"><span class="fc">Scott Yacyshyn · Scott.Yacyshyn@Playfly.com</span><br>Director of Partnership Sales</div>
+  </div>
+</div>
+</div>
+</div>
+</body></html>

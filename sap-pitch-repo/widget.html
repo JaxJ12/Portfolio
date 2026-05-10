@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baylor x SAP Briefing Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #0d0f10;
+      --surface-2: #111315;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(15, 124, 201, 0.75);
+      --text: #f3f5f7;
+      --muted: rgba(243, 245, 247, 0.6);
+      --gold: #ffb81c;
+      --blue: #0f7cc9;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      overflow: hidden;
+    }
+    .widget {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      height: 100%;
+      min-height: 100%;
+      background: var(--bg);
+    }
+    .prompt-bar {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .prompt-bar__label {
+      margin: 0 0 7px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .prompt-bar__chips {
+      display: grid;
+      gap: 6px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .chip {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 500;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--gold); }
+    .messages {
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .msg {
+      max-width: 92%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .msg.agent {
+      align-self: flex-start;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--surface-2);
+      border-color: rgba(15, 124, 201, 0.4);
+      color: var(--text);
+    }
+    .msg.thinking {
+      align-self: flex-start;
+      color: var(--muted);
+      background: transparent;
+      font-style: normal;
+      border: none;
+      padding: 0 12px;
+    }
+    .msg strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .msg ul { margin: 8px 0; padding-left: 20px; }
+    .msg li { margin-bottom: 4px; }
+    .input {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(78px, auto);
+      align-items: stretch;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .input input {
+      min-width: 0;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 12.5px;
+      outline: none;
+    }
+    .input input:focus { border-color: var(--blue); }
+    .send {
+      min-width: 78px;
+      min-height: 44px;
+      padding: 0 11px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .send:hover { border-color: var(--gold); }
+    .send:disabled, .input input:disabled { opacity: 0.6; cursor: default; }
+
+    @media (max-width: 640px) {
+      .prompt-bar__chips { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="prompt-bar">
+      <p class="prompt-bar__label">Suggested Executive Inquiries</p>
+      <div class="prompt-bar__chips">
+        <button class="chip" onclick="sendChip(this)">Break down the valuation</button>
+        <button class="chip" onclick="sendChip(this)">How does this provide "Business Back" to SAP?</button>
+        <button class="chip" onclick="sendChip(this)">What is the I-35 strategy?</button>
+        <button class="chip" onclick="sendChip(this)">Why can't Oracle replicate this?</button>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="msg agent">Hello. I am the SAP x Baylor Briefing Assistant. Ask me about the proposal's valuation, VIK integration, timeline, or strategic alignment.</div>
+    </div>
+
+    <div class="input">
+      <input id="userInput" type="text" placeholder="Ask a question about the proposal..." onkeydown="if(event.key==='Enter') sendMessage()">
+      <button class="send" id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const knowledgeBase = [
+      {
+        keywords: ["media valuation", "valuation breakdown", "nielsen numbers", "worth", "equivalence", "break down the valuation"],
+        response: "Our **$4.5M annual valuation** is anchored by $2.1M in **Nielsen-verified** media equivalence from Power 4 broadcast windows. The remaining $2.4M is driven by **Zoomph-tracked** social engagement and the high-value B2B decision-maker density within the I-35 corridor, which traditional CPM models often undervalue."
+      },
+      {
+        keywords: ["alongside", "playfly", "work with", "partnership structure", "roles", "who does what", "scott"],
+        response: "The partnership operates on a **Technology + Agency** model. **SAP** serves as the 'Engine,' providing S/4HANA and Analytics Cloud to modernize Baylor’s infrastructure. **Playfly** (led locally by Scott Yacyshyn) acts as the 'Agency,' managing the asset inventory, executing the media buys, and providing the annual ROI recaps."
+      },
+      {
+        keywords: ["why", "strategy", "advantage", "benefit", "b2b", "decision maker", "i-35", "corridor", "growth", "mid-market"],
+        response: "Baylor sits at the heart of the **I-35 Corridor**, the fastest-growing B2B hub in the US. This partnership provides SAP direct access to the **$500M–$2B mid-market sector**. We aren't just selling 'butts in seats'; we are selling access to the C-suite executives moving their operations into Central Texas."
+      },
+      {
+        keywords: ["how", "tech", "software", "analytics", "integration", "vik", "kind", "s/4hana", "stadium", "smart", "business back"],
+        response: "This is a **Value-In-Kind (VIK)** deal. Baylor is adopting **SAP S/4HANA** and **Analytics Cloud** to run McLane Stadium operations. This turns Baylor into a 'Living Reference Story' where SAP can bring prospects to see their software managing real-time logistics and fan heatmaps."
+      },
+      {
+        keywords: ["price", "cost", "investment", "amount", "million", "expensive", "valuation"],
+        response: "The investment is **$4.5 Million annually**, split into a **$1.85M Base Platform** (offset by backend VIK adoption) and **$2.65M Jersey Patch rights**. This pricing reflects Power 4 scarcity and is anchored against current Group of 5 floors ($2.2M), giving SAP total category dominance."
+      },
+      {
+        keywords: ["pillar", "talent", "student", "s3e", "hiring", "recruit", "employee", "retention", "staff"],
+        response: "The partnership addresses **SAP Pillar 4: Talent**. Through the **S3E Academic Pipeline**, SAP gains early access to elite talent. Furthermore, the stadium suites serve as **Internal Employee Rewards**, helping SAP retain top-performers by offering exclusive world-class hosting experiences."
+      },
+      {
+        keywords: ["competitor", "oracle", "salesforce", "market share", "exclusive", "replace", "push out", "replicate"],
+        response: "Our strategy is **Competitor Push-Out**. By integrating SAP into Baylor’s central nervous system (operations and academics), we ensure 100% category exclusivity, effectively removing the footprint of legacy systems like Oracle from our ecosystem."
+      }
+    ];
+
+    const fallbackResponse = "That is a vital question regarding our 2027 roadmap. While I analyze that specific data point, I can confirm that our $4.5M valuation and VIK integration are designed to maximize SAP's mid-market growth in the I-35 corridor. Would you like to see the media valuation breakdown or the Smart Stadium modules?";
+
+    function findBestResponse(input) {
+      const lowerInput = input.toLowerCase();
+      
+      if (lowerInput.includes("media valuation") || lowerInput.includes("break down the valuation") || lowerInput.includes("valuation breakdown")) {
+          return knowledgeBase[0].response;
+      }
+
+      for (const item of knowledgeBase) {
+        if (item.keywords.some(kw => lowerInput.includes(kw))) {
+          return item.response;
+        }
+      }
+      return fallbackResponse;
+    }
+
+    function renderMarkdown(text) {
+      let html = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      html = html.replace(/\n\d+\.\s(.+)/g, "<li>$1</li>");
+      html = html.replace(/(<li>[\s\S]*?<\/li>)+/g, m => "<ul>" + m + "</ul>");
+      html = html.replace(/\n(?!<)/g, "<br>");
+      return html;
+    }
+
+    function appendMsg(text, type, isHtml) {
+      const messages = document.getElementById("messages");
+      const div = document.createElement("div");
+      div.className = "msg " + type;
+      if (isHtml) div.innerHTML = text;
+      else div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    function sendChip(element) {
+      document.getElementById("userInput").value = element.textContent.trim();
+      sendMessage();
+    }
+
+    function setLoading(isLoading) {
+      document.getElementById("sendBtn").disabled = isLoading;
+      document.getElementById("userInput").disabled = isLoading;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = "";
+      appendMsg(text, "user", false);
+      setLoading(true);
+      
+      const thinking = appendMsg("Consulting Baylor Sports Properties data...", "thinking", false);
+
+      setTimeout(() => {
+        thinking.remove();
+        const responseText = findBestResponse(text);
+        appendMsg(renderMarkdown(responseText), "agent", true);
+        setLoading(false);
+        input.focus();
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

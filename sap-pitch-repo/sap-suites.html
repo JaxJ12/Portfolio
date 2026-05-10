@@ -1,0 +1,1664 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAP Suites | Baylor x SAP</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assistant.css" />
+  <style>
+    :root {
+      --bg: #2b3138;
+      --bg-soft: #39414a;
+      --bg-deep: #171b20;
+      --surface: rgba(52, 61, 70, 0.8);
+      --surface-strong: rgba(43, 51, 60, 0.9);
+      --text: rgba(245, 248, 252, 0.94);
+      --muted: rgba(205, 216, 229, 0.76);
+      --line: rgba(176, 190, 206, 0.2);
+      --line-strong: rgba(152, 170, 189, 0.52);
+      --gold: #b6c4d4;
+      --gold-soft: #d7e1eb;
+      --blue: #6f8093;
+      --shadow-panel: 0 24px 72px rgba(10, 14, 19, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-deep);
+      background-image:
+        radial-gradient(circle at top left, rgba(182, 196, 212, 0.16), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(111, 128, 147, 0.3), transparent 34%),
+        radial-gradient(circle at bottom center, rgba(51, 61, 72, 0.52), transparent 42%);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    @view-transition {
+      navigation: auto;
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.62s;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    ::view-transition-new(root) {
+      filter: saturate(1.03) contrast(1.01);
+    }
+
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .page-transition__panel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(34vw, 460px);
+      height: min(22vw, 300px);
+      background: #2b3138;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 28px;
+      transform: translate(-50%, -50%) scale(0.88);
+      transform-origin: center center;
+      opacity: 0;
+      overflow: hidden;
+      backdrop-filter: blur(16px) saturate(130%);
+      -webkit-backdrop-filter: blur(16px) saturate(130%);
+      will-change: transform, opacity, border-radius, width, height;
+      backface-visibility: hidden;
+      box-shadow: 0 32px 96px rgba(10, 14, 19, 0.3);
+    }
+
+    .page-transition.is-leaving {
+      pointer-events: all;
+    }
+
+    body.is-transitioning {
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .hero__media,
+    .hero__shade,
+    .hero__grid {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.15);
+      filter: saturate(0.88) contrast(1.02);
+    }
+
+    .hero__shade {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(182, 196, 212, 0.18), transparent 32%),
+        rgba(23, 27, 32, 0.62);
+    }
+
+    .hero__grid {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      opacity: 0.44;
+    }
+
+
+    .hero__inner,
+    .section__inner {
+      position: relative;
+      z-index: 2;
+      width: min(1320px, calc(100% - 72px));
+      margin: 0 auto;
+    }
+
+    .hero__inner {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: end;
+      padding: 12vh 0 18vh;
+    }
+
+    .hero__copy {
+      max-width: 740px;
+      padding-left: 18px;
+      border-left: 1px solid rgba(220, 200, 154, 0.42);
+      transform: translateY(-24px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(220, 200, 154, 0.84);
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(2.35rem, 5.4vw, 4.35rem);
+      line-height: 0.99;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      text-wrap: balance;
+      max-width: 16ch;
+    }
+
+    .title span {
+      color: #0f7cc9;
+    }
+
+    .lead {
+      margin: 4px 0 0;
+      max-width: 700px;
+      text-wrap: pretty;
+      font-size: clamp(0.95rem, 1.28vw, 1.14rem);
+      line-height: 1.72;
+      color: var(--muted);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .hero__actions .button {
+      width: 180px;
+      max-width: 100%;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(247, 242, 232, 0.05);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .button:hover {
+      border-color: var(--gold-soft);
+      background: rgba(247, 242, 232, 0.1);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .button--primary {
+      border-color: rgba(220, 200, 154, 0.9);
+      background: rgba(182, 196, 212, 0.95);
+      color: #1f2630;
+    }
+
+    .button--primary:hover {
+      background: #c5d3e0;
+      color: #121820;
+    }
+
+    .terminal {
+      width: 100%;
+      padding: 24px;
+      min-height: 320px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface-strong);
+      box-shadow: var(--shadow-panel);
+      backdrop-filter: blur(18px);
+      align-self: end;
+      transform: translateY(-78px);
+    }
+
+    .terminal__label,
+    .metric__label {
+      margin: 0;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(220, 200, 154, 0.74);
+    }
+
+    .terminal__title {
+      margin: 14px 0 0;
+      font-size: clamp(1.32rem, 1.9vw, 1.78rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      max-width: 100%;
+    }
+
+    .terminal__copy {
+      margin: 18px 0 0;
+      max-width: 100%;
+      font-size: 13.5px;
+      line-height: 1.78;
+      color: var(--muted);
+      min-height: 7.6em;
+      display: -webkit-box;
+      line-clamp: 4;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .terminal__meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(231, 216, 182, 0.12);
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(247, 242, 232, 0.96);
+    }
+
+    .terminal__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(231, 216, 182, 0.12);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .terminal__link::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(182, 139, 47, 0.7), rgba(220, 200, 154, 0.2));
+    }
+
+    .terminal__link:hover {
+      color: var(--gold);
+    }
+
+    .section {
+      position: relative;
+      padding: 36px 0;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .grid--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .panel,
+    .visual {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface-strong);
+      box-shadow: var(--shadow-panel);
+      backdrop-filter: blur(18px);
+    }
+
+    .panel {
+      padding: 24px;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+
+    .panel p,
+    .panel li {
+      font-size: 14px;
+      line-height: 1.78;
+      color: var(--muted);
+    }
+
+    .panel p + p {
+      margin-top: 10px;
+    }
+    .integration-matrix {
+      margin-top: 24px;
+      padding: 28px;
+      border-radius: 24px;
+      border-top: 3px solid var(--gold);
+      background: var(--surface);
+      box-shadow: var(--shadow-panel);
+    }
+    .integration-matrix h2 {
+      margin: 0;
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--gold);
+    }
+    .integration-matrix__intro {
+      margin: 14px 0 0;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+    .integration-matrix__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 24px;
+    }
+    .integration-matrix__grid h3 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      color: #0f7cc9;
+    }
+    .integration-matrix__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text);
+    }
+    .integration-matrix__list li {
+      margin-bottom: 14px;
+      line-height: 1.72;
+    }
+
+    .list {
+      margin: 18px 0 0;
+      padding-left: 18px;
+    }
+
+    .list li + li {
+      margin-top: 10px;
+    }
+
+    .note {
+      margin: 16px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.54);
+    }
+
+    .suite-deck {
+      border: 1px solid var(--line-strong);
+      border-radius: 22px;
+      background: linear-gradient(155deg, rgba(111, 128, 147, 0.2), rgba(43, 51, 60, 0.9));
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .suite-deck h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .suite-deck__lead {
+      margin: 8px 0 0;
+      font-size: 14px;
+      line-height: 1.64;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .suite-signal-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .suite-signal {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(52, 61, 70, 0.78);
+      padding: 10px;
+    }
+
+    .suite-signal strong {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: rgba(245, 248, 252, 0.92);
+    }
+
+    .suite-signal span {
+      display: block;
+      margin-top: 5px;
+      font-size: 11px;
+      line-height: 1.52;
+      min-height: 3.9em;
+      color: var(--muted);
+    }
+
+    .visual {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+    }
+
+    .visual img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      transform: scale(1.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual__meta {
+      position: relative;
+      z-index: 2;
+      padding: 16px 18px 18px;
+      background: rgba(37, 45, 53, 0.96);
+      border-top: 1px solid rgba(220, 200, 154, 0.2);
+    }
+
+    .visual__meta strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .visual__meta span {
+      font-size: 14px;
+      line-height: 1.72;
+      color: var(--muted);
+    }
+
+    .immersive-breakout {
+      position: relative;
+      overflow: hidden;
+      background: #070d16;
+      border-top: 1px solid rgba(181, 199, 221, 0.12);
+      border-bottom: 1px solid rgba(181, 199, 221, 0.12);
+    }
+
+    .breakout-bg {
+      position: absolute;
+      inset: -10% 0;
+      background-size: cover;
+      background-position: center;
+      filter: saturate(0.96) contrast(1.06);
+      transform: scale(1.08);
+    }
+
+    .breakout-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(8, 14, 24, 0.28), rgba(8, 14, 24, 0.72)),
+        radial-gradient(circle at 22% 24%, rgba(15, 124, 201, 0.18), transparent 26%);
+    }
+
+    .breakout-content {
+      position: relative;
+      z-index: 2;
+      width: min(1320px, calc(100% - 72px));
+      min-height: 78vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 92px 0 72px;
+    }
+
+    .opportunity-data {
+      width: min(1320px, calc(100% - 72px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 24px;
+      padding: 20px 0 18px;
+    }
+
+    .data-massive {
+      margin: 0;
+      font-size: clamp(4rem, 12vw, 9.2rem);
+      line-height: 0.88;
+      letter-spacing: -0.07em;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.98);
+    }
+
+    .data-label {
+      margin: 0;
+      max-width: 18ch;
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: right;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(181, 199, 221, 0.72);
+    }
+
+    .data-divider {
+      border: 0;
+      height: 1px;
+      margin: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.05));
+    }
+
+    /* --- SAP SUITES PAGE STYLES --- */
+
+    .suite-hero {
+      margin: 0;
+      height: 90vh;
+      border-top: none;
+    }
+
+    .suite-hero-content {
+      padding-bottom: 10vh;
+    }
+
+    .suite-hero-content h2 {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+      color: rgba(255, 255, 255, 0.98);
+    }
+
+    .suite-intro {
+      padding: 15vh 10vw;
+      background: linear-gradient(180deg, rgba(52, 61, 70, 0.78), rgba(23, 27, 32, 0.96));
+      border-top: 1px solid rgba(181, 199, 221, 0.1);
+      color: white;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 60px;
+      align-items: end;
+    }
+
+    .intro-text h3 {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin: 0;
+      letter-spacing: -0.02em;
+      color: rgba(255, 255, 255, 0.96);
+    }
+
+    .intro-meta p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+    }
+
+    .suite-gallery {
+      padding: 10vh 10vw;
+      background: linear-gradient(180deg, #2b3138, #171b20);
+    }
+
+    .gallery-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 8vw;
+      align-items: center;
+      margin-bottom: 15vh;
+    }
+
+    .reverse-row {
+      grid-template-columns: 1fr 1.2fr;
+    }
+
+    .reverse-row .gallery-image {
+      order: 2;
+    }
+
+    .reverse-row .gallery-copy {
+      order: 1;
+    }
+
+    .gallery-image img {
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      filter: saturate(0.95) contrast(1.05);
+    }
+
+    .feature-number {
+      font-size: 1rem;
+      color: #0f7cc9;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .gallery-copy h3 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: white;
+      margin: 0 0 20px 0;
+      letter-spacing: -0.03em;
+    }
+
+    .gallery-copy p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0;
+    }
+    .gallery-copy p + h3 {
+      margin-top: 28px;
+    }
+
+    .suite-data {
+      background: linear-gradient(180deg, #343d46, #171b20);
+      border-top: 1px solid rgba(181, 199, 221, 0.1);
+      padding: 10vh 10vw 15vh;
+    }
+
+    /* ROI & Measurement Section */
+    .suite-roi {
+      padding: 10vh 10vw 15vh;
+      background: linear-gradient(180deg, rgba(52, 61, 70, 0.84), rgba(23, 27, 32, 0.98));
+      color: white;
+      border-top: 1px solid rgba(181, 199, 221, 0.1);
+    }
+    .inventory-section {
+      padding: 0 10vw 10vh;
+      background: linear-gradient(180deg, rgba(52, 61, 70, 0.84), rgba(23, 27, 32, 0.98));
+    }
+    .inventory-section .panel {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .roi-header {
+      margin-bottom: 6vh;
+    }
+
+    .roi-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.02em;
+      color: rgba(255, 255, 255, 0.96);
+    }
+
+    .roi-header p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0;
+    }
+
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .roi-item {
+      padding-left: 20px;
+      border-left: 1px solid rgba(181, 199, 221, 0.2);
+    }
+
+    .roi-item h4 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #0f7cc9;
+      margin: 0 0 15px 0;
+    }
+
+    .roi-item p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+    }
+
+    .suite-cta {
+      padding: 8vh 10vw 12vh;
+      background: transparent;
+    }
+
+    .next-activation {
+      display: grid;
+      gap: 10px;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 24px 28px 26px;
+      border-radius: 24px;
+      border: 1px solid rgba(176, 190, 206, 0.18);
+      background:
+        linear-gradient(135deg, rgba(111, 128, 147, 0.22), rgba(43, 51, 60, 0.94)),
+        rgba(43, 51, 60, 0.96);
+      box-shadow: 0 22px 58px rgba(10, 14, 19, 0.24);
+      color: white;
+      text-decoration: none;
+      text-align: left;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .next-activation:hover {
+      transform: translateY(-2px);
+      border-color: rgba(176, 190, 206, 0.34);
+      box-shadow: 0 28px 68px rgba(10, 14, 19, 0.3);
+    }
+
+    .next-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(215, 225, 235, 0.76);
+      display: block;
+      margin: 0;
+    }
+
+    .next-title {
+      font-size: clamp(2rem, 5vw, 3.45rem);
+      font-weight: 500;
+      margin: 0;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+    }
+
+    .nav-island {
+      position: fixed;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: clamp(0.6rem, 0.95vw, 0.95rem);
+      width: max-content;
+      max-width: calc(100% - 24px);
+      justify-content: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+      background: rgba(40, 48, 57, 0.84);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.88rem 1.1rem;
+      border-radius: 100px;
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 44px rgba(10, 14, 19, 0.26);
+      pointer-events: auto;
+      z-index: 100;
+      scrollbar-width: none;
+    }
+
+    .nav-island::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-island a {
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.9);
+      opacity: 0.72;
+      transition: opacity 0.25s ease, color 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .nav-island a:hover,
+    .nav-island a.is-active {
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    .site-footer {
+      position: relative;
+      z-index: 2;
+      width: min(1320px, calc(100% - 72px));
+      margin: 34px auto 120px;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface-strong);
+      box-shadow: var(--shadow-panel);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .site-footer__title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.92);
+    }
+
+    .site-footer__meta {
+      margin: 8px 0 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .site-footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .site-footer__links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.84);
+      opacity: 0.82;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .site-footer__links a:hover {
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    .site-footer__legal {
+      margin: 14px 0 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(247, 242, 232, 0.66);
+    }
+
+    @media (max-width: 1100px) {
+      .hero__inner {
+        grid-template-columns: 1fr;
+      }
+
+      .grid--3 {
+        grid-template-columns: 1fr;
+      }
+
+      .suite-signal-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero__copy {
+        transform: none;
+      }
+
+      .terminal {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .hero__inner,
+      .section__inner,
+      .site-footer {
+        width: calc(100% - 32px);
+      }
+
+      .grid--2 {
+        grid-template-columns: 1fr;
+      }
+
+      .title {
+        font-size: clamp(2.15rem, 9.4vw, 3.65rem);
+      }
+
+      .lead {
+        font-size: 0.92rem;
+      }
+
+      .terminal__meta {
+        grid-template-columns: 1fr;
+      }
+
+      .title,
+      .lead,
+      .terminal__title,
+      .terminal__copy {
+        min-height: 0;
+        display: block;
+        line-clamp: unset;
+        -webkit-line-clamp: unset;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-island {
+        width: calc(100% - 24px);
+        gap: 0.7rem;
+        justify-content: flex-start;
+        padding: 0.85rem 0.95rem;
+        bottom: 22px;
+      }
+
+      .nav-island a {
+        font-size: 10px;
+      }
+
+      .hero__inner,
+      .section__inner,
+      .site-footer {
+        width: calc(100% - 24px);
+      }
+
+      .site-footer {
+        margin-bottom: 96px;
+      }
+    }
+    .site-footer {
+      width: min(1200px, calc(100% - 36px));
+      margin: 18px auto 120px;
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-strong);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .site-footer__title {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: rgba(243, 245, 247, 0.9);
+    }
+
+    .site-footer__meta {
+      margin: 2px 0 0;
+      font-size: 11px;
+      color: rgba(205, 217, 231, 0.7);
+    }
+
+    .site-footer__links {
+      display: none;
+    }
+
+    .site-footer__legal {
+      margin: 0;
+      font-size: 11px;
+      text-align: right;
+      color: rgba(205, 217, 231, 0.62);
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    @media (max-width: 900px) {
+      .intro-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .gallery-row,
+      .reverse-row {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 10vh;
+      }
+
+      .reverse-row .gallery-image,
+      .reverse-row .gallery-copy {
+        order: unset;
+      }
+
+      .opportunity-data,
+      .breakout-content {
+        width: calc(100% - 24px);
+      }
+
+      .data-row {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 10px;
+      }
+
+      .data-label {
+        max-width: none;
+        text-align: left;
+      }
+
+      .roi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .integration-matrix__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .site-footer {
+        width: calc(100% - 24px);
+        margin: 14px auto 104px;
+        padding: 12px 14px;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .site-footer__legal {
+        text-align: left;
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-footer {
+        width: calc(100% - 16px);
+        margin: 10px auto 96px;
+        padding: 10px 12px;
+      }
+
+      .site-footer__title {
+        font-size: 11px;
+      }
+
+      .site-footer__meta,
+      .site-footer__legal {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-transition" aria-hidden="true">
+    <div class="page-transition__panel"></div>
+  </div>
+  <div class="site-assistant" data-site-assistant>
+    <button class="site-assistant__toggle" type="button" data-site-assistant-toggle aria-expanded="false" aria-controls="site-assistant-panel">
+      <span class="site-assistant__toggle-mark">AI</span>
+      <span class="site-assistant__toggle-copy">
+        <strong>Briefing Assistant</strong>
+        <span>Ask about the pitch, valuation, or next steps.</span>
+      </span>
+    </button>
+    <div class="site-assistant__panel" id="site-assistant-panel" data-site-assistant-panel hidden>
+      <div class="site-assistant__header">
+        <div>
+          <p class="site-assistant__eyebrow">Baylor x SAP</p>
+          <p class="site-assistant__title">Briefing Assistant</p>
+          <p class="site-assistant__subcopy">Use the chatbot to navigate the proposal, compare activations, and sharpen executive talking points.</p>
+        </div>
+        <button class="site-assistant__close" type="button" data-site-assistant-close aria-label="Close briefing assistant">×</button>
+      </div>
+      <div class="site-assistant__frame-wrap">
+        <iframe class="site-assistant__frame" title="Baylor x SAP Briefing Assistant" data-site-assistant-frame data-src="widget.html" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="hero__media">
+        <img src="sap-suite-table.png" alt="SAP-powered iPad Pro suite experience" />
+      </div>
+      <div class="hero__shade"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow">Activation 02 · Premium Suites</p>
+          <h1 class="title">Premium spaces with clear <span>product evidence</span></h1>
+          <p class="lead">From the McLane suite to Foster Pavilion's end-wall command center, SAP becomes visible inside the premium spaces where executive trust and product proof are built together.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="sap-keynote.html">Review Keynotes</a>
+            <a class="button" href="sap-jersey-patch.html">Return To Patch</a>
+          </div>
+        </div>
+
+        <aside class="terminal">
+          <p class="terminal__label">Executive engagement strategy</p>
+          <h2 class="terminal__title">Lead with state of the art tech. <span>Follow with branding.</span></h2>
+          <p class="terminal__copy">Built around Dan's 49ers-style Executive Huddle concept, the suite shows SAP hosting the right audience while demonstrating how Baylor Athletics uses SAP to run stadium operations.</p>
+          <div class="terminal__meta">
+            <div class="metric">
+              <p class="metric__label">Core value</p>
+              <strong>Client hospitality + demonstrations</strong>
+            </div>
+            <div class="metric">
+              <p class="metric__label">Rubric fit</p>
+              <strong>B2B crossover and education</strong>
+            </div>
+          </div>
+          <a class="terminal__link" href="sap-keynote.html">Continue To Keynote Strategy</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="suite-intro">
+      <div class="intro-grid">
+        <div class="intro-text">
+          <h3>A reimagined premium environment where SAP technology drives the conversation.</h3>
+        </div>
+        <div class="intro-meta">
+          <p>By adopting SAP infrastructure, Baylor Athletics turns 300,000+ annual attendees into a massive, live demonstration of SAP's mid-market capabilities. This uniquely includes <strong>traveling Big 12 away fans</strong>. When SAP executives bring prospects, internal top-performers, and visiting executives from competing markets to the suites, they aren't just watching football—they are watching SAP software manage a 45,000-seat city.</p>
+          <p>&bull; Capturing traveling C-suite decision-makers from Dallas, Austin, Houston, San Antonio, and Fort Worth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="suite-gallery">
+      <div class="gallery-row">
+        <div class="gallery-image">
+          <img src="sap-suite-table.png" alt="SAP Interactive Suite Table" />
+        </div>
+        <div class="gallery-copy">
+          <span class="feature-number">01</span>
+          <h3>The Executive Huddle</h3>
+          <p>Transforming traditional hospitality into an active deal-closing space for C-suite and VP-level executives from Dallas and Austin.</p>
+        </div>
+      </div>
+
+      <div class="gallery-row reverse-row">
+        <div class="gallery-image">
+          <img src="sap-suite-row.png" alt="SAP Suite Premium Seating" />
+        </div>
+        <div class="gallery-copy">
+          <span class="feature-number">02</span>
+          <h3>The Co-Innovation Table</h3>
+          <p>Fully integrated SAP technology in the suite, allowing guests to explore real-time data and business solutions live during the game.</p>
+        </div>
+      </div>
+
+      <div class="gallery-row reverse-row">
+        <div class="gallery-image">
+          <img src="basketball_courtside_club.png" alt="SAP courtside executive club with premium environment hospitality" />
+        </div>
+        <div class="gallery-copy">
+          <span class="feature-number">03</span>
+          <h3>24/7 Remote Co-Working</h3>
+          <p>Beyond game day, the suite serves as a premium remote workspace for SAP regional employees, strengthening internal retention and collaboration.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section__inner">
+        <div class="integration-matrix">
+          <h2>The B2B Value Ecosystem</h2>
+          <p class="integration-matrix__intro">The SAP Suite is not just hospitality; it is a highly orchestrated B2B acquisition environment supported by the highest levels of Baylor University.</p>
+          <div class="integration-matrix__grid">
+            <div>
+              <h3>Institutional Support</h3>
+              <ul class="integration-matrix__list">
+                <li><strong>The Executive Welcome:</strong> Each SAP VIP guest receives a personalized welcome letter signed by Baylor President Dr. Linda Livingstone and VP of Athletics Doug McNamee.</li>
+                <li><strong>Playfly Concierge:</strong> On-site Playfly executives facilitate warm introductions between SAP leadership and target C-suite guests.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Social & Digital Amplification</h3>
+              <ul class="integration-matrix__list">
+                <li><strong>Instagram VIP Features:</strong> Two (2) exclusive Instagram Reels per season highlight the SAP Executive Game Day and tag relevant enterprise partners.</li>
+                <li><strong>LinkedIn Amplification:</strong> Professional recaps of networking events are posted on Baylor Athletics' LinkedIn to engage the Dallas and Austin tech corridor.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="opportunity-data suite-data">
+      <div class="data-row">
+        <h2 class="data-massive">16</h2>
+        <p class="data-label">Home Games &<br>Keynote Events</p>
+      </div>
+      <hr class="data-divider" />
+      <div class="data-row">
+        <h2 class="data-massive">100%</h2>
+        <p class="data-label">C-Suite & VP-Level<br>Guest Curation</p>
+      </div>
+    </section>
+
+    <section class="inventory-section">
+      <article class="panel">
+        <p class="eyebrow">Asset Mix & Pricing</p>
+        <h2>The Executive Huddle Package</h2>
+        <p>This is not a generic hospitality buy. This is a premium component inside the broader enterprise platform, built to justify high-value B2B meetings, operational proof, and multi-million dollar pipeline conversations.</p>
+        <div class="terminal__meta">
+          <div class="metric">
+            <p class="metric__label">Annual Investment</p>
+            <strong>Core value inside the $1.5M - $2.0M annual platform</strong>
+          </div>
+          <div class="metric">
+            <p class="metric__label">Exact Inventory</p>
+            <strong>1 Branded Suite + 16 VIP Tickets + 4 Pre-Game Sideline Passes + Three (3) rotating 15-second sideline LED spots per half</strong>
+            <p class="note" style="margin-top: 8px; font-size: 13px; color: var(--gold);">*Includes a dedicated allocation of sideline passes specifically earmarked for SAP internal employee engagement and top-performer incentive rewards.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="suite-cta">
+      <a href="sap-keynote.html" class="next-activation">
+        <span class="next-label">Next Activation</span>
+        <h2 class="next-title">Keynote Events &#8594;</h2>
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer" aria-label="Proposal footer">
+    <p class="site-footer__title">Baylor Athletics x SAP Partnership Proposal</p>
+    <p class="site-footer__meta">Student Pitch • Baylor University S3E Program • 2027 Launch Roadmap</p>
+    <div class="site-footer__links">
+      <a href="index.html">Overview</a>
+      <a href="measurement.html">Integration</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p class="site-footer__legal">Baylor Sports Properties powered by Playfly</p>
+  </footer>
+
+  <nav class="nav-island" aria-label="Primary navigation">
+    <a href="index.html">Index</a>
+    <a href="sap-keynote.html">Keynotes</a>
+    <a class="is-active" href="sap-suites.html">Suites</a>
+    <a href="packages.html">App</a>
+    <a href="sap-jersey-patch.html">Patch</a>
+    <a href="measurement.html">Integration</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const transitionWrap = document.querySelector(".page-transition");
+      const panel = transitionWrap?.querySelector(".page-transition__panel");
+      const hasGSAP = typeof gsap !== "undefined";
+      const hasScrollTrigger = typeof ScrollTrigger !== "undefined";
+      const supportsNativeViewTransition = typeof CSS !== "undefined" && CSS.supports("view-transition-name: none") && "startViewTransition" in document;
+      let parallaxInitialized = false;
+      let isLeaving = false;
+      const prefetchedHrefs = new Set();
+
+      if (!transitionWrap || !panel) return;
+
+      const pageNodes = [
+        document.querySelector("main"),
+        document.querySelector(".nav-island")
+      ].filter(Boolean);
+
+      const setCompactPanel = () => {
+        panel.style.opacity = "0";
+        panel.style.left = "50%";
+        panel.style.top = "50%";
+        panel.style.width = "min(34vw, 460px)";
+        panel.style.height = "min(22vw, 300px)";
+        panel.style.borderRadius = "28px";
+        panel.style.transform = "translate(-50%, -50%) scale(0.88)";
+      };
+
+      const cleanupPageNodes = () => {
+        pageNodes.forEach((node) => {
+          node.style.removeProperty("opacity");
+          node.style.removeProperty("transform");
+          node.style.removeProperty("will-change");
+        });
+      };
+
+      const primePanelFromElement = (element) => {
+        const rect = element?.getBoundingClientRect?.();
+        if (!rect || !rect.width || !rect.height) {
+          gsap.set(panel, {
+            opacity: 1,
+            left: "50%",
+            top: "50%",
+            width: "min(34vw, 460px)",
+            height: "min(22vw, 300px)",
+            borderRadius: 28,
+            scale: 0.88,
+            xPercent: -50,
+            yPercent: -50
+          });
+          return;
+        }
+
+        gsap.set(panel, {
+          opacity: 1,
+          left: rect.left + rect.width / 2,
+          top: rect.top + rect.height / 2,
+          width: Math.max(rect.width, 92),
+          height: Math.max(rect.height, 44),
+          borderRadius: Math.min(Math.max(rect.height * 0.5, 18), 28),
+          scale: 1,
+          xPercent: -50,
+          yPercent: -50
+        });
+      };
+
+      const initParallax = () => {
+        if (!hasGSAP || !hasScrollTrigger) return;
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        if (!parallaxInitialized) {
+          const heroImg = document.querySelector(".hero__media img");
+          if (heroImg) {
+            gsap.to(heroImg, {
+              yPercent: 30,
+              ease: "none",
+              scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+              }
+            });
+          }
+
+          gsap.utils.toArray(".visual").forEach((visual) => {
+            const img = visual.querySelector("img");
+            if (img) {
+              gsap.fromTo(
+                img,
+                { yPercent: -35 },
+                {
+                  yPercent: 8,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: visual,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                  }
+                }
+              );
+            }
+          });
+
+          const breakoutBg = document.querySelector(".breakout-bg");
+          if (breakoutBg) {
+            gsap.to(breakoutBg, {
+              yPercent: 20,
+              ease: "none",
+              scrollTrigger: {
+                trigger: ".immersive-breakout",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+              }
+            });
+          }
+
+          parallaxInitialized = true;
+        }
+
+        ScrollTrigger.refresh();
+      };
+
+      const playEntrance = () => {
+        document.body.classList.remove("is-transitioning");
+
+        if (hasGSAP) {
+          gsap.set(panel, {
+            opacity: 1,
+            left: "50%",
+            top: "50%",
+            width: "100vw",
+            height: "100vh",
+            borderRadius: 0,
+            scale: 1,
+            xPercent: -50,
+            yPercent: -50
+          });
+
+          gsap.set(pageNodes, {
+            opacity: 0,
+            scale: 0.985,
+            y: 18,
+            transformOrigin: "50% 50%",
+            willChange: "transform, opacity"
+          });
+
+          const tl = gsap.timeline({
+            onComplete: () => {
+              transitionWrap.classList.remove("is-entering", "is-leaving");
+              setCompactPanel();
+              cleanupPageNodes();
+              initParallax();
+            }
+          });
+
+          tl.to(panel, {
+            opacity: 0,
+            scale: 1.015,
+            duration: 0.46,
+            ease: "expo.out"
+          }, 0).to(pageNodes, {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.62,
+            ease: "power4.out",
+            stagger: 0.03
+          }, 0.08);
+        } else {
+          setCompactPanel();
+        }
+      };
+
+      const tabColorByFile = {
+        "": "#050505",
+        "index.html": "#050505",
+        "sap-jersey-patch.html": "#16392f",
+        "sap-suites.html": "#2b3138",
+        "sap-keynote.html": "#5a5330",
+        "packages.html": "#3e362b",
+        "measurement.html": "#170f13",
+        "contact.html": "#0c1522"
+      };
+
+      const resolveTabColor = (targetURL) => {
+        try {
+          const url = new URL(targetURL, window.location.origin);
+          const fileName = url.pathname.split("/").pop().toLowerCase();
+          return tabColorByFile[fileName] || null;
+        } catch {
+          return null;
+        }
+      };
+
+      const prefetchInternalLink = (href) => {
+        if (!href || prefetchedHrefs.has(href)) return;
+        try {
+          const url = new URL(href, window.location.origin);
+          if (url.origin !== window.location.origin) return;
+          const link = document.createElement("link");
+          link.rel = "prefetch";
+          link.as = "document";
+          link.href = url.href;
+          document.head.appendChild(link);
+          prefetchedHrefs.add(url.href);
+        } catch {
+          return;
+        }
+      };
+
+      const playExit = (targetURL, triggerElement) => {
+        if (isLeaving) return;
+        isLeaving = true;
+        transitionWrap.classList.add("is-leaving");
+        document.body.classList.add("is-transitioning");
+
+        const nextTabColor = resolveTabColor(targetURL);
+        if (nextTabColor) {
+          panel.style.background = nextTabColor;
+        }
+
+        if (hasGSAP) {
+          primePanelFromElement(triggerElement);
+
+          const tl = gsap.timeline({
+            onComplete: () => {
+              window.location.href = targetURL;
+            }
+          });
+
+          tl.to(pageNodes, {
+            opacity: 0.24,
+            scale: 0.992,
+            y: -8,
+            duration: 0.28,
+            ease: "power2.out",
+            stagger: 0.01
+          }, 0).to(panel, {
+            scale: 1.04,
+            duration: 0.16,
+            ease: "power2.out"
+          }, 0).to(panel, {
+            left: "50%",
+            top: "50%",
+            width: "100vw",
+            height: "100vh",
+            borderRadius: 0,
+            scale: 1,
+            duration: 0.62,
+            ease: "expo.inOut"
+          }, 0.05);
+        } else {
+          window.location.href = targetURL;
+        }
+      };
+
+      const isInternalLink = (anchor) => {
+        if (!anchor || !anchor.href) return false;
+        if (anchor.target === "_blank") return false;
+        if (anchor.hasAttribute("download")) return false;
+
+        try {
+          const url = new URL(anchor.href, window.location.origin);
+          if (url.origin !== window.location.origin) return false;
+          if (url.pathname === window.location.pathname && url.hash) return false;
+          if (anchor.protocol === "javascript:" || anchor.protocol === "mailto:") return false;
+          return true;
+        } catch {
+          return false;
+        }
+      };
+
+      document.addEventListener("click", (event) => {
+        const anchor = event.target.closest("a");
+        if (!anchor || !isInternalLink(anchor)) return;
+
+        try {
+          const target = new URL(anchor.href, window.location.origin);
+          if (target.pathname === window.location.pathname) return;
+        } catch {
+          return;
+        }
+
+        prefetchInternalLink(anchor.href);
+        if (supportsNativeViewTransition) return;
+
+        event.preventDefault();
+        sessionStorage.setItem("__pt_pending", "1");
+        playExit(anchor.href, anchor);
+      });
+
+      document.addEventListener("pointerenter", (event) => {
+        const anchor = event.target.closest("a");
+        if (!anchor || !isInternalLink(anchor)) return;
+        prefetchInternalLink(anchor.href);
+      }, true);
+
+      const shouldEnter = !supportsNativeViewTransition && sessionStorage.getItem("__pt_pending") === "1";
+      if (shouldEnter) {
+        sessionStorage.removeItem("__pt_pending");
+        playEntrance();
+      } else {
+        setCompactPanel();
+        cleanupPageNodes();
+        initParallax();
+      }
+
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+          transitionWrap.classList.remove("is-leaving");
+          setCompactPanel();
+          cleanupPageNodes();
+          initParallax();
+        }
+      });
+    });
+  </script>
+  <script src="assistant.js"></script>
+</body>
+</html>
