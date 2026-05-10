@@ -534,6 +534,20 @@
       transition: opacity 0.28s ease;
     }
 
+    .preview-click-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      cursor: pointer;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .preview-click-overlay:hover + .preview-browser__badge,
+    .preview-click-overlay:focus + .preview-browser__badge {
+      background: var(--gold);
+      color: #fff;
+    }
+
     .preview-browser__badge {
       position: absolute;
       left: 16px;
@@ -913,6 +927,7 @@
               <div class="preview-browser__status">Live preview</div>
             </div>
             <div class="preview-browser__frame" id="preview-frame">
+              <a class="preview-click-overlay" id="preview-click-link" href="experience.html" aria-label="Open page"></a>
               <div class="preview-browser__badge" id="preview-stage-badge">Profile</div>
             </div>
           </div>
@@ -1230,11 +1245,12 @@
   </footer>
 
   <script>
-    const previewLinks = Array.from(document.querySelectorAll(".preview-link"));
-    const previewFrame = document.getElementById("preview-frame");
-    const previewUrl   = document.getElementById("preview-stage-url");
-    const previewBadge = document.getElementById("preview-stage-badge");
-    const badge        = document.getElementById("preview-stage-badge");
+    const previewLinks    = Array.from(document.querySelectorAll(".preview-link"));
+    const previewFrame    = document.getElementById("preview-frame");
+    const previewUrl      = document.getElementById("preview-stage-url");
+    const previewBadge    = document.getElementById("preview-stage-badge");
+    const previewClickLink = document.getElementById("preview-click-link");
+    const badge           = previewBadge;
 
     /* Pre-load one iframe per link — no src-swapping, no reload flicker */
     const iframes = previewLinks.map((link) => {
@@ -1256,10 +1272,8 @@
       previewFrame.style.height = Math.round(900 * scale) + "px";
       iframes.forEach((f) => { f.style.transform = `scale(${scale})`; });
     }
-    /* Defer first scale until browser has completed layout */
     requestAnimationFrame(() => {
       scaleIframes();
-      /* Retry once more after any async font/image shifts */
       setTimeout(scaleIframes, 120);
     });
     window.addEventListener("resize", scaleIframes);
@@ -1269,4 +1283,24 @@
     function setActivePreview(link) {
       const idx = previewLinks.indexOf(link);
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
-      previewUrl.textContent  = link.
+      const href = link.getAttribute("href");
+      previewUrl.textContent   = href;
+      previewBadge.textContent = link.dataset.previewBadge || "";
+      if (previewClickLink) previewClickLink.href = href;
+      iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
+    }
+
+    /* Wire hover + click on the cards */
+    previewLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => setActivePreview(link));
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        setActivePreview(link);
+      });
+    });
+
+    /* Init: activate first card */
+    if (previewLinks.length) setActivePreview(previewLinks[0]);
+  </script>
+</body>
+</html>
