@@ -5,6 +5,6 @@ if exist ".git\index.lock" del /f ".git\index.lock"
 if exist ".git\index" del /f ".git\index"
 git reset HEAD
 git add -A
-git commit -m "Restore dashboard layout HTML accidentally deleted during bot removal"
+git commit -m "Restore dashboards, fix card cursor, dark chatbot on project pages"
 git push origin main
 pause
