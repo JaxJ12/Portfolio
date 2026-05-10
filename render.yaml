@@ -2,5 +2,5 @@ services:
   - type: static_site
     name: portfolio
     staticPublishPath: .
-    buildCommand: git submodule update --init --recursive
+    buildCommand: npm run build
     envVars: []

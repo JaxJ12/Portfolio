@@ -1,12 +1,5 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "git": {
-    "deploymentEnabled": true
-  },
-  "env": {
-    "GIT_SUBMODULES": "true"
-  }
+  "outputDirectory": "."
 }
