@@ -837,7 +837,7 @@
   <nav class="top-nav" aria-label="Portfolio navigation">
     <div class="top-nav__logo">Jax <span>Johnson</span></div>
     <div class="top-nav__links">
-      <a class="is-active" href="portfolio.html">Overview</a>
+      <a class="is-active" href="index.html">Overview</a>
       <a href="experience.html">Experience</a>
       <a href="dashboards.html">Dashboards</a>
       <a href="social.html">Social</a>
@@ -1269,22 +1269,4 @@
     function setActivePreview(link) {
       const idx = previewLinks.indexOf(link);
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
-      previewUrl.textContent  = link.getAttribute("href");
-      previewBadge.textContent = link.dataset.previewBadge;
-      iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
-    }
-
-    previewLinks.forEach((link) => {
-      ["mouseenter", "focus"].forEach((ev) => link.addEventListener(ev, () => setActivePreview(link)));
-      link.addEventListener("click", () => setActivePreview(link));
-    });
-
-    if (previewLinks[0]) setActivePreview(previewLinks[0]);
-  </script>
-
-  <script src="transition.js"></script>
-  <script src="assistant.js"></script>
-</body>
-<!-- Forced redeploy: 2026-05-08 -->
-</html>
-
+      previewUrl.textContent  = link.
