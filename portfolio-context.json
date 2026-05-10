@@ -1,85 +1,237 @@
 {
   "name": "Jax Johnson",
-  "focus": [
-    "Marketing",
-    "Management Information Systems (MIS)",
-    "Social media strategy",
-    "AI product thinking",
-    "Analytics and dashboards"
-  ],
-  "education": "Baylor University",
-  "summary": "Portfolio for Jax Johnson covering experience, social media systems, dashboards and AI builds, academic/client projects, and AI chatbot work.",
-  "pages": [
-    {
-      "title": "Overview",
-      "url": "portfolio.html",
-      "summary": "High-level guide to the portfolio with previews for each section and recommended routes for different audiences."
-    },
-    {
-      "title": "Experience and Skills",
-      "url": "experience.html",
-      "summary": "Work history, leadership, certifications, and technical skills."
-    },
-    {
-      "title": "Social Media Systems",
-      "url": "social.html",
-      "summary": "Multi-account content strategy across TikTok and Instagram with growth metrics and systems."
-    },
-    {
-      "title": "Dashboards and AI Builds",
-      "url": "dashboards.html",
-      "summary": "Interactive analytics interfaces and AI workflow tools built from scratch."
-    },
-    {
-      "title": "Academic and Client Projects",
-      "url": "class-projects.html",
-      "summary": "SAP pitch ecosystem, AI coursework, and client-style deliverables."
-    },
-    {
-      "title": "Deployed Chatbot Experience",
-      "url": "chatbot.html",
-      "summary": "Conversational AI work including prompt design, context management, and user-facing chatbot delivery."
-    },
-    {
-      "title": "About and Contact",
-      "url": "about.html",
-      "summary": "Background, positioning, and contact paths."
+  "tagline": "Marketing & MIS student at Baylor University building across social media, AI tools, and portfolio-ready business work.",
+  "education": {
+    "school": "Baylor University",
+    "majors": ["Marketing", "Management Information Systems (MIS)"],
+    "minor": "Sports Business",
+    "graduation": "2027"
+  },
+  "contact": {
+    "email_personal": "Jaxjohnson2027@gmail.com",
+    "email_baylor": "Jax_Johnson2@baylor.edu",
+    "email_creed": "Jax@usecreed.com",
+    "phone": "(469) 978-4476",
+    "linkedin": "linkedin.com/in/jax-johnson",
+    "tiktok_personal": "@NotJax",
+    "tiktok_creed": "@jax.prays",
+    "tiktok_insighttimer": "@jax.relates",
+    "instagram": "@j.xjohnson"
+  },
+  "open_to": "Internships and entry-level roles in marketing, social media, digital strategy, sports business, and AI-supported workflow roles.",
+
+  "flagship_project": {
+    "title": "Baylor Athletics x SAP Corporate Partnership Pitch",
+    "url": "sap-index.html",
+    "description": "A full 7-page interactive digital pitch deck built from scratch proposing a B2B sponsorship ecosystem between Baylor Athletics and SAP. This is the most ambitious and technically polished project in the portfolio. It includes a live AI Briefing Assistant, custom analytics dashboard, jersey patch valuation, suite packages, keynote series, and fan app concept.",
+    "why_impressive": "This is not a class deck. It is a fully deployed, multi-page interactive website that mirrors a real enterprise sales pitch — complete with client needs analysis, pillar strategy, ROI valuation, and a working chatbot that answers executive questions about the proposal.",
+    "key_facts": {
+      "target_market": "$500M-$2B companies in the Texas I-35 corridor (Waco-Dallas-Austin)",
+      "jersey_patch": "4.2M annual TV viewers, 300K+ home attendees, first B2B tech jersey patch in the South",
+      "core_objective": "Mid-market demand generation, pipeline value, and young talent recruitment for SAP",
+      "pillars": [
+        "Pillar 1 - Integration & VIK: SAP Analytics Cloud embedded into Baylor Athletics operations, replacing legacy systems. Exclusive category ownership and live collegiate reference story for Sapphire and TechEd.",
+        "Pillar 2 - Mid-Market Growth: The I-35 corridor has the highest concentration of $500M-$2B companies in Texas. Baylor delivers SAP to that audience 300,000+ times per year at the C-suite level.",
+        "Pillar 3 - Sustainable Partnership: Multi-year platform, not a one-year buy. Technology integration, speaking engagements, and co-innovation from day one.",
+        "Pillar 4 - Local Anchor Strategy: SAP's global plays (F1, NHL, Wimbledon) deliver scale. Baylor delivers a concentrated, high-intent B2B audience in SAP's highest-priority growth corridor."
+      ],
+      "activations": [
+        "Jersey Patch — first-mover B2B tech patch in the South",
+        "Premium Suites — executive hospitality with tiered packages",
+        "Custom AI Fan App — SAP-powered second-screen engagement for 40K+ fans",
+        "Keynote Series — co-branded executive thought leadership events at Baylor"
+      ],
+      "measurement": "Playfly measurement framework — verified ROI tracking for every activation element",
+      "pages": ["sap-index.html", "sap-pitch.html", "sap-jersey-patch.html", "sap-suites.html", "sap-keynote.html", "packages.html", "measurement.html"]
     }
-  ],
+  },
+
   "projects": [
+    {
+      "title": "Baylor x SAP Digital Pitch",
+      "url": "sap-index.html",
+      "type": "Client / Strategic",
+      "summary": "7-page interactive corporate partnership pitch proposing an enterprise B2B sponsorship between Baylor Athletics and SAP. Includes jersey patch, suites, AI fan app, keynote series, and a working AI Briefing Assistant. The most polished project in the portfolio."
+    },
+    {
+      "title": "Creed & Jax Performance Dashboard",
+      "url": "Creed_Jax_Dashboard.html",
+      "type": "AI Build / Personal Intelligence",
+      "summary": "Full personal analytics hub built from scratch with AI. Tracks KPIs, goal progress, and performance data across multiple dimensions. Includes task tracking that auto-sorts completed items and creator status cards with live cycling."
+    },
+    {
+      "title": "Gartner Vendor Manager",
+      "url": "Gartner_Vendor_Manager.html",
+      "type": "AI Build / Business Intelligence",
+      "summary": "Professional vendor evaluation tool built around the Gartner scoring framework. Upload vendor data, score across weighted criteria, get side-by-side tier comparison. Auto-Enrich generates Microsoft Copilot prompts for AI-powered vendor fit scoring."
+    },
+    {
+      "title": "Alpha & Omega Transcription Tool",
+      "url": "alpha-omega-tool.html",
+      "type": "AI Build / Workflow Automation",
+      "summary": "Real workflow tool built for a family insurance business. Insurance agents paste a call transcript and the tool automatically extracts client details, surfaces relevant plans and pricing, generates a step-by-step action list, drafts a follow-up email, and optionally sends it. Solves an actual daily pain point."
+    },
     {
       "title": "n8n Multi-Agent Orchestrator",
       "url": "project-n8n.html",
-      "summary": "11-node workflow routing handyman jobs through specialized AI agents."
+      "type": "AI Engineering / 4V98",
+      "summary": "11-node n8n workflow routing handyman jobs through 4 specialized AI agents: intake, scheduling, pricing, and dispatch."
     },
     {
       "title": "LangChain Booking Agent",
       "url": "project-langchain.html",
-      "summary": "ReAct-loop AI agent for end-to-end handyman booking."
+      "type": "AI Engineering / 4V98",
+      "summary": "ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming. Built with LangChain and Python."
     },
     {
       "title": "Cinematic AI Video — Google Veo",
       "url": "project-aistudio.html",
-      "summary": "AI-generated video with prompt-driven visuals."
+      "type": "Generative AI / 4V98",
+      "summary": "15-second cinematic shot generated entirely with Google Veo and AI Studio using prompt engineering for visual output."
     },
     {
-      "title": "Classification and Regression",
+      "title": "Classification & Regression — scikit-learn",
       "url": "project-ml.html",
-      "summary": "Iris classifier with multiple scikit-learn models."
+      "type": "Machine Learning / 4V98",
+      "summary": "Iris flower classifier hitting 96% accuracy across four scikit-learn models: Logistic Regression, KNN, SVM, and Decision Tree."
     },
     {
       "title": "SkillSwap — Django Marketplace",
       "url": "project-skillswap.html",
-      "summary": "Full-stack Django marketplace for skill exchange."
+      "type": "Full-Stack / 4V98",
+      "summary": "Full-stack Django marketplace where students list skills they can teach and request skills they want to learn."
     },
     {
-      "title": "AI Chatbot — Gemini and Context",
+      "title": "AI Chatbot — Gemini & Context",
       "url": "project-chatbot.html",
-      "summary": "Conversational AI chatbot with Gemini, context management, and conversation flow."
+      "type": "Conversational AI / 4V98",
+      "summary": "Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow."
+    },
+    {
+      "title": "Journalism Quote Game",
+      "url": "journalism-game-index.html",
+      "type": "Interactive / Web",
+      "summary": "Interactive Baylor Journalism quote game — a web-based quiz experience."
     }
   ],
-  "contact": {
-    "url": "about.html",
-    "note": "Direct visitors to the About page for contact routes."
+
+  "social_media": {
+    "combined_stats": {
+      "lifetime_views": "100M+",
+      "total_followers": "30K+",
+      "monthly_reach": "15.7M accounts reached on Instagram in last 30 days",
+      "revenue": "$15K+ generated through brand deals and livestream campaigns",
+      "peak_output": "75+ videos per month"
+    },
+    "accounts": [
+      {
+        "platform": "TikTok",
+        "handle": "@NotJax",
+        "type": "Personal Creator & Brand Partner",
+        "stats": "50M+ lifetime views, 22M yearly views, 18.7K followers",
+        "brand_deals": ["Ailith AI", "Snow", "Gymshark", "Recapture", "Locket"],
+        "revenue": "$15K+ through deals and a 3-month livestream campaign"
+      },
+      {
+        "platform": "Instagram",
+        "handle": "@j.xjohnson",
+        "type": "Personal Creator",
+        "stats": "6,100+ followers, 44.5M reel views lifetime, 15.7M accounts reached in last 30 days"
+      },
+      {
+        "platform": "TikTok",
+        "handle": "@jax.prays",
+        "type": "UGC Creator — Creed Bible App Partnership",
+        "stats": "14M+ views, 5K followers in 120 days. 75+ videos per month. Multiple videos over 1M views each. Earned performance bonuses."
+      },
+      {
+        "platform": "TikTok",
+        "handle": "@jax.relates",
+        "type": "UGC Creator — Insight Timer Partnership",
+        "stats": "150K+ views in first 30 days. 30 sponsored UGC videos. Performance-based compensation."
+      },
+      {
+        "platform": "TikTok",
+        "handle": "ESPN Central Texas",
+        "type": "TikTok Creator Intern (Spring 2026)",
+        "stats": "Built ESPN CT social platforms under new management. Multiple videos per week in a 3-person production team. Attended live broadcasts, studio podcasts, and in-field productions."
+      },
+      {
+        "platform": "Instagram / TikTok",
+        "handle": "Baylor University",
+        "type": "Social Media Student Worker (2026-Present)",
+        "stats": "Drove 200K+ views across first three personally curated videos. Applied trend forecasting while maintaining university brand standards. Collaborated with departments to capture major campus events."
+      }
+    ]
+  },
+
+  "experience": {
+    "current_leadership": [
+      {
+        "role": "VP of Recruitment & Outreach",
+        "org": "Baylor S3E Club",
+        "dates": "Oct 2025 - Present",
+        "details": "Prospected 65 Texas HS DECA programs and contacted 180+ MBA and BBA students."
+      },
+      {
+        "role": "VP of External Relations",
+        "org": "AI Society at Baylor",
+        "dates": "2026 - Present",
+        "details": "Manages relationships with companies and executives. Manages speaker pipeline from outreach through event coordination. Secures sponsorships, funding packages, and partnership agreements."
+      },
+      {
+        "role": "Business Peer Leader & TA",
+        "org": "Peer Leader Program, Baylor",
+        "dates": "Aug - Dec 2025",
+        "details": "Helped achieve 8.3% higher satisfaction and retention vs. non-participants. Led weekly sessions for 26 freshmen."
+      },
+      {
+        "role": "Small Group Leader & Mentor",
+        "org": "Highland HS Ministry",
+        "dates": "Sep 2025 - Present",
+        "details": "Guides discussion for 20-30 juniors weekly. Mentors 10-20 high school boys every Wednesday night."
+      }
+    ],
+    "earlier": [
+      {
+        "role": "Senior Counselor / Leadership Counselor",
+        "org": "Camp Sky Ranch Christian Camps",
+        "dates": "Summers 2022-2025",
+        "details": "Only high schooler on Day Camp team. 1 of 5 selected for Work Crew (500+ service hours). Promoted through Senior and Leadership Counselor roles consecutively."
+      },
+      {
+        "role": "Server and Waitstaff",
+        "org": "Hula Hut Hawaiian Restaurant",
+        "dates": "Mar - Jul 2023",
+        "details": "Served 60+ guests per shift. Managed up to 7 tables. Trained 3 new team members."
+      }
+    ]
+  },
+
+  "skills": {
+    "content_and_social": ["TikTok Strategy", "Short-Form Video", "Hook Writing", "UGC Creation", "CapCut", "Canva", "Trend Research", "Video Production", "Adobe Premiere", "Descript"],
+    "analytics": ["TikTok Analytics", "Instagram Insights", "Creator Studio", "Audience Analysis", "Campaign Planning", "Sponsorship ROI"],
+    "ai_and_tech": ["Claude (Anthropic)", "Gemini", "LangChain", "n8n", "Python", "scikit-learn", "Django", "Google Veo", "AI Studio", "Prompt Engineering", "Workflow Automation"],
+    "business_and_crm": ["HubSpot", "Salesforce Trailhead (20,000 points, 80+ badges)", "Content Calendar", "Campaign Management", "CRM Workflows", "Brand Outreach"],
+    "certifications": ["HubSpot Social Media Marketing Certification", "Salesforce Trailhead — 20,000 points, 80+ badges focused on marketing automation, campaign management, digital marketing, and CRM"]
+  },
+
+  "pages": [
+    { "title": "Overview / Home", "url": "index.html", "summary": "High-level guide to the portfolio with live previews and recommended routes for different audiences." },
+    { "title": "Experience and Skills", "url": "experience.html", "summary": "Full work history, leadership roles, certifications, and technical skills." },
+    { "title": "Social Media Systems", "url": "social.html", "summary": "Six active social media roles, 100M+ lifetime views, brand partnerships, and platform strategy." },
+    { "title": "Dashboards and AI Builds", "url": "dashboards.html", "summary": "Three live AI-built tools: Creed & Jax Dashboard, Gartner Vendor Manager, Alpha & Omega Transcription Tool." },
+    { "title": "Academic and Client Projects", "url": "class-projects.html", "summary": "The Baylor x SAP pitch ecosystem, 4V98 AI coursework, and the Journalism Quote Game." },
+    { "title": "Deployed Chatbot (SAP Briefing Assistant)", "url": "chatbot.html", "summary": "A live Gemini-powered chatbot answering questions about the Baylor x SAP pitch. Demonstrates conversation design, prompt engineering, and deployed AI packaging." },
+    { "title": "About and Contact", "url": "about.html", "summary": "Background, positioning, contact form that routes to the right inbox by inquiry type, and links to PDF portfolio and resume." },
+    { "title": "Skills and Credentials", "url": "skills.html", "summary": "Every tool, certification, and credential with proficiency levels." }
+  ],
+
+  "routing_guide": {
+    "recruiter": "Start with experience.html, then about.html, then social.html for audience proof.",
+    "brand_or_agency": "Open social.html first, then experience.html for credibility and breadth.",
+    "ai_or_tech_team": "Go from dashboards.html to class-projects.html to chatbot.html for the clearest build story.",
+    "professor_or_reviewer": "Start at class-projects.html, then supporting pages for context and communication range.",
+    "sap_or_sports_business": "Go directly to sap-index.html for the full pitch ecosystem."
   }
 }

@@ -111,18 +111,31 @@ jobs:
               };
 
               const posts = raw
-                .filter(p => p.author?.urn === urn)
-                .filter(p => (p.text || "").trim().length > 20)
+                .filter(p => {
+                  // Keep posts authored by Jax AND reposts he made (author may be original poster)
+                  const isJaxPost   = p.author?.urn === urn;
+                  const isJaxRepost = p.resharedBy?.urn === urn || p.actor?.urn === urn || p.repostedBy?.urn === urn;
+                  return isJaxPost || isJaxRepost;
+                })
+                .filter(p => {
+                  const text = (p.text || "").trim();
+                  const isRepost = !!(p.repostedPost || p.resharedPost || p.originalPost || p.isRepost);
+                  // Allow reposts through even with no added commentary; require 20+ chars for original posts
+                  return isRepost || text.length > 20;
+                })
                 .sort((a, b) => (b.postedAt?.timestamp || 0) - (a.postedAt?.timestamp || 0))
-                .slice(0, 10)
+                .slice(0, 20)
                 .map((p, i) => {
+                  const isRepost  = !!(p.repostedPost || p.resharedPost || p.originalPost || p.isRepost);
+                  const origPost  = p.repostedPost || p.resharedPost || p.originalPost || null;
                   const text      = (p.text || "").trim();
+                  const origText  = (origPost?.text || origPost?.commentary || "").trim();
                   const isoDate   = toISODate(p.postedAt?.timestamp);
                   const reactions = p.engagements?.totalReactions || 0;
                   const comments  = p.engagements?.commentsCount || 0;
                   const reposts   = p.engagements?.repostsCount || 0;
-                  const hashtags  = (text.match(/#\w+/g) || []).slice(0, 6);
-                  const image     = p.mediaContent?.[0]?.url || null;
+                  const hashtags  = ((text || origText).match(/#\w+/g) || []).slice(0, 6);
+                  const image     = p.mediaContent?.[0]?.url || origPost?.mediaContent?.[0]?.url || null;
                   const reactionTypes = (p.engagements?.reactions || [])
                     .sort((a, b) => b.reactionCount - a.reactionCount)
                     .slice(0, 3)
@@ -133,7 +146,10 @@ jobs:
                     id:           "li-" + String(i + 1).padStart(3, "0"),
                     date:         isoDate,
                     dateLabel:    timeAgo(isoDate),
-                    text,
+                    text:         text || origText,
+                    commentary:   text,
+                    isRepost,
+                    origAuthor:   isRepost ? (origPost?.author?.name || null) : null,
                     hashtags,
                     reactions,
                     reactionTypes,

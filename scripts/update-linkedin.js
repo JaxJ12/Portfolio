@@ -53,12 +53,30 @@ function timeAgo(dateStr) {
 // ── Transform raw LinkedIn API post → portfolio format ───────────────────────
 
 function transformPost(e) {
-  // LinkedIn's REST API (v202304+) returns posts in this shape.
-  // Falls back to older UGC Posts API shape if needed.
-  const text =
+  // LinkedIn REST API (v202304+) shape, with UGC Posts API fallback.
+  // Reposts have a resharedPost or repost field — handle both shapes.
+
+  const isRepost = !!(
+    e.repost ||
+    e.resharedPost ||
+    e.specificContent?.["com.linkedin.ugc.ShareContent"]?.shareMediaCategory === "NONE" && e.commentary === undefined
+  );
+
+  // The user's own commentary on the repost (can be empty for pure reposts)
+  const commentary =
     e.commentary ||
     e.specificContent?.["com.linkedin.ugc.ShareContent"]?.shareCommentary?.text ||
     "";
+
+  // Original post text (for reposts)
+  const originalText =
+    e.repost?.commentary ||
+    e.resharedPost?.commentary ||
+    e.repost?.specificContent?.["com.linkedin.ugc.ShareContent"]?.shareCommentary?.text ||
+    "";
+
+  // Display text: own commentary first, fall back to original post text
+  const text = commentary || originalText;
 
   const tsMs = e.publishedAt ?? e.createdAt ?? e.created?.time ?? Date.now();
   const date = new Date(tsMs).toISOString().split("T")[0];
@@ -81,6 +99,9 @@ function transformPost(e) {
     date,
     dateLabel:     timeAgo(date),
     text,
+    commentary,
+    isRepost,
+    originalText:  isRepost ? originalText : undefined,
     hashtags,
     reactions,
     reactionTypes: reactions > 0 ? "👍❤️" : "👍",
@@ -102,7 +123,7 @@ async function main() {
   // Try the newer REST Posts API first, fall back to UGC Posts API
   let elements = [];
   try {
-    const url = `https://api.linkedin.com/rest/posts?author=urn:li:person:${PERSON_ID}&q=author&count=10&sortBy=LAST_MODIFIED`;
+    const url = `https://api.linkedin.com/rest/posts?author=urn:li:person:${PERSON_ID}&q=author&count=20&sortBy=LAST_MODIFIED`;
     const data = await httpsGet(url, headers);
     elements = data.elements || [];
     console.log(`✅ REST API returned ${elements.length} posts.`);
@@ -135,7 +156,7 @@ async function main() {
   const newPosts = elements
     .filter((e) => e.id && !existingIds.has(e.id))
     .map(transformPost)
-    .filter((p) => p.text.trim().length > 0); // skip empty posts
+    .filter((p) => p.text.trim().length > 0 || p.isRepost); // keep reposts even if no added commentary
 
   if (newPosts.length === 0) {
     console.log("📭 No new posts found — feed is already up to date.");

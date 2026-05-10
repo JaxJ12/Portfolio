@@ -5,6 +5,6 @@ if exist ".git\index.lock" del /f ".git\index.lock"
 if exist ".git\index" del /f ".git\index"
 git reset HEAD
 git add -A
-git commit -m "Fix preview JS, skills nav, remove journalism game bot, reroute portfolio.html to index"
+git commit -m "Update chatbot knowledge base, fix LinkedIn reposts, card UX improvements, skills nav fix"
 git push origin main
 pause

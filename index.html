@@ -623,6 +623,30 @@
       background: rgba(255,255,255,0.82);
       box-shadow: 0 10px 26px rgba(28,23,16,0.05);
       transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
+    }
+
+    .preview-link__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.74);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .preview-link__cta:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #faf8f3;
     }
 
     .preview-link:hover,
@@ -934,7 +958,7 @@
         </article>
 
         <div class="preview-rail">
-          <a class="preview-link is-active" href="experience.html"
+          <div class="preview-link is-active"
              data-preview-label="Experience"
              data-preview-badge="Profile"
              data-preview-title="Experience and Skills"
@@ -946,7 +970,8 @@
              data-preview-fit="cover"
              data-preview-position="center top"
              data-preview-meta-1="Recruiters and hiring managers"
-             data-preview-meta-2="Timeline, fit, and technical range">
+             data-preview-meta-2="Timeline, fit, and technical range"
+             data-href="experience.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Profile</span>
               <span class="preview-link__route">Start here</span>
@@ -955,9 +980,10 @@
             <p class="preview-link__copy">Full work history, certifications, and technical skill areas organized for quick recruiter review. Covers everything from leadership roles to platform proficiency.</p>
             <div class="preview-link__tags"><span class="tag">Experience</span><span class="tag">Leadership</span><span class="tag">Certifications</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Recruiters, hiring managers, and anyone vetting professional background.</div>
-          </a>
+            <a class="preview-link__cta" href="experience.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="social.html"
+          <div class="preview-link"
              data-preview-label="Social"
              data-preview-badge="Case studies"
              data-preview-title="Social Media Systems"
@@ -969,7 +995,8 @@
              data-preview-fit="cover"
              data-preview-position="top center"
              data-preview-meta-1="Brands and marketing teams"
-             data-preview-meta-2="Audience growth, content systems, and platform proof">
+             data-preview-meta-2="Audience growth, content systems, and platform proof"
+             data-href="social.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Case Studies</span>
               <span class="preview-link__route">Audience proof</span>
@@ -978,9 +1005,10 @@
             <p class="preview-link__copy">Multi-account content strategy across TikTok and Instagram — different niches, different voices, same execution discipline. Includes follower metrics, posting cadence, and monetization context.</p>
             <div class="preview-link__tags"><span class="tag">TikTok</span><span class="tag">Instagram</span><span class="tag">Brand Voice</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Brands, marketing teams, and agencies evaluating content range and platform fluency.</div>
-          </a>
+            <a class="preview-link__cta" href="social.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="dashboards.html"
+          <div class="preview-link"
              data-preview-label="Dashboards"
              data-preview-badge="AI tools"
              data-preview-title="Dashboards and AI Builds"
@@ -992,7 +1020,8 @@
              data-preview-fit="cover"
              data-preview-position="top center"
              data-preview-meta-1="Operators and product-minded teams"
-             data-preview-meta-2="Systems thinking, interfaces, and workflow design">
+             data-preview-meta-2="Systems thinking, interfaces, and workflow design"
+             data-href="dashboards.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Systems</span>
               <span class="preview-link__route">AI layer</span>
@@ -1001,9 +1030,10 @@
             <p class="preview-link__copy">Interactive analytics interfaces and AI workflow tools built from scratch — no templates. Each one is embedded live and interactable directly on the page.</p>
             <div class="preview-link__tags"><span class="tag">Dashboards</span><span class="tag">Analytics</span><span class="tag">AI Tools</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Operators, product-minded teams, and anyone evaluating systems or workflow thinking.</div>
-          </a>
+            <a class="preview-link__cta" href="dashboards.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="class-projects.html"
+          <div class="preview-link"
              data-preview-label="Projects"
              data-preview-badge="Builds"
              data-preview-title="Academic and Client Projects"
@@ -1015,7 +1045,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Professors, clients, and reviewers"
-             data-preview-meta-2="Process, presentation quality, and technical range">
+             data-preview-meta-2="Process, presentation quality, and technical range"
+             data-href="class-projects.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Builds</span>
               <span class="preview-link__route">Course + client</span>
@@ -1024,9 +1055,10 @@
             <p class="preview-link__copy">A curated set of course projects and client-style builds — SAP pitch decks, AI analysis deliverables, and jersey design mockups — showing how ideas get packaged into finished work.</p>
             <div class="preview-link__tags"><span class="tag">4V98</span><span class="tag">SAP</span><span class="tag">Client Work</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Professors, reviewers, and clients evaluating process and delivery quality.</div>
-          </a>
+            <a class="preview-link__cta" href="class-projects.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="chatbot.html"
+          <div class="preview-link"
              data-preview-label="Chatbot"
              data-preview-badge="Live assistant"
              data-preview-title="Deployed Chatbot Experience"
@@ -1038,7 +1070,8 @@
              data-preview-fit="contain"
              data-preview-position="center center"
              data-preview-meta-1="AI product and prompt-curious viewers"
-             data-preview-meta-2="Conversation design and front-end packaging">
+             data-preview-meta-2="Conversation design and front-end packaging"
+             data-href="chatbot.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Conversation</span>
               <span class="preview-link__route">Live feel</span>
@@ -1047,9 +1080,10 @@
             <p class="preview-link__copy">A fully working AI assistant interface built for the portfolio — demonstrates how I think about user-facing AI design, prompt structure, and deploying conversational products.</p>
             <div class="preview-link__tags"><span class="tag">Chatbot</span><span class="tag">AI UX</span><span class="tag">Prompting</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> AI-focused teams, product managers, and anyone curious about applied prompt engineering.</div>
-          </a>
+            <a class="preview-link__cta" href="chatbot.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="about.html"
+          <div class="preview-link"
              data-preview-label="About"
              data-preview-badge="Personal context"
              data-preview-title="About and Contact"
@@ -1061,7 +1095,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Anyone deciding whether to reach out"
-             data-preview-meta-2="Positioning, contact routes, and personal fit">
+             data-preview-meta-2="Positioning, contact routes, and personal fit"
+             data-href="about.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Context</span>
               <span class="preview-link__route">Human read</span>
@@ -1070,11 +1105,12 @@
             <p class="preview-link__copy">The through-line behind the portfolio — who I am, what I'm building toward, and a contact form that routes to the right inbox depending on the type of inquiry.</p>
             <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span><span class="tag">Positioning</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Anyone deciding whether to reach out — and finding the right channel to do it.</div>
-          </a>
+            <a class="preview-link__cta" href="about.html" target="_blank">View Webpage →</a>
+          </div>
 
           <div class="preview-rail__divider">AI: Principles &amp; Applications — 4V98</div>
 
-          <a class="preview-link" href="project-n8n.html"
+          <div class="preview-link"
              data-preview-label="n8n"
              data-preview-badge="Automation"
              data-preview-title="n8n Multi-Agent Orchestrator"
@@ -1086,7 +1122,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Automation systems"
-             data-preview-meta-2="Multi-agent orchestration">
+             data-preview-meta-2="Multi-agent orchestration"
+             data-href="project-n8n.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Automation</span>
               <span class="preview-link__route">4V98 build</span>
@@ -1095,9 +1132,10 @@
             <p class="preview-link__copy">11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake, scheduling, pricing, and dispatch.</p>
             <div class="preview-link__tags"><span class="tag">n8n</span><span class="tag">Agents</span><span class="tag">Automation</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Ops teams and builders evaluating orchestration logic.</div>
-          </a>
+            <a class="preview-link__cta" href="project-n8n.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="project-langchain.html"
+          <div class="preview-link"
              data-preview-label="LangChain"
              data-preview-badge="AI agent"
              data-preview-title="LangChain Booking Agent"
@@ -1109,7 +1147,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Agent workflows"
-             data-preview-meta-2="Tool-using reasoning">
+             data-preview-meta-2="Tool-using reasoning"
+             data-href="project-langchain.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">AI Agent</span>
               <span class="preview-link__route">4V98 build</span>
@@ -1118,9 +1157,10 @@
             <p class="preview-link__copy">A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming.</p>
             <div class="preview-link__tags"><span class="tag">LangChain</span><span class="tag">ReAct</span><span class="tag">Python</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Teams exploring agentic workflows.</div>
-          </a>
+            <a class="preview-link__cta" href="project-langchain.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="project-aistudio.html"
+          <div class="preview-link"
              data-preview-label="AI video"
              data-preview-badge="AI video"
              data-preview-title="Cinematic AI Video — Google Veo"
@@ -1132,7 +1172,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Generative video"
-             data-preview-meta-2="Prompt-driven visuals">
+             data-preview-meta-2="Prompt-driven visuals"
+             data-href="project-aistudio.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">AI Video</span>
               <span class="preview-link__route">4V98 build</span>
@@ -1141,9 +1182,10 @@
             <p class="preview-link__copy">A 15-second cinematic shot generated entirely with Google Veo and AI Studio — prompt engineering for visual output.</p>
             <div class="preview-link__tags"><span class="tag">Google Veo</span><span class="tag">AI Studio</span><span class="tag">Prompting</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Creative teams exploring AI video pipelines.</div>
-          </a>
+            <a class="preview-link__cta" href="project-aistudio.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="project-ml.html"
+          <div class="preview-link"
              data-preview-label="Machine learning"
              data-preview-badge="ML models"
              data-preview-title="Classification and Regression"
@@ -1155,7 +1197,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Model comparison"
-             data-preview-meta-2="Classification + regression">
+             data-preview-meta-2="Classification + regression"
+             data-href="project-ml.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Machine Learning</span>
               <span class="preview-link__route">4V98 build</span>
@@ -1164,9 +1207,10 @@
             <p class="preview-link__copy">Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic Regression, KNN, SVM, and Decision Tree.</p>
             <div class="preview-link__tags"><span class="tag">scikit-learn</span><span class="tag">Python</span><span class="tag">ML</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Anyone comparing classical ML approaches.</div>
-          </a>
+            <a class="preview-link__cta" href="project-ml.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="project-skillswap.html"
+          <div class="preview-link"
              data-preview-label="Full-stack"
              data-preview-badge="Marketplace"
              data-preview-title="SkillSwap — Django Marketplace"
@@ -1178,7 +1222,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Full-stack product"
-             data-preview-meta-2="Marketplace UX">
+             data-preview-meta-2="Marketplace UX"
+             data-href="project-skillswap.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">Full-Stack</span>
               <span class="preview-link__route">4V98 build</span>
@@ -1187,9 +1232,10 @@
             <p class="preview-link__copy">A full-stack Django marketplace where students list skills they can teach and request skills they want to learn.</p>
             <div class="preview-link__tags"><span class="tag">Django</span><span class="tag">Full-Stack</span><span class="tag">Marketplace</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> Teams assessing end-to-end product builds.</div>
-          </a>
+            <a class="preview-link__cta" href="project-skillswap.html" target="_blank">View Webpage →</a>
+          </div>
 
-          <a class="preview-link" href="project-chatbot.html"
+          <div class="preview-link"
              data-preview-label="AI chatbot"
              data-preview-badge="NLP"
              data-preview-title="AI Chatbot — Gemini and Context"
@@ -1201,7 +1247,8 @@
              data-preview-fit="cover"
              data-preview-position="center center"
              data-preview-meta-1="Conversational AI"
-             data-preview-meta-2="Prompting + context">
+             data-preview-meta-2="Prompting + context"
+             data-href="project-chatbot.html">
             <div class="preview-link__top">
               <span class="preview-link__kicker">NLP</span>
               <span class="preview-link__route">4V98 build</span>
@@ -1210,7 +1257,8 @@
             <p class="preview-link__copy">Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow.</p>
             <div class="preview-link__tags"><span class="tag">Gemini</span><span class="tag">NLP</span><span class="tag">Chatbot</span></div>
             <div class="preview-link__best-for"><strong>Best for</strong> AI product and UX reviewers.</div>
-          </a>
+            <a class="preview-link__cta" href="project-chatbot.html" target="_blank">View Webpage →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1254,7 +1302,7 @@
 
     /* Pre-load one iframe per link — no src-swapping, no reload flicker */
     const iframes = previewLinks.map((link) => {
-      const src = link.getAttribute("href");
+      const src = link.dataset.href;
       const f = document.createElement("iframe");
       f.className = "preview-iframe";
       f.src = src;
@@ -1283,20 +1331,17 @@
     function setActivePreview(link) {
       const idx = previewLinks.indexOf(link);
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
-      const href = link.getAttribute("href");
+      const href = link.dataset.href;
       previewUrl.textContent   = href;
       previewBadge.textContent = link.dataset.previewBadge || "";
       if (previewClickLink) previewClickLink.href = href;
       iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
     }
 
-    /* Wire hover + click on the cards */
+    /* Wire hover + click on the cards (divs now, no default to prevent) */
     previewLinks.forEach((link) => {
       link.addEventListener("mouseenter", () => setActivePreview(link));
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        setActivePreview(link);
-      });
+      link.addEventListener("click", () => setActivePreview(link));
     });
 
     /* Init: activate first card */
