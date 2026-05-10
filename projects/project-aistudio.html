@@ -167,10 +167,10 @@
       font-size: 12px; color: var(--muted); max-width: 1100px; margin: 0 auto;
     }
   </style>
-  <link rel="stylesheet" href="project-page-theme.css"/>
-  <link rel="stylesheet" href="transition.css" />
-  <script src="transition.js" defer></script>
-  <link rel="stylesheet" href="assistant.css" />
+  <link rel="stylesheet" href="../project-page-theme.css"/>
+  <link rel="stylesheet" href="../transition.css" />
+  <script src="../transition.js" defer></script>
+  <link rel="stylesheet" href="../assistant.css" />
 </head>
 <body class="project-page" style="--project-accent:#8c6a00; --project-accent-rgb:140,106,0;">
   <div class="site-assistant" data-site-assistant>
@@ -191,13 +191,13 @@
         <button class="site-assistant__close" type="button" data-site-assistant-close aria-label="Close portfolio assistant">x</button>
       </div>
       <div class="site-assistant__frame-wrap">
-        <iframe class="site-assistant__frame" title="Portfolio Assistant" data-site-assistant-frame data-src="portfolio-assistant.html" loading="lazy"></iframe>
+        <iframe class="site-assistant__frame" title="Portfolio Assistant" data-site-assistant-frame data-src="../portfolio-assistant.html" loading="lazy"></iframe>
       </div>
     </div>
   </div>
 
 <nav class="back-nav">
-  <a href="class-projects.html#proj-aistudio">
+  <a href="../class-projects.html#proj-aistudio">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Projects
   </a>
@@ -230,7 +230,7 @@
     <p class="section-title">The AI-generated video</p>
     <div class="video-wrap">
       <video controls preload="metadata" poster="">
-        <source src="shutter-island-ai.mp4" type="video/mp4"/>
+        <source src="../shutter-island-ai.mp4" type="video/mp4"/>
         Your browser doesn't support video playback.
       </video>
       <div class="video-caption">
@@ -304,15 +304,15 @@
 
     <div class="gallery">
       <div class="gallery-item" onclick="openLightbox(0)">
-        <img src="Generate_a_picture_2k_202602171447%20(1).jpeg" alt="Reference still 1 — establishing shot"/>
+        <img src="../Generate_a_picture_2k_202602171447%20(1).jpeg" alt="Reference still 1 — establishing shot"/>
         <div class="img-label">Shot 1 — The Doctor's arrival</div>
       </div>
       <div class="gallery-item" onclick="openLightbox(1)">
-        <img src="Image_202602171622%20(1)%20(1).jpeg" alt="Reference still 2 — reverse medium shot"/>
+        <img src="../Image_202602171622%20(1)%20(1).jpeg" alt="Reference still 2 — reverse medium shot"/>
         <div class="img-label">Shot 2 — Reverse medium (Andrew's POV)</div>
       </div>
       <div class="gallery-item" onclick="openLightbox(2)">
-        <img src="Image_202602171622%20(2).jpeg" alt="Reference still 3 — transition"/>
+        <img src="../Image_202602171622%20(2).jpeg" alt="Reference still 3 — transition"/>
         <div class="img-label">Shot 3 — The final decision</div>
       </div>
     </div>
@@ -389,7 +389,7 @@
 
 <footer class="site-footer">
   <span>Jax Johnson · AI: Principles and Application · Baylor University</span>
-  <a href="class-projects.html#proj-aistudio" style="color:var(--gold); font-weight:600;">← All Projects</a>
+  <a href="../class-projects.html#proj-aistudio" style="color:var(--gold); font-weight:600;">← All Projects</a>
 </footer>
 
 <script>
@@ -407,7 +407,7 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
 }
 </script>
-  <script src="assistant.js"></script>
+  <script src="../assistant.js"></script>
 </body>
 </html>
 

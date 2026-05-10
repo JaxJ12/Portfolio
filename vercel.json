@@ -1,5 +1,15 @@
 {
   "version": 2,
   "framework": null,
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "redirects": [
+    { "source": "/project-aistudio.html", "destination": "/projects/project-aistudio.html", "permanent": true },
+    { "source": "/project-chatbot.html", "destination": "/projects/project-chatbot.html", "permanent": true },
+    { "source": "/project-langchain.html", "destination": "/projects/project-langchain.html", "permanent": true },
+    { "source": "/project-ml.html", "destination": "/projects/project-ml.html", "permanent": true },
+    { "source": "/project-n8n.html", "destination": "/projects/project-n8n.html", "permanent": true },
+    { "source": "/project-skillswap.html", "destination": "/projects/project-skillswap.html", "permanent": true },
+    { "source": "/Creed_Jax_Dashboard.html", "destination": "/dashboards/Creed_Jax_Dashboard.html", "permanent": true },
+    { "source": "/Gartner_Demo.html", "destination": "/dashboards/Gartner_Demo.html", "permanent": true }
+  ]
 }

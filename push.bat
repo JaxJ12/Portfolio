@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 echo ==========================================
-echo Portfolio push (with submodule conversion)
+echo Portfolio push (with reorganization cleanup)
 echo ==========================================
 echo.
 
@@ -12,37 +12,41 @@ if exist ".git\HEAD.lock" del /f /q ".git\HEAD.lock"
 if exist ".git\index.lock" del /f /q ".git\index.lock"
 if exist ".git\modules\sap-pitch-repo\config.lock" del /f /q ".git\modules\sap-pitch-repo\config.lock"
 
-REM --- Check if sap-pitch-repo is still a submodule (idempotent) ---
+REM --- SAP submodule conversion (idempotent — only runs first time) ---
 if exist ".gitmodules" (
     echo Converting sap-pitch-repo from submodule to regular folder...
-    echo This may take a moment as ~186MB of files are processed.
-    echo.
-
-    REM Deregister the submodule (ignore errors if it's not registered)
     git submodule deinit -f -- sap-pitch-repo 2>nul
-
-    REM Remove submodule entry from index AND from .gitmodules (keeps working files)
     git rm --cached -f sap-pitch-repo
-
-    REM Remove the .git pointer file inside the submodule folder so it becomes a normal directory
     if exist "sap-pitch-repo\.git" del /f /q "sap-pitch-repo\.git"
-
-    REM Remove submodule metadata from .git/modules
     if exist ".git\modules\sap-pitch-repo" rmdir /s /q ".git\modules\sap-pitch-repo"
-
-    REM Force-delete .gitmodules in case it's left behind empty
     if exist ".gitmodules" del /f /q ".gitmodules"
-
-    REM Remove bloat subdirectories accidentally committed in the SAP-Pitch repo
     if exist "sap-pitch-repo\Downloads" rmdir /s /q "sap-pitch-repo\Downloads"
     if exist "sap-pitch-repo\OneDrive" rmdir /s /q "sap-pitch-repo\OneDrive"
-
-    echo Conversion complete.
+    echo Submodule conversion complete.
     echo.
 )
 
-REM --- Stage everything (regular folder + config changes + deletions) ---
-echo Staging changes...
+REM --- Reorganization cleanup: delete originals that have been moved ---
+REM Project pages now live in projects/
+if exist "projects\project-aistudio.html" if exist "project-aistudio.html" del /f /q "project-aistudio.html"
+if exist "projects\project-chatbot.html"  if exist "project-chatbot.html"  del /f /q "project-chatbot.html"
+if exist "projects\project-langchain.html" if exist "project-langchain.html" del /f /q "project-langchain.html"
+if exist "projects\project-ml.html"       if exist "project-ml.html"       del /f /q "project-ml.html"
+if exist "projects\project-n8n.html"      if exist "project-n8n.html"      del /f /q "project-n8n.html"
+if exist "projects\project-skillswap.html" if exist "project-skillswap.html" del /f /q "project-skillswap.html"
+
+REM Dashboard pages now live in dashboards/
+if exist "dashboards\Creed_Jax_Dashboard.html" if exist "Creed_Jax_Dashboard.html" del /f /q "Creed_Jax_Dashboard.html"
+if exist "dashboards\Gartner_Demo.html" if exist "Gartner_Demo.html" del /f /q "Gartner_Demo.html"
+
+REM alpha-omega-tool.html was orphaned (no inbound links) — remove stray copy in dashboards/
+if exist "dashboards\alpha-omega-tool.html" del /f /q "dashboards\alpha-omega-tool.html"
+
+REM Stray diagnostic file from earlier
+if exist "test-write-perms.tmp" del /f /q "test-write-perms.tmp"
+
+REM --- Stage everything (adds new folders + records deletions) ---
+echo Staging all changes...
 git add -A
 
 REM --- Show what's about to be committed ---
@@ -55,7 +59,7 @@ REM --- Commit if there are staged changes ---
 git diff --cached --quiet
 if errorlevel 1 (
     echo Committing changes...
-    git commit -m "Convert sap-pitch-repo from submodule to regular folder for reliable deployment"
+    git commit -m "Reorganize portfolio: move project pages to projects/ and dashboards to dashboards/"
     if errorlevel 1 (
         echo Commit failed!
         pause
@@ -67,7 +71,7 @@ if errorlevel 1 (
 
 REM --- Push to GitHub ---
 echo.
-echo Pushing to GitHub (this may take a few minutes for the large initial push)...
+echo Pushing to GitHub...
 git push origin main
 if errorlevel 1 (
     echo Push failed! Check the error above.
@@ -78,6 +82,6 @@ if errorlevel 1 (
 echo.
 echo ==========================================
 echo Push successful!
-echo The site should redeploy on Vercel/Render automatically.
+echo Vercel/Render will redeploy automatically.
 echo ==========================================
 pause
