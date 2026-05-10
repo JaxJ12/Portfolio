@@ -1332,4 +1332,19 @@
       const idx = previewLinks.indexOf(link);
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
       const href = link.dataset.href;
-      previewUrl.textConten
+      previewUrl.textContent = href;
+      previewBadge.textContent = link.dataset.previewBadge || "";
+      if (previewClickLink) previewClickLink.href = href;
+      iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
+    }
+
+    previewLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => setActivePreview(link));
+      link.addEventListener("click",      () => setActivePreview(link));
+    });
+
+    if (previewLinks.length) setActivePreview(previewLinks[0]);
+  </script>
+
+</body>
+</html>
