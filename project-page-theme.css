@@ -1,6 +1,8 @@
 body.project-page {
-  --bg:    #faf8f3;
-  --paper: #faf8f3;
+  --bg:              #faf8f3;
+  --paper:           #faf8f3;
+  --surface-strong:  #ebe3d3;
+  --line:            rgba(130, 100, 55, 0.14);
   --paper-soft: #f4eee3;
   --paper-strong: #ebe3d3;
   --ink: #1c1710;
