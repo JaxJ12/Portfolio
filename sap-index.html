@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assistant.css" />
   <style>
     :root {
       --bg: #0c1522;
@@ -1287,28 +1286,6 @@
   <div class="page-transition" aria-hidden="true">
     <div class="page-transition__panel"></div>
   </div>
-  <div class="site-assistant" data-site-assistant>
-    <button class="site-assistant__toggle" type="button" data-site-assistant-toggle aria-expanded="false" aria-controls="site-assistant-panel">
-      <span class="site-assistant__toggle-mark">AI</span>
-      <span class="site-assistant__toggle-copy">
-        <strong>Briefing Assistant</strong>
-        <span>Ask about the pitch, valuation, or next steps.</span>
-      </span>
-    </button>
-    <div class="site-assistant__panel" id="site-assistant-panel" data-site-assistant-panel hidden>
-      <div class="site-assistant__header">
-        <div>
-          <p class="site-assistant__eyebrow">Baylor x SAP</p>
-          <p class="site-assistant__title">Briefing Assistant</p>
-          <p class="site-assistant__subcopy">Use the chatbot to navigate the proposal, compare activations, and sharpen executive talking points.</p>
-        </div>
-        <button class="site-assistant__close" type="button" data-site-assistant-close aria-label="Close briefing assistant">×</button>
-      </div>
-      <div class="site-assistant__frame-wrap">
-        <iframe class="site-assistant__frame" title="Baylor x SAP Briefing Assistant" data-site-assistant-frame data-src="widget.html" loading="lazy"></iframe>
-      </div>
-    </div>
-  </div>
 
   <main>
     <section class="hero">
@@ -1934,6 +1911,5 @@
       });
     });
   </script>
-  <script src="assistant.js"></script>
 </body>
 </html>

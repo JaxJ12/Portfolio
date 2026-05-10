@@ -91,84 +91,8 @@
 </style>
   <link rel="stylesheet" href="transition.css" />
   <script src="transition.js" defer></script>
-  <link rel="stylesheet" href="assistant.css" />
 </head>
 <body>
-  <div class="site-assistant" data-site-assistant>
-    <button class="site-assistant__toggle" type="button" data-site-assistant-toggle aria-expanded="false" aria-controls="site-assistant-panel">
-      <span class="site-assistant__toggle-mark">AI</span>
-      <span class="site-assistant__toggle-copy">
-        <strong>Portfolio Assistant</strong>
-        <span>Ask about experience, projects, or where to look.</span>
-      </span>
-    </button>
-    <div class="site-assistant__panel" id="site-assistant-panel" data-site-assistant-panel hidden>
-      <div class="site-assistant__header">
-        <div>
-          <p class="site-assistant__eyebrow">Portfolio</p>
-          <p class="site-assistant__title">Portfolio Assistant</p>
-          <p class="site-assistant__subcopy">Ask questions about the work, projects, or how to get in touch.</p>
-        </div>
-        <button class="site-assistant__close" type="button" data-site-assistant-close aria-label="Close portfolio assistant">x</button>
-      </div>
-      <div class="site-assistant__frame-wrap">
-        <iframe class="site-assistant__frame" title="Portfolio Assistant" data-site-assistant-frame data-src="portfolio-assistant.html" loading="lazy"></iframe>
-      </div>
-    </div>
-  </div>
-
-<div class="header">
-  <div class="header__logo">A&amp;Ω</div>
-  <div>
-    <div class="header__title">Alpha &amp; Omega Transcript Processor</div>
-    <div class="header__sub">Insurance call automation — client-side processing</div>
-  </div>
-  <span class="header__badge">Live Tool</span>
-</div>
-
-<div class="app">
-
-  <!-- ── INPUT PANE ── -->
-  <div class="pane pane--left">
-    <div class="section-hdr">Client Info (optional)</div>
-    <div class="field-row">
-      <div>
-        <div class="field-label">Full Name</div>
-        <input id="clientName" type="text" placeholder="Margaret R.">
-      </div>
-      <div>
-        <div class="field-label">Email</div>
-        <input id="clientEmail" type="email" placeholder="margaret@email.com">
-      </div>
-    </div>
-    <div class="field-row">
-      <div>
-        <div class="field-label">Phone</div>
-        <input id="clientPhone" type="text" placeholder="(555) 123-4567">
-      </div>
-      <div>
-        <div class="field-label">Notes</div>
-        <input id="clientNotes" type="text" placeholder="Turning 65 in March...">
-      </div>
-    </div>
-
-    <div class="section-hdr">Call Transcript</div>
-    <button class="sample-btn" onclick="loadSample()">↓ Load sample transcript</button>
-    <textarea class="transcript-area" id="transcript" placeholder="Paste the call transcript here — any length or format. The tool will extract client details, identify plans discussed, build a task list, and draft a follow-up email automatically."></textarea>
-
-    <button class="btn-process" id="processBtn" onclick="process()">Process Transcript →</button>
-    <p class="hint">All processing happens in your browser — nothing is sent to a server.</p>
-  </div>
-
-  <!-- ── OUTPUT PANE ── -->
-  <div class="pane" id="outputPane">
-    <div class="empty">
-      <div class="empty__icon">📋</div>
-      <div class="empty__text">Paste a transcript and click Process to generate the full automation package.</div>
-    </div>
-  </div>
-
-</div>
 
 <script>
 // ── Ported logic from route.js ─────────────────────────────────────
@@ -415,7 +339,6 @@ function copyEmail() {
   });
 }
 </script>
-  <script src="assistant.js"></script>
 </body>
 </html>
 
