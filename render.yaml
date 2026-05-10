@@ -1,0 +1,6 @@
+services:
+  - type: static_site
+    name: portfolio
+    staticPublishPath: .
+    buildCommand: git submodule update --init --recursive
+    envVars: []
