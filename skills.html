@@ -20,67 +20,24 @@
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--bg); color: var(--text); font-family: "Space Grotesk", sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-    /* ── Nav ── */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 16px 32px;
+    /* ── Back nav ── */
+    .back-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(250, 248, 243, 0.92);
-      border-bottom: 1px solid var(--line);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 32px;
+      display: flex; align-items: center; gap: 20px;
     }
-
-    .top-nav__logo {
-      font-family: "Playfair Display", serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .back-nav a {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+      text-decoration: none; transition: color 0.18s;
     }
-
-    .top-nav__logo span { color: var(--gold); }
-
-    .top-nav__links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .top-nav__links a {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.2s ease;
-    }
-
-    .top-nav__links a:hover,
-    .top-nav__links a.is-active {
-      color: var(--text);
-    }
-
-    .top-nav__cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 0 18px;
-      border-radius: 999px;
-      background: var(--text);
-      color: #faf8f3;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
+    .back-nav a:hover { color: var(--text); }
+    .back-nav .breadcrumb { font-size: 13px; color: var(--muted); }
+    .back-nav .breadcrumb span { color: var(--gold); }
 
     /* ── Page ── */
     .page { width: min(1100px, calc(100% - 48px)); margin: 0 auto; padding-bottom: 80px; }
@@ -136,7 +93,7 @@
     .reveal.is-visible { opacity: 1; transform: none; }
     .reveal--d1 { transition-delay: 0.08s; } .reveal--d2 { transition-delay: 0.16s; } .reveal--d3 { transition-delay: 0.24s; }
 
-    @media (max-width: 768px) { .skills-grid, .cert-grid { grid-template-columns: 1fr; } .top-nav__links { display: none; } }
+    @media (max-width: 768px) { .skills-grid, .cert-grid { grid-template-columns: 1fr; } }
   </style>
   <link rel="stylesheet" href="transition.css" />
   <script src="transition.js" defer></script>
@@ -167,20 +124,15 @@
   </div>
   <div class="page-transition" aria-hidden="true"><div class="page-transition__panel"></div></div>
 
-  <nav class="top-nav" aria-label="Portfolio navigation">
-    <div class="top-nav__logo">Jax <span>Johnson</span></div>
-    <div class="top-nav__links">
-      <a href="index.html">Overview</a>
-      <a href="experience.html">Experience</a>
-      <a href="dashboards.html">Dashboards</a>
-      <a href="social.html">Social</a>
-      <a href="class-projects.html">Projects</a>
-      <a href="about.html">About</a>
-    </div>
-    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+  <nav class="back-nav">
+    <a href="experience.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Experience
+    </a>
+    <span class="breadcrumb">Experience / <span>Skills &amp; Credentials</span></span>
   </nav>
 
-  <main>
+  <main style="padding-top: 52px;">
     <div class="page">
 
       <!-- ── Hero ── -->

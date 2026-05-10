@@ -5,6 +5,6 @@ if exist ".git\index.lock" del /f ".git\index.lock"
 if exist ".git\index" del /f ".git\index"
 git reset HEAD
 git add -A
-git commit -m "Move View Webpage to card top row, remove chatbot from all integrated pages"
+git commit -m "Skills page back-nav, remove chatbot from integrated pages, card UX + knowledge base updates"
 git push origin main
 pause
