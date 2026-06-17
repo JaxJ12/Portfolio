@@ -610,6 +610,289 @@
     .site-footer__name { font-size: 12px; font-weight: 700; color: var(--text); }
     .site-footer__meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
     .site-footer__legal { font-size: 11px; color: var(--muted); text-align: right; opacity: 0.7; }
+    /* ── LinkedIn Feed ── */
+    .li-feed-wrapper {
+      margin-top: 26px;
+      position: relative;
+    }
+
+    .li-feed-scroll {
+      max-height: 780px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-right: 6px;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    .li-feed-scroll::-webkit-scrollbar { width: 4px; }
+    .li-feed-scroll::-webkit-scrollbar-track { background: transparent; }
+    .li-feed-scroll::-webkit-scrollbar-thumb {
+      background: var(--line-strong);
+      border-radius: 999px;
+    }
+
+    /* Bottom fade */
+    .li-feed-wrapper::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 6px;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, #f6f0e4);
+      pointer-events: none;
+      border-radius: 0 0 20px 20px;
+    }
+
+    /* Individual post card */
+    .li-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 2px 12px rgba(28, 23, 16, 0.06);
+      padding: 18px 20px;
+      cursor: default;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .li-card:hover {
+      box-shadow: 0 4px 20px rgba(28, 23, 16, 0.11);
+    }
+
+    .li-card__header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .li-card__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+
+    .li-card__meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .li-card__name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0a66c2;
+      line-height: 1.3;
+      cursor: pointer;
+    }
+
+    .li-card__name:hover { text-decoration: underline; }
+
+    .li-card__connection {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--faint);
+    }
+
+    .li-card__headline {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .li-card__timestamp {
+      font-size: 12px;
+      color: var(--faint);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .li-card__timestamp svg {
+      flex-shrink: 0;
+    }
+
+    .li-card__more-btn {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--faint);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .li-card__more-btn:hover { background: var(--surface-soft); }
+
+    .li-card__body {
+      font-size: 14px;
+      line-height: 1.68;
+      color: #1c1710;
+      white-space: pre-line;
+      word-break: break-word;
+    }
+
+    .li-card__body.is-truncated { cursor: pointer; }
+
+    .li-card__see-more {
+      display: inline;
+      color: var(--faint);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .li-card__see-more:hover { color: var(--text); }
+
+    .li-card__image {
+      width: 100%;
+      border-radius: 8px;
+      margin: 10px 0 4px;
+      object-fit: cover;
+      max-height: 280px;
+    }
+
+    .li-card__hashtags {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .li-card__hashtag {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0a66c2;
+      cursor: pointer;
+    }
+
+    .li-card__hashtag:hover { text-decoration: underline; }
+
+    .li-card__reactions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0 6px;
+      border-top: 1px solid #e9e5de;
+      margin-top: 14px;
+    }
+
+    .li-card__reaction-icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--faint);
+    }
+
+    .li-card__reaction-emojis {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .li-card__comments-count {
+      font-size: 13px;
+      color: var(--faint);
+      cursor: pointer;
+    }
+
+    .li-card__comments-count:hover { text-decoration: underline; color: var(--text); }
+
+    .li-card__actions {
+      display: flex;
+      gap: 0;
+      padding-top: 2px;
+      border-top: 1px solid #e9e5de;
+      margin-top: 2px;
+    }
+
+    .li-card__action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      border-radius: 8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .li-card__action-btn:hover {
+      background: var(--surface-soft);
+      color: var(--text);
+    }
+
+    .li-card__action-btn svg {
+      flex-shrink: 0;
+    }
+
+    .li-feed-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding: 0 4px;
+    }
+
+    .li-view-all {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0a66c2;
+    }
+
+    .li-view-all:hover { text-decoration: underline; }
+
+    .li-update-hint {
+      font-size: 11px;
+      color: var(--faint);
+    }
+
+    .li-update-hint code {
+      font-family: monospace;
+      background: var(--surface-soft);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .li-skeleton {
+      text-align: center;
+      padding: 40px;
+      font-size: 13px;
+      color: var(--faint);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
   </style>
   <link rel="stylesheet" href="transition.css" />
   <script src="transition.js" defer></script>
@@ -643,10 +926,9 @@
     <div class="top-nav__logo">Jax <span>Johnson</span></div>
     <div class="top-nav__links">
       <a href="index.html">Overview</a>
-      <a href="experience.html">Experience</a>
-      <a href="dashboards.html">Dashboards</a>
-      <a class="is-active" href="social.html">Social</a>
+      <a class="is-active" href="social.html">Social Media</a>
       <a href="class-projects.html">Projects</a>
+      <a href="dashboards.html">Dashboards</a>
       <a href="about.html">About</a>
     </div>
     <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
@@ -927,9 +1209,302 @@
       </div>
     </section>
 
+    <!-- ═══ LINKEDIN FEED ═══ -->
+    <section>
+      <p class="section-label">LinkedIn</p>
+      <h2 class="section-title">In the field.</h2>
+      <p class="section-intro">Real-time updates from the work as it happens — partnerships, milestones, and professional moments posted directly to LinkedIn. Add new posts to <code style="font-size:12px;background:rgba(28,23,16,0.06);padding:2px 6px;border-radius:5px;">linkedin-posts.json</code> and they'll appear here automatically.</p>
+
+      <div class="li-feed-wrapper">
+        <div class="li-feed-scroll" id="liFeed">
+          <div class="li-skeleton">Loading posts…</div>
+        </div>
+      </div>
+
+      <div class="li-feed-footer">
+        <a class="li-view-all" href="https://www.linkedin.com/in/jax-johnson/" target="_blank">View full profile on LinkedIn →</a>
+        <span class="li-update-hint">Data source: <code>linkedin-posts.json</code></span>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer">
     <div>
       <p class="site-footer__name">Jax Johnson</p>
-      <p class="site-footer__meta">Social Media &amp; Content Creation &bull; Marketing &amp; MIS &bull; Baylor Universit
+      <p class="site-footer__meta">Social Media &amp; Content Creation &bull; Marketing &amp; MIS &bull; Baylor University</p>
+    </div>
+    <span class="site-footer__legal">Social Media</span>
+  </footer>
+
+  <script>
+  /* ══════════════════════════════════════════════════════════
+     LinkedIn Feed — LIVE SYNC CONFIG
+     ──────────────────────────────────────────────────────────
+     STEP 1 ▸ Go to https://jsonbin.io → sign up free → New Bin
+              Paste the contents of linkedin-posts.json → Save
+              Copy the Bin URL (format: /v3/b/YOUR_ID/latest)
+
+     STEP 2 ▸ Replace the LI_FEED_URL below with your bin URL:
+              const LI_FEED_URL = "https://api.jsonbin.io/v3/b/YOUR_ID/latest";
+
+     STEP 3 ▸ Set up n8n automation (see SETUP GUIDE below).
+              n8n will update the JSONBin whenever you post on LinkedIn.
+              The portfolio fetches fresh data on every page load.
+
+     SETUP GUIDE — n8n workflow (5 nodes):
+     ────────────────────────────────────────
+     Node 1 — Schedule Trigger (every 2 hours)
+     Node 2 — HTTP Request
+              Method: GET
+              URL: https://api.linkedin.com/v2/ugcPosts?q=authors&authors=List(urn:li:person:YOUR_PERSON_ID)&count=10&sortBy=LAST_MODIFIED
+              Headers: Authorization: Bearer YOUR_ACCESS_TOKEN
+                       LinkedIn-Version: 202304
+     Node 3 — Code node (transform LinkedIn response → portfolio JSON)
+              See the transform script at the bottom of this file.
+     Node 4 — HTTP Request
+              Method: PUT
+              URL: https://api.jsonbin.io/v3/b/YOUR_BIN_ID
+              Headers: X-Master-Key: YOUR_JSONBIN_KEY
+                       Content-Type: application/json
+              Body: {{ $json }}
+     Node 5 — Done ✓
+
+     GETTING YOUR LINKEDIN ACCESS TOKEN:
+     1. Go to https://www.linkedin.com/developers/apps → Create App
+     2. Add products: "Share on LinkedIn" + "Sign In with LinkedIn"
+     3. Auth tab → OAuth 2.0 → generate token with scopes:
+        r_liteprofile, r_emailaddress, r_member_social
+     4. Your Person ID is in your LinkedIn profile URL or token response.
+
+     ALTERNATIVE — Zapier (easier, no code):
+     LinkedIn trigger "New Post by User" → Zapier Formatter
+     → HTTP PUT to JSONBin. Requires Zapier Professional plan.
+  ══════════════════════════════════════════════════════════ */
+
+  // ── LIVE FEED URL ─────────────────────────────────────────
+  // Fetches directly from GitHub — updates automatically when
+  // your n8n workflow commits a new linkedin-posts.json to the repo.
+  const LI_FEED_URL = "https://raw.githubusercontent.com/JaxJ12/Portfolio/main/linkedin-posts.json";
+  // ──────────────────────────────────────────────────────────
+
+  const LI_HEADLINE = "MIS & S3E Marketing @ Baylor · Creator · @NotJax";
+  const LI_AVATAR   = "jax-headshot-bw.png";
+  const LI_NAME     = "Jax Johnson";
+  const LI_URL      = "https://www.linkedin.com/in/jax-johnson/";
+  const TRUNCATE_AT = 320; // characters before "…see more"
+
+  const ICONS = {
+    globe: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    like: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>`,
+    comment: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+    repost: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+    send: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`,
+    dots: `•••`
+  };
+
+  function timeAgo(dateStr) {
+    const posted = new Date(dateStr);
+    const now = new Date();
+    const diffDays = Math.round((now - posted) / (1000 * 60 * 60 * 24));
+    if (diffDays < 1)  return "Today";
+    if (diffDays < 7)  return `${diffDays}d`;
+    if (diffDays < 30) return `${Math.round(diffDays / 7)}w`;
+    if (diffDays < 365) return `${Math.round(diffDays / 30)}mo`;
+    return `${Math.round(diffDays / 365)}y`;
+  }
+
+  function formatNumber(n) {
+    return n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "K" : String(n);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function renderPost(post) {
+    const fullText = escapeHtml(post.text);
+    const truncated = post.text.length > TRUNCATE_AT;
+    const shortText = truncated
+      ? escapeHtml(post.text.slice(0, TRUNCATE_AT).trimEnd()) + "…"
+      : fullText;
+
+    const hashtagsHtml = (post.hashtags || [])
+      .map(h => `<span class="li-card__hashtag">${escapeHtml(h)}</span>`)
+      .join(" ");
+
+    const ago = timeAgo(post.date);
+
+    return `
+      <article class="li-card">
+        <div class="li-card__header">
+          <img class="li-card__avatar" src="${LI_AVATAR}" alt="${LI_NAME}" />
+          <div class="li-card__meta">
+            <div class="li-card__name">
+              <a href="${LI_URL}" target="_blank" style="color:inherit;text-decoration:none;">${LI_NAME}</a>
+              <span class="li-card__connection">· 1st</span>
+            </div>
+            <div class="li-card__headline">${LI_HEADLINE}</div>
+            <div class="li-card__timestamp">
+              ${ago} · ${ICONS.globe}
+            </div>
+          </div>
+          <button class="li-card__more-btn" aria-label="More options">${ICONS.dots}</button>
+        </div>
+
+        <div class="li-card__body${truncated ? " is-truncated" : ""}" data-full="${post.id}" data-truncated="${truncated}">
+          <span class="li-card__text">${shortText}</span>${truncated
+            ? ` <span class="li-card__see-more" onclick="expandPost('${post.id}', this)">see more</span>`
+            : ""}
+        </div>
+
+        ${post.image ? `<img class="li-card__image" src="${post.image}" alt="Post image" loading="lazy" />` : ""}
+
+        ${hashtagsHtml ? `<div class="li-card__hashtags">${hashtagsHtml}</div>` : ""}
+
+        <div class="li-card__reactions-row">
+          <div class="li-card__reaction-icons">
+            <span class="li-card__reaction-emojis">${post.reactionTypes || "👍"}</span>
+            <span>${formatNumber(post.reactions || 0)}</span>
+          </div>
+          <span class="li-card__comments-count">${post.comments || 0} comments</span>
+        </div>
+
+        <div class="li-card__actions">
+          <button class="li-card__action-btn">${ICONS.like} Like</button>
+          <button class="li-card__action-btn">${ICONS.comment} Comment</button>
+          <button class="li-card__action-btn">${ICONS.repost} Repost</button>
+          <button class="li-card__action-btn">${ICONS.send} Send</button>
+        </div>
+      </article>
+    `;
+  }
+
+  // Full post text stored for expand
+  const _postCache = {};
+
+  function expandPost(id, btn) {
+    const post = _postCache[id];
+    if (!post) return;
+    const body = document.querySelector(`[data-full="${id}"]`);
+    if (!body) return;
+    body.querySelector(".li-card__text").innerHTML = escapeHtml(post.text);
+    btn.remove();
+  }
+
+  // Detect if we're using the live JSONBin URL or local file
+  const IS_LIVE = LI_FEED_URL.startsWith("http");
+
+  // Show live badge if using remote source
+  function showLiveBadge() {
+    const label = document.querySelector(".li-update-hint");
+    if (label && IS_LIVE) {
+      label.innerHTML = `<span style="display:inline-flex;align-items:center;gap:5px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#5cb85c;display:inline-block;animation:pulse 2s infinite;"></span>
+        Live — syncs automatically when you post on LinkedIn
+      </span>`;
+    }
+  }
+
+  // Parse LinkedIn raw API response OR pre-formatted portfolio JSON
+  function normalizePost(raw) {
+    // If it already has our portfolio format fields, pass through
+    if (raw.id && raw.text !== undefined) return raw;
+    // Otherwise try to parse LinkedIn UGC API format
+    try {
+      const text = raw.specificContent?.["com.linkedin.ugc.ShareContent"]
+        ?.shareCommentary?.text || "";
+      const ts = raw.created?.time;
+      const date = ts ? new Date(ts).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
+      return {
+        id: raw.id || String(Date.now()),
+        date,
+        dateLabel: "",
+        text,
+        hashtags: [],
+        reactions: 0,
+        reactionTypes: "👍",
+        comments: 0,
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function loadFeed() {
+    const feed = document.getElementById("liFeed");
+    try {
+      const res = await fetch(LI_FEED_URL + (LI_FEED_URL.includes("?") ? "&" : "?") + "_t=" + Date.now());
+      if (!res.ok) throw new Error("fetch failed");
+      let data = await res.json();
+
+      // JSONBin wraps response in { record: [...] }
+      if (data.record) data = data.record;
+      // LinkedIn UGC API wraps in { elements: [...] }
+      if (data.elements) data = data.elements;
+      // Ensure it's an array
+      if (!Array.isArray(data)) data = [data];
+
+      const posts = data.map(normalizePost).filter(Boolean)
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+      posts.forEach(p => { _postCache[p.id] = p; });
+      feed.innerHTML = posts.map(renderPost).join("");
+      showLiveBadge();
+    } catch (e) {
+      // Fallback: try local linkedin-posts.json if the remote failed
+      if (IS_LIVE) {
+        try {
+          const fallback = await fetch("linkedin-posts.json?" + Date.now());
+          const posts = (await fallback.json())
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+          posts.forEach(p => { _postCache[p.id] = p; });
+          feed.innerHTML = posts.map(renderPost).join("");
+          const hint = document.querySelector(".li-update-hint");
+          if (hint) hint.textContent = "Showing cached posts — remote feed unavailable";
+        } catch (_) {
+          feed.innerHTML = `<div class="li-skeleton">Could not load posts.<br><br><a href="${LI_URL}" target="_blank" style="color:#0a66c2;">View on LinkedIn →</a></div>`;
+        }
+      } else {
+        feed.innerHTML = `<div class="li-skeleton">Open this page via a local server (e.g. VS Code Live Server) or deploy it online for the feed to load.<br><br><a href="${LI_URL}" target="_blank" style="color:#0a66c2;">View on LinkedIn →</a></div>`;
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadFeed);
+
+  /* ══════════════════════════════════════════════════════════
+     n8n CODE NODE — paste into the "Code" node in your workflow
+     This transforms the raw LinkedIn UGC API response into the
+     portfolio JSON format and merges with existing posts.
+     ──────────────────────────────────────────────────────────
+     const elements = $input.first().json.elements || [];
+     const existing = $node["Get Current Bin"].json.record || [];
+     const existingIds = new Set(existing.map(p => p.id));
+
+     const newPosts = elements
+       .filter(e => !existingIds.has(e.id))
+       .map(e => {
+         const commentary = e.specificContent?.["com.linkedin.ugc.ShareContent"]
+           ?.shareCommentary?.text || "";
+         const ts = e.created?.time;
+         const date = ts ? new Date(ts).toISOString().split("T")[0] : "";
+         const words = commentary.split(" ");
+         const hashtags = words.filter(w => w.startsWith("#"));
+         return {
+           id: e.id,
+           date,
+           dateLabel: "",
+           text: commentary,
+           hashtags,
+           reactions: 0,
+           reactionTypes: "👍",
+           comments: 0
+         };
+       });
+
+     return [...newPosts, ...existing];
+  ══════════════════════════════════════════════════════════ */
+  </script>
+  <script src="assistant.js"></script>
+</body>
+</html>
