@@ -762,6 +762,17 @@
       gap: 8px;
     }
 
+    .preview-link__shot {
+      display: none;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      margin-top: 4px;
+    }
+
     .note-panel {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
@@ -936,7 +947,10 @@
          to scroll; trim the longer supporting text. */
       .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
       .preview-link { padding: 14px 14px 16px; gap: 9px; border-radius: 16px; }
-      .preview-link__copy { font-size: 12px; }
+      /* On mobile show a picture preview of each page instead of the text body. */
+      .preview-link__shot { display: block; }
+      .preview-link__copy { display: none; }
+      .preview-link__tags { display: none; }
       .preview-link__best-for { display: none; }
       .preview-link__route { display: none; }
     }
@@ -1368,6 +1382,35 @@
     })();
 
     const previewLinks    = Array.from(document.querySelectorAll(".preview-link"));
+
+    /* Mobile-only: drop a captured screenshot into each card so the section
+       reads as a visual gallery instead of long text bodies. */
+    const previewShots = {
+      "social.html": "preview-social.png",
+      "dashboards.html": "preview-dashboards.png",
+      "class-projects.html": "preview-projects.png",
+      "chatbot.html": "preview-chatbot.png",
+      "about.html": "preview-about.png",
+      "projects/project-n8n.html": "preview-n8n.png",
+      "projects/project-langchain.html": "preview-langchain.png",
+      "projects/project-aistudio.html": "preview-aistudio.png",
+      "projects/project-ml.html": "preview-ml.png",
+      "projects/project-skillswap.html": "preview-skillswap.png",
+      "projects/project-chatbot.html": "preview-projchatbot.png",
+    };
+    previewLinks.forEach((link) => {
+      const shot = previewShots[link.dataset.href];
+      if (!shot) return;
+      const img = document.createElement("img");
+      img.className = "preview-link__shot";
+      img.src = shot;
+      img.alt = (link.querySelector(".preview-link__title")?.textContent || "Page") + " preview";
+      img.loading = "lazy";
+      const title = link.querySelector(".preview-link__title");
+      if (title) title.insertAdjacentElement("afterend", img);
+      else link.appendChild(img);
+    });
+
     const previewFrame    = document.getElementById("preview-frame");
     const previewUrl      = document.getElementById("preview-stage-url");
     const previewBadge    = document.getElementById("preview-stage-badge");
