@@ -879,21 +879,20 @@
       .top-nav__links a { font-size: 13px; }
       .top-nav__cta { align-self: flex-start; }
       .page-shell { width: calc(100% - 32px); }
-      .hero,
       .note-panel {
         grid-template-columns: 1fr;
       }
-      /* Show a compact headshot at the top of the hero on mobile instead
-         of a full-size panel buried under the contact emails. */
+      /* Keep the headshot beside the hero title (like desktop) but small,
+         so the photo shows on landing without burying it under the text. */
       .hero {
-        padding: 26px 0 22px;
-        gap: 18px;
-        justify-items: start;
+        grid-template-columns: 1fr 104px;
+        gap: 16px;
+        align-items: start;
+        padding: 24px 0 22px;
       }
       .hero__panel {
-        order: -1;
-        max-width: 150px;
-        border-radius: 20px;
+        max-width: 104px;
+        border-radius: 16px;
       }
       .hero__panel-copy { display: none; }
       .preview-stage__meta { grid-template-columns: 1fr; }
