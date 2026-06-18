@@ -214,36 +214,27 @@ body.site-assistant-open .site-assistant__toggle {
 @media (max-width: 900px) {
   :root {
     --assistant-offset: 16px;
+    --assistant-panel-width: min(340px, calc(100vw - 32px));
+    --assistant-panel-height: min(68vh, 560px);
   }
 
-  .site-assistant {
-    bottom: 92px;
-  }
-
-  .site-assistant__panel {
-    height: min(68vh, 620px);
-  }
-}
-
-@media (max-width: 640px) {
-  :root {
-    --assistant-offset: 12px;
-    --assistant-panel-width: calc(100vw - 16px);
-  }
-
-  .site-assistant {
-    right: var(--assistant-offset);
-    left: var(--assistant-offset);
-    align-items: stretch;
-  }
-
+  /* Compact circular bubble in the corner, just the "AI" mark */
   .site-assistant__toggle {
+    width: 52px;
+    height: 52px;
+    min-height: 52px;
+    padding: 0;
+    border-radius: 50%;
     justify-content: center;
   }
 
-  .site-assistant__panel {
-    width: 100%;
-    height: min(70vh, 600px);
-    border-radius: 20px;
+  .site-assistant__toggle-copy {
+    display: none;
+  }
+
+  .site-assistant__toggle-mark {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
   }
 }
