@@ -63,6 +63,38 @@
 
     .top-nav__logo span { color: var(--gold); }
 
+    .top-nav__menu {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .top-nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: transparent;
+      cursor: pointer;
+    }
+    .top-nav__toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 0 auto;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .top-nav.is-open .top-nav__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .top-nav.is-open .top-nav__toggle span:nth-child(2) { opacity: 0; }
+    .top-nav.is-open .top-nav__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     .top-nav__links {
       display: flex;
       align-items: center;
@@ -816,11 +848,31 @@
 
     @media (max-width: 900px) {
       .top-nav {
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 14px 20px;
+      }
+      .top-nav__toggle { display: flex; }
+      .top-nav__menu {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        width: 100%;
+        order: 3;
+        padding-top: 14px;
+        margin-top: 14px;
+        border-top: 1px solid var(--line);
+      }
+      .top-nav.is-open .top-nav__menu { display: flex; }
+      .top-nav__links {
         flex-direction: column;
         align-items: flex-start;
-        padding: 16px 20px;
+        gap: 16px;
+        flex-wrap: nowrap;
       }
-      .top-nav__links { gap: 14px; }
+      .top-nav__links a { font-size: 13px; }
+      .top-nav__cta { align-self: flex-start; }
       .page-shell { width: calc(100% - 32px); }
       .hero,
       .note-panel {
@@ -874,14 +926,19 @@
   </div>
   <nav class="top-nav" aria-label="Portfolio navigation">
     <div class="top-nav__logo">Jax <span>Johnson</span></div>
-    <div class="top-nav__links">
-      <a class="is-active" href="index.html">Overview</a>
-      <a href="social.html">Social Media</a>
-      <a href="class-projects.html">Projects</a>
-      <a href="dashboards.html">Dashboards</a>
-      <a href="about.html">About</a>
+    <button class="top-nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="top-nav__menu" id="nav-menu">
+      <div class="top-nav__links">
+        <a class="is-active" href="index.html">Overview</a>
+        <a href="social.html">Social Media</a>
+        <a href="class-projects.html">Projects</a>
+        <a href="dashboards.html">Dashboards</a>
+        <a href="about.html">About</a>
+      </div>
+      <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
     </div>
-    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
   </nav>
 
   <main class="page-shell">
@@ -1266,6 +1323,21 @@
   </footer>
 
   <script>
+    /* Mobile hamburger nav */
+    (function () {
+      const nav = document.querySelector(".top-nav");
+      const toggle = document.getElementById("nav-toggle");
+      const menu = document.getElementById("nav-menu");
+      if (!nav || !toggle || !menu) return;
+      const close = () => { nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); };
+      toggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+      window.addEventListener("resize", () => { if (window.innerWidth > 900) close(); });
+    })();
+
     const previewLinks    = Array.from(document.querySelectorAll(".preview-link"));
     const previewFrame    = document.getElementById("preview-frame");
     const previewUrl      = document.getElementById("preview-stage-url");
