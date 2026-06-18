@@ -1273,20 +1273,39 @@
     const previewClickLink = document.getElementById("preview-click-link");
     const badge           = previewBadge;
 
-    /* Pre-load one iframe per link — no src-swapping, no reload flicker */
-    const iframes = previewLinks.map((link) => {
-      const src = link.dataset.href;
-      const f = document.createElement("iframe");
-      f.className = "preview-iframe";
-      f.src = src;
-      f.title = link.dataset.previewTitle || src;
-      f.loading = "lazy";
-      f.style.opacity = "0";
-      previewFrame.insertBefore(f, badge);
-      return f;
-    });
+    /* Mobile Safari cannot hold many live iframes (each loads a full page),
+       so on touch / narrow viewports we use a SINGLE iframe and swap its src.
+       Desktop keeps the pre-loaded gallery for flicker-free hover previews. */
+    const isMobile = window.matchMedia("(max-width: 900px), (hover: none)").matches;
 
-    /* Scale all iframes to fill the frame at every viewport size */
+    let iframes = [];
+    let mobileFrame = null;
+    let currentMobileSrc = null;
+
+    if (!isMobile) {
+      /* Desktop: pre-load one iframe per link, no src-swapping */
+      iframes = previewLinks.map((link) => {
+        const src = link.dataset.href;
+        const f = document.createElement("iframe");
+        f.className = "preview-iframe";
+        f.src = src;
+        f.title = link.dataset.previewTitle || src;
+        f.loading = "lazy";
+        f.style.opacity = "0";
+        previewFrame.insertBefore(f, badge);
+        return f;
+      });
+    } else {
+      /* Mobile: one shared iframe, lazily pointed at the active page */
+      mobileFrame = document.createElement("iframe");
+      mobileFrame.className = "preview-iframe";
+      mobileFrame.loading = "lazy";
+      mobileFrame.style.opacity = "1";
+      previewFrame.insertBefore(mobileFrame, badge);
+      iframes = [mobileFrame];
+    }
+
+    /* Scale iframe(s) to fill the frame at every viewport size */
     function scaleIframes() {
       if (!previewFrame) return;
       const scale = previewFrame.offsetWidth / 1440;
@@ -1300,7 +1319,6 @@
     window.addEventListener("resize", scaleIframes);
     new ResizeObserver(scaleIframes).observe(previewFrame);
 
-    /* Switch active preview — pure opacity swap, already-loaded pages */
     function setActivePreview(link) {
       const idx = previewLinks.indexOf(link);
       previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
@@ -1308,12 +1326,20 @@
       previewUrl.textContent = href;
       previewBadge.textContent = link.dataset.previewBadge || "";
       if (previewClickLink) previewClickLink.href = href;
-      iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
+
+      if (isMobile) {
+        if (href !== currentMobileSrc) {
+          currentMobileSrc = href;
+          mobileFrame.src = href;
+        }
+      } else {
+        iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
+      }
     }
 
     previewLinks.forEach((link) => {
-      link.addEventListener("mouseenter", () => setActivePreview(link));
-      link.addEventListener("click",      () => setActivePreview(link));
+      if (!isMobile) link.addEventListener("mouseenter", () => setActivePreview(link));
+      link.addEventListener("click", () => setActivePreview(link));
     });
 
     if (previewLinks.length) setActivePreview(previewLinks[0]);
