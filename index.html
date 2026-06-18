@@ -883,6 +883,19 @@
       .note-panel {
         grid-template-columns: 1fr;
       }
+      /* Show a compact headshot at the top of the hero on mobile instead
+         of a full-size panel buried under the contact emails. */
+      .hero {
+        padding: 26px 0 22px;
+        gap: 18px;
+        justify-items: start;
+      }
+      .hero__panel {
+        order: -1;
+        max-width: 150px;
+        border-radius: 20px;
+      }
+      .hero__panel-copy { display: none; }
       .preview-stage__meta { grid-template-columns: 1fr; }
     }
 
