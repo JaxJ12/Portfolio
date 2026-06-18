@@ -275,6 +275,8 @@
       padding: 0;
     }
 
+    .hero__head-photo { display: none; }
+
     .hero__panel-copy {
       padding: 18px 22px 20px;
       border-top: 1px solid var(--line);
@@ -882,27 +884,29 @@
       .note-panel {
         grid-template-columns: 1fr;
       }
-      /* Circular headshot vertically centered beside the hero title on
-         mobile, so the photo shows cleanly on landing. */
+      /* Mobile: circular headshot beside the title only (vertically
+         centered to it); description, chips, and links go full width
+         below so nothing wraps into a narrow column. */
       .hero {
-        grid-template-columns: 1fr 112px;
-        gap: 16px;
-        align-items: center;
+        grid-template-columns: 1fr;
         padding: 24px 0 22px;
       }
-      .hero__panel {
-        max-width: 112px;
-        border: none;
-        background: none;
-        box-shadow: none;
-        border-radius: 50%;
-        overflow: hidden;
+      .hero__panel { display: none; }
+      .hero__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
       }
-      .hero__photo {
+      .hero__head-photo {
+        display: block;
+        width: 96px;
+        height: 96px;
+        flex: 0 0 auto;
         border-radius: 50%;
+        object-fit: cover;
         object-position: center top;
       }
-      .hero__panel-copy { display: none; }
       .preview-stage__meta { grid-template-columns: 1fr; }
     }
 
@@ -985,8 +989,13 @@
   <main class="page-shell">
     <section class="hero">
       <div>
-        <p class="eyebrow">Portfolio Overview</p>
-        <h1 class="hero__title">Marketing, MIS,<br><span>Social Media, AI building</span>.</h1>
+        <div class="hero__head">
+          <div>
+            <p class="eyebrow">Portfolio Overview</p>
+            <h1 class="hero__title">Marketing, MIS,<br><span>Social Media, AI building</span>.</h1>
+          </div>
+          <img class="hero__head-photo" src="jax-headshot-bw.png" alt="Jax Johnson headshot" />
+        </div>
         <p class="hero__copy">
           Marketing &amp; MIS at Baylor building across social media, AI tools, and
           portfolio-ready work. Content that performs, systems that support smarter
