@@ -886,6 +886,12 @@
       .preview-stage__meta { grid-template-columns: 1fr; }
     }
 
+    @media (max-width: 900px) {
+      /* On mobile the live preview pane is redundant (each card links out),
+         so hide it and let the compact card grid carry the section. */
+      .preview-stage { display: none; }
+    }
+
     @media (max-width: 640px) {
       .page-grid,
       .metrics {
@@ -900,6 +906,16 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      /* Keep project cards in two compact columns so the section is short
+         to scroll; trim the longer supporting text. */
+      .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .preview-link { padding: 14px 14px 16px; gap: 9px; border-radius: 16px; }
+      .preview-link__copy { font-size: 12px; }
+      .preview-link__best-for { display: none; }
+      .preview-link__route { display: none; }
+    }
+
+    @media (max-width: 430px) {
       .preview-rail { grid-template-columns: 1fr; }
     }
   </style>
