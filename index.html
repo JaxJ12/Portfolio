@@ -882,17 +882,25 @@
       .note-panel {
         grid-template-columns: 1fr;
       }
-      /* Keep the headshot beside the hero title (like desktop) but small,
-         so the photo shows on landing without burying it under the text. */
+      /* Circular headshot vertically centered beside the hero title on
+         mobile, so the photo shows cleanly on landing. */
       .hero {
-        grid-template-columns: 1fr 104px;
+        grid-template-columns: 1fr 112px;
         gap: 16px;
-        align-items: start;
+        align-items: center;
         padding: 24px 0 22px;
       }
       .hero__panel {
-        max-width: 104px;
-        border-radius: 16px;
+        max-width: 112px;
+        border: none;
+        background: none;
+        box-shadow: none;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .hero__photo {
+        border-radius: 50%;
+        object-position: center top;
       }
       .hero__panel-copy { display: none; }
       .preview-stage__meta { grid-template-columns: 1fr; }
