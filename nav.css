@@ -32,7 +32,8 @@
 .top-nav.is-open .top-nav__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 900px) {
-  .top-nav {
+  .top-nav,
+  .top-nav__inner {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;

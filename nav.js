@@ -1,14 +1,20 @@
 /* Shared hamburger nav: restructures an existing .top-nav into a
-   collapsible toggle + menu, then wires up open/close behavior. */
+   collapsible toggle + menu, then wires up open/close behavior.
+   Handles both flat navs (links/cta direct children of .top-nav) and
+   navs that wrap their row in a .top-nav__inner container. */
 (function () {
   function init() {
     const nav = document.querySelector(".top-nav");
     if (!nav) return;
 
-    let toggle = nav.querySelector(".top-nav__toggle");
-    let menu = nav.querySelector(".top-nav__menu");
+    const host = nav.querySelector(".top-nav__inner") || nav;
+    const logo = host.querySelector(".top-nav__logo");
+    const linksEl = host.querySelector(".top-nav__links");
+    const ctaEl = host.querySelector(".top-nav__cta");
 
-    /* Build the toggle + menu wrapper if the page uses the old flat markup */
+    let toggle = host.querySelector(".top-nav__toggle");
+    let menu = host.querySelector(".top-nav__menu");
+
     if (!toggle) {
       toggle = document.createElement("button");
       toggle.className = "top-nav__toggle";
@@ -17,19 +23,18 @@
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-controls", "nav-menu");
       toggle.innerHTML = "<span></span><span></span><span></span>";
-      const logo = nav.querySelector(".top-nav__logo");
-      if (logo && logo.nextSibling) nav.insertBefore(toggle, logo.nextSibling);
-      else nav.appendChild(toggle);
+      if (logo && logo.nextSibling) host.insertBefore(toggle, logo.nextSibling);
+      else if (logo) host.appendChild(toggle);
+      else host.insertBefore(toggle, host.firstChild);
     }
+
     if (!menu) {
       menu = document.createElement("div");
       menu.className = "top-nav__menu";
       menu.id = "nav-menu";
-      const movable = Array.from(nav.children).filter(
-        (el) => el.classList.contains("top-nav__links") || el.classList.contains("top-nav__cta")
-      );
-      nav.appendChild(menu);
-      movable.forEach((el) => menu.appendChild(el));
+      host.appendChild(menu);
+      if (linksEl) menu.appendChild(linksEl);
+      if (ctaEl) menu.appendChild(ctaEl);
     }
 
     const close = () => {

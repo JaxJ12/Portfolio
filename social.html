@@ -605,9 +605,14 @@
       .card-handle { margin-bottom: 9px; }
       .card-bullets { font-size: 11px; gap: 4px; }
       .card-date { margin-bottom: 7px; }
-      .skills-grid, .cert-grid { grid-template-columns: 1fr; }
-      .skill-card, .cert-card { border-right: none; border-bottom: 1px solid var(--line); }
-      .skill-card:last-child, .cert-card:last-child { border-bottom: none; }
+      /* Keep skills + certs in two compact columns so the bottom of the
+         page is condensed on mobile instead of one tall stack. */
+      .skill-card, .cert-card { padding: 14px 13px; }
+      .skill-card h3 { margin-bottom: 10px; }
+      .pill { padding: 5px 9px; font-size: 10.5px; }
+      .pill-row { gap: 6px; }
+      .cert-card strong { font-size: 0.92rem; }
+      .cert-card p { font-size: 12px; line-height: 1.55; }
       .contact-panel { grid-template-columns: 1fr; }
       .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; }
       .site-footer__legal { text-align: left; }
@@ -618,6 +623,9 @@
       .account-card { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
       .account-card:last-child { border-bottom: none !important; }
       .card-img { aspect-ratio: 16 / 9; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .cert-card { border-right: none; border-bottom: 1px solid var(--line); }
+      .cert-card:last-child { border-bottom: none; }
     }
     .site-footer {
       width: min(1200px, calc(100% - 48px)); margin: 0 auto; padding: 32px 0 52px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 16px;
@@ -1057,7 +1065,7 @@
             <div class="card-org">Instagram</div>
             <div class="card-handle">@j.xjohnson</div>
             <a class="card-img-link" href="https://www.instagram.com/j.xjohnson/" target="_blank" rel="noopener">
-              <img class="card-img" src="IMG_9128.jpeg" alt="Instagram profile @j.xjohnson, 12.1K followers" style="object-position: center 13%;" />
+              <img class="card-img" src="IMG_9128.jpeg" alt="Instagram profile @j.xjohnson, 12.1K followers" style="object-position: center 11%;" />
             </a>
             <div class="card-role">Content Creator</div>
             <ul class="card-bullets">
@@ -1079,7 +1087,7 @@
             <div class="card-org">TikTok · @NotJax</div>
             <div class="card-handle">Creator & Brand Partner</div>
             <a class="card-img-link" href="https://www.tiktok.com/@notjax" target="_blank" rel="noopener">
-              <img class="card-img" src="IMG_9129.jpeg" alt="@NotJax TikTok profile, 20K followers" style="object-position: center 8%;" />
+              <img class="card-img" src="IMG_9129.jpeg" alt="@NotJax TikTok profile, 20K followers" style="object-position: center 6%;" />
             </a>
             <div class="card-role">Creator and Brand Partner</div>
             <ul class="card-bullets">
