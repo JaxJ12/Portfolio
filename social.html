@@ -596,15 +596,28 @@
     @media (max-width: 680px) {
       .page { width: calc(100% - 28px); }
       .hero { grid-template-columns: 1fr; }
-      .accounts-grid { grid-template-columns: 1fr; }
-      .account-card { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
-      .account-card:last-child { border-bottom: none !important; }
+      /* Keep account cards in two compact columns so the page is far
+         shorter to scroll on mobile; shrink images and tighten spacing. */
+      .account-card { padding: 14px 12px; }
+      .card-img { aspect-ratio: 4 / 3; }
+      .card-img-link { margin-bottom: 10px; border-radius: 8px; }
+      .card-org { font-size: 0.86rem; }
+      .card-handle { margin-bottom: 9px; }
+      .card-bullets { font-size: 11px; gap: 4px; }
+      .card-date { margin-bottom: 7px; }
       .skills-grid, .cert-grid { grid-template-columns: 1fr; }
       .skill-card, .cert-card { border-right: none; border-bottom: 1px solid var(--line); }
       .skill-card:last-child, .cert-card:last-child { border-bottom: none; }
       .contact-panel { grid-template-columns: 1fr; }
       .site-footer { flex-direction: column; align-items: flex-start; gap: 6px; }
       .site-footer__legal { text-align: left; }
+    }
+
+    @media (max-width: 440px) {
+      .accounts-grid { grid-template-columns: 1fr; }
+      .account-card { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+      .account-card:last-child { border-bottom: none !important; }
+      .card-img { aspect-ratio: 16 / 9; }
     }
     .site-footer {
       width: min(1200px, calc(100% - 48px)); margin: 0 auto; padding: 32px 0 52px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 16px;
