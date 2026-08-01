@@ -10,18 +10,18 @@
   <style>
     /* ── Exact tokens from index.html ── */
     :root {
-      --bg: #faf8f3;
+      --bg: #ffffff;
       --surface: #ffffff;
-      --surface-soft: #f4eee3;
-      --surface-strong: #ebe3d3;
-      --text: #1c1710;
-      --muted: rgba(28,23,16,0.64);
-      --faint: rgba(28,23,16,0.36);
-      --line: rgba(130,100,55,0.14);
-      --line-strong: rgba(130,100,55,0.28);
-      --gold: #8c6a00;
-      --gold-soft: #b8911a;
-      --shadow: 0 28px 70px rgba(28,23,16,0.08);
+      --surface-soft: #f6f6f6;
+      --surface-strong: #ececec;
+      --text: #333333;
+      --muted: rgba(51,51,51,0.64);
+      --faint: rgba(51,51,51,0.36);
+      --line: rgba(51,51,51,0.14);
+      --line-strong: rgba(51,51,51,0.28);
+      --gold: #9a7b2e;
+      --gold-soft: #b89a55;
+      --shadow: 0 28px 70px rgba(51,51,51,0.08);
     }
 
     * { box-sizing: border-box; }
@@ -29,8 +29,8 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(184,145,26,0.08), transparent 32%),
-        linear-gradient(180deg, #faf8f3 0%, #f7f2e8 100%);
+        radial-gradient(circle at top left, rgba(154,123,46,0.08), transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
       color: var(--text);
       font-family: "Space Grotesk", sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -43,7 +43,7 @@
     .top-nav {
       position: sticky; top: 0; z-index: 40;
       padding: 0 32px;
-      background: rgba(250,248,243,0.92);
+      background: rgba(255,255,255,0.92);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     }
@@ -58,7 +58,7 @@
     .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
     .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s ease; }
     .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
-    .top-nav__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 18px; border-radius: 999px; background: var(--text); color: #faf8f3; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .top-nav__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 18px; border-radius: 999px; background: var(--text); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 
     /* ── Shell + hero — exact copy from index.html ── */
     .page-shell { width: min(1240px, calc(100% - 48px)); margin: 0 auto; }
@@ -85,7 +85,7 @@
     .hero__contact-group { display: flex; flex-direction: column; gap: 7px; }
     .hero__contact a:hover { color: var(--text); }
 
-    .hero__panel { border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(180deg,rgba(255,255,255,0.9),rgba(244,238,227,0.94)); box-shadow: var(--shadow); overflow: hidden; max-width: 320px; width: 100%; align-self: start; }
+    .hero__panel { border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(180deg,rgba(255,255,255,0.9),rgba(246,246,246,0.94)); box-shadow: var(--shadow); overflow: hidden; max-width: 320px; width: 100%; align-self: start; }
     .hero__photo { width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: center top; }
     .hero__panel-copy { padding: 18px 22px 20px; border-top: 1px solid var(--line); }
     .hero__panel-copy strong { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
@@ -101,42 +101,42 @@
     /* ── Document preview cards ── */
     .doc-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
     .doc-card { display: grid; grid-template-rows: 200px auto; border: 1px solid var(--line); border-radius: 26px; overflow: hidden; background: rgba(255,255,255,0.9); box-shadow: var(--shadow); transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s; color: var(--text); position: relative; }
-    .doc-card:hover { transform: translateY(-5px); border-color: var(--line-strong); box-shadow: 0 30px 70px rgba(28,23,16,0.12); }
+    .doc-card:hover { transform: translateY(-5px); border-color: var(--line-strong); box-shadow: 0 30px 70px rgba(51,51,51,0.12); }
     .doc-card__thumb { display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-    .doc-card__thumb--dark { background: linear-gradient(135deg,#1c1710 0%,#2e2416 100%); }
-    .doc-card__thumb--cream { background: radial-gradient(circle at top,rgba(184,145,26,0.12),transparent 38%), linear-gradient(180deg,#f6f0e4 0%,#ece2d1 100%); }
-    .doc-card__thumb--soft { background: linear-gradient(135deg,#faf8f3 0%,#ebe3d3 100%); }
-    .doc-card__thumb::after { content:""; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),rgba(184,145,26,0.4),transparent 70%); }
+    .doc-card__thumb--dark { background: linear-gradient(135deg,#333333 0%,#333333 100%); }
+    .doc-card__thumb--cream { background: radial-gradient(circle at top,rgba(154,123,46,0.12),transparent 38%), linear-gradient(180deg,#f6f6f6 0%,#ececec 100%); }
+    .doc-card__thumb--soft { background: linear-gradient(135deg,#ffffff 0%,#ececec 100%); }
+    .doc-card__thumb::after { content:""; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),rgba(154,123,46,0.4),transparent 70%); }
     .doc-card__thumb::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 50%); }
     .doc-card__body { padding: 22px 22px 24px; display: grid; gap: 10px; }
     .doc-card__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .doc-pill { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(140,106,0,0.08); font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+    .doc-pill { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(154,123,46,0.08); font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
     .doc-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
     .doc-card__label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
     .doc-card__title { margin: 0; font-family: "Playfair Display", serif; font-size: 1.4rem; line-height: 1.05; letter-spacing: -0.02em; }
     .doc-card__copy { margin: 0; font-size: 13px; line-height: 1.7; color: var(--muted); }
     .doc-card__footer { padding-top: 12px; border-top: 1px solid var(--line); }
     .doc-card__cta { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
-    .doc-card:hover .doc-card__cta { border-color: rgba(140,106,0,0.5); background: rgba(140,106,0,0.08); }
+    .doc-card:hover .doc-card__cta { border-color: rgba(154,123,46,0.5); background: rgba(154,123,46,0.08); }
 
     /* ── Contact ── */
     .contact-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); gap: 48px; align-items: start; }
     .contact-intro { font-size: 15px; color: var(--muted); line-height: 1.76; margin: 0 0 24px; max-width: 48ch; }
     .contact-links { display: flex; flex-direction: column; gap: 9px; }
-    .contact-link-row { display: flex; flex-direction: column; gap: 3px; padding: 12px 16px; background: rgba(255,255,255,0.82); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 2px 8px rgba(28,23,16,0.04); transition: border-color 0.18s; }
+    .contact-link-row { display: flex; flex-direction: column; gap: 3px; padding: 12px 16px; background: rgba(255,255,255,0.82); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 2px 8px rgba(51,51,51,0.04); transition: border-color 0.18s; }
     .contact-link-row:hover { border-color: var(--line-strong); }
     .contact-link-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
     .contact-link-val { font-size: 12.5px; color: var(--muted); transition: color 0.18s; }
     .contact-link-val:hover { color: var(--text); }
     /* Routing indicator */
-    .form-route { display: none; align-items: center; gap: 10px; margin-top: 8px; padding: 9px 14px; background: rgba(140,106,0,0.06); border: 1px solid rgba(140,106,0,0.2); border-radius: 10px; }
+    .form-route { display: none; align-items: center; gap: 10px; margin-top: 8px; padding: 9px 14px; background: rgba(154,123,46,0.06); border: 1px solid rgba(154,123,46,0.2); border-radius: 10px; }
     .form-route.is-visible { display: flex; }
     .form-route__label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
     .form-route__email { font-size: 12px; color: var(--muted); }
 
     /* Form */
     .form-card { background: rgba(255,255,255,0.9); border: 1px solid var(--line-strong); border-radius: 28px; padding: 36px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-    .form-card::before { content:""; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),rgba(184,145,26,0.4),transparent 70%); }
+    .form-card::before { content:""; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--gold),rgba(154,123,46,0.4),transparent 70%); }
     .form-row { margin-bottom: 20px; }
     .form-row--2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .form-row label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
@@ -147,14 +147,14 @@
       color: var(--text); outline: none; transition: border-color 0.18s, box-shadow 0.18s;
       appearance: none; -webkit-appearance: none;
     }
-    .form-row input:focus, .form-row textarea:focus, .form-row select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(140,106,0,0.1); }
+    .form-row input:focus, .form-row textarea:focus, .form-row select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(154,123,46,0.1); }
     .form-row input::placeholder, .form-row textarea::placeholder { color: var(--faint); }
     .form-row textarea { resize: vertical; min-height: 116px; line-height: 1.6; }
     .form-row select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238c6a00' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
-    .form-submit { width: 100%; min-height: 52px; padding: 0 20px; border-radius: 999px; background: var(--text); color: #faf8f3; font-family: "Space Grotesk", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; transition: opacity 0.18s, transform 0.18s; margin-top: 4px; }
+    .form-submit { width: 100%; min-height: 52px; padding: 0 20px; border-radius: 999px; background: var(--text); color: #ffffff; font-family: "Space Grotesk", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; transition: opacity 0.18s, transform 0.18s; margin-top: 4px; }
     .form-submit:hover { opacity: 0.85; transform: translateY(-1px); }
     .form-note { font-size: 11px; color: var(--faint); text-align: center; margin-top: 14px; }
-    .form-success { display: none; text-align: center; padding: 20px; background: rgba(140,106,0,0.06); border-radius: 12px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+    .form-success { display: none; text-align: center; padding: 20px; background: rgba(154,123,46,0.06); border-radius: 12px; margin-top: 14px; font-size: 13px; color: var(--muted); }
 
     /* ── Footer ── */
     .site-footer { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 24px 0 52px; color: var(--faint); font-size: 12px; border-top: 1px solid var(--line); }
@@ -224,7 +224,7 @@
         <a href="dashboards.html">Dashboards</a>
         <a class="is-active" href="about.html">About</a>
       </div>
-      <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+      <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
     </div>
   </nav>
 
@@ -295,11 +295,11 @@
 
       <div class="doc-grid">
 
-        <a class="doc-card" href="Jax_Johnson_Resume_May2026.docx" target="_blank">
+        <a class="doc-card" href="Jax_Johnson_Resume_SocialMedia.docx" target="_blank">
           <div class="doc-card__thumb doc-card__thumb--dark">
             <svg width="72" height="82" viewBox="0 0 72 82" fill="none">
               <rect x="10" y="6" width="44" height="58" rx="4" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/>
-              <rect x="10" y="6" width="44" height="13" rx="4" fill="rgba(140,106,0,0.38)"/>
+              <rect x="10" y="6" width="44" height="13" rx="4" fill="rgba(154,123,46,0.38)"/>
               <text x="32" y="16" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="5" font-weight="700" font-family="sans-serif" letter-spacing="1">DOCX</text>
               <line x1="18" y1="30" x2="46" y2="30" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
               <line x1="18" y1="38" x2="46" y2="38" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
@@ -313,8 +313,8 @@
               <span class="doc-meta">Resume</span>
             </div>
             <p class="doc-card__label">Resume</p>
-            <h3 class="doc-card__title">May 2026 Resume</h3>
-            <p class="doc-card__copy">Updated one-page resume covering experience, projects, skills, and credentials.</p>
+            <h3 class="doc-card__title">Social Media Resume</h3>
+            <p class="doc-card__copy">Updated one-page resume covering social media experience, creator work, projects, and skills.</p>
             <div class="doc-card__footer"><span class="doc-card__cta">Download ↗</span></div>
           </div>
         </a>
@@ -322,14 +322,14 @@
         <a class="doc-card" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">
           <div class="doc-card__thumb doc-card__thumb--cream">
             <svg width="62" height="80" viewBox="0 0 62 80" fill="none">
-              <rect x="6" y="4" width="50" height="66" rx="4" fill="rgba(255,255,255,0.75)" stroke="rgba(130,100,55,0.22)" stroke-width="1.2"/>
-              <rect x="6" y="4" width="50" height="11" rx="4" fill="rgba(140,106,0,0.1)"/>
-              <text x="31" y="12" text-anchor="middle" fill="rgba(140,106,0,0.6)" font-size="4.5" font-weight="700" font-family="sans-serif" letter-spacing="1">RÉSUMÉ</text>
-              <line x1="14" y1="24" x2="48" y2="24" stroke="rgba(130,100,55,0.25)" stroke-width="1"/>
-              <line x1="14" y1="32" x2="44" y2="32" stroke="rgba(130,100,55,0.16)" stroke-width="0.8"/>
-              <line x1="14" y1="40" x2="48" y2="40" stroke="rgba(130,100,55,0.14)" stroke-width="0.8"/>
-              <line x1="14" y1="48" x2="42" y2="48" stroke="rgba(130,100,55,0.12)" stroke-width="0.8"/>
-              <line x1="14" y1="56" x2="46" y2="56" stroke="rgba(130,100,55,0.10)" stroke-width="0.8"/>
+              <rect x="6" y="4" width="50" height="66" rx="4" fill="rgba(255,255,255,0.75)" stroke="rgba(51,51,51,0.22)" stroke-width="1.2"/>
+              <rect x="6" y="4" width="50" height="11" rx="4" fill="rgba(154,123,46,0.1)"/>
+              <text x="31" y="12" text-anchor="middle" fill="rgba(154,123,46,0.6)" font-size="4.5" font-weight="700" font-family="sans-serif" letter-spacing="1">RÉSUMÉ</text>
+              <line x1="14" y1="24" x2="48" y2="24" stroke="rgba(51,51,51,0.25)" stroke-width="1"/>
+              <line x1="14" y1="32" x2="44" y2="32" stroke="rgba(51,51,51,0.16)" stroke-width="0.8"/>
+              <line x1="14" y1="40" x2="48" y2="40" stroke="rgba(51,51,51,0.14)" stroke-width="0.8"/>
+              <line x1="14" y1="48" x2="42" y2="48" stroke="rgba(51,51,51,0.12)" stroke-width="0.8"/>
+              <line x1="14" y1="56" x2="46" y2="56" stroke="rgba(51,51,51,0.10)" stroke-width="0.8"/>
             </svg>
           </div>
           <div class="doc-card__body">
@@ -347,13 +347,13 @@
         <a class="doc-card" href="skills.html">
           <div class="doc-card__thumb doc-card__thumb--soft">
             <svg width="96" height="72" viewBox="0 0 96 72" fill="none">
-              <rect x="4"  y="8"  width="36" height="16" rx="4" fill="rgba(140,106,0,0.1)"  stroke="rgba(140,106,0,0.22)" stroke-width="1"/>
-              <rect x="4"  y="30" width="36" height="16" rx="4" fill="rgba(140,106,0,0.07)" stroke="rgba(140,106,0,0.16)" stroke-width="1"/>
-              <rect x="4"  y="52" width="36" height="12" rx="4" fill="rgba(140,106,0,0.04)" stroke="rgba(140,106,0,0.10)" stroke-width="1"/>
-              <line x1="48" y1="16" x2="90" y2="16" stroke="rgba(140,106,0,0.3)"  stroke-width="5" stroke-linecap="round"/>
-              <line x1="48" y1="30" x2="82" y2="30" stroke="rgba(140,106,0,0.2)"  stroke-width="5" stroke-linecap="round"/>
-              <line x1="48" y1="44" x2="88" y2="44" stroke="rgba(140,106,0,0.25)" stroke-width="5" stroke-linecap="round"/>
-              <line x1="48" y1="58" x2="76" y2="58" stroke="rgba(140,106,0,0.15)" stroke-width="5" stroke-linecap="round"/>
+              <rect x="4"  y="8"  width="36" height="16" rx="4" fill="rgba(154,123,46,0.1)"  stroke="rgba(154,123,46,0.22)" stroke-width="1"/>
+              <rect x="4"  y="30" width="36" height="16" rx="4" fill="rgba(154,123,46,0.07)" stroke="rgba(154,123,46,0.16)" stroke-width="1"/>
+              <rect x="4"  y="52" width="36" height="12" rx="4" fill="rgba(154,123,46,0.04)" stroke="rgba(154,123,46,0.10)" stroke-width="1"/>
+              <line x1="48" y1="16" x2="90" y2="16" stroke="rgba(154,123,46,0.3)"  stroke-width="5" stroke-linecap="round"/>
+              <line x1="48" y1="30" x2="82" y2="30" stroke="rgba(154,123,46,0.2)"  stroke-width="5" stroke-linecap="round"/>
+              <line x1="48" y1="44" x2="88" y2="44" stroke="rgba(154,123,46,0.25)" stroke-width="5" stroke-linecap="round"/>
+              <line x1="48" y1="58" x2="76" y2="58" stroke="rgba(154,123,46,0.15)" stroke-width="5" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="doc-card__body">

@@ -9,25 +9,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #faf8f3;
+      --bg: #ffffff;
       --surface: #ffffff;
-      --surface-soft: #f4eee3;
-      --surface-strong: #ebe3d3;
-      --text: #1c1710;
-      --muted: rgba(28, 23, 16, 0.64);
-      --faint: rgba(28, 23, 16, 0.36);
-      --line: rgba(130, 100, 55, 0.14);
-      --line-strong: rgba(130, 100, 55, 0.28);
-      --gold: #8c6a00;
-      --shadow: 0 24px 64px rgba(28, 23, 16, 0.08);
+      --surface-soft: #f6f6f6;
+      --surface-strong: #ececec;
+      --text: #333333;
+      --muted: rgba(51, 51, 51, 0.64);
+      --faint: rgba(51, 51, 51, 0.36);
+      --line: rgba(51, 51, 51, 0.14);
+      --line-strong: rgba(51, 51, 51, 0.28);
+      --gold: #9a7b2e;
+      --shadow: 0 24px 64px rgba(51, 51, 51, 0.08);
     }
 
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(184,145,26,0.08), transparent 28%),
-        linear-gradient(180deg, #faf8f3 0%, #f6f0e4 100%);
+        radial-gradient(circle at top left, rgba(154,123,46,0.08), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
       color: var(--text);
       font-family: "Space Grotesk", sans-serif;
       overflow-x: hidden;
@@ -114,7 +114,7 @@
       border: 1px solid var(--line);
       border-radius: 28px;
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,238,227,0.94));
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(246,246,246,0.94));
       box-shadow: var(--shadow);
     }
 
@@ -246,7 +246,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 4px;
-      background: linear-gradient(90deg, var(--gold), #c9a227, var(--gold));
+      background: linear-gradient(90deg, var(--gold), #b89a55, var(--gold));
     }
 
     .edu-card--main-inner {
@@ -267,8 +267,8 @@
     .edu-placement {
       padding: 5px 12px;
       border-radius: 999px;
-      background: rgba(140,106,0,0.08);
-      border: 1px solid rgba(140,106,0,0.22);
+      background: rgba(154,123,46,0.08);
+      border: 1px solid rgba(154,123,46,0.22);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.06em;
@@ -344,8 +344,8 @@
     }
 
     .edu-badge--gold {
-      background: rgba(140, 106, 0, 0.1);
-      border-color: rgba(140, 106, 0, 0.25);
+      background: rgba(154, 123, 46, 0.1);
+      border-color: rgba(154, 123, 46, 0.25);
       color: var(--gold);
     }
 
@@ -555,7 +555,7 @@
       left: 0;
       right: 6px;
       height: 100px;
-      background: linear-gradient(to bottom, transparent, #f6f0e4);
+      background: linear-gradient(to bottom, transparent, #f6f6f6);
       pointer-events: none;
       border-radius: 0 0 20px 20px;
     }
@@ -565,14 +565,14 @@
       border: 1px solid var(--line);
       border-radius: 16px;
       background: #ffffff;
-      box-shadow: 0 2px 12px rgba(28, 23, 16, 0.06);
+      box-shadow: 0 2px 12px rgba(51, 51, 51, 0.06);
       padding: 18px 20px;
       cursor: default;
       transition: box-shadow 0.2s ease;
     }
 
     .li-card:hover {
-      box-shadow: 0 4px 20px rgba(28, 23, 16, 0.11);
+      box-shadow: 0 4px 20px rgba(51, 51, 51, 0.11);
     }
 
     .li-card__header {
@@ -659,7 +659,7 @@
     .li-card__body {
       font-size: 14px;
       line-height: 1.68;
-      color: #1c1710;
+      color: #333333;
       white-space: pre-line;
       word-break: break-word;
     }
@@ -705,7 +705,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 8px 0 6px;
-      border-top: 1px solid #e9e5de;
+      border-top: 1px solid #ececec;
       margin-top: 14px;
     }
 
@@ -734,7 +734,7 @@
       display: flex;
       gap: 0;
       padding-top: 2px;
-      border-top: 1px solid #e9e5de;
+      border-top: 1px solid #ececec;
       margin-top: 2px;
     }
 
@@ -925,7 +925,7 @@
     }
 
     .social-role-card:hover {
-      box-shadow: 0 12px 40px rgba(28, 23, 16, 0.13);
+      box-shadow: 0 12px 40px rgba(51, 51, 51, 0.13);
       transform: translateY(-2px);
       border-color: var(--line-strong);
     }
@@ -1060,7 +1060,7 @@
       justify-content: space-between;
       gap: 18px;
       padding: 16px 32px;
-      background: rgba(250, 248, 243, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
@@ -1103,7 +1103,7 @@
       padding: 0 18px;
       border-radius: 999px;
       background: var(--text);
-      color: #faf8f3;
+      color: #ffffff;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -1179,7 +1179,7 @@
       <a href="dashboards.html">Dashboards</a>
       <a href="about.html">About</a>
     </div>
-    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+    <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
   </nav>
 
   <main class="page">

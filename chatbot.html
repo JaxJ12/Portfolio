@@ -10,19 +10,19 @@
   <style>
     /* ── Design Tokens ── */
     :root {
-      --bg:             #faf8f3;
+      --bg:             #ffffff;
       --surface:        #ffffff;
-      --surface-soft:   #f4eee3;
-      --surface-strong: #ebe3d3;
-      --text:           #1c1710;
-      --muted:          rgba(28, 23, 16, 0.62);
-      --faint:          rgba(28, 23, 16, 0.36);
-      --line:           rgba(130, 100, 55, 0.14);
-      --line-strong:    rgba(130, 100, 55, 0.30);
-      --gold:           #8c6a00;
-      --gold-soft:      #b8911a;
-      --shadow:         0 24px 64px rgba(28, 23, 16, 0.08);
-      --shadow-card:    0 4px 24px rgba(28, 23, 16, 0.06);
+      --surface-soft:   #f6f6f6;
+      --surface-strong: #ececec;
+      --text:           #333333;
+      --muted:          rgba(51, 51, 51, 0.62);
+      --faint:          rgba(51, 51, 51, 0.36);
+      --line:           rgba(51, 51, 51, 0.14);
+      --line-strong:    rgba(51, 51, 51, 0.30);
+      --gold:           #9a7b2e;
+      --gold-soft:      #b89a55;
+      --shadow:         0 24px 64px rgba(51, 51, 51, 0.08);
+      --shadow-card:    0 4px 24px rgba(51, 51, 51, 0.06);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -30,8 +30,8 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(184,145,26,0.08), transparent 32%),
-        linear-gradient(180deg, #faf8f3 0%, #f6f0e4 100%);
+        radial-gradient(circle at top left, rgba(154,123,46,0.08), transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
       color: var(--text);
       font-family: "Space Grotesk", sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -63,7 +63,7 @@
       position: sticky; top: 0; z-index: 40;
       display: flex; align-items: center; justify-content: space-between; gap: 18px;
       padding: 16px 32px;
-      background: rgba(250,248,243,0.93);
+      background: rgba(255,255,255,0.93);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     }
@@ -75,7 +75,7 @@
     .top-nav__cta {
       display: inline-flex; align-items: center; justify-content: center;
       min-height: 38px; padding: 0 18px; border-radius: 999px;
-      background: var(--text); color: #faf8f3;
+      background: var(--text); color: #ffffff;
       font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     }
 
@@ -120,7 +120,7 @@
     .section { padding: 72px 0 0; }
     .section-rule {
       height: 1px; border: none; margin: 0 0 28px;
-      background: linear-gradient(90deg, rgba(140,106,0,0.45), rgba(140,106,0,0.18), transparent 70%);
+      background: linear-gradient(90deg, rgba(154,123,46,0.45), rgba(154,123,46,0.18), transparent 70%);
     }
     .section-eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
@@ -176,7 +176,7 @@
     .chat-window::before {
       content: "";
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--gold), rgba(184,145,26,0.4), transparent 70%);
+      background: linear-gradient(90deg, var(--gold), rgba(154,123,46,0.4), transparent 70%);
     }
     .chat-window { position: sticky; top: 80px; }
 
@@ -188,7 +188,7 @@
     }
     .chat-window__avatar {
       width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, rgba(140,106,0,0.25), rgba(184,145,26,0.15));
+      background: linear-gradient(135deg, rgba(154,123,46,0.25), rgba(154,123,46,0.15));
       border: 1px solid var(--line-strong);
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem; flex-shrink: 0;
@@ -254,7 +254,7 @@
       width: 38px; height: 38px; border-radius: 10px;
       background: var(--text);
       border: 1px solid var(--text);
-      color: #faf8f3; font-size: 1rem;
+      color: #ffffff; font-size: 1rem;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; flex-shrink: 0;
       transition: opacity 0.2s;
@@ -275,15 +275,15 @@
     }
     .btn:hover { background: var(--surface-strong); transform: translateY(-2px); }
     .btn--primary {
-      background: var(--text); border-color: var(--text); color: #faf8f3;
+      background: var(--text); border-color: var(--text); color: #ffffff;
     }
     .btn--primary:hover { opacity: 0.85; transform: translateY(-2px); }
     .btn--gold {
-      background: rgba(140,106,0,0.10);
-      border-color: rgba(140,106,0,0.35);
+      background: rgba(154,123,46,0.10);
+      border-color: rgba(154,123,46,0.35);
       color: var(--gold);
     }
-    .btn--gold:hover { background: rgba(140,106,0,0.16); transform: translateY(-2px); }
+    .btn--gold:hover { background: rgba(154,123,46,0.16); transform: translateY(-2px); }
 
     /* ── Roadmap ── */
     .roadmap-grid {
@@ -311,8 +311,8 @@
       color: #3d7a3d;
     }
     .status-badge--building {
-      background: rgba(184,145,26,0.12);
-      border: 1px solid rgba(184,145,26,0.30);
+      background: rgba(154,123,46,0.12);
+      border: 1px solid rgba(154,123,46,0.30);
       color: var(--gold);
     }
     .status-badge--planned {
@@ -379,7 +379,7 @@
     .key-prompt__input:focus { border-color: var(--gold-soft); }
     .key-prompt__btn {
       padding: 0 16px; border-radius: 8px;
-      background: var(--text); border: none; color: #faf8f3;
+      background: var(--text); border: none; color: #ffffff;
       font-family: inherit; font-size: 11px; font-weight: 700;
       letter-spacing: 0.08em; cursor: pointer;
       transition: opacity 0.2s;
@@ -449,7 +449,7 @@
       <a href="dashboards.html">Dashboards</a>
       <a href="about.html">About</a>
     </div>
-    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+    <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
   </nav>
 
   <!-- Page Transition Overlay -->

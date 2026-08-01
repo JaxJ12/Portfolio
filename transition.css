@@ -1,5 +1,5 @@
 :root {
-  --pt-panel-bg: var(--bg, #faf8f3);
+  --pt-panel-bg: var(--bg, #ffffff);
 }
 
 @view-transition {

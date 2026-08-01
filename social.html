@@ -9,19 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #faf8f3;
+      --bg: #ffffff;
       --surface: #ffffff;
-      --surface-soft: #f4eee3;
-      --surface-strong: #ebe3d3;
-      --text: #1c1710;
-      --muted: rgba(28, 23, 16, 0.64);
-      --faint: rgba(28, 23, 16, 0.36);
-      --line: rgba(130, 100, 55, 0.16);
-      --line-strong: rgba(130, 100, 55, 0.3);
-      --gold: #8c6a00;
-      --gold-light: #b58900;
-      --shadow: 0 24px 64px rgba(28, 23, 16, 0.06);
-      --shadow-sm: 0 4px 16px rgba(28, 23, 16, 0.05);
+      --surface-soft: #f6f6f6;
+      --surface-strong: #ececec;
+      --text: #333333;
+      --muted: rgba(51, 51, 51, 0.64);
+      --faint: rgba(51, 51, 51, 0.36);
+      --line: rgba(51, 51, 51, 0.16);
+      --line-strong: rgba(51, 51, 51, 0.3);
+      --gold: #9a7b2e;
+      --gold-light: #b89a55;
+      --shadow: 0 24px 64px rgba(51, 51, 51, 0.06);
+      --shadow-sm: 0 4px 16px rgba(51, 51, 51, 0.05);
     }
 
     * { box-sizing: border-box; }
@@ -29,9 +29,9 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(184,145,26,0.08), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(184,145,26,0.05), transparent 30%),
-        linear-gradient(180deg, #faf8f3 0%, #f6f0e4 100%);
+        radial-gradient(circle at top left, rgba(154,123,46,0.08), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(154,123,46,0.05), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
       color: var(--text);
       font-family: "Space Grotesk", sans-serif;
       overflow-x: hidden;
@@ -50,7 +50,7 @@
       justify-content: space-between;
       gap: 18px;
       padding: 16px 32px;
-      background: rgba(250, 248, 243, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
@@ -87,7 +87,7 @@
       padding: 0 18px;
       border-radius: 999px;
       background: var(--text);
-      color: #faf8f3;
+      color: #ffffff;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -164,7 +164,7 @@
       border: 1px solid var(--line);
       border-radius: 28px;
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,238,227,0.94));
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(246,246,246,0.94));
       box-shadow: var(--shadow);
     }
     .hero__panel img {
@@ -173,8 +173,8 @@
       object-fit: cover;
       object-position: center top;
       background:
-        radial-gradient(circle at top, rgba(184, 145, 26, 0.14), transparent 40%),
-        linear-gradient(180deg, #f7f2e8 0%, #eee5d6 100%);
+        radial-gradient(circle at top, rgba(154, 123, 46, 0.14), transparent 40%),
+        linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
       padding: 0;
     }
     .hero__panel-copy {
@@ -246,7 +246,7 @@
       transition: background 0.2s ease;
     }
     .account-card:hover {
-      background: rgba(184, 145, 26, 0.04);
+      background: rgba(154, 123, 46, 0.04);
     }
     /* Remove right border on last in each row */
     .account-card:nth-child(4n) { border-right: none; }
@@ -665,7 +665,7 @@
       left: 0;
       right: 6px;
       height: 100px;
-      background: linear-gradient(to bottom, transparent, #f6f0e4);
+      background: linear-gradient(to bottom, transparent, #f6f6f6);
       pointer-events: none;
       border-radius: 0 0 20px 20px;
     }
@@ -675,14 +675,14 @@
       border: 1px solid var(--line);
       border-radius: 16px;
       background: #ffffff;
-      box-shadow: 0 2px 12px rgba(28, 23, 16, 0.06);
+      box-shadow: 0 2px 12px rgba(51, 51, 51, 0.06);
       padding: 18px 20px;
       cursor: default;
       transition: box-shadow 0.2s ease;
     }
 
     .li-card:hover {
-      box-shadow: 0 4px 20px rgba(28, 23, 16, 0.11);
+      box-shadow: 0 4px 20px rgba(51, 51, 51, 0.11);
     }
 
     .li-card__header {
@@ -769,7 +769,7 @@
     .li-card__body {
       font-size: 14px;
       line-height: 1.68;
-      color: #1c1710;
+      color: #333333;
       white-space: pre-line;
       word-break: break-word;
     }
@@ -815,7 +815,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 8px 0 6px;
-      border-top: 1px solid #e9e5de;
+      border-top: 1px solid #ececec;
       margin-top: 14px;
     }
 
@@ -844,7 +844,7 @@
       display: flex;
       gap: 0;
       padding-top: 2px;
-      border-top: 1px solid #e9e5de;
+      border-top: 1px solid #ececec;
       margin-top: 2px;
     }
 
@@ -955,7 +955,7 @@
       <a href="dashboards.html">Dashboards</a>
       <a href="about.html">About</a>
     </div>
-    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+    <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
   </nav>
 
   <main class="page">
@@ -1037,7 +1037,7 @@
           </article>
 
           <!-- 4. Personal Brand -->
-          <article class="account-card" style="--accent: #b8911a;">
+          <article class="account-card" style="--accent: #b89a55;">
             <div class="card-platform">Founder · Personal</div>
             <div class="card-date">2026 – Present</div>
             <div class="card-org">JX Creatives</div>
@@ -1065,12 +1065,12 @@
             <div class="card-org">Instagram</div>
             <div class="card-handle">@j.xjohnson</div>
             <a class="card-img-link" href="https://www.instagram.com/j.xjohnson/" target="_blank" rel="noopener">
-              <img class="card-img" src="IMG_9128.jpeg" alt="Instagram profile @j.xjohnson, 12.1K followers" style="object-position: center 11%;" />
+              <img class="card-img" src="IMG_9128.jpeg" alt="Instagram profile @j.xjohnson, 26.9K followers" style="object-position: center 11%;" />
             </a>
             <div class="card-role">Content Creator</div>
             <ul class="card-bullets">
-              <li>Amassed 150M+ views since January and grew to 12.1K followers.</li>
-              <li>Reached 37.4M accounts in the last 30 days across organic content.</li>
+              <li>Amassed 150M+ views since January and grew to 26.9K followers.</li>
+              <li>Reached 106.3M accounts in the last 30 days across organic content.</li>
               <li>Builds on-camera presence and audience trust through consistent posting.</li>
             </ul>
             <div class="card-tags">
@@ -1163,13 +1163,13 @@
           </div>
 
           <div class="sidebar-stat">
-            <strong>40<em>K+</em></strong>
+            <strong>55<em>K+</em></strong>
             <span>Total Followers</span>
-            <p>20K TikTok + 12.1K IG + 6K Creed TT + others</p>
+            <p>20K TikTok + 26.9K IG + 6K Creed TT + others</p>
           </div>
 
           <div class="sidebar-stat">
-            <strong>37.4<em>M</em></strong>
+            <strong>106.3<em>M</em></strong>
             <span>Accounts Reached · 30 days</span>
             <p>Instagram organic reach, last 30 days</p>
           </div>
@@ -1288,7 +1288,7 @@
     <section>
       <p class="section-label">LinkedIn</p>
       <h2 class="section-title">In the field.</h2>
-      <p class="section-intro">Real-time updates from the work as it happens — partnerships, milestones, and professional moments posted directly to LinkedIn. Add new posts to <code style="font-size:12px;background:rgba(28,23,16,0.06);padding:2px 6px;border-radius:5px;">linkedin-posts.json</code> and they'll appear here automatically.</p>
+      <p class="section-intro">Real-time updates from the work as it happens — partnerships, milestones, and professional moments posted directly to LinkedIn. Add new posts to <code style="font-size:12px;background:rgba(51,51,51,0.06);padding:2px 6px;border-radius:5px;">linkedin-posts.json</code> and they'll appear here automatically.</p>
 
       <div class="li-feed-wrapper">
         <div class="li-feed-scroll" id="liFeed">

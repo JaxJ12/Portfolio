@@ -9,12 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #faf8f3; --bg-soft: #f4eee3; --bg-deep: #ebe3d3;
-      --surface: rgba(255,255,255,0.92); --surface-strong: rgba(244,238,227,0.97);
-      --text: #1c1710; --muted: rgba(28,23,16,0.58); --faint: rgba(28,23,16,0.35);
-      --line: rgba(130,100,55,0.14); --line-strong: rgba(130,100,55,0.28);
-      --gold: #8c6a00; --gold-soft: #b8911a;
-      --shadow: 0 4px 24px rgba(28,23,16,0.08);
+      --bg: #ffffff; --bg-soft: #f6f6f6; --bg-deep: #ececec;
+      --surface: rgba(255,255,255,0.92); --surface-strong: rgba(246,246,246,0.97);
+      --text: #333333; --muted: rgba(51,51,51,0.58); --faint: rgba(51,51,51,0.35);
+      --line: rgba(51,51,51,0.14); --line-strong: rgba(51,51,51,0.28);
+      --gold: #9a7b2e; --gold-soft: #b89a55;
+      --shadow: 0 4px 24px rgba(51,51,51,0.08);
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -23,7 +23,7 @@
     /* ── Back nav ── */
     .back-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250, 248, 243, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--line);
@@ -52,7 +52,7 @@
     /* ── Skill categories ── */
     .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
     .skill-card { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 20px; padding: 24px 26px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-    .skill-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), rgba(184,145,26,0.4), transparent 70%); }
+    .skill-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), rgba(154,123,46,0.4), transparent 70%); }
     .skill-card__cat { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
     .pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
     .pill { display: inline-block; font-size: 12px; font-weight: 500; color: var(--text); background: var(--bg-soft); border: 1px solid var(--line-strong); border-radius: 20px; padding: 4px 12px; }
