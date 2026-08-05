@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Do You Know Quotes? — Class Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,7 +24,7 @@
     body {
       background: var(--paper);
       color: var(--ink);
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       min-height: 100vh;
     }
 
@@ -40,7 +40,7 @@
       background: var(--paper);
     }
     .masthead-eyebrow {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -54,7 +54,7 @@
       letter-spacing: -1px;
     }
     .masthead-sub {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -78,7 +78,7 @@
       color: var(--paper);
     }
     .section-rule-label {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 11px;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -91,13 +91,13 @@
       gap: 14px;
     }
     .section-rule-count {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 11px;
       letter-spacing: 1px;
       opacity: 0.7;
     }
     .section-rule-score {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
@@ -112,7 +112,7 @@
       text-align: center;
     }
     .landing-deck {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 15px;
       line-height: 1.7;
       color: var(--gray);
@@ -130,7 +130,7 @@
     }
     .game-card:hover, .game-card:active { background: var(--paper-dark); transform: translateY(-1px); }
     .game-card-num {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -138,7 +138,7 @@
       font-weight: 700;
     }
     .game-card-title { font-size: 20px; font-weight: 700; margin: 3px 0 5px; line-height: 1.2; }
-    .game-card-desc { font-family: 'Libre Baskerville', serif; font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .game-card-desc { font-family: "Schibsted Grotesk", sans-serif; font-size: 13px; color: var(--gray); line-height: 1.5; }
     .game-card-arrow { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 22px; color: var(--red); }
     .divider-ornament { text-align: center; color: var(--gray); font-size: 18px; margin: 18px 0; letter-spacing: 8px; }
 
@@ -152,7 +152,7 @@
       gap: 8px;
       padding: 10px 16px;
       cursor: pointer;
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -170,7 +170,7 @@
 
     /* ─── ZONE LABELS ─────────────────────────────────── */
     .zone-label {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -204,7 +204,7 @@
     .answer-zone.correct-flash { border-color: var(--green); border-style: solid; background: #eaf7ec; }
     .answer-zone.wrong-flash   { border-color: var(--red);   border-style: solid; animation: shake 0.4s ease; }
     .answer-zone-placeholder {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 13px;
       color: #a89880;
       font-style: italic;
@@ -221,7 +221,7 @@
     .word-tile {
       background: var(--ink);
       color: var(--paper);
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 14px;
       padding: 7px 12px;
       cursor: pointer;
@@ -238,7 +238,7 @@
     /* ─── BUTTONS ─────────────────────────────────────── */
     .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
     .btn {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 13px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -259,9 +259,9 @@
     /* ─── RESULT CARD (G1) ────────────────────────────── */
     .result-card { display: none; border: 2px solid var(--border); background: white; padding: 20px; margin: 16px 0; text-align: center; }
     .result-card.show { display: block; }
-    .result-card .correct-label { font-family: 'Libre Baskerville', serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
+    .result-card .correct-label { font-family: "Schibsted Grotesk", sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
     .result-card .quote-full { font-size: clamp(15px, 4vw, 19px); font-style: italic; line-height: 1.6; margin-bottom: 12px; }
-    .result-card .attribution { font-family: 'Libre Baskerville', serif; font-size: 14px; color: var(--red); font-weight: 700; letter-spacing: 1px; }
+    .result-card .attribution { font-family: "Schibsted Grotesk", sans-serif; font-size: 14px; color: var(--red); font-weight: 700; letter-spacing: 1px; }
 
     /* ─── QUOTE CARD (G2 & G3) ────────────────────────── */
     .quote-card {
@@ -286,7 +286,7 @@
     .verdict-btn {
       flex: 1;
       padding: 18px 10px;
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 16px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -309,7 +309,7 @@
 
     /* ─── FEEDBACK BANNER (G2) ───────────────────────── */
     .feedback-banner {
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: 13px;
       letter-spacing: 1px;
       padding: 12px 16px;
@@ -326,7 +326,7 @@
     .attr-btn {
       flex: 1;
       padding: 20px 10px;
-      font-family: 'Playfair Display', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
       font-size: clamp(14px, 3.5vw, 18px);
       font-weight: 700;
       letter-spacing: 1px;
@@ -367,14 +367,14 @@
     .stamp-label { font-size: clamp(24px, 8vw, 40px); font-weight: 900; line-height: 1.1; }
     .answer-stamp.is-correct .stamp-label { color: var(--green); }
     .answer-stamp.is-wrong   .stamp-label { color: var(--red); }
-    .stamp-sub { font-family: 'Libre Baskerville', serif; font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+    .stamp-sub { font-family: "Schibsted Grotesk", sans-serif; font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
 
     /* ─── FINALE ──────────────────────────────────────── */
     .finale-body { max-width: 600px; margin: 0 auto; padding: 30px 20px; text-align: center; }
     .finale-headline { font-size: clamp(28px, 8vw, 46px); font-weight: 900; line-height: 1.1; margin: 14px 0 10px; }
     .finale-score-big { font-size: 80px; font-weight: 900; color: var(--red); line-height: 1; margin: 8px 0; }
-    .finale-deck { font-family: 'Libre Baskerville', serif; font-size: 15px; line-height: 1.7; color: var(--gray); margin: 12px 0 24px; }
-    .grade-line { font-family: 'Libre Baskerville', serif; font-size: 15px; color: var(--gray); font-style: italic; margin-bottom: 8px; }
+    .finale-deck { font-family: "Schibsted Grotesk", sans-serif; font-size: 15px; line-height: 1.7; color: var(--gray); margin: 12px 0 24px; }
+    .grade-line { font-family: "Schibsted Grotesk", sans-serif; font-size: 15px; color: var(--gray); font-style: italic; margin-bottom: 8px; }
 
     /* ─── SCORE TALLY ─────────────────────────────────── */
     .score-tally {
@@ -392,7 +392,7 @@
       justify-content: center;
       font-size: 14px;
       font-weight: 700;
-      font-family: 'Libre Baskerville', serif;
+      font-family: "Schibsted Grotesk", sans-serif;
     }
     .tally-pip.p-correct { background: var(--green); color: white; }
     .tally-pip.p-wrong   { background: var(--red);   color: white; }
@@ -468,7 +468,7 @@
   <div class="game-body">
     <div class="progress-dots" id="g1-dots"></div>
 
-    <div id="g1-byline" style="font-family:'Libre Baskerville',serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;text-align:center;margin:14px 0 4px;"></div>
+    <div id="g1-byline" style="font-family:"Schibsted Grotesk", sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;text-align:center;margin:14px 0 4px;"></div>
 
     <div class="zone-label" style="margin-top:12px;">Word Bank</div>
     <div class="word-bank" id="g1-bank"></div>
