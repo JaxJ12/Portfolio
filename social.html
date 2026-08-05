@@ -6,18 +6,18 @@
   <title>Social Media | Jax Johnson</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #ffffff;
       --surface: #ffffff;
-      --surface-soft: #f6f6f6;
+      --surface-soft: #ffffff;
       --surface-strong: #ececec;
       --text: #333333;
       --muted: rgba(51, 51, 51, 0.64);
       --faint: rgba(51, 51, 51, 0.36);
-      --line: rgba(51, 51, 51, 0.16);
-      --line-strong: rgba(51, 51, 51, 0.3);
+      --line: rgba(51, 51, 51, 0.22);
+      --line-strong: rgba(51, 51, 51, 0.34);
       --gold: #9a7b2e;
       --gold-light: #b89a55;
       --shadow: 0 24px 64px rgba(51, 51, 51, 0.06);
@@ -29,11 +29,11 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(154,123,46,0.08), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(154,123,46,0.05), transparent 30%),
-        linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+        radial-gradient(circle at top left, rgba(51,51,51,0.08), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(51,51,51,0.05), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
       color: var(--text);
-      font-family: "Space Grotesk", sans-serif;
+      font-family: "Inter", sans-serif;
       overflow-x: hidden;
     }
 
@@ -85,7 +85,7 @@
       justify-content: center;
       min-height: 38px;
       padding: 0 18px;
-      border-radius: 999px;
+      border-radius: 6px;
       background: var(--text);
       color: #ffffff;
       font-size: 11px;
@@ -151,7 +151,7 @@
     }
     .chip {
       padding: 8px 14px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line-strong);
       background: rgba(255, 255, 255, 0.6);
       font-size: 11px;
@@ -162,9 +162,9 @@
     }
     .hero__panel {
       border: 1px solid var(--line);
-      border-radius: 28px;
+      border-radius: 8px;
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(246,246,246,0.94));
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.94));
       box-shadow: var(--shadow);
     }
     .hero__panel img {
@@ -173,8 +173,8 @@
       object-fit: cover;
       object-position: center top;
       background:
-        radial-gradient(circle at top, rgba(154, 123, 46, 0.14), transparent 40%),
-        linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
+        radial-gradient(circle at top, rgba(51, 51, 51, 0.22), transparent 40%),
+        linear-gradient(180deg, #ffffff 0%, #ececec 100%);
       padding: 0;
     }
     .hero__panel-copy {
@@ -246,7 +246,7 @@
       transition: background 0.2s ease;
     }
     .account-card:hover {
-      background: rgba(154, 123, 46, 0.04);
+      background: rgba(51, 51, 51, 0.04);
     }
     /* Remove right border on last in each row */
     .account-card:nth-child(4n) { border-right: none; }
@@ -291,7 +291,7 @@
     .card-img-link {
       display: block;
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: 6px;
       margin-bottom: 14px;
       border: 1px solid var(--line);
       cursor: pointer;
@@ -341,7 +341,7 @@
 
     .card-tag {
       padding: 3px 8px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line);
       font-size: 9.5px;
       font-weight: 700;
@@ -355,7 +355,7 @@
       position: sticky;
       top: 74px;
       border: 1px solid var(--line-strong);
-      border-radius: 22px;
+      border-radius: 8px;
       overflow: hidden;
     }
 
@@ -430,7 +430,7 @@
     }
     .sidebar-brand {
       padding: 4px 9px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line-strong);
       font-size: 10px;
       font-weight: 700;
@@ -465,12 +465,12 @@
       flex: 1;
       height: 3px;
       background: var(--line-strong);
-      border-radius: 99px;
+      border-radius: 6px;
       overflow: hidden;
     }
     .platform-bar {
       height: 100%;
-      border-radius: 99px;
+      border-radius: 6px;
       background: var(--gold-light);
     }
 
@@ -481,7 +481,7 @@
       gap: 0;
       margin-top: 28px;
       border: 1px solid var(--line-strong);
-      border-radius: 22px;
+      border-radius: 8px;
       overflow: hidden;
     }
     .skill-card {
@@ -504,7 +504,7 @@
     }
     .pill {
       padding: 6px 11px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line);
       font-size: 11px;
       font-weight: 600;
@@ -518,7 +518,7 @@
       gap: 0;
       margin-top: 28px;
       border: 1px solid var(--line-strong);
-      border-radius: 22px;
+      border-radius: 8px;
       overflow: hidden;
     }
     .cert-card {
@@ -547,7 +547,7 @@
       gap: 22px;
       align-items: center;
       border: 1px solid var(--line-strong);
-      border-radius: 22px;
+      border-radius: 8px;
     }
     .contact-panel h3 {
       margin: 0 0 10px;
@@ -600,7 +600,7 @@
          shorter to scroll on mobile; shrink images and tighten spacing. */
       .account-card { padding: 14px 12px; }
       .card-img { aspect-ratio: 4 / 3; }
-      .card-img-link { margin-bottom: 10px; border-radius: 8px; }
+      .card-img-link { margin-bottom: 10px; border-radius: 6px; }
       .card-org { font-size: 0.86rem; }
       .card-handle { margin-bottom: 9px; }
       .card-bullets { font-size: 11px; gap: 4px; }
@@ -654,7 +654,7 @@
     .li-feed-scroll::-webkit-scrollbar-track { background: transparent; }
     .li-feed-scroll::-webkit-scrollbar-thumb {
       background: var(--line-strong);
-      border-radius: 999px;
+      border-radius: 6px;
     }
 
     /* Bottom fade */
@@ -665,7 +665,7 @@
       left: 0;
       right: 6px;
       height: 100px;
-      background: linear-gradient(to bottom, transparent, #f6f6f6);
+      background: linear-gradient(to bottom, transparent, #ffffff);
       pointer-events: none;
       border-radius: 0 0 20px 20px;
     }
@@ -673,7 +673,7 @@
     /* Individual post card */
     .li-card {
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 6px;
       background: #ffffff;
       box-shadow: 0 2px 12px rgba(51, 51, 51, 0.06);
       padding: 18px 20px;
@@ -788,7 +788,7 @@
 
     .li-card__image {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 6px;
       margin: 10px 0 4px;
       object-fit: cover;
       max-height: 280px;
@@ -858,11 +858,11 @@
       border: none;
       background: none;
       cursor: pointer;
-      font-family: "Space Grotesk", sans-serif;
+      font-family: "Inter", sans-serif;
       font-size: 13px;
       font-weight: 600;
       color: var(--muted);
-      border-radius: 8px;
+      border-radius: 6px;
       transition: background 0.15s ease, color 0.15s ease;
     }
 

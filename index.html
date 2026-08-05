@@ -6,18 +6,18 @@
   <title>Jax Johnson | Portfolio Overview</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #ffffff;
       --surface: #ffffff;
-      --surface-soft: #f6f6f6;
+      --surface-soft: #ffffff;
       --surface-strong: #ececec;
       --text: #333333;
       --muted: rgba(51, 51, 51, 0.64);
       --faint: rgba(51, 51, 51, 0.36);
-      --line: rgba(51, 51, 51, 0.14);
-      --line-strong: rgba(51, 51, 51, 0.28);
+      --line: rgba(51, 51, 51, 0.22);
+      --line-strong: rgba(51, 51, 51, 0.34);
       --gold: #9a7b2e;
       --gold-soft: #b89a55;
       --shadow: 0 28px 70px rgba(51, 51, 51, 0.08);
@@ -28,10 +28,10 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(154, 123, 46, 0.08), transparent 32%),
-        linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+        radial-gradient(circle at top left, rgba(51, 51, 51, 0.08), transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
       color: var(--text);
-      font-family: "Space Grotesk", sans-serif;
+      font-family: "Inter", sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -78,7 +78,7 @@
       height: 42px;
       padding: 0;
       border: 1px solid var(--line);
-      border-radius: 10px;
+      border-radius: 6px;
       background: transparent;
       cursor: pointer;
     }
@@ -123,7 +123,7 @@
       justify-content: center;
       min-height: 42px;
       padding: 0 18px;
-      border-radius: 999px;
+      border-radius: 6px;
       background: var(--text);
       color: #ffffff;
       font-size: 11px;
@@ -193,7 +193,7 @@
 
     .chip {
       padding: 8px 14px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line-strong);
       background: rgba(255, 255, 255, 0.72);
       font-size: 11px;
@@ -216,7 +216,7 @@
       justify-content: center;
       min-height: 48px;
       padding: 0 20px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line-strong);
       background: rgba(255, 255, 255, 0.74);
       font-size: 11px;
@@ -258,8 +258,8 @@
 
     .hero__panel {
       border: 1px solid var(--line);
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(246,246,246,0.94));
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.94));
       box-shadow: var(--shadow);
       overflow: hidden;
       max-width: 320px;
@@ -303,7 +303,7 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       border: 1px solid var(--line);
-      border-radius: 24px;
+      border-radius: 8px;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.82);
       box-shadow: var(--shadow);
@@ -386,7 +386,7 @@
       display: grid;
       grid-template-rows: 220px auto;
       border: 1px solid var(--line);
-      border-radius: 24px;
+      border-radius: 8px;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.86);
       box-shadow: var(--shadow);
@@ -403,8 +403,8 @@
       align-items: center;
       justify-content: center;
       background:
-        radial-gradient(circle at top, rgba(154,123,46,0.12), transparent 38%),
-        linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
+        radial-gradient(circle at top, rgba(51,51,51,0.12), transparent 38%),
+        linear-gradient(180deg, #ffffff 0%, #ececec 100%);
       padding: 18px;
     }
 
@@ -453,7 +453,7 @@
 
     .tag {
       padding: 5px 10px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--surface-soft);
       font-size: 10px;
@@ -483,7 +483,7 @@
 
     .preview-stage {
       border: 1px solid var(--line);
-      border-radius: 28px;
+      border-radius: 8px;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.88);
       box-shadow: var(--shadow);
@@ -494,8 +494,8 @@
     .preview-browser {
       padding: 18px;
       background:
-        radial-gradient(circle at top left, rgba(154,123,46,0.16), transparent 34%),
-        linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
+        radial-gradient(circle at top left, rgba(51,51,51,0.22), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #ececec 100%);
       border-bottom: 1px solid var(--line);
     }
 
@@ -505,7 +505,7 @@
       gap: 10px;
       padding: 10px 14px;
       border: 1px solid var(--line);
-      border-radius: 14px 14px 0 0;
+      border-radius: 6px 14px 0 0;
       background: rgba(255,255,255,0.85);
     }
 
@@ -518,17 +518,17 @@
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background: rgba(154,123,46,0.22);
+      background: rgba(51,51,51,0.22);
     }
 
-    .preview-browser__dots span:nth-child(2) { background: rgba(154,123,46,0.34); }
-    .preview-browser__dots span:nth-child(3) { background: rgba(154,123,46,0.48); }
+    .preview-browser__dots span:nth-child(2) { background: rgba(51,51,51,0.34); }
+    .preview-browser__dots span:nth-child(3) { background: rgba(51,51,51,0.48); }
 
     .preview-browser__url {
       flex: 1;
       min-width: 0;
       padding: 6px 12px;
-      border-radius: 999px;
+      border-radius: 6px;
       background: var(--surface-soft);
       border: 1px solid var(--line);
       font-size: 11px;
@@ -540,9 +540,9 @@
 
     .preview-browser__status {
       padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(154,123,46,0.22);
-      background: rgba(154,123,46,0.08);
+      border-radius: 6px;
+      border: 1px solid rgba(51,51,51,0.22);
+      background: rgba(51,51,51,0.08);
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -592,7 +592,7 @@
       left: 16px;
       bottom: 16px;
       padding: 6px 12px;
-      border-radius: 999px;
+      border-radius: 6px;
       background: rgba(255,255,255,0.88);
       border: 1px solid rgba(51,51,51,0.18);
       backdrop-filter: blur(8px);
@@ -611,7 +611,7 @@
 
     .preview-stage__meta-item {
       padding: 14px 16px;
-      border-radius: 18px;
+      border-radius: 6px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.72);
     }
@@ -658,7 +658,7 @@
       gap: 12px;
       padding: 22px 22px 24px;
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 8px;
       background: rgba(255,255,255,0.82);
       box-shadow: 0 10px 26px rgba(51,51,51,0.05);
       transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
@@ -671,7 +671,7 @@
       gap: 6px;
       width: fit-content;
       padding: 8px 16px;
-      border-radius: 999px;
+      border-radius: 6px;
       border: 1px solid var(--line-strong);
       background: rgba(255,255,255,0.74);
       font-size: 11px;
@@ -699,7 +699,7 @@
     }
 
     .preview-link.is-active {
-      border-color: rgba(154,123,46,0.28);
+      border-color: rgba(51,51,51,0.34);
     }
 
     .preview-link__top {
@@ -769,7 +769,7 @@
       aspect-ratio: 16 / 10;
       object-fit: cover;
       object-position: center top;
-      border-radius: 12px;
+      border-radius: 6px;
       border: 1px solid var(--line);
       margin-top: 4px;
     }
@@ -779,7 +779,7 @@
       grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
       gap: 20px;
       border: 1px solid var(--line);
-      border-radius: 24px;
+      border-radius: 8px;
       background: rgba(255,255,255,0.84);
       box-shadow: var(--shadow);
       padding: 28px;
@@ -811,17 +811,17 @@
 
     /* ── Education ── */
     .edu-stats-bar { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
-    .edu-stat-pill { flex: 1; min-width: 100px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .edu-stat-pill { flex: 1; min-width: 100px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .edu-stat-pill strong { font-family: "Playfair Display", serif; font-size: 1.7rem; letter-spacing: -0.03em; line-height: 1; color: var(--text); }
     .edu-stat-pill span { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
     .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
-    .edu-card { border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 26px; }
+    .edu-card { border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 26px; }
     .edu-card--wide { grid-column: span 2; }
     .edu-card--main { grid-column: span 2; position: relative; overflow: hidden; }
     .edu-card--main::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), #b89a55, var(--gold)); }
     .edu-card--main-inner { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start; }
     .edu-placements { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .edu-placement { padding: 5px 12px; border-radius: 999px; background: rgba(154,123,46,0.08); border: 1px solid rgba(154,123,46,0.22); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--gold); }
+    .edu-placement { padding: 5px 12px; border-radius: 6px; background: rgba(51,51,51,0.08); border: 1px solid rgba(51,51,51,0.22); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--gold); }
     .edu-activities { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
     .edu-activity { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
     .edu-activity:last-child { border-bottom: none; padding-bottom: 0; }
@@ -830,13 +830,13 @@
     .edu-card__school { margin: 0 0 4px; font-family: "Playfair Display", serif; font-size: 1.55rem; letter-spacing: -0.02em; }
     .edu-card__degree { margin: 0 0 14px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
     .edu-card__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-    .edu-badge { padding: 5px 12px; border-radius: 999px; background: var(--surface-soft); border: 1px solid var(--line); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
-    .edu-badge--gold { background: rgba(154,123,46,0.1); border-color: rgba(154,123,46,0.25); color: var(--gold); }
+    .edu-badge { padding: 5px 12px; border-radius: 6px; background: var(--surface-soft); border: 1px solid var(--line); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+    .edu-badge--gold { background: rgba(51,51,51,0.1); border-color: rgba(51,51,51,0.25); color: var(--gold); }
     .edu-card__honors { margin: 12px 0 0; font-size: 13px; line-height: 1.68; color: var(--faint); }
     .edu-card h3 { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
     .edu-card p { margin: 0; font-size: 13.5px; line-height: 1.72; color: var(--muted); }
     .courses-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .course-chip { padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-soft); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+    .course-chip { padding: 6px 13px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-soft); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
 
     .site-footer {
       display: flex;
@@ -948,7 +948,7 @@
       /* Keep project cards in two compact columns so the section is short
          to scroll; trim the longer supporting text. */
       .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-      .preview-link { padding: 14px 14px 16px; gap: 9px; border-radius: 16px; }
+      .preview-link { padding: 14px 14px 16px; gap: 9px; border-radius: 6px; }
       /* On mobile show a picture preview of each page instead of the text body. */
       .preview-link__shot { display: block; }
       .preview-link__copy { display: none; }

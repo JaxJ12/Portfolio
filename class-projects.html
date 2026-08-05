@@ -6,19 +6,19 @@
   <title>Academic Projects | Jax Johnson</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ── Design Tokens (exact match to index.html / experience.html) ── */
     :root {
       --bg:             #ffffff;
       --surface:        #ffffff;
-      --surface-soft:   #f6f6f6;
+      --surface-soft:   #ffffff;
       --surface-strong: #ececec;
       --text:           #333333;
       --muted:          rgba(51, 51, 51, 0.62);
       --faint:          rgba(51, 51, 51, 0.36);
-      --line:           rgba(51, 51, 51, 0.14);
-      --line-strong:    rgba(51, 51, 51, 0.30);
+      --line:           rgba(51, 51, 51, 0.22);
+      --line-strong:    rgba(51, 51, 51, 0.34);
       --gold:           #9a7b2e;
       --gold-soft:      #b89a55;
       --shadow:         0 24px 64px rgba(51, 51, 51, 0.08);
@@ -30,10 +30,10 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(154,123,46,0.08), transparent 32%),
-        linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+        radial-gradient(circle at top left, rgba(51,51,51,0.08), transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
       color: var(--text);
-      font-family: "Space Grotesk", sans-serif;
+      font-family: "Inter", sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -55,7 +55,7 @@
     .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
     .top-nav__cta {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 38px; padding: 0 18px; border-radius: 999px;
+      min-height: 38px; padding: 0 18px; border-radius: 6px;
       background: var(--text); color: #ffffff;
       font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     }
@@ -65,7 +65,7 @@
 
     /* ── Section anatomy ── */
     .section { padding: 72px 0 0; }
-    .section-rule { height: 1px; border: none; margin: 0 0 28px; background: linear-gradient(90deg, rgba(154,123,46,0.45), rgba(154,123,46,0.18), transparent 70%); }
+    .section-rule { height: 1px; border: none; margin: 0 0 28px; background: linear-gradient(90deg, rgba(51,51,51,0.45), rgba(51,51,51,0.18), transparent 70%); }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       margin: 0 0 14px;
@@ -83,7 +83,7 @@
     /* ── FEATURED CARD ── */
     .featured {
       border: 1px solid var(--line-strong);
-      border-radius: 28px;
+      border-radius: 8px;
       background: var(--surface);
       box-shadow: var(--shadow);
       overflow: hidden;
@@ -91,7 +91,7 @@
     }
     .featured::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--gold), rgba(154,123,46,0.4), transparent 70%);
+      background: linear-gradient(90deg, var(--gold), rgba(51,51,51,0.4), transparent 70%);
     }
     /* Hero browser preview inside featured */
     .featured-browser {
@@ -117,13 +117,13 @@
       flex: 1; background: rgba(255,255,255,0.08);
       border-radius: 6px; padding: 4px 12px;
       font-size: 11px; color: rgba(255,255,255,0.45);
-      font-family: "Space Grotesk", monospace;
+      font-family: "Inter", monospace;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .featured-browser__live {
       font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
       text-transform: uppercase; color: #28c840;
-      border: 1px solid rgba(40,200,64,0.35); border-radius: 999px;
+      border: 1px solid rgba(40,200,64,0.35); border-radius: 6px;
       padding: 3px 10px;
     }
     .featured-browser__frame {
@@ -142,12 +142,12 @@
     .featured-chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .featured-chip {
       display: inline-flex; align-items: center; gap: 5px;
-      padding: 6px 14px; border-radius: 999px;
+      padding: 6px 14px; border-radius: 6px;
       border: 1px solid var(--line-strong); background: rgba(255,255,255,0.72);
       font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--muted); transition: border-color 0.2s, color 0.2s;
     }
-    .featured-chip:hover { border-color: rgba(154,123,46,0.4); color: var(--gold); }
+    .featured-chip:hover { border-color: rgba(51,51,51,0.4); color: var(--gold); }
     .featured-side { display: flex; flex-direction: column; gap: 14px; align-items: flex-end; }
     @media (max-width: 720px) { .featured-side { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 12px; } }
     .featured-stat { text-align: right; }
@@ -156,12 +156,12 @@
     .featured-stat__label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-top: 4px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      min-height: 44px; padding: 0 22px; border-radius: 999px;
+      min-height: 44px; padding: 0 22px; border-radius: 6px;
       border: 1px solid var(--line-strong); background: rgba(255,255,255,0.7);
       font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--text); transition: all 0.2s; white-space: nowrap; cursor: pointer;
     }
-    .btn:hover { border-color: rgba(154,123,46,0.42); background: rgba(154,123,46,0.07); transform: translateY(-2px); }
+    .btn:hover { border-color: rgba(51,51,51,0.42); background: rgba(51,51,51,0.07); transform: translateY(-2px); }
     .btn--gold { background: var(--gold); border-color: var(--gold); color: #fff8f0; }
     .btn--gold:hover { background: var(--gold-soft); border-color: var(--gold-soft); }
 
@@ -173,7 +173,7 @@
     .proj-card {
       display: flex; flex-direction: column;
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 8px;
       background: var(--surface);
       box-shadow: var(--shadow-card);
       padding: 26px 24px 22px;
@@ -196,7 +196,7 @@
 
     /* Card icon strip */
     .proj-icon-strip {
-      width: 100%; height: 80px; border-radius: 14px;
+      width: 100%; height: 80px; border-radius: 6px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 18px; margin-bottom: 18px;
       background: var(--surface-strong);
@@ -244,11 +244,11 @@
     .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
     .tag {
       font-size: 9px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
-      padding: 4px 9px; border-radius: 999px;
+      padding: 4px 9px; border-radius: 6px;
       border: 1px solid var(--line-strong); color: var(--muted);
       background: var(--surface-soft);
     }
-    .tag--gold { border-color: rgba(154,123,46,0.3); color: var(--gold); background: rgba(154,123,46,0.07); }
+    .tag--gold { border-color: rgba(51,51,51,0.3); color: var(--gold); background: rgba(51,51,51,0.07); }
     /* CTA link inside card */
     .proj-cta {
       margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
@@ -265,7 +265,7 @@
     /* ── SKILLS BAR ── */
     .skills-bar { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill-pill {
-      padding: 8px 16px; border-radius: 999px;
+      padding: 8px 16px; border-radius: 6px;
       border: 1px solid var(--line-strong);
       background: var(--surface);
       font-size: 12px; font-weight: 600; color: var(--muted);
@@ -286,7 +286,7 @@
     .page-transition__panel {
       position: absolute; top: 50%; left: 50%;
       width: min(34vw, 460px); height: min(22vw, 300px);
-      background: var(--bg); border: 1px solid var(--line); border-radius: 28px;
+      background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
       transform: translate(-50%, -50%) scale(0.88); opacity: 0;
     }
 
