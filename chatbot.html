@@ -6,7 +6,7 @@
   <title>Conversational AI | Jax Johnson</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ── Design Tokens ── */
     :root {
@@ -30,10 +30,9 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(51,51,51,0.08), transparent 32%),
-        linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+        #ffffff;
       color: var(--text);
-      font-family: "Inter", sans-serif;
+      font-family: "Manrope", sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -53,7 +52,7 @@
       width: min(34vw, 460px); height: min(22vw, 300px);
       background: var(--bg);
       border: 1px solid var(--line-strong);
-      border-radius: 8px;
+      border-radius: 2px;
       transform: translate(-50%, -50%) scale(0.88);
       opacity: 0;
     }
@@ -67,14 +66,14 @@
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     }
-    .top-nav__logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+    .top-nav__logo { font-family: "Archivo", sans-serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
     .top-nav__logo span { color: var(--gold); }
     .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
     .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
     .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
     .top-nav__cta {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 38px; padding: 0 18px; border-radius: 6px;
+      min-height: 38px; padding: 0 18px; border-radius: 2px;
       background: var(--text); color: #ffffff;
       font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     }
@@ -98,7 +97,7 @@
     .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; opacity: 0.7; }
     .hero__title {
       margin: 0;
-      font-family: "Playfair Display", serif;
+      font-family: "Archivo", sans-serif;
       font-size: clamp(2.8rem, 6.5vw, 5.4rem);
       line-height: 0.95; letter-spacing: -0.04em; font-weight: 700;
       max-width: 12ch;
@@ -110,7 +109,7 @@
     }
     .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
     .chip {
-      padding: 7px 14px; border-radius: 6px;
+      padding: 7px 14px; border-radius: 2px;
       border: 1px solid var(--line-strong);
       background: var(--surface);
       font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
@@ -130,7 +129,7 @@
     .section-eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; opacity: 0.7; }
     .section-title {
       margin: 0 0 10px;
-      font-family: "Playfair Display", serif;
+      font-family: "Archivo", sans-serif;
       font-size: clamp(1.7rem, 3vw, 2.6rem);
       font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
     }
@@ -147,14 +146,14 @@
 
     .chat-feature {
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 2px;
       background: var(--surface);
       box-shadow: var(--shadow-card);
       padding: 20px 22px;
       display: flex; gap: 14px; align-items: flex-start;
     }
     .chat-feature__icon {
-      width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 2px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.15rem;
       background: var(--surface-soft);
@@ -166,7 +165,7 @@
     /* ── Live Chat Window ── */
     .chat-window {
       border: 1px solid var(--line-strong);
-      border-radius: 8px;
+      border-radius: 2px;
       background: var(--surface);
       box-shadow: var(--shadow);
       overflow: hidden;
@@ -212,20 +211,20 @@
     .msg--user { align-self: flex-end; }
 
     .msg__bubble {
-      padding: 10px 14px; border-radius: 6px;
+      padding: 10px 14px; border-radius: 2px;
       font-size: 13px; line-height: 1.62;
     }
     .msg--ai .msg__bubble {
       background: var(--surface);
       border: 1px solid var(--line-strong);
       color: var(--text);
-      border-radius: 4px 14px 14px 14px;
+      border-radius: 2px 14px 14px 14px;
     }
     .msg--user .msg__bubble {
       background: var(--surface-strong);
       border: 1px solid var(--line-strong);
       color: var(--text);
-      border-radius: 6px 14px 4px 14px;
+      border-radius: 2px 14px 4px 14px;
     }
     .msg__label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 0; }
     .msg--user .msg__label { text-align: right; }
@@ -240,7 +239,7 @@
       flex: 1;
       background: var(--surface-soft);
       border: 1px solid var(--line-strong);
-      border-radius: 6px;
+      border-radius: 2px;
       padding: 10px 14px;
       font-family: inherit; font-size: 12.5px;
       color: var(--text);
@@ -251,7 +250,7 @@
     .chat-input:focus { border-color: var(--gold-soft); }
 
     .chat-send {
-      width: 38px; height: 38px; border-radius: 6px;
+      width: 38px; height: 38px; border-radius: 2px;
       background: var(--text);
       border: 1px solid var(--text);
       color: #ffffff; font-size: 1rem;
@@ -265,7 +264,7 @@
     .chat-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      min-height: 44px; padding: 0 20px; border-radius: 6px;
+      min-height: 44px; padding: 0 20px; border-radius: 2px;
       font-family: inherit; font-size: 11px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       cursor: pointer; transition: all 0.22s;
@@ -293,14 +292,14 @@
     }
     .roadmap-item {
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 2px;
       background: var(--surface);
       box-shadow: var(--shadow-card);
       padding: 22px 20px;
       display: flex; flex-direction: column; gap: 10px;
     }
     .status-badge {
-      padding: 4px 10px; border-radius: 6px;
+      padding: 4px 10px; border-radius: 2px;
       font-size: 9px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       width: fit-content;
@@ -336,7 +335,7 @@
     .class-card {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 2px;
       padding: 22px;
       box-shadow: var(--shadow-card);
     }
@@ -372,13 +371,13 @@
     .key-prompt__row { display: flex; gap: 8px; width: 100%; }
     .key-prompt__input {
       flex: 1; background: var(--surface-soft);
-      border: 1px solid var(--line-strong); border-radius: 6px;
+      border: 1px solid var(--line-strong); border-radius: 2px;
       padding: 9px 12px; font-family: inherit; font-size: 12px;
       color: var(--text); outline: none;
     }
     .key-prompt__input:focus { border-color: var(--gold-soft); }
     .key-prompt__btn {
-      padding: 0 16px; border-radius: 6px;
+      padding: 0 16px; border-radius: 2px;
       background: var(--text); border: none; color: #ffffff;
       font-family: inherit; font-size: 11px; font-weight: 700;
       letter-spacing: 0.08em; cursor: pointer;

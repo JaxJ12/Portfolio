@@ -6,7 +6,7 @@
   <title>Academic Projects | Jax Johnson</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ── Design Tokens (exact match to index.html / experience.html) ── */
     :root {
@@ -30,10 +30,9 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(51,51,51,0.08), transparent 32%),
-        linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+        #ffffff;
       color: var(--text);
-      font-family: "Inter", sans-serif;
+      font-family: "Manrope", sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -48,14 +47,14 @@
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     }
-    .top-nav__logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+    .top-nav__logo { font-family: "Archivo", sans-serif; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
     .top-nav__logo span { color: var(--gold); }
     .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
     .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
     .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
     .top-nav__cta {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 38px; padding: 0 18px; border-radius: 6px;
+      min-height: 38px; padding: 0 18px; border-radius: 2px;
       background: var(--text); color: #ffffff;
       font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     }
@@ -74,7 +73,7 @@
     .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; opacity: 0.7; }
     .section-title {
       margin: 0 0 10px;
-      font-family: "Playfair Display", serif;
+      font-family: "Archivo", sans-serif;
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
       font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
     }
@@ -83,7 +82,7 @@
     /* ── FEATURED CARD ── */
     .featured {
       border: 1px solid var(--line-strong);
-      border-radius: 8px;
+      border-radius: 2px;
       background: var(--surface);
       box-shadow: var(--shadow);
       overflow: hidden;
@@ -115,15 +114,15 @@
     .featured-browser__dot:nth-child(3) { background: #28c840; }
     .featured-browser__url {
       flex: 1; background: rgba(255,255,255,0.08);
-      border-radius: 6px; padding: 4px 12px;
+      border-radius: 2px; padding: 4px 12px;
       font-size: 11px; color: rgba(255,255,255,0.45);
-      font-family: "Inter", monospace;
+      font-family: "Manrope", monospace;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .featured-browser__live {
       font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
       text-transform: uppercase; color: #28c840;
-      border: 1px solid rgba(40,200,64,0.35); border-radius: 6px;
+      border: 1px solid rgba(40,200,64,0.35); border-radius: 2px;
       padding: 3px 10px;
     }
     .featured-browser__frame {
@@ -137,12 +136,12 @@
     .featured-body { padding: 32px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: start; }
     @media (max-width: 720px) { .featured-body { grid-template-columns: 1fr; } }
     .featured-body__tag { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-    .featured-body__title { margin: 0 0 12px; font-family: "Playfair Display", serif; font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: var(--text); }
+    .featured-body__title { margin: 0 0 12px; font-family: "Archivo", sans-serif; font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: var(--text); }
     .featured-body__desc { font-size: 14px; line-height: 1.74; color: var(--muted); max-width: 58ch; margin-bottom: 20px; }
     .featured-chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .featured-chip {
       display: inline-flex; align-items: center; gap: 5px;
-      padding: 6px 14px; border-radius: 6px;
+      padding: 6px 14px; border-radius: 2px;
       border: 1px solid var(--line-strong); background: rgba(255,255,255,0.72);
       font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--muted); transition: border-color 0.2s, color 0.2s;
@@ -152,11 +151,11 @@
     @media (max-width: 720px) { .featured-side { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 12px; } }
     .featured-stat { text-align: right; }
     @media (max-width: 720px) { .featured-stat { text-align: left; } }
-    .featured-stat__num { font-family: "Playfair Display", serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--text); }
+    .featured-stat__num { font-family: "Archivo", sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--text); }
     .featured-stat__label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-top: 4px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      min-height: 44px; padding: 0 22px; border-radius: 6px;
+      min-height: 44px; padding: 0 22px; border-radius: 2px;
       border: 1px solid var(--line-strong); background: rgba(255,255,255,0.7);
       font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--text); transition: all 0.2s; white-space: nowrap; cursor: pointer;
@@ -173,7 +172,7 @@
     .proj-card {
       display: flex; flex-direction: column;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 2px;
       background: var(--surface);
       box-shadow: var(--shadow-card);
       padding: 26px 24px 22px;
@@ -196,14 +195,14 @@
 
     /* Card icon strip */
     .proj-icon-strip {
-      width: 100%; height: 80px; border-radius: 6px;
+      width: 100%; height: 80px; border-radius: 2px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 18px; margin-bottom: 18px;
       background: var(--surface-strong);
       position: relative; overflow: hidden;
     }
     .proj-icon-strip__label {
-      font-family: "Playfair Display", serif; font-size: 1.6rem; font-weight: 700;
+      font-family: "Archivo", sans-serif; font-size: 1.6rem; font-weight: 700;
       letter-spacing: -0.03em; line-height: 1; z-index: 1;
     }
     .proj-icon-strip__sub {
@@ -233,7 +232,7 @@
       color: var(--gold); margin-bottom: 7px;
     }
     .proj-title {
-      font-family: "Playfair Display", serif;
+      font-family: "Archivo", sans-serif;
       font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2;
       color: var(--text); margin-bottom: 10px;
     }
@@ -244,7 +243,7 @@
     .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
     .tag {
       font-size: 9px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
-      padding: 4px 9px; border-radius: 6px;
+      padding: 4px 9px; border-radius: 2px;
       border: 1px solid var(--line-strong); color: var(--muted);
       background: var(--surface-soft);
     }
@@ -265,7 +264,7 @@
     /* ── SKILLS BAR ── */
     .skills-bar { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill-pill {
-      padding: 8px 16px; border-radius: 6px;
+      padding: 8px 16px; border-radius: 2px;
       border: 1px solid var(--line-strong);
       background: var(--surface);
       font-size: 12px; font-weight: 600; color: var(--muted);
@@ -286,7 +285,7 @@
     .page-transition__panel {
       position: absolute; top: 50%; left: 50%;
       width: min(34vw, 460px); height: min(22vw, 300px);
-      background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+      background: var(--bg); border: 1px solid var(--line); border-radius: 2px;
       transform: translate(-50%, -50%) scale(0.88); opacity: 0;
     }
 
@@ -337,7 +336,7 @@
       <a href="dashboards.html">Dashboards</a>
       <a href="about.html">About</a>
     </div>
-    <a class="top-nav__cta" href="March%202026%20Portfolio%20%281%29%202.pdf" target="_blank">PDF Portfolio</a>
+    <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
   </nav>
 
   <main>
