@@ -117,9 +117,9 @@
 
   "social_media": {
     "combined_stats": {
-      "lifetime_views": "100M+",
-      "total_followers": "30K+",
-      "monthly_reach": "15.7M accounts reached on Instagram in last 30 days",
+      "lifetime_views": "220M+",
+      "total_followers": "55K+",
+      "monthly_reach": "106.3M accounts reached in a 30-day window",
       "revenue": "$15K+ generated through brand deals and livestream campaigns",
       "peak_output": "75+ videos per month"
     },
@@ -128,15 +128,15 @@
         "platform": "TikTok",
         "handle": "@NotJax",
         "type": "Personal Creator & Brand Partner",
-        "stats": "50M+ lifetime views, 22M yearly views, 18.7K followers",
-        "brand_deals": ["Ailith AI", "Snow", "Gymshark", "Recapture", "Locket"],
+        "stats": "55M+ lifetime views, 20K followers, 7.9M likes",
+        "brand_deals": ["Gymshark", "Yahoo", "Snowverb", "Dime Inc", "Ailith AI", "Recapture", "Locket", "Sleep Timer"],
         "revenue": "$15K+ through deals and a 3-month livestream campaign"
       },
       {
         "platform": "Instagram",
         "handle": "@j.xjohnson",
         "type": "Personal Creator",
-        "stats": "6,100+ followers, 44.5M reel views lifetime, 15.7M accounts reached in last 30 days"
+        "stats": "26.9K followers, 106.3M views, 106.3M accounts reached in a 30-day window"
       },
       {
         "platform": "TikTok",
@@ -219,7 +219,7 @@
   "pages": [
     { "title": "Overview / Home", "url": "index.html", "summary": "High-level guide to the portfolio with live previews and recommended routes for different audiences." },
     { "title": "Experience and Skills", "url": "experience.html", "summary": "Full work history, leadership roles, certifications, and technical skills." },
-    { "title": "Social Media Systems", "url": "social.html", "summary": "Six active social media roles, 100M+ lifetime views, brand partnerships, and platform strategy." },
+    { "title": "Social Media Systems", "url": "social.html", "summary": "Six active social media roles, 220M+ lifetime views, brand partnerships, and platform strategy." },
     { "title": "Dashboards and AI Builds", "url": "dashboards.html", "summary": "Three live AI-built tools: Creed & Jax Dashboard, Gartner Vendor Manager, Alpha & Omega Transcription Tool." },
     { "title": "Academic and Client Projects", "url": "class-projects.html", "summary": "The Baylor x SAP pitch ecosystem, 4V98 AI coursework, and the Journalism Quote Game." },
     { "title": "Deployed Chatbot (SAP Briefing Assistant)", "url": "chatbot.html", "summary": "A live Gemini-powered chatbot answering questions about the Baylor x SAP pitch. Demonstrates conversation design, prompt engineering, and deployed AI packaging." },
