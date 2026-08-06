@@ -168,9 +168,66 @@
   </div>
 
   <script>
-    const messages = [
-      { role: "assistant", content: "Hi, I am the portfolio assistant for Jax Johnson. Ask me about his experience, projects, or where to find something in the portfolio." }
+    // Client-side response bank. Reads like a live assistant, but every answer
+    // is pre-written so it works offline and never depends on an API key or credits.
+    const KB = [
+      {
+        keys: ["read first", "where to start", "start", "overview", "guide me", "tour", "begin"],
+        text: "Great starting point. Here is the fast route:\n\n1. Social Media Systems (social.html) — the audience proof: 220M+ lifetime views, 40K+ followers, and six active roles.\n2. Experience and Skills (experience.html) — the full work history, leadership, and certifications.\n3. Academic and Client Projects (class-projects.html) — headlined by the Baylor x SAP pitch, a 7-page interactive corporate deck.\n4. Dashboards and AI Builds (dashboards.html) — three live tools Jax built with AI.\n\nIf you tell me your role (recruiter, brand, AI/tech, or professor) I can point you straight to the right page."
+      },
+      {
+        keys: ["strongest project", "best project", "impressive", "flagship", "sap", "pitch deck", "best work", "top project"],
+        text: "The flagship is the Baylor Athletics x SAP Corporate Partnership Pitch (sap-index.html). It is not a class deck: it is a fully deployed 7-page interactive website mirroring a real enterprise sales pitch, and it took 1st Place Overall in the SAP Sponsorship Challenge, judged by executives from SAP, Playfly Sports, and SBRnet (267 commits, 80+ hours).\n\nIt includes a live AI Briefing Assistant, a custom analytics dashboard, jersey patch valuation (4.2M annual TV viewers, 300K+ home attendees), premium suites, an AI fan app for 40K+ fans, and a co-branded keynote series, all built around a four-pillar B2B strategy for the I-35 corridor.\n\nRight behind it: three live AI-built tools (Gartner Vendor Manager, Alpha & Omega transcription tool, and the Creed & Jax performance dashboard)."
+      },
+      {
+        keys: ["ai", "chatbot", "chat bot", "build", "dashboard", "tool", "n8n", "langchain", "python", "machine learning", "automation", "tech"],
+        text: "Jax's AI and build work spans real tools and coursework:\n\nLive tools (dashboards.html):\n- Gartner Vendor Manager — weighted vendor scoring with an Auto-Enrich feature that generates Copilot prompts.\n- Alpha & Omega Transcription Tool — built for a family insurance business; turns call transcripts into client details, plan matches, action lists, and a drafted follow-up email.\n- Creed & Jax Performance Dashboard — a full personal analytics hub with KPI and goal tracking.\n\n4V98 coursework: an 11-node n8n multi-agent orchestrator, a LangChain ReAct booking agent, a scikit-learn classifier hitting 96% accuracy, a Django marketplace (SkillSwap), a Gemini chatbot, and a cinematic Google Veo video.\n\nHe also uses AI daily in his marketing work, scaling AI-generated ad creative to lift testing velocity while controlling cost. Toolset: Claude, Gemini, LangChain, n8n, Python, Django, and Prompt Engineering."
+      },
+      {
+        keys: ["social", "follower", "views", "tiktok", "instagram", "audience", "reach", "creator", "content", "viral"],
+        text: "Jax runs social media end to end, across his own accounts and brand work:\n\nCombined: 220M+ lifetime views, 40K+ followers, and 106.3M accounts reached in a single 30-day window. He has generated $15K+ through brand deals and a 3-month livestream campaign.\n\nAccounts:\n- @NotJax (TikTok): 55M+ lifetime views, 20K followers, 7.9M likes.\n- @j.xjohnson (Instagram): 26.9K followers, 150M+ views since January, 37.4M accounts reached in 30 days.\n- @jax.prays (TikTok, Creed Bible App): 14M+ views, 75+ videos a month, multiple videos over 1M views each, plus performance bonuses.\n- @jax.relates (TikTok, Insight Timer): 150K+ views in the first 30 days across 30 sponsored UGC videos.\n- ESPN Central Texas: built their platforms under new management in a 3-person production team.\n- Baylor University: student worker driving 200K+ views on his first three videos.\n\nSee social.html for the full breakdown."
+      },
+      {
+        keys: ["brand", "partner", "sponsor", "deal", "worked with", "companies", "clients", "gymshark", "yahoo"],
+        text: "Jax has partnered with a wide range of brands through paid UGC, livestream campaigns, and sponsorships, including Gymshark, Yahoo!, Fluencify, BottleBuddy, Snowverb, Dime Inc, Ailith AI, Recapture, Locket, Sleep Timer, and Insight Timer, plus an ongoing content partnership with the Creed Bible App.\n\nThrough JX Creatives, his creator management practice, he also manages content, posting schedules, and brand deals for multiple creators ranging from 15K to 150K followers. As Marketing Director at Creed he ran a paid ads pipeline producing 60 creatives per week across $50K to $100K in monthly Meta Ads spend while directing a team of 40+ content creators."
+      },
+      {
+        keys: ["jx creatives", "manage creators", "agency", "own business", "founder", "clients you manage"],
+        text: "JX Creatives is Jax's creator management practice (Dallas, TX). He founded it to oversee posting schedules and content output for multiple creators in the 15K to 150K follower range, coordinate their brand partnerships and sponsored campaigns from outreach through deliverables and reporting, and launch side projects and lightweight tools that support creator workflows."
+      },
+      {
+        keys: ["creed", "marketing director", "paid ads", "meta ads", "director of partnerships", "spend"],
+        text: "At the Creed Bible App, Jax is Director of Partnerships & Activation (formerly Marketing Director), April 2026 to present. As Marketing Director he built and ran the paid ads pipeline end to end, producing 60 creatives per week and managing 40+ content creators across $50K to $100K in monthly Meta Ads spend, using creative testing, audience targeting, and conversion tracking to drive installs. He then moved to Director of Partnerships, closing church and Christian apparel partnerships through 500 weekly emails, cold calls, and custom pitch decks."
+      },
+      {
+        keys: ["experience", "work history", "job", "leadership", "resume", "background", "roles"],
+        text: "Snapshot of Jax's experience:\n- Director of Partnerships & Activation / Marketing Director, Creed Bible App (2026-present).\n- Founder & Creator Manager, JX Creatives.\n- Content Creator & Brand Partner (@NotJax, @j.xjohnson) since 2024.\n- Social Media Student Worker, Baylor University; TikTok Creator Intern, ESPN Central Texas.\n- VP of External Relations, AI Society at Baylor; VP of Recruitment & Outreach, Baylor S3E Club.\n\nHe is a Baylor BBA double major (Sales Strategy in Sports & Entertainment Marketing and Management Information Systems), graduating December 2026. Full detail on experience.html, and both resumes are on about.html."
+      },
+      {
+        keys: ["skill", "certification", "certified", "hubspot", "salesforce", "tools you use"],
+        text: "Core skills: short-form video, hook writing, UGC creation, and on-camera hosting; Meta Ads Manager and the full paid-ads pipeline; creator and team management (40+); and AI/build tools (Claude, Gemini, LangChain, n8n, Python, Django).\n\nCertifications: HubSpot Social Media Marketing, Salesforce Trailhead (20,000 points, 80+ badges), Microsoft Office Specialist (Word, Excel), and Registered Sports NIL Agent. Full list on skills.html."
+      },
+      {
+        keys: ["contact", "reach you", "email", "hire", "get in touch", "phone", "linkedin", "connect"],
+        text: "Easiest ways to reach Jax:\n- Email: Jaxjohnson2027@gmail.com\n- Phone: (469) 978-4476\n- LinkedIn: linkedin.com/in/jax-johnson\n- Portfolio: jxcreatives.com\n\nThe About page (about.html) also has a contact form that routes to the right inbox by inquiry type. He is open to internships and roles in marketing, social media, digital strategy, sports business, and AI-supported work."
+      }
     ];
+
+    const FALLBACK = "I can walk you through Jax Johnson's social media work (220M+ views, 40K+ followers, brands like Gymshark, Yahoo!, Fluencify, and BottleBuddy), his AI builds and the flagship Baylor x SAP pitch, his experience and skills, or how to get in touch. Try one of the prompts above, or ask about a specific project.";
+    const GREETING = "Hi there. Ask me about his social media, brand partnerships, AI builds, experience, or how to reach him.";
+
+    function pickAnswer(q) {
+      const t = q.toLowerCase();
+      let best = null, bestScore = 0;
+      for (const item of KB) {
+        let score = 0;
+        for (const k of item.keys) if (t.includes(k)) score += k.split(" ").length;
+        if (score > bestScore) { bestScore = score; best = item; }
+      }
+      if (best) return best.text;
+      if (/\b(hi|hey|hello|yo|sup)\b/.test(t)) return GREETING;
+      return FALLBACK;
+    }
 
     const messagesEl = document.getElementById("messages");
     const inputEl = document.getElementById("userInput");
@@ -196,40 +253,24 @@
       sendMessage();
     }
 
-    async function sendMessage() {
+    function sendMessage() {
       const text = inputEl.value.trim();
       if (!text) return;
 
-      messages.push({ role: "user", content: text });
       renderMessage("user", text, "user");
       inputEl.value = "";
 
       const thinking = renderMessage("assistant", "Thinking...", "thinking");
       setSending(true);
 
-      try {
-        const response = await fetch("/api/portfolio-chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages })
-        });
-
-        const data = await response.json();
+      const reply = pickAnswer(text);
+      const delay = 600 + Math.min(1400, reply.length * 4);
+      setTimeout(() => {
         thinking.remove();
-
-        if (!response.ok) {
-          renderMessage("assistant", "Server error: " + (data?.error || response.status), "agent");
-        } else {
-          const reply = data.reply || "Sorry, I could not generate a response.";
-          messages.push({ role: "assistant", content: reply });
-          renderMessage("assistant", reply, "agent");
-        }
-      } catch (err) {
-        thinking.remove();
-        renderMessage("assistant", "Sorry, I could not reach the server.", "agent");
-      } finally {
+        renderMessage("assistant", reply, "agent");
         setSending(false);
-      }
+        inputEl.focus();
+      }, delay);
     }
   </script>
 </body>
