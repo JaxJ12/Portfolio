@@ -40,17 +40,16 @@
     .bg-field {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(circle at 12% 8%, rgba(15, 124, 201, 0.22), transparent 38%),
-        radial-gradient(circle at 88% 12%, rgba(216, 178, 90, 0.14), transparent 42%),
-        radial-gradient(circle at 50% 120%, rgba(15, 124, 201, 0.16), transparent 55%);
+        radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.05), transparent 55%),
+        linear-gradient(180deg, #0a0e15 0%, var(--bg) 60%);
     }
     .bg-grid {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 78px 78px; opacity: 0.5;
-      mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+        linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+      background-size: 82px 82px; opacity: 0.6;
+      mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
     }
 
     /* ── Nav ── */
@@ -95,7 +94,7 @@
     .hero__contact a:hover { color: var(--text); }
 
     .hero__stage { position: relative; min-height: 520px; display: flex; align-items: center; justify-content: center; perspective: 1400px; }
-    .hero__glow { position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(15, 124, 201, 0.4), transparent 68%); filter: blur(18px); }
+    .hero__glow { position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.06), transparent 68%); filter: blur(18px); }
 
     /* ── Device: phone ── */
     .phone { position: relative; width: 260px; aspect-ratio: 9 / 19.5; border-radius: 38px; padding: 10px; background: linear-gradient(160deg, #1c2230, #0a0d14); border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: var(--shadow), inset 0 1px 1px rgba(255, 255, 255, 0.14); overflow: hidden; }
@@ -140,9 +139,52 @@
     .blowup__tags { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
     .pill { padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 
+    /* ── Featured videos ── */
+    .vid-block { margin-bottom: 34px; }
+    .vid-block:last-child { margin-bottom: 0; }
+    .vid-block__label { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: "Space Grotesk", sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.01em; color: var(--text); }
+    .vid-block__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--dot, var(--gold)); box-shadow: 0 0 12px var(--dot, var(--gold)); }
+    .vid-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .vid-card { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--line); border-radius: 18px; padding: 12px; background: rgba(11, 16, 24, 0.5); box-shadow: 0 18px 44px rgba(0,0,0,0.3); transition: transform 0.2s ease, border-color 0.2s ease; }
+    .vid-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+    .vid-card__poster { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 9 / 16; background: #05070c; }
+    .vid-card__poster img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .vid-card__poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(5, 7, 12, 0.7)); }
+    .vid-card .feed-card__play { width: 54px; height: 54px; }
+    .vid-card__meta { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 2px; }
+    .vid-card__plat { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .vid-card__num { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+
+    /* ── Watch the work / feeds ── */
+    .feeds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .feed-card { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 20px 20px 22px; border: 1px solid var(--line); border-radius: 20px; background: rgba(11, 16, 24, 0.55); box-shadow: var(--shadow); overflow: hidden; }
+    .feed-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+    .feed-card__handle { font-family: "Space Grotesk", sans-serif; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; color: var(--gold); }
+    .feed-card__meta { margin-top: 4px; font-size: 11.5px; color: var(--faint); letter-spacing: 0.02em; }
+    .feed-card__link { flex-shrink: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s ease; }
+    .feed-card__link:hover { color: var(--text); }
+    .feed-card__media { position: relative; border-radius: 14px; overflow: hidden; background: #05070c; }
+    .feed-card__media .tiktok-embed { margin: 0 !important; background: transparent !important; }
+    .feed-card__media iframe { border-radius: 14px; }
+    .feed-card__poster { position: relative; display: block; aspect-ratio: 9 / 13; }
+    .feed-card__poster img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .feed-card__poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(5, 7, 12, 0.82)); }
+    .feed-card__play { position: absolute; top: 50%; left: 50%; width: 62px; height: 62px; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.4); backdrop-filter: blur(6px); z-index: 2; transition: transform 0.2s ease, background 0.2s ease; }
+    .feed-card__play::before { content: ""; position: absolute; top: 50%; left: 53%; transform: translate(-50%, -50%); border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+    .feed-card__poster:hover .feed-card__play { transform: translate(-50%, -50%) scale(1.08); background: rgba(255, 255, 255, 0.24); }
+    .feed-card__poster-cta { position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; z-index: 2; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; }
+    .feed-card--wide { grid-column: span 2; }
+    .feed-card--wide .feed-card__poster { aspect-ratio: 21 / 9; }
+    .feed-card--ig { text-decoration: none; justify-content: center; min-height: 220px; background: linear-gradient(150deg, rgba(193, 53, 132, 0.14), rgba(11, 16, 24, 0.7)); transition: transform 0.2s ease, border-color 0.2s ease; }
+    .feed-card--ig:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+    .feed-card__igglow { position: absolute; inset: 0; background: radial-gradient(circle at 100% 0%, rgba(225, 90, 152, 0.22), transparent 55%); pointer-events: none; }
+    .feed-card__ig-inner { position: relative; display: grid; gap: 10px; }
+    .feed-card__ig-copy { margin: 0; font-size: 13px; line-height: 1.65; color: var(--muted); max-width: 42ch; }
+    .feed-card--ig .feed-card__link { color: var(--gold); margin-top: 4px; }
+
     /* ── Warp breakout ── */
     .warp { position: relative; margin: clamp(40px, 8vh, 90px) 0 0; perspective: 1600px; }
-    .warp__card { position: relative; border: 1px solid var(--line-strong); border-radius: 26px; overflow: hidden; background: linear-gradient(160deg, rgba(15, 124, 201, 0.12), rgba(6, 9, 15, 0.9)); box-shadow: var(--shadow); transform-style: preserve-3d; will-change: transform; }
+    .warp__card { position: relative; border: 1px solid var(--line-strong); border-radius: 26px; overflow: hidden; background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(6, 9, 15, 0.92)); box-shadow: var(--shadow); transform-style: preserve-3d; will-change: transform; }
     .warp__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: clamp(20px, 4vw, 48px); align-items: center; padding: clamp(28px, 4vw, 52px); }
     .warp__copy h3 { margin: 0 0 14px; font-family: "Space Grotesk", sans-serif; font-size: clamp(1.7rem, 3vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.02; }
     .warp__copy p { margin: 0 0 18px; font-size: 14px; line-height: 1.75; color: var(--muted); }
@@ -286,6 +328,14 @@
       .top-nav__links { flex-direction: column; align-items: flex-start; gap: 16px; }
       .top-nav__links a { font-size: 13px; }
     }
+    @media (max-width: 760px) {
+      .vid-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+      .vid-card { padding: 8px; border-radius: 14px; }
+      .vid-card__meta { display: none; }
+      .feeds { grid-template-columns: 1fr; }
+      .feed-card--wide { grid-column: span 1; }
+      .feed-card--wide .feed-card__poster { aspect-ratio: 9 / 13; }
+    }
     @media (max-width: 640px) {
       .blowup-grid, .metrics, .accounts-grid, .cert-grid, .paid__stats { grid-template-columns: 1fr; }
       .metric { border-right: none; border-bottom: 1px solid var(--line); }
@@ -337,6 +387,7 @@
     <div class="top-nav__menu" id="nav-menu">
       <div class="top-nav__links">
         <a class="is-active" href="index.html">Social</a>
+        <a href="#featured">Videos</a>
         <a href="#accounts">Accounts</a>
         <a href="#skills">Skills</a>
         <a href="about.html">About</a>
@@ -452,6 +503,117 @@
             <div class="warp__phone"><div class="phone"><div class="phone__screen"><img src="tiktok-analytics.jpg" alt="TikTok analytics dashboard" loading="lazy" /></div></div></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ── FEATURED VIDEOS ── -->
+    <section class="section" id="featured" aria-labelledby="featured-title">
+      <div class="section-head reveal">
+        <div class="section-head__label">Featured videos</div>
+        <h2 id="featured-title">Six that hit hardest.</h2>
+        <p>My top three on TikTok and top three on Instagram. Tap any thumbnail to watch it on the platform.</p>
+      </div>
+      <div class="vid-block reveal">
+        <div class="vid-block__label"><span class="vid-block__dot" style="--dot:#fe2c55;"></span>Top 3 on TikTok</div>
+        <div class="vid-grid">
+          <a class="vid-card" data-featured="tiktok-1" href="#" target="_blank" rel="noopener">
+            <div class="vid-card__poster"><img src="notjax-tiktok.jpg" alt="Featured TikTok video 1" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="vid-card__meta"><span class="vid-card__plat">TikTok</span><span class="vid-card__num">Add link</span></div>
+          </a>
+          <a class="vid-card" data-featured="tiktok-2" href="#" target="_blank" rel="noopener">
+            <div class="vid-card__poster"><img src="creed-tiktok.jpg" alt="Featured TikTok video 2" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="vid-card__meta"><span class="vid-card__plat">TikTok</span><span class="vid-card__num">Add link</span></div>
+          </a>
+          <a class="vid-card" data-featured="tiktok-3" href="#" target="_blank" rel="noopener">
+            <div class="vid-card__poster"><img src="tiktok-profile.png" alt="Featured TikTok video 3" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="vid-card__meta"><span class="vid-card__plat">TikTok</span><span class="vid-card__num">Add link</span></div>
+          </a>
+        </div>
+      </div>
+      <div class="vid-block reveal">
+        <div class="vid-block__label"><span class="vid-block__dot" style="--dot:#C13584;"></span>Top 3 on Instagram</div>
+        <div class="vid-grid">
+          <a class="vid-card" data-featured="ig-1" href="#" target="_blank" rel="noopener">
+            <div class="vid-card__poster"><img src="instagram-profile.png" alt="Featured Instagram video 1" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="vid-card__meta"><span class="vid-card__plat">Instagram</span><span class="vid-card__num">Add link</span></div>
+          </a>
+          <a class="vid-card" data-featured="ig-2" href="#" target="_blank" rel="noopener">
+            <div class="vid-card__poster"><img src="instagram-6k.jpg" alt="Featured Instagram video 2" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="vid-card__meta"><span class="vid-card__plat">Instagram</span><span class="vid-card__num">Add link</span></div>
+          </a>
+          <a class="vid-card" data-featured="ig-3" href="#" target="_blank" rel="noopener">
+            <div class="vid-card__poster"><img src="instagram-insights.png" alt="Featured Instagram video 3" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="vid-card__meta"><span class="vid-card__plat">Instagram</span><span class="vid-card__num">Add link</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WATCH THE WORK ── -->
+    <section class="section" id="watch" aria-labelledby="watch-title">
+      <div class="section-head reveal">
+        <div class="section-head__label">Watch the work</div>
+        <h2 id="watch-title">The videos, live.</h2>
+        <p>Pulled straight from the accounts. Scroll any feed below to see the latest posts, or tap through to the full profile.</p>
+      </div>
+      <div class="feeds">
+        <div class="feed-card reveal">
+          <div class="feed-card__head">
+            <div>
+              <div class="feed-card__handle">@NotJax</div>
+              <div class="feed-card__meta">TikTok · 20K followers · 7.9M likes</div>
+            </div>
+            <a class="feed-card__link" href="https://www.tiktok.com/@notjax" target="_blank" rel="noopener">Open &rarr;</a>
+          </div>
+          <div class="feed-card__media" data-embed data-url="https://www.tiktok.com/@notjax" data-uid="notjax">
+            <a class="feed-card__poster" href="https://www.tiktok.com/@notjax" target="_blank" rel="noopener">
+              <img src="notjax-tiktok.jpg" alt="@NotJax TikTok profile" loading="lazy" />
+              <span class="feed-card__play" aria-hidden="true"></span>
+              <span class="feed-card__poster-cta">Watch on TikTok</span>
+            </a>
+          </div>
+        </div>
+        <div class="feed-card reveal">
+          <div class="feed-card__head">
+            <div>
+              <div class="feed-card__handle">@jax.prays</div>
+              <div class="feed-card__meta">TikTok · Creed · 0 to 14M+ views</div>
+            </div>
+            <a class="feed-card__link" href="https://www.tiktok.com/@jax.prays" target="_blank" rel="noopener">Open &rarr;</a>
+          </div>
+          <div class="feed-card__media" data-embed data-url="https://www.tiktok.com/@jax.prays" data-uid="jax.prays">
+            <a class="feed-card__poster" href="https://www.tiktok.com/@jax.prays" target="_blank" rel="noopener">
+              <img src="creed-tiktok.jpg" alt="@jax.prays Creed TikTok profile" loading="lazy" />
+              <span class="feed-card__play" aria-hidden="true"></span>
+              <span class="feed-card__poster-cta">Watch on TikTok</span>
+            </a>
+          </div>
+        </div>
+        <div class="feed-card reveal feed-card--wide">
+          <div class="feed-card__head">
+            <div>
+              <div class="feed-card__handle">@jax.relates</div>
+              <div class="feed-card__meta">TikTok · 150K+ views / 30 days</div>
+            </div>
+            <a class="feed-card__link" href="https://www.tiktok.com/@jax.relates" target="_blank" rel="noopener">Open &rarr;</a>
+          </div>
+          <div class="feed-card__media" data-embed data-url="https://www.tiktok.com/@jax.relates" data-uid="jax.relates">
+            <a class="feed-card__poster" href="https://www.tiktok.com/@jax.relates" target="_blank" rel="noopener">
+              <img src="tiktok-profile.png" alt="@jax.relates TikTok profile" loading="lazy" />
+              <span class="feed-card__play" aria-hidden="true"></span>
+              <span class="feed-card__poster-cta">Watch on TikTok</span>
+            </a>
+          </div>
+        </div>
+        <a class="feed-card feed-card--ig reveal" href="https://www.instagram.com/j.xjohnson/" target="_blank" rel="noopener">
+          <div class="feed-card__igglow"></div>
+          <div class="feed-card__ig-inner">
+            <div class="feed-card__handle">@j.xjohnson</div>
+            <div class="feed-card__meta">Instagram · 26.9K followers · 150M+ views</div>
+            <p class="feed-card__ig-copy">106.3M accounts reached in the last 30 days. Reels, organic, grown from scratch.</p>
+            <span class="feed-card__link">View Instagram &rarr;</span>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -717,6 +879,29 @@
     })();
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* Live TikTok embeds on wide screens only; mobile keeps poster + link (embeds can crash small devices) */
+    (function () {
+      if (window.innerWidth < 760) return;
+      const slots = document.querySelectorAll("[data-embed]");
+      if (!slots.length) return;
+      slots.forEach((slot) => {
+        const url = slot.dataset.url, uid = slot.dataset.uid;
+        const bq = document.createElement("blockquote");
+        bq.className = "tiktok-embed";
+        bq.setAttribute("cite", url);
+        bq.setAttribute("data-unique-id", uid);
+        bq.setAttribute("data-embed-type", "creator");
+        bq.style.cssText = "max-width:100%;min-width:280px;margin:0;";
+        bq.innerHTML = '<section><a target="_blank" rel="noopener" href="' + url + '">@' + uid + '</a></section>';
+        const poster = slot.querySelector(".feed-card__poster");
+        if (poster) poster.remove();
+        slot.appendChild(bq);
+      });
+      const s = document.createElement("script");
+      s.async = true; s.src = "https://www.tiktok.com/embed.js";
+      document.body.appendChild(s);
+    })();
 
     /* Reveal-on-scroll */
     (function () {
