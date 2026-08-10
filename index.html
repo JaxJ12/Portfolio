@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jax Johnson | Portfolio Overview</title>
+  <title>Jax Johnson | Social Media Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -34,240 +34,101 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* Ambient background field */
     .bg-field {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
         radial-gradient(circle at 12% 8%, rgba(15, 124, 201, 0.22), transparent 38%),
         radial-gradient(circle at 88% 12%, rgba(216, 178, 90, 0.14), transparent 42%),
         radial-gradient(circle at 50% 120%, rgba(15, 124, 201, 0.16), transparent 55%);
     }
     .bg-grid {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background-image:
         linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 78px 78px;
-      opacity: 0.5;
+      background-size: 78px 78px; opacity: 0.5;
       mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
     }
 
     /* ── Nav ── */
     .top-nav {
-      position: sticky;
-      top: 14px;
-      z-index: 40;
-      width: min(1240px, calc(100% - 40px));
-      margin: 14px auto 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
+      position: sticky; top: 14px; z-index: 40;
+      width: min(1240px, calc(100% - 40px)); margin: 14px auto 0;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
       padding: 12px 14px 12px 22px;
-      background: rgba(11, 16, 24, 0.72);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      backdrop-filter: blur(20px) saturate(140%);
-      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      background: rgba(11, 16, 24, 0.72); border: 1px solid var(--line); border-radius: 16px;
+      backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%);
     }
-    .top-nav__logo {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
+    .top-nav__logo { font-family: "Space Grotesk", sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
     .top-nav__logo span { color: var(--gold); }
     .top-nav__menu { display: flex; align-items: center; gap: 22px; }
-    .top-nav__toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      width: 42px; height: 42px;
-      padding: 0;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: transparent;
-      cursor: pointer;
-    }
+    .top-nav__toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 42px; height: 42px; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: transparent; cursor: pointer; }
     .top-nav__toggle span { display: block; width: 18px; height: 2px; margin: 0 auto; background: var(--text); border-radius: 9px; transition: transform 0.25s ease, opacity 0.2s ease; }
     .top-nav.is-open .top-nav__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .top-nav.is-open .top-nav__toggle span:nth-child(2) { opacity: 0; }
     .top-nav.is-open .top-nav__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .top-nav__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: center; }
-    .top-nav__links a {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--faint); transition: color 0.2s ease;
-    }
+    .top-nav__links a { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); transition: color 0.2s ease; }
     .top-nav__links a:hover, .top-nav__links a.is-active { color: var(--text); }
-    .top-nav__cta {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 40px; padding: 0 18px; border-radius: 10px;
-      background: var(--gold); color: #10131a;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    }
+    .top-nav__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 10px; background: var(--gold); color: #10131a; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 
     .page-shell { position: relative; z-index: 2; width: min(1240px, calc(100% - 40px)); margin: 0 auto; }
 
     /* ── Hero ── */
-    .hero {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-      gap: clamp(28px, 5vw, 72px);
-      align-items: center;
-      padding: clamp(48px, 9vh, 110px) 0 clamp(40px, 7vh, 80px);
-    }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      margin: 0 0 22px; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
-    }
+    .hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: clamp(48px, 9vh, 110px) 0 clamp(40px, 7vh, 80px); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 22px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
     .eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; opacity: 0.7; }
-    .hero__title {
-      margin: 0;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(2.7rem, 6.4vw, 5.1rem);
-      line-height: 0.98; letter-spacing: -0.035em; max-width: 15ch;
-    }
+    .hero__title { margin: 0; font-family: "Space Grotesk", sans-serif; font-size: clamp(2.7rem, 6.4vw, 5.1rem); line-height: 0.98; letter-spacing: -0.035em; max-width: 15ch; }
     .hero__title span { color: var(--gold); }
     .hero__copy { margin: 24px 0 0; max-width: 56ch; font-size: 1.05rem; line-height: 1.74; color: var(--muted); }
     .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      min-height: 50px; padding: 0 22px; border-radius: 12px;
-      border: 1px solid var(--line-strong); background: var(--surface);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--text); transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-    .btn:hover { transform: translateY(-2px); background: var(--surface-2); border-color: var(--line-strong); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 22px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease; }
+    .btn:hover { transform: translateY(-2px); background: var(--surface-2); }
     .btn--primary { background: var(--gold); border-color: var(--gold); color: #10131a; }
     .btn--primary:hover { background: #e6c06a; }
-    .hero__contact {
-      display: flex; flex-wrap: wrap; gap: 20px 40px;
-      margin: 30px 0 0; padding-top: 24px; border-top: 1px solid var(--line);
-      font-size: 12px; color: var(--faint);
-    }
+    .hero__contact { display: flex; flex-wrap: wrap; gap: 20px 40px; margin: 30px 0 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); }
     .hero__contact-group { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
     .hero__contact a { word-break: break-word; transition: color 0.2s ease; }
     .hero__contact a:hover { color: var(--text); }
 
-    /* Hero phone stack */
-    .hero__stage {
-      position: relative;
-      min-height: 520px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      perspective: 1400px;
-    }
-    .hero__glow {
-      position: absolute; width: 380px; height: 380px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(15, 124, 201, 0.4), transparent 68%);
-      filter: blur(18px);
-    }
+    .hero__stage { position: relative; min-height: 520px; display: flex; align-items: center; justify-content: center; perspective: 1400px; }
+    .hero__glow { position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(15, 124, 201, 0.4), transparent 68%); filter: blur(18px); }
 
     /* ── Device: phone ── */
-    .phone {
-      position: relative;
-      width: 260px;
-      aspect-ratio: 9 / 19.5;
-      border-radius: 38px;
-      padding: 10px;
-      background: linear-gradient(160deg, #1c2230, #0a0d14);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: var(--shadow), inset 0 1px 1px rgba(255, 255, 255, 0.14);
-      overflow: hidden;
-    }
-    .phone::before {
-      content: ""; position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-      width: 96px; height: 22px; border-radius: 0 0 16px 16px;
-      background: #05070c; z-index: 3;
-    }
-    .phone__screen {
-      width: 100%; height: 100%; border-radius: 30px; overflow: hidden;
-      background: #05070c; position: relative;
-    }
+    .phone { position: relative; width: 260px; aspect-ratio: 9 / 19.5; border-radius: 38px; padding: 10px; background: linear-gradient(160deg, #1c2230, #0a0d14); border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: var(--shadow), inset 0 1px 1px rgba(255, 255, 255, 0.14); overflow: hidden; }
+    .phone::before { content: ""; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 96px; height: 22px; border-radius: 0 0 16px 16px; background: #05070c; z-index: 3; }
+    .phone__screen { width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: #05070c; position: relative; }
     .phone__screen img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 
-    .hero__phone {
-      position: absolute;
-      transform: rotateY(-16deg) rotateX(4deg) rotateZ(-4deg);
-      will-change: transform;
-    }
-    .hero__phone--back {
-      width: 224px; opacity: 0.72; filter: saturate(0.85) brightness(0.82);
-      transform: translate(-118px, -34px) rotateY(-20deg) rotateZ(-8deg) scale(0.92);
-      z-index: 1;
-    }
+    .hero__phone { position: absolute; transform: rotateY(-16deg) rotateX(4deg) rotateZ(-4deg); will-change: transform; }
+    .hero__phone--back { width: 224px; opacity: 0.72; filter: saturate(0.85) brightness(0.82); transform: translate(-118px, -34px) rotateY(-20deg) rotateZ(-8deg) scale(0.92); z-index: 1; }
+    .hero__phone--back .phone { width: 224px; }
     .hero__phone--front { z-index: 2; }
-    .hero__phone--chip {
-      z-index: 3;
-      transform: translate(118px, 108px) rotateY(-12deg) rotateZ(3deg);
-      width: 150px;
-    }
+    .hero__phone--chip { z-index: 3; transform: translate(118px, 108px) rotateY(-12deg) rotateZ(3deg); }
     .hero__phone--chip .phone { width: 150px; }
 
     /* ── Metrics band ── */
-    .metrics {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      background: rgba(11, 16, 24, 0.55);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-    }
+    .metrics { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: rgba(11, 16, 24, 0.55); backdrop-filter: blur(12px); box-shadow: var(--shadow); }
     .metric { padding: 30px 26px; border-right: 1px solid var(--line); }
     .metric:last-child { border-right: none; }
-    .metric strong {
-      display: block; font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(2.1rem, 3.4vw, 3.1rem); line-height: 0.95;
-      letter-spacing: -0.04em; color: var(--text);
-    }
+    .metric strong { display: block; font-family: "Space Grotesk", sans-serif; font-size: clamp(2.1rem, 3.4vw, 3.1rem); line-height: 0.95; letter-spacing: -0.04em; color: var(--text); }
     .metric strong span { color: var(--gold); }
     .metric em { display: block; margin-top: 10px; font-style: normal; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .metric p { margin: 8px 0 0; font-size: 12px; line-height: 1.6; color: var(--faint); }
 
     /* ── Section scaffolding ── */
-    .section { padding: clamp(64px, 10vh, 108px) 0; }
+    .section { padding: clamp(56px, 9vh, 100px) 0; }
     .section-head { display: grid; gap: 12px; margin-bottom: 40px; max-width: 760px; }
     .section-head__label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
     .section-head h2 { margin: 0; font-family: "Space Grotesk", sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 0.99; letter-spacing: -0.03em; }
     .section-head p { margin: 0; max-width: 62ch; font-size: 14.5px; line-height: 1.75; color: var(--muted); }
 
     /* ── Content that blew up ── */
-    .blowup-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 28px;
-      align-items: start;
-    }
-    .blowup {
-      position: relative;
-      display: grid;
-      justify-items: center;
-      gap: 20px;
-      padding: 30px 24px 32px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: rgba(11, 16, 24, 0.5);
-      box-shadow: var(--shadow);
-      will-change: transform;
-    }
-    .blowup__phone { width: 210px; }
+    .blowup-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: start; }
+    .blowup { position: relative; display: grid; justify-items: center; gap: 20px; padding: 30px 24px 32px; border: 1px solid var(--line); border-radius: 22px; background: rgba(11, 16, 24, 0.5); box-shadow: var(--shadow); will-change: transform; }
     .blowup__phone .phone { width: 210px; }
     .blowup:nth-child(2) { margin-top: 46px; }
     .blowup:nth-child(3) { margin-top: 16px; }
@@ -279,80 +140,128 @@
     .blowup__tags { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
     .pill { padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 
-    /* ── Warp breakout (analytics proof) ── */
-    .warp {
-      position: relative;
-      margin: clamp(40px, 8vh, 90px) 0;
-      padding: 0;
-      perspective: 1600px;
-    }
-    .warp__card {
-      position: relative;
-      border: 1px solid var(--line-strong);
-      border-radius: 26px;
-      overflow: hidden;
-      background: linear-gradient(160deg, rgba(15, 124, 201, 0.12), rgba(6, 9, 15, 0.9));
-      box-shadow: var(--shadow);
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-    .warp__inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-      gap: clamp(20px, 4vw, 48px);
-      align-items: center;
-      padding: clamp(28px, 4vw, 52px);
-    }
+    /* ── Warp breakout ── */
+    .warp { position: relative; margin: clamp(40px, 8vh, 90px) 0 0; perspective: 1600px; }
+    .warp__card { position: relative; border: 1px solid var(--line-strong); border-radius: 26px; overflow: hidden; background: linear-gradient(160deg, rgba(15, 124, 201, 0.12), rgba(6, 9, 15, 0.9)); box-shadow: var(--shadow); transform-style: preserve-3d; will-change: transform; }
+    .warp__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: clamp(20px, 4vw, 48px); align-items: center; padding: clamp(28px, 4vw, 52px); }
     .warp__copy h3 { margin: 0 0 14px; font-family: "Space Grotesk", sans-serif; font-size: clamp(1.7rem, 3vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.02; }
     .warp__copy p { margin: 0 0 18px; font-size: 14px; line-height: 1.75; color: var(--muted); }
     .warp__stats { display: flex; flex-wrap: wrap; gap: 22px; }
     .warp__stat strong { display: block; font-family: "Space Grotesk", sans-serif; font-size: 1.8rem; letter-spacing: -0.03em; color: var(--gold); }
     .warp__stat span { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
-    /* Browser frame for landscape analytics screenshot */
-    .browserframe { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #0a0d14; box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
-    .browserframe__bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--line); }
-    .browserframe__dots { display: flex; gap: 6px; }
-    .browserframe__dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.2); }
-    .browserframe__url { flex: 1; padding: 5px 12px; border-radius: 8px; background: rgba(0,0,0,0.35); font-size: 11px; color: var(--faint); }
-    .browserframe img { width: 100%; display: block; }
+    .warp__phone { justify-self: center; }
+    .warp__phone .phone { width: 220px; }
 
-    /* ── Explore the work ── */
-    .work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .work-divider {
-      grid-column: 1 / -1;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--gold); padding: 22px 0 4px; border-top: 1px solid var(--line); margin-top: 12px;
-    }
-    .work-card {
-      display: grid; gap: 12px; padding: 24px 22px 26px;
-      border: 1px solid var(--line); border-radius: 16px;
-      background: rgba(11, 16, 24, 0.5);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.3);
-      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-      will-change: transform;
-    }
-    .work-card:hover { transform: translateY(-5px); border-color: var(--line-strong); background: rgba(15, 124, 201, 0.08); }
-    .work-card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .work-card__kicker { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
-    .work-card__route { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
-    .work-card__title { margin: 0; font-family: "Space Grotesk", sans-serif; font-size: 1.4rem; line-height: 1.05; letter-spacing: -0.02em; }
-    .work-card__copy { margin: 0; font-size: 13px; line-height: 1.68; color: var(--muted); }
-    .work-card__tags { display: flex; flex-wrap: wrap; gap: 7px; }
-    .work-card__cta {
-      margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold);
-    }
+    /* ── Accounts ── */
+    .accounts-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: start; }
+    .accounts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .account-card { position: relative; padding: 22px 20px 20px; border: 1px solid var(--line); border-radius: 16px; background: rgba(11, 16, 24, 0.5); box-shadow: 0 18px 44px rgba(0,0,0,0.3); border-left: 3px solid var(--accent, var(--gold)); transition: transform 0.2s ease, border-color 0.2s ease; will-change: transform; }
+    .account-card:hover { transform: translateY(-4px); }
+    .card-platform { font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, var(--gold)); margin-bottom: 6px; }
+    .card-date { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 12px; }
+    .card-org { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin: 0 0 3px; font-family: "Space Grotesk", sans-serif; }
+    .card-handle { font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+    .card-img-link { display: block; overflow: hidden; border-radius: 12px; margin-bottom: 14px; border: 1px solid var(--line); }
+    .card-img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center top; display: block; transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .card-img-link:hover .card-img { transform: scale(1.06); }
+    .card-role { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+    .card-bullets { margin: 0; padding-left: 16px; display: grid; gap: 6px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .card-tag { padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
 
-    .site-footer {
-      position: relative; z-index: 2;
-      display: flex; justify-content: space-between; align-items: center; gap: 18px;
-      width: min(1240px, calc(100% - 40px)); margin: 0 auto;
-      padding: 30px 0 60px; color: var(--faint); font-size: 12px; border-top: 1px solid var(--line);
-    }
+    .stats-sidebar { position: sticky; top: 84px; border: 1px solid var(--line-strong); border-radius: 16px; overflow: hidden; background: rgba(11, 16, 24, 0.6); }
+    .sidebar-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--line); }
+    .sidebar-header p { margin: 0 0 3px; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+    .sidebar-header h3 { margin: 0; font-family: "Space Grotesk", sans-serif; font-size: 1.15rem; letter-spacing: -0.02em; }
+    .sidebar-stat { padding: 15px 20px; border-bottom: 1px solid var(--line); }
+    .sidebar-stat strong { display: block; font-family: "Space Grotesk", sans-serif; font-size: 2rem; letter-spacing: -0.04em; color: var(--text); line-height: 1; }
+    .sidebar-stat strong em { font-style: normal; color: var(--gold); }
+    .sidebar-stat span { display: block; margin-top: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .sidebar-stat p { margin: 5px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--faint); }
+    .sidebar-divider { padding: 13px 20px 9px; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--line); }
+    .sidebar-platforms { padding: 14px 20px 16px; display: grid; gap: 11px; }
+    .platform-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .platform-row__name { font-size: 11px; font-weight: 700; color: var(--muted); }
+    .platform-row__val { font-size: 11px; font-weight: 700; color: var(--text); }
+    .platform-bar-wrap { flex: 1; height: 3px; background: var(--line-strong); border-radius: 9px; overflow: hidden; }
+    .platform-bar { height: 100%; border-radius: 9px; background: var(--gold); }
+    .sidebar-brands { padding: 14px 20px 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .sidebar-brand { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-strong); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+    /* ── Paid media highlight ── */
+    .paid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(24px, 4vw, 48px); align-items: center; border: 1px solid var(--line-strong); border-radius: 22px; padding: clamp(28px, 4vw, 48px); background: linear-gradient(150deg, rgba(216,178,90,0.1), rgba(6,9,15,0.9)); box-shadow: var(--shadow); }
+    .paid h3 { margin: 0 0 14px; font-family: "Space Grotesk", sans-serif; font-size: clamp(1.7rem, 3vw, 2.5rem); letter-spacing: -0.03em; line-height: 1.03; }
+    .paid p { margin: 0 0 18px; font-size: 14px; line-height: 1.75; color: var(--muted); }
+    .paid__stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .paid__stat { padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: rgba(11,16,24,0.5); }
+    .paid__stat strong { display: block; font-family: "Space Grotesk", sans-serif; font-size: 1.7rem; letter-spacing: -0.03em; color: var(--gold); }
+    .paid__stat span { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+
+    /* ── Skills ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .skill-card { padding: 24px 22px; border: 1px solid var(--line); border-radius: 16px; background: rgba(11,16,24,0.5); }
+    .skill-card h3 { margin: 0 0 14px; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .pill-soft { padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line); font-size: 11px; font-weight: 600; color: var(--muted); background: var(--surface); }
+
+    /* ── Certs ── */
+    .cert-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+    .cert-card { padding: 24px 22px; border: 1px solid var(--line); border-radius: 16px; background: rgba(11,16,24,0.5); }
+    .cert-card strong { display: block; font-size: 1.05rem; margin-bottom: 8px; font-family: "Space Grotesk", sans-serif; letter-spacing: -0.01em; }
+    .cert-card p { margin: 0; font-size: 13px; line-height: 1.68; color: var(--muted); }
+
+    /* ── LinkedIn feed (dark) ── */
+    .li-feed-wrapper { position: relative; }
+    .li-feed-scroll { max-height: 760px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 6px; scroll-behavior: smooth; }
+    .li-feed-scroll::-webkit-scrollbar { width: 4px; }
+    .li-feed-scroll::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 9px; }
+    .li-feed-wrapper::after { content: ""; position: absolute; bottom: 0; left: 0; right: 6px; height: 90px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+    .li-card { border: 1px solid var(--line); border-radius: 16px; background: rgba(11,16,24,0.6); padding: 18px 20px; transition: border-color 0.2s ease; }
+    .li-card:hover { border-color: var(--line-strong); }
+    .li-card__header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .li-card__avatar { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid var(--line); }
+    .li-card__meta { flex: 1; min-width: 0; }
+    .li-card__name { font-size: 14.5px; font-weight: 700; color: #4aa3e8; line-height: 1.3; }
+    .li-card__name:hover { text-decoration: underline; }
+    .li-card__connection { display: inline-block; margin-left: 4px; font-size: 12px; font-weight: 400; color: var(--faint); }
+    .li-card__headline { font-size: 12.5px; color: var(--muted); line-height: 1.4; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .li-card__timestamp { font-size: 12px; color: var(--faint); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+    .li-card__more-btn { margin-left: auto; flex-shrink: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: none; background: none; cursor: pointer; color: var(--faint); font-size: 16px; }
+    .li-card__body { font-size: 14px; line-height: 1.68; color: var(--text); white-space: pre-line; word-break: break-word; }
+    .li-card__see-more { color: var(--faint); font-weight: 600; cursor: pointer; }
+    .li-card__see-more:hover { color: var(--text); }
+    .li-card__image { width: 100%; border-radius: 12px; margin: 10px 0 4px; object-fit: cover; max-height: 280px; }
+    .li-card__hashtags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .li-card__hashtag { font-size: 13px; font-weight: 600; color: #4aa3e8; cursor: pointer; }
+    .li-card__reactions-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0 6px; border-top: 1px solid var(--line); margin-top: 14px; }
+    .li-card__reaction-icons { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--faint); }
+    .li-card__reaction-emojis { font-size: 15px; }
+    .li-card__comments-count { font-size: 13px; color: var(--faint); cursor: pointer; }
+    .li-card__actions { display: flex; padding-top: 2px; border-top: 1px solid var(--line); margin-top: 2px; }
+    .li-card__action-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 0; border: none; background: none; cursor: pointer; font-family: "Figtree", sans-serif; font-size: 13px; font-weight: 600; color: var(--muted); border-radius: 9px; transition: background 0.15s ease; }
+    .li-card__action-btn:hover { background: var(--surface); color: var(--text); }
+    .li-feed-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+    .li-view-all { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4aa3e8; }
+    .li-update-hint { font-size: 11px; color: var(--faint); }
+    .li-skeleton { text-align: center; padding: 40px; font-size: 13px; color: var(--faint); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* ── Contact + extras ── */
+    .cta-panel { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; border: 1px solid var(--line-strong); border-radius: 22px; padding: clamp(28px, 4vw, 44px); background: rgba(11,16,24,0.6); box-shadow: var(--shadow); }
+    .cta-panel h3 { margin: 0 0 12px; font-family: "Space Grotesk", sans-serif; font-size: clamp(1.7rem, 3vw, 2.4rem); letter-spacing: -0.02em; }
+    .cta-panel p { margin: 0; font-size: 14px; line-height: 1.74; color: var(--muted); max-width: 52ch; }
+    .cta-links { display: grid; gap: 10px; justify-items: start; }
+    .cta-links a { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .cta-links a:hover { color: var(--text); }
+
+    .extras-band { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 26px; border: 1px dashed var(--line-strong); border-radius: 18px; padding: 24px 28px; background: rgba(11,16,24,0.4); }
+    .extras-band__copy strong { font-family: "Space Grotesk", sans-serif; font-size: 1.15rem; }
+    .extras-band__copy p { margin: 6px 0 0; font-size: 13px; color: var(--muted); max-width: 60ch; }
+
+    .site-footer { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 18px; width: min(1240px, calc(100% - 40px)); margin: 0 auto; padding: 30px 0 60px; color: var(--faint); font-size: 12px; border-top: 1px solid var(--line); }
     .site-footer__links { display: flex; flex-wrap: wrap; gap: 18px; }
     .site-footer__links a:hover { color: var(--text); }
 
-    /* Reveal-on-scroll baseline */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
     .reveal.is-in { opacity: 1; transform: none; }
 
@@ -361,11 +270,13 @@
       .hero__stage { min-height: 440px; margin-top: 20px; }
       .blowup-grid { grid-template-columns: 1fr 1fr; }
       .blowup:nth-child(2), .blowup:nth-child(3) { margin-top: 0; }
-      .work-grid { grid-template-columns: 1fr 1fr; }
-      .warp__inner { grid-template-columns: 1fr; }
+      .warp__inner, .paid { grid-template-columns: 1fr; }
+      .accounts-layout { grid-template-columns: 1fr; }
+      .stats-sidebar { position: static; }
       .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .metric:nth-child(2) { border-right: none; }
       .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .skills-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 900px) {
       .top-nav { flex-wrap: wrap; }
@@ -376,10 +287,11 @@
       .top-nav__links a { font-size: 13px; }
     }
     @media (max-width: 640px) {
-      .blowup-grid, .work-grid, .metrics { grid-template-columns: 1fr; }
+      .blowup-grid, .metrics, .accounts-grid, .cert-grid, .paid__stats { grid-template-columns: 1fr; }
       .metric { border-right: none; border-bottom: 1px solid var(--line); }
       .metric:last-child { border-bottom: none; }
       .hero__phone--back, .hero__phone--chip { display: none; }
+      .cta-panel, .extras-band { grid-template-columns: 1fr; flex-direction: column; align-items: flex-start; }
       .site-footer { flex-direction: column; align-items: flex-start; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -424,11 +336,11 @@
     </button>
     <div class="top-nav__menu" id="nav-menu">
       <div class="top-nav__links">
-        <a class="is-active" href="index.html">Overview</a>
-        <a href="social.html">Social Media</a>
-        <a href="class-projects.html">Projects</a>
-        <a href="dashboards.html">Dashboards</a>
+        <a class="is-active" href="index.html">Social</a>
+        <a href="#accounts">Accounts</a>
+        <a href="#skills">Skills</a>
         <a href="about.html">About</a>
+        <a href="extras.html">Extras</a>
       </div>
       <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
     </div>
@@ -438,27 +350,27 @@
     <!-- ── HERO ── -->
     <section class="hero">
       <div class="hero__copy-col">
-        <p class="eyebrow">Portfolio Overview</p>
+        <p class="eyebrow">Social Media Portfolio</p>
         <h1 class="hero__title">Content that performs.<br><span>Systems that scale.</span></h1>
         <p class="hero__copy">
-          Marketing &amp; MIS at Baylor building across social media, paid media, and AI tools.
-          I run multi-brand accounts that have crossed <strong>220M+ views</strong>, manage
-          Meta Ads at $50K to $100K in monthly spend, and build the systems that keep it all shipping.
+          Marketing &amp; MIS at Baylor, running multi-brand social accounts that have crossed
+          <strong>220M+ views</strong>. I create the content, manage the creators, and run
+          Meta Ads at $50K to $100K in monthly spend, the full pipeline from hook to conversion.
         </p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="social.html">View the work &rarr;</a>
+          <a class="btn btn--primary" href="#accounts">See the accounts &rarr;</a>
           <a class="btn" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Download resume</a>
         </div>
         <div class="hero__contact">
           <div class="hero__contact-group">
             <a href="mailto:JaxJohnson179263@gmail.com">JaxJohnson179263@gmail.com</a>
-            <a href="mailto:Jax_Johnson2@baylor.edu">Jax_Johnson2@baylor.edu</a>
             <a href="mailto:Jax@usecreed.com">Jax@usecreed.com</a>
+            <a href="tel:4699784476">(469) 978-4476</a>
           </div>
           <div class="hero__contact-group">
+            <a href="https://instagram.com/j.xjohnson" target="_blank">Instagram @j.xjohnson</a>
+            <a href="https://tiktok.com/@notjax" target="_blank">TikTok @NotJax</a>
             <a href="https://linkedin.com/in/jax-johnson" target="_blank">LinkedIn</a>
-            <a href="https://instagram.com/j.xjohnson" target="_blank">Instagram</a>
-            <a href="tel:4699784476">(469) 978-4476</a>
           </div>
         </div>
       </div>
@@ -480,8 +392,8 @@
     <!-- ── METRICS ── -->
     <section class="reveal" aria-label="Headline metrics">
       <div class="metrics">
-        <div class="metric"><strong>220M<span>+</span></strong><em>Combined views</em><p>Across personal, faith, and niche brand accounts</p></div>
-        <div class="metric"><strong>52K<span>+</span></strong><em>Followers</em><p>Grown across three distinct account voices</p></div>
+        <div class="metric"><strong>220M<span>+</span></strong><em>Combined views</em><p>Across TikTok and Instagram, all accounts</p></div>
+        <div class="metric"><strong>55K<span>+</span></strong><em>Followers</em><p>Grown across multiple account voices</p></div>
         <div class="metric"><strong>7.9M</strong><em>Likes</em><p>On @NotJax alone, 55M+ lifetime views</p></div>
         <div class="metric"><strong>$100K</strong><em>Monthly ad spend</em><p>Meta Ads campaigns managed end to end</p></div>
       </div>
@@ -492,175 +404,297 @@
       <div class="section-head reveal">
         <div class="section-head__label">Proof, on the phone</div>
         <h2 id="blowup-title">Content that blew up.</h2>
-        <p>Real accounts, real screenshots, real numbers. Three separate brand voices, each grown from scratch, each with videos that broke past a million views. Hover to feel the depth; scroll to watch them drift.</p>
+        <p>Three separate brand voices, each grown from scratch, each with videos that broke past a million views. Real accounts, real screenshots, real numbers.</p>
       </div>
-
       <div class="blowup-grid">
         <article class="blowup" data-warp="0.12">
           <div class="blowup__phone"><div class="phone"><div class="phone__screen"><img src="instagram-profile.png" alt="@j.xjohnson Instagram, 26.9K followers" loading="lazy" /></div></div></div>
           <div class="blowup__meta">
             <div class="blowup__handle">@<span>j.xjohnson</span></div>
             <div class="blowup__stat">150M+</div>
-            <p class="blowup__desc">Views since January, grown to 26.9K followers. Personal brand, short-form.</p>
-            <div class="blowup__tags"><span class="pill">Instagram</span><span class="pill">Reels</span><span class="pill">Personal</span></div>
+            <p class="blowup__desc">Views since January, grown to 26.9K followers, 106.3M accounts reached in 30 days.</p>
+            <div class="blowup__tags"><span class="pill">Instagram</span><span class="pill">Reels</span><span class="pill">Organic</span></div>
           </div>
         </article>
-
         <article class="blowup" data-warp="0.24">
           <div class="blowup__phone"><div class="phone"><div class="phone__screen"><img src="notjax-tiktok.jpg" alt="@NotJax TikTok, 20K followers" loading="lazy" /></div></div></div>
           <div class="blowup__meta">
             <div class="blowup__handle">@<span>NotJax</span></div>
             <div class="blowup__stat">55M+</div>
             <p class="blowup__desc">Lifetime views with 20K followers and 7.9M likes. Multiple videos over 1M each.</p>
-            <div class="blowup__tags"><span class="pill">TikTok</span><span class="pill">Viral</span><span class="pill">7.9M likes</span></div>
+            <div class="blowup__tags"><span class="pill">TikTok</span><span class="pill">Brand deals</span><span class="pill">7.9M likes</span></div>
           </div>
         </article>
-
         <article class="blowup" data-warp="0.18">
           <div class="blowup__phone"><div class="phone"><div class="phone__screen"><img src="creed-tiktok.jpg" alt="Creed TikTok, 5K followers" loading="lazy" /></div></div></div>
           <div class="blowup__meta">
-            <div class="blowup__handle">@<span>jax.praise</span></div>
+            <div class="blowup__handle">@<span>jax.prays</span></div>
             <div class="blowup__stat">14M+</div>
-            <p class="blowup__desc">Scaled from zero to 14M+ views and 5K followers in 120 days. Faith-based niche.</p>
-            <div class="blowup__tags"><span class="pill">TikTok</span><span class="pill">Creed</span><span class="pill">0 to 14M</span></div>
+            <p class="blowup__desc">Zero to 14M+ views and 5K followers in 120 days. 75+ videos per month.</p>
+            <div class="blowup__tags"><span class="pill">TikTok</span><span class="pill">Sponsored</span><span class="pill">0 to 14M</span></div>
           </div>
         </article>
       </div>
 
-      <!-- ── WARP breakout: analytics proof ── -->
+      <!-- ── WARP breakout: analytics ── -->
       <div class="warp">
         <div class="warp__card" id="warp-card">
           <div class="warp__inner">
             <div class="warp__copy">
               <h3>The analytics back it up.</h3>
-              <p>Not just vanity metrics. Watch time, retention, and audience growth pulled straight from the platform dashboards, the same numbers I use to decide what to make next.</p>
+              <p>Not vanity metrics. Watch time, retention, and audience growth pulled straight from the platform dashboards, the same numbers I use to decide what to make next.</p>
               <div class="warp__stats">
                 <div class="warp__stat"><strong>14M+</strong><span>Views in 120 days</span></div>
                 <div class="warp__stat"><strong>1M+</strong><span>Per top video</span></div>
                 <div class="warp__stat"><strong>100K</strong><span>Monthly reach</span></div>
               </div>
             </div>
-            <div class="browserframe">
-              <div class="browserframe__bar">
-                <div class="browserframe__dots"><span></span><span></span><span></span></div>
-                <div class="browserframe__url">tiktok.com/analytics</div>
-              </div>
-              <img src="tiktok-analytics.jpg" alt="TikTok analytics dashboard" loading="lazy" />
-            </div>
+            <div class="warp__phone"><div class="phone"><div class="phone__screen"><img src="tiktok-analytics.jpg" alt="TikTok analytics dashboard" loading="lazy" /></div></div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── EXPLORE THE WORK ── -->
-    <section class="section" aria-labelledby="work-title">
+    <!-- ── ACCOUNTS ── -->
+    <section class="section" id="accounts" aria-labelledby="accounts-title">
       <div class="section-head reveal">
-        <div class="section-head__label">Explore the Work</div>
-        <h2 id="work-title">Five pages. One portfolio system.</h2>
-        <p>Each page is built to stand on its own for a different audience, from brands evaluating content range to operators judging how I build systems.</p>
+        <div class="section-head__label">Social Accounts &amp; Roles</div>
+        <h2 id="accounts-title">Platforms, numbers, and proof.</h2>
+        <p>Eight active roles across content creation, brand partnerships, and institutional social media, every account built from the ground up with performance as the measure.</p>
       </div>
 
-      <div class="work-grid">
-        <a class="work-card reveal" href="social.html">
-          <div class="work-card__top"><span class="work-card__kicker">Case Studies</span><span class="work-card__route">Start here</span></div>
-          <h3 class="work-card__title">Social Media Systems</h3>
-          <p class="work-card__copy">Three brand voices across TikTok and Instagram, follower growth data, and the content systems behind each account.</p>
-          <div class="work-card__tags"><span class="pill">TikTok</span><span class="pill">Instagram</span><span class="pill">Brand voice</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+      <div class="accounts-layout">
+        <div class="accounts-grid">
+          <article class="account-card reveal" style="--accent:#3ea06a;">
+            <div class="card-platform">University · Employer</div>
+            <div class="card-date">Spring 2026</div>
+            <div class="card-org">Baylor Social Media</div>
+            <div class="card-handle">Social Media Student Worker</div>
+            <a class="card-img-link" href="https://www.instagram.com/bayloruniversity/" target="_blank" rel="noopener"><img class="card-img" src="baylor-mic.jpg" alt="Jax with mic at Baylor event" style="object-position:center 24%;" /></a>
+            <ul class="card-bullets">
+              <li>Drove 200K+ views across the first three personally curated videos, including on-camera interviews.</li>
+              <li>Applied trend forecasting while maintaining university brand standards.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">University brand</span><span class="card-tag">Instagram</span><span class="card-tag">TikTok</span></div>
+          </article>
 
-        <a class="work-card reveal" href="dashboards.html">
-          <div class="work-card__top"><span class="work-card__kicker">Systems</span><span class="work-card__route">AI layer</span></div>
-          <h3 class="work-card__title">Dashboards &amp; AI Builds</h3>
-          <p class="work-card__copy">Live, AI-built tools: a performance dashboard, a Gartner vendor scorer, and an insurance call automation used by a real business.</p>
-          <div class="work-card__tags"><span class="pill">Dashboards</span><span class="pill">Analytics</span><span class="pill">AI tools</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+          <article class="account-card reveal" style="--accent:#e05a5a;">
+            <div class="card-platform">Media · Employer</div>
+            <div class="card-date">Spring 2026</div>
+            <div class="card-org">ESPN Central Texas</div>
+            <div class="card-handle">TikTok Creator Intern</div>
+            <div class="card-img-link"><img class="card-img" src="espn-broadcast.jpg" alt="ESPN Central Texas broadcast" style="object-position:center 14%;" /></div>
+            <ul class="card-bullets">
+              <li>Helped build ESPN CT social platforms under new management as part of a three-person production team.</li>
+              <li>Created multiple videos per week; attended live broadcasts and studio podcasts.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">Sports media</span><span class="card-tag">TikTok</span><span class="card-tag">Live broadcast</span></div>
+          </article>
 
-        <a class="work-card reveal" href="class-projects.html">
-          <div class="work-card__top"><span class="work-card__kicker">Builds</span><span class="work-card__route">Course + client</span></div>
-          <h3 class="work-card__title">Academic &amp; Client Projects</h3>
-          <p class="work-card__copy">The SAP pitch ecosystem, AI coursework from 4V98, and client-style projects that turn strategy into polished deliverables.</p>
-          <div class="work-card__tags"><span class="pill">4V98</span><span class="pill">SAP</span><span class="pill">Client work</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+          <article class="account-card reveal" style="--accent:#3b82f6;">
+            <div class="card-platform">Startup · Employer</div>
+            <div class="card-date">Apr 2026 – Present</div>
+            <div class="card-org">Creed Bible App</div>
+            <div class="card-handle">Director of Partnerships &amp; Activation</div>
+            <a class="card-img-link" href="https://www.creedapp.com/" target="_blank" rel="noopener"><img class="card-img" src="creed-lenny.jpg" alt="Creed Bible App" style="object-position:center center;" /></a>
+            <ul class="card-bullets">
+              <li>Ran the paid ads pipeline: 60 creatives weekly, 40+ managed creators, AI-generated content.</li>
+              <li>Scaled Meta Ads across $50K to $100K in monthly ad spend.</li>
+              <li>Now closes church and apparel partnerships via 500 weekly emails and custom pitch decks.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">Paid media</span><span class="card-tag">Partnerships</span></div>
+          </article>
 
-        <a class="work-card reveal" href="chatbot.html">
-          <div class="work-card__top"><span class="work-card__kicker">Conversation</span><span class="work-card__route">Live feel</span></div>
-          <h3 class="work-card__title">Deployed Chatbot</h3>
-          <p class="work-card__copy">A live AI assistant built and deployed as a portfolio piece, showing conversation design and front-end packaging.</p>
-          <div class="work-card__tags"><span class="pill">Chatbot</span><span class="pill">AI UX</span><span class="pill">Prompting</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+          <article class="account-card reveal" style="--accent:#d8b25a;">
+            <div class="card-platform">Founder · Personal</div>
+            <div class="card-date">2026 – Present</div>
+            <div class="card-org">JX Creatives</div>
+            <div class="card-handle">Founder &amp; Creator Manager</div>
+            <div class="card-img-link"><img class="card-img" src="jax-headshot-bw.png" alt="Jax Johnson, founder of JX Creatives" style="object-position:center top;" /></div>
+            <ul class="card-bullets">
+              <li>Manages posting schedules and output for multiple creators from 10K to 150K followers.</li>
+              <li>Coordinates brand partnerships and sponsored campaigns on creators' behalf.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">Creator management</span><span class="card-tag">Strategy</span></div>
+          </article>
 
-        <a class="work-card reveal" href="about.html">
-          <div class="work-card__top"><span class="work-card__kicker">Context</span><span class="work-card__route">Human read</span></div>
-          <h3 class="work-card__title">About &amp; Contact</h3>
-          <p class="work-card__copy">The through-line behind the portfolio: background, positioning, and every route to get in touch.</p>
-          <div class="work-card__tags"><span class="pill">About</span><span class="pill">Contact</span><span class="pill">Positioning</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+          <article class="account-card reveal" style="--accent:#C13584;">
+            <div class="card-platform">Creator · Personal</div>
+            <div class="card-date">January – Present</div>
+            <div class="card-org">Instagram</div>
+            <div class="card-handle">@j.xjohnson</div>
+            <a class="card-img-link" href="https://www.instagram.com/j.xjohnson/" target="_blank" rel="noopener"><img class="card-img" src="instagram-profile.png" alt="Instagram @j.xjohnson, 26.9K followers" style="object-position:center 8%;" /></a>
+            <ul class="card-bullets">
+              <li>Amassed 150M+ views since January and grew to 26.9K followers.</li>
+              <li>Reached 106.3M accounts in the last 30 days across organic content.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">Instagram</span><span class="card-tag">Reels</span><span class="card-tag">Organic growth</span></div>
+          </article>
 
-        <div class="work-divider">AI: Principles &amp; Applications — 4V98</div>
+          <article class="account-card reveal" style="--accent:#fe2c55;">
+            <div class="card-platform">Creator · Personal</div>
+            <div class="card-date">2024 – Present</div>
+            <div class="card-org">TikTok · @NotJax</div>
+            <div class="card-handle">Creator &amp; Brand Partner</div>
+            <a class="card-img-link" href="https://www.tiktok.com/@notjax" target="_blank" rel="noopener"><img class="card-img" src="notjax-tiktok.jpg" alt="@NotJax TikTok, 20K followers" style="object-position:center 8%;" /></a>
+            <ul class="card-bullets">
+              <li>Reached 55M+ lifetime views with 20K followers and 7.9M likes.</li>
+              <li>Partnered with Ailith AI, Snowverb, Suno, Dime Inc, Gymshark, Recapture, and Locket.</li>
+              <li>Generated $15K+ through deals and a 3-month livestream campaign.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">Creator economy</span><span class="card-tag">Brand deals</span><span class="card-tag">Revenue</span></div>
+          </article>
 
-        <a class="work-card reveal" href="projects/project-n8n.html">
-          <div class="work-card__top"><span class="work-card__kicker">Automation</span><span class="work-card__route">4V98 build</span></div>
-          <h3 class="work-card__title">n8n Multi-Agent Orchestrator</h3>
-          <p class="work-card__copy">11-node workflow routing handyman jobs through 4 specialised AI agents: intake, scheduling, pricing, dispatch.</p>
-          <div class="work-card__tags"><span class="pill">n8n</span><span class="pill">Agents</span><span class="pill">Automation</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+          <article class="account-card reveal" style="--accent:#2563eb;">
+            <div class="card-platform">UGC · Sponsored</div>
+            <div class="card-date">Sep 2025 – Apr 2026</div>
+            <div class="card-org">TikTok · @jax.prays</div>
+            <div class="card-handle">Creed Bible App Partnership</div>
+            <a class="card-img-link" href="https://www.tiktok.com/@jax.prays" target="_blank" rel="noopener"><img class="card-img" src="creed-tiktok.jpg" alt="Creed TikTok" style="object-position:center 8%;" /></a>
+            <ul class="card-bullets">
+              <li>Scaled from zero to 14M+ views and 5K followers in 120 days.</li>
+              <li>Produced 75+ videos per month, multiple over 1M views each.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">Sponsored</span><span class="card-tag">UGC</span><span class="card-tag">Performance</span></div>
+          </article>
 
-        <a class="work-card reveal" href="projects/project-langchain.html">
-          <div class="work-card__top"><span class="work-card__kicker">AI Agent</span><span class="work-card__route">4V98 build</span></div>
-          <h3 class="work-card__title">LangChain Booking Agent</h3>
-          <p class="work-card__copy">A ReAct-loop agent that books handyman jobs end to end: classifying requests, checking availability, confirming.</p>
-          <div class="work-card__tags"><span class="pill">LangChain</span><span class="pill">ReAct</span><span class="pill">Python</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+          <article class="account-card reveal" style="--accent:#8b5cf6;">
+            <div class="card-platform">UGC · Sponsored</div>
+            <div class="card-date">February 2026</div>
+            <div class="card-org">TikTok · @jax.relates</div>
+            <div class="card-handle">Insight Timer Partnership</div>
+            <a class="card-img-link" href="https://www.tiktok.com/@jax.relates" target="_blank" rel="noopener"><img class="card-img" src="insight-timer-profile.jpg" alt="Insight Timer TikTok" style="object-position:center 8%;" /></a>
+            <ul class="card-bullets">
+              <li>Generated 150K+ views within the first 30 days of the partnership.</li>
+              <li>Produced 30 videos in a performance-based sponsored UGC campaign.</li>
+            </ul>
+            <div class="card-tags"><span class="card-tag">Sponsored</span><span class="card-tag">UGC</span><span class="card-tag">Performance</span></div>
+          </article>
+        </div>
 
-        <a class="work-card reveal" href="projects/project-aistudio.html">
-          <div class="work-card__top"><span class="work-card__kicker">AI Video</span><span class="work-card__route">4V98 build</span></div>
-          <h3 class="work-card__title">Cinematic AI Video — Veo</h3>
-          <p class="work-card__copy">A 15-second cinematic shot generated entirely with Google Veo and AI Studio through prompt engineering.</p>
-          <div class="work-card__tags"><span class="pill">Google Veo</span><span class="pill">AI Studio</span><span class="pill">Prompting</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+        <aside class="stats-sidebar" aria-label="Combined statistics">
+          <div class="sidebar-header"><p>All Accounts Combined</p><h3>Total Footprint</h3></div>
+          <div class="sidebar-stat"><strong>220<em>M+</em></strong><span>Lifetime Views</span><p>TikTok and Instagram, all accounts</p></div>
+          <div class="sidebar-stat"><strong>55<em>K+</em></strong><span>Total Followers</span><p>20K TikTok + 26.9K IG + Creed + others</p></div>
+          <div class="sidebar-stat"><strong>106.3<em>M</em></strong><span>Reached · 30 days</span><p>Instagram organic reach</p></div>
+          <div class="sidebar-stat"><strong>$15<em>K+</em></strong><span>Revenue Generated</span><p>Brand deals + livestream campaign</p></div>
+          <div class="sidebar-divider">Platform Breakdown</div>
+          <div class="sidebar-platforms">
+            <div class="platform-row"><span class="platform-row__name">Instagram</span><div class="platform-bar-wrap"><div class="platform-bar" style="width:100%;background:#C13584;"></div></div><span class="platform-row__val">150M+</span></div>
+            <div class="platform-row"><span class="platform-row__name">TikTok</span><div class="platform-bar-wrap"><div class="platform-bar" style="width:47%;background:#fe2c55;"></div></div><span class="platform-row__val">55M+</span></div>
+          </div>
+          <div class="sidebar-divider">Brand Partners</div>
+          <div class="sidebar-brands">
+            <span class="sidebar-brand">Gymshark</span><span class="sidebar-brand">Ailith AI</span><span class="sidebar-brand">Snowverb</span><span class="sidebar-brand">Suno</span><span class="sidebar-brand">Dime Inc</span><span class="sidebar-brand">Recapture</span><span class="sidebar-brand">Locket</span>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-        <a class="work-card reveal" href="projects/project-ml.html">
-          <div class="work-card__top"><span class="work-card__kicker">Machine Learning</span><span class="work-card__route">4V98 build</span></div>
-          <h3 class="work-card__title">Classification &amp; Regression</h3>
-          <p class="work-card__copy">Iris classifier at 96% accuracy across four scikit-learn models: Logistic Regression, KNN, SVM, Decision Tree.</p>
-          <div class="work-card__tags"><span class="pill">scikit-learn</span><span class="pill">Python</span><span class="pill">ML</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+    <!-- ── PAID MEDIA ── -->
+    <section class="section" aria-labelledby="paid-title">
+      <div class="paid reveal">
+        <div>
+          <div class="section-head__label" style="margin-bottom:12px;">Paid Media Pipeline</div>
+          <h3 id="paid-title">A full ads pipeline, run end to end.</h3>
+          <p>At Creed I owned the paid acquisition engine: Meta Ads at $50K to $100K in monthly spend, 60 creatives produced weekly, and a roster of 40+ creators kept on schedule by the content systems behind them.</p>
+        </div>
+        <div class="paid__stats">
+          <div class="paid__stat"><strong>$100K</strong><span>Monthly spend</span></div>
+          <div class="paid__stat"><strong>60</strong><span>Creatives / week</span></div>
+          <div class="paid__stat"><strong>40+</strong><span>Managed creators</span></div>
+          <div class="paid__stat"><strong>75+</strong><span>Videos / month peak</span></div>
+        </div>
+      </div>
+    </section>
 
-        <a class="work-card reveal" href="projects/project-skillswap.html">
-          <div class="work-card__top"><span class="work-card__kicker">Full-Stack</span><span class="work-card__route">4V98 build</span></div>
-          <h3 class="work-card__title">SkillSwap — Django Marketplace</h3>
-          <p class="work-card__copy">A full-stack marketplace where students list skills they can teach and request skills they want to learn.</p>
-          <div class="work-card__tags"><span class="pill">Django</span><span class="pill">Full-stack</span><span class="pill">Marketplace</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+    <!-- ── SKILLS ── -->
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <div class="section-head reveal">
+        <div class="section-head__label">Skills &amp; Tools</div>
+        <h2 id="skills-title">Platforms, tools, and working strengths.</h2>
+        <p>Built around running a full paid ads pipeline, high-volume creative production, and the content management systems that keep dozens of creators on schedule.</p>
+      </div>
+      <div class="skills-grid">
+        <article class="skill-card reveal">
+          <h3>Paid Ads &amp; Performance</h3>
+          <div class="pill-row">
+            <span class="pill-soft">Meta Ads Manager</span><span class="pill-soft">Paid Ads Pipeline</span><span class="pill-soft">$50K–$100K Spend</span><span class="pill-soft">Creative Testing</span><span class="pill-soft">A/B Testing</span><span class="pill-soft">Audience Targeting</span><span class="pill-soft">Conversion Tracking</span><span class="pill-soft">Campaign Optimization</span>
+          </div>
+        </article>
+        <article class="skill-card reveal">
+          <h3>Content Production</h3>
+          <div class="pill-row">
+            <span class="pill-soft">Short-Form Video</span><span class="pill-soft">Hook Writing</span><span class="pill-soft">UGC Creation</span><span class="pill-soft">60 Creatives / Week</span><span class="pill-soft">TikTok Strategy</span><span class="pill-soft">AI-Generated Content</span><span class="pill-soft">CapCut</span><span class="pill-soft">Adobe Premiere</span><span class="pill-soft">Canva</span>
+          </div>
+        </article>
+        <article class="skill-card reveal">
+          <h3>Management &amp; Growth</h3>
+          <div class="pill-row">
+            <span class="pill-soft">Creator Management</span><span class="pill-soft">Content Calendar</span><span class="pill-soft">Posting Schedules</span><span class="pill-soft">Brand Outreach</span><span class="pill-soft">Sponsorship ROI</span><span class="pill-soft">Campaign Planning</span><span class="pill-soft">TikTok Analytics</span><span class="pill-soft">Instagram Insights</span>
+          </div>
+        </article>
+      </div>
+      <div class="cert-grid">
+        <article class="cert-card reveal">
+          <strong>HubSpot Social Media Marketing</strong>
+          <p>Training in strategy, content planning, measurement, and campaign optimization across major social platforms.</p>
+        </article>
+        <article class="cert-card reveal">
+          <strong>Salesforce Trailhead</strong>
+          <p>20,000 points and 80+ badges focused on marketing automation, campaign management, and digital marketing strategy.</p>
+        </article>
+      </div>
+    </section>
 
-        <a class="work-card reveal" href="projects/project-chatbot.html">
-          <div class="work-card__top"><span class="work-card__kicker">NLP</span><span class="work-card__route">4V98 build</span></div>
-          <h3 class="work-card__title">AI Chatbot — Gemini</h3>
-          <p class="work-card__copy">Conversational chatbot built with Gemini: context management, prompt design, and user-facing conversation flow.</p>
-          <div class="work-card__tags"><span class="pill">Gemini</span><span class="pill">NLP</span><span class="pill">Chatbot</span></div>
-          <div class="work-card__cta">View webpage &rarr;</div>
-        </a>
+    <!-- ── LINKEDIN FEED ── -->
+    <section class="section" aria-labelledby="li-title">
+      <div class="section-head reveal">
+        <div class="section-head__label">LinkedIn</div>
+        <h2 id="li-title">In the field.</h2>
+        <p>Real-time updates from the work as it happens: partnerships, milestones, and professional moments posted directly to LinkedIn.</p>
+      </div>
+      <div class="li-feed-wrapper reveal">
+        <div class="li-feed-scroll" id="liFeed"><div class="li-skeleton">Loading posts…</div></div>
+      </div>
+      <div class="li-feed-footer">
+        <a class="li-view-all" href="https://www.linkedin.com/in/jax-johnson/" target="_blank">View full profile on LinkedIn &rarr;</a>
+        <span class="li-update-hint">Data source: <code>linkedin-posts.json</code></span>
+      </div>
+    </section>
+
+    <!-- ── CONTACT + EXTRAS ── -->
+    <section class="section" id="contact">
+      <div class="cta-panel reveal">
+        <div>
+          <h3>Let's make something that performs.</h3>
+          <p>Open to social media management, content and paid media, and creator partnership roles. Reach out through whichever channel fits.</p>
+        </div>
+        <div class="cta-links">
+          <a href="mailto:JaxJohnson179263@gmail.com">Email me &rarr;</a>
+          <a href="https://instagram.com/j.xjohnson" target="_blank">Instagram &rarr;</a>
+          <a href="https://tiktok.com/@notjax" target="_blank">TikTok &rarr;</a>
+          <a href="https://linkedin.com/in/jax-johnson" target="_blank">LinkedIn &rarr;</a>
+        </div>
+      </div>
+
+      <div class="extras-band reveal">
+        <div class="extras-band__copy">
+          <strong>Looking for the technical work?</strong>
+          <p>Dashboards, AI builds, a deployed chatbot, the SAP pitch ecosystem, and the 4V98 coursework all live on the extras page.</p>
+        </div>
+        <a class="btn" href="extras.html">View extras &rarr;</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div>Jax Johnson — Marketing, MIS, Social Media, AI building</div>
+    <div>Jax Johnson — Social Media &amp; Content Creation · Marketing &amp; MIS, Baylor</div>
     <div class="site-footer__links">
-      <a href="social.html">Social Media</a>
-      <a href="class-projects.html">Projects</a>
-      <a href="dashboards.html">Dashboards</a>
+      <a href="#accounts">Accounts</a>
+      <a href="#skills">Skills</a>
       <a href="about.html">About</a>
+      <a href="extras.html">Extras</a>
     </div>
   </footer>
 
@@ -684,18 +718,13 @@
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    /* Reveal-on-scroll via IntersectionObserver (works with or without GSAP) */
+    /* Reveal-on-scroll */
     (function () {
       const items = document.querySelectorAll(".reveal");
-      if (reduceMotion || !("IntersectionObserver" in window)) {
-        items.forEach((el) => el.classList.add("is-in"));
-        return;
-      }
+      if (reduceMotion || !("IntersectionObserver" in window)) { items.forEach((el) => el.classList.add("is-in")); return; }
       const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
-        });
-      }, { threshold: 0.16 });
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+      }, { threshold: 0.14 });
       items.forEach((el) => io.observe(el));
     })();
 
@@ -703,47 +732,81 @@
     (function () {
       if (reduceMotion || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
       gsap.registerPlugin(ScrollTrigger);
-
-      /* Depth drift on any [data-warp] element: value = strength (neg = opposite) */
       gsap.utils.toArray("[data-warp]").forEach((el) => {
         const strength = parseFloat(el.dataset.warp) || 0;
-        gsap.to(el, {
-          yPercent: -strength * 100,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el.closest("section") || el,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          }
-        });
+        gsap.to(el, { yPercent: -strength * 100, ease: "none",
+          scrollTrigger: { trigger: el.closest("section") || el, start: "top bottom", end: "bottom top", scrub: true } });
       });
-
-      /* Hero phones subtly rotate as you leave the hero */
-      gsap.to(".hero__phone--front", {
-        rotationY: -4, rotationZ: 0, ease: "none",
-        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
-      });
-
-      /* Background grid drifts up for a warp-into-depth feel */
-      gsap.to("#bg-grid", {
-        backgroundPositionY: "260px", ease: "none",
-        scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: true }
-      });
-
-      /* The analytics card warps in 3D as it enters, then flattens */
+      gsap.to(".hero__phone--front", { rotationY: -4, ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+      gsap.to("#bg-grid", { backgroundPositionY: "260px", ease: "none",
+        scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: true } });
       const warpCard = document.getElementById("warp-card");
       if (warpCard) {
-        gsap.fromTo(warpCard,
-          { rotationX: 14, scale: 0.92, transformPerspective: 1600, transformOrigin: "center bottom" },
-          {
-            rotationX: 0, scale: 1, ease: "none",
-            scrollTrigger: { trigger: ".warp", start: "top 85%", end: "top 40%", scrub: true }
-          });
+        gsap.fromTo(warpCard, { rotationX: 14, scale: 0.92, transformPerspective: 1600, transformOrigin: "center bottom" },
+          { rotationX: 0, scale: 1, ease: "none", scrollTrigger: { trigger: ".warp", start: "top 85%", end: "top 40%", scrub: true } });
       }
-
       ScrollTrigger.refresh();
     })();
+
+    /* ── LinkedIn feed ── */
+    const LI_FEED_URL = "https://raw.githubusercontent.com/JaxJ12/Portfolio/main/linkedin-posts.json";
+    const LI_HEADLINE = "MIS & S3E Marketing @ Baylor · Creator · @NotJax";
+    const LI_AVATAR = "jax-headshot-bw.png";
+    const LI_NAME = "Jax Johnson";
+    const LI_URL = "https://www.linkedin.com/in/jax-johnson/";
+    const TRUNCATE_AT = 320;
+    const ICONS = {
+      globe: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+      like: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>`,
+      comment: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+      repost: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+      send: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`,
+      dots: `•••`
+    };
+    function timeAgo(dateStr){const p=new Date(dateStr),n=new Date(),d=Math.round((n-p)/(864e5));if(d<1)return"Today";if(d<7)return d+"d";if(d<30)return Math.round(d/7)+"w";if(d<365)return Math.round(d/30)+"mo";return Math.round(d/365)+"y";}
+    function formatNumber(n){return n>=1000?(n/1000).toFixed(1).replace(/\.0$/,"")+"K":String(n);}
+    function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+    const _postCache = {};
+    function expandPost(id, btn){const post=_postCache[id];if(!post)return;const body=document.querySelector(`[data-full="${id}"]`);if(!body)return;body.querySelector(".li-card__text").innerHTML=escapeHtml(post.text);btn.remove();}
+    function renderPost(post){
+      const fullText=escapeHtml(post.text);
+      const truncated=post.text.length>TRUNCATE_AT;
+      const shortText=truncated?escapeHtml(post.text.slice(0,TRUNCATE_AT).trimEnd())+"…":fullText;
+      const hashtagsHtml=(post.hashtags||[]).map(h=>`<span class="li-card__hashtag">${escapeHtml(h)}</span>`).join(" ");
+      const ago=timeAgo(post.date);
+      return `<article class="li-card"><div class="li-card__header"><img class="li-card__avatar" src="${LI_AVATAR}" alt="${LI_NAME}" /><div class="li-card__meta"><div class="li-card__name"><a href="${LI_URL}" target="_blank" style="color:inherit;text-decoration:none;">${LI_NAME}</a><span class="li-card__connection">· 1st</span></div><div class="li-card__headline">${LI_HEADLINE}</div><div class="li-card__timestamp">${ago} · ${ICONS.globe}</div></div><button class="li-card__more-btn" aria-label="More">${ICONS.dots}</button></div><div class="li-card__body" data-full="${post.id}">${`<span class="li-card__text">${shortText}</span>`}${truncated?` <span class="li-card__see-more" onclick="expandPost('${post.id}', this)">see more</span>`:""}</div>${post.image?`<img class="li-card__image" src="${post.image}" alt="Post image" loading="lazy" />`:""}${hashtagsHtml?`<div class="li-card__hashtags">${hashtagsHtml}</div>`:""}<div class="li-card__reactions-row"><div class="li-card__reaction-icons"><span class="li-card__reaction-emojis">${post.reactionTypes||"👍"}</span><span>${formatNumber(post.reactions||0)}</span></div><span class="li-card__comments-count">${post.comments||0} comments</span></div><div class="li-card__actions"><button class="li-card__action-btn">${ICONS.like} Like</button><button class="li-card__action-btn">${ICONS.comment} Comment</button><button class="li-card__action-btn">${ICONS.repost} Repost</button><button class="li-card__action-btn">${ICONS.send} Send</button></div></article>`;
+    }
+    const IS_LIVE = LI_FEED_URL.startsWith("http");
+    function showLiveBadge(){const label=document.querySelector(".li-update-hint");if(label&&IS_LIVE){label.innerHTML=`<span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:#5cb85c;display:inline-block;animation:pulse 2s infinite;"></span>Live — syncs when you post on LinkedIn</span>`;}}
+    function normalizePost(raw){if(raw.id&&raw.text!==undefined)return raw;try{const text=raw.specificContent?.["com.linkedin.ugc.ShareContent"]?.shareCommentary?.text||"";const ts=raw.created?.time;const date=ts?new Date(ts).toISOString().split("T")[0]:new Date().toISOString().split("T")[0];return{id:raw.id||String(Date.now()),date,text,hashtags:[],reactions:0,reactionTypes:"👍",comments:0};}catch(e){return null;}}
+    async function loadFeed(){
+      const feed=document.getElementById("liFeed");
+      try{
+        const res=await fetch(LI_FEED_URL+(LI_FEED_URL.includes("?")?"&":"?")+"_t="+Date.now());
+        if(!res.ok)throw new Error("fetch failed");
+        let data=await res.json();
+        if(data.record)data=data.record;
+        if(data.elements)data=data.elements;
+        if(!Array.isArray(data))data=[data];
+        const posts=data.map(normalizePost).filter(Boolean).sort((a,b)=>new Date(b.date)-new Date(a.date));
+        posts.forEach(p=>{_postCache[p.id]=p;});
+        feed.innerHTML=posts.map(renderPost).join("");
+        showLiveBadge();
+      }catch(e){
+        try{
+          const fallback=await fetch("linkedin-posts.json?"+Date.now());
+          const posts=(await fallback.json()).sort((a,b)=>new Date(b.date)-new Date(a.date));
+          posts.forEach(p=>{_postCache[p.id]=p;});
+          feed.innerHTML=posts.map(renderPost).join("");
+          const hint=document.querySelector(".li-update-hint");
+          if(hint)hint.textContent="Showing cached posts";
+        }catch(_){
+          feed.innerHTML=`<div class="li-skeleton">Could not load posts.<br><br><a href="${LI_URL}" target="_blank" style="color:#4aa3e8;">View on LinkedIn →</a></div>`;
+        }
+      }
+    }
+    document.addEventListener("DOMContentLoaded", loadFeed);
   </script>
 </body>
 </html>
