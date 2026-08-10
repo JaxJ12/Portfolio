@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jax Johnson | Portfolio Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #ffffff;
+      --surface-strong: #ececec;
+      --text: #333333;
+      --muted: rgba(51, 51, 51, 0.64);
+      --faint: rgba(51, 51, 51, 0.36);
+      --line: rgba(51, 51, 51, 0.22);
+      --line-strong: rgba(51, 51, 51, 0.34);
+      --gold: #9a7b2e;
+      --gold-soft: #b89a55;
+      --shadow: 0 28px 70px rgba(51, 51, 51, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        #ffffff;
+      color: var(--text);
+      font-family: "Figtree", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 32px;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .top-nav__logo {
+      font-family: "Schibsted Grotesk", sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .top-nav__logo span { color: var(--gold); }
+
+    .top-nav__menu {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .top-nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: transparent;
+      cursor: pointer;
+    }
+    .top-nav__toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 0 auto;
+      background: var(--text);
+      border-radius: 9px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .top-nav.is-open .top-nav__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .top-nav.is-open .top-nav__toggle span:nth-child(2) { opacity: 0; }
+    .top-nav.is-open .top-nav__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .top-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .top-nav__links a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .top-nav__links a:hover,
+    .top-nav__links a.is-active {
+      color: var(--text);
+    }
+
+    .top-nav__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 9px;
+      background: var(--text);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .page-shell {
+      width: min(1240px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+      gap: clamp(24px, 4vw, 48px);
+      align-items: center;
+      padding: 54px clamp(48px, 7vw, 100px) 46px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+
+    .hero__title {
+      margin: 0;
+      font-family: "Schibsted Grotesk", sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      max-width: 10ch;
+    }
+
+    .hero__title span { color: var(--gold); }
+
+    .hero__copy {
+      margin: 22px 0 0;
+      max-width: 58ch;
+      font-size: 1.02rem;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+
+    .hero__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 0;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: 9px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 30px 0 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 9px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.74);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .btn--primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+
+    .hero__contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px 40px;
+      margin: 28px 0 0;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--faint);
+    }
+
+    .hero__contact-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .hero__contact a {
+      word-break: break-word;
+    }
+
+    .hero__contact a:hover { color: var(--text); }
+
+    .hero__panel {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      max-width: 320px;
+      width: 100%;
+      align-self: start;
+    }
+
+    .hero__photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center top;
+      padding: 0;
+    }
+
+    .hero__head-photo { display: none; }
+
+    .hero__panel-copy {
+      padding: 18px 22px 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero__panel-copy strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .hero__panel-copy p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 28px 26px;
+      border-right: 1px solid var(--line);
+    }
+
+    .metric:last-child { border-right: none; }
+
+    .metric strong {
+      display: block;
+      font-family: "Schibsted Grotesk", sans-serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .metric p {
+      margin: 8px 0 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--faint);
+    }
+
+    .section {
+      padding: 78px 0;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .section-head__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: "Schibsted Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 62ch;
+      font-size: 14px;
+      line-height: 1.74;
+      color: var(--muted);
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .page-card {
+      display: grid;
+      grid-template-rows: 220px auto;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow);
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+
+    .page-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+    }
+
+    .page-card__media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        #f1f1f1;
+      padding: 18px;
+    }
+
+    .page-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .page-card__body {
+      padding: 22px 22px 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .page-card__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .page-card__title {
+      margin: 0;
+      font-family: "Schibsted Grotesk", sans-serif;
+      font-size: 1.55rem;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .page-card__copy {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .page-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .tag {
+      padding: 5px 10px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .page-card__footer {
+      margin-top: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .preview-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .preview-stage {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: clamp(72px, calc(50vh - 260px), 160px);
+    }
+
+    .preview-browser {
+      padding: 18px;
+      background:
+        #f1f1f1;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .preview-browser__chrome {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 9px 14px 0 0;
+      background: rgba(255,255,255,0.85);
+    }
+
+    .preview-browser__dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .preview-browser__dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(51,51,51,0.22);
+    }
+
+    .preview-browser__dots span:nth-child(2) { background: rgba(51,51,51,0.34); }
+    .preview-browser__dots span:nth-child(3) { background: rgba(51,51,51,0.48); }
+
+    .preview-browser__url {
+      flex: 1;
+      min-width: 0;
+      padding: 6px 12px;
+      border-radius: 9px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preview-browser__status {
+      padding: 5px 10px;
+      border-radius: 9px;
+      border: 1px solid rgba(51,51,51,0.22);
+      background: rgba(51,51,51,0.08);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-browser__frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-top: none;
+      border-radius: 0 0 20px 20px;
+      background: #ececec;
+      min-height: 280px;
+    }
+
+    .preview-iframe {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      border: none;
+      transform-origin: top left;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .preview-click-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      cursor: pointer;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .preview-click-overlay:hover + .preview-browser__badge,
+    .preview-click-overlay:focus + .preview-browser__badge {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .preview-browser__badge {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      padding: 6px 12px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(51,51,51,0.18);
+      backdrop-filter: blur(8px);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-stage__meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .preview-stage__meta-item {
+      padding: 14px 16px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .preview-stage__meta-item span {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 6px;
+    }
+
+    .preview-stage__meta-item strong {
+      display: block;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .preview-stage__cta {
+      width: fit-content;
+    }
+
+    .preview-rail {
+      display: grid;
+      gap: 12px;
+    }
+
+    .preview-rail__divider {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 8px 0 4px;
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
+    }
+
+    .preview-link {
+      display: grid;
+      gap: 12px;
+      padding: 22px 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 10px 26px rgba(51,51,51,0.05);
+      transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+      cursor: default;
+    }
+
+    .preview-link__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      padding: 8px 16px;
+      border-radius: 9px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.74);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .preview-link__cta:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+
+    .preview-link:hover,
+    .preview-link:focus-visible,
+    .preview-link.is-active {
+      transform: translateX(5px);
+      border-color: var(--line-strong);
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 18px 38px rgba(51,51,51,0.09);
+      outline: none;
+    }
+
+    .preview-link.is-active {
+      border-color: rgba(51,51,51,0.34);
+    }
+
+    .preview-link__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .preview-link__kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .preview-link__route {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .preview-link__title {
+      margin: 0;
+      font-family: "Schibsted Grotesk", sans-serif;
+      font-size: 1.45rem;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .preview-link__copy {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.72;
+      color: var(--muted);
+    }
+
+    .preview-link__best-for {
+      display: none;
+      font-size: 11px;
+      color: var(--faint);
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .preview-link__best-for strong {
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+      margin-right: 6px;
+    }
+
+    .preview-link__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preview-link__shot {
+      display: none;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      margin-top: 4px;
+    }
+
+    .note-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 20px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .note-panel h3 {
+      margin: 0 0 12px;
+      font-family: "Schibsted Grotesk", sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: -0.02em;
+    }
+
+    .note-panel p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.76;
+      color: var(--muted);
+    }
+
+    .note-panel__list {
+      display: grid;
+      gap: 12px;
+      padding-left: 18px;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.68;
+      color: var(--muted);
+    }
+
+    /* ── Education ── */
+    .edu-stats-bar { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+    .edu-stat-pill { flex: 1; min-width: 100px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .edu-stat-pill strong { font-family: "Schibsted Grotesk", sans-serif; font-size: 1.7rem; letter-spacing: -0.03em; line-height: 1; color: var(--text); }
+    .edu-stat-pill span { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .edu-card { border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,0.84); box-shadow: var(--shadow); padding: 26px; }
+    .edu-card--wide { grid-column: span 2; }
+    .edu-card--main { grid-column: span 2; position: relative; overflow: hidden; }
+    .edu-card--main::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), #b89a55, var(--gold)); }
+    .edu-card--main-inner { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start; }
+    .edu-placements { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .edu-placement { padding: 5px 12px; border-radius: 9px; background: rgba(51,51,51,0.08); border: 1px solid rgba(51,51,51,0.22); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--gold); }
+    .edu-activities { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .edu-activity { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+    .edu-activity:last-child { border-bottom: none; padding-bottom: 0; }
+    .edu-activity strong { font-size: 13px; font-weight: 700; color: var(--text); }
+    .edu-activity span { font-size: 11px; font-weight: 600; color: var(--muted); text-align: right; flex-shrink: 0; }
+    .edu-card__school { margin: 0 0 4px; font-family: "Schibsted Grotesk", sans-serif; font-size: 1.55rem; letter-spacing: -0.02em; }
+    .edu-card__degree { margin: 0 0 14px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+    .edu-card__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .edu-badge { padding: 5px 12px; border-radius: 9px; background: var(--surface-soft); border: 1px solid var(--line); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+    .edu-badge--gold { background: rgba(51,51,51,0.1); border-color: rgba(51,51,51,0.25); color: var(--gold); }
+    .edu-card__honors { margin: 12px 0 0; font-size: 13px; line-height: 1.68; color: var(--faint); }
+    .edu-card h3 { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+    .edu-card p { margin: 0; font-size: 13.5px; line-height: 1.72; color: var(--muted); }
+    .courses-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .course-chip { padding: 6px 13px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface-soft); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 0 52px;
+      color: var(--faint);
+      font-size: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .site-footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    @media (max-width: 1100px) {
+      .page-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric:nth-child(2) { border-right: none; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .preview-shell { grid-template-columns: 1fr; }
+      .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .preview-stage { position: static; }
+    }
+
+    @media (max-width: 900px) {
+      .top-nav {
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 14px 20px;
+      }
+      .top-nav__toggle { display: flex; }
+      .top-nav__menu {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        width: 100%;
+        order: 3;
+        padding-top: 14px;
+        margin-top: 14px;
+        border-top: 1px solid var(--line);
+      }
+      .top-nav.is-open .top-nav__menu { display: flex; }
+      .top-nav__links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        flex-wrap: nowrap;
+      }
+      .top-nav__links a { font-size: 13px; }
+      .top-nav__cta { align-self: flex-start; }
+      .page-shell { width: calc(100% - 32px); }
+      .note-panel {
+        grid-template-columns: 1fr;
+      }
+      /* Mobile: circular headshot beside the title only (vertically
+         centered to it); description, chips, and links go full width
+         below so nothing wraps into a narrow column. */
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 24px 0 4px;
+      }
+      .hero__panel { display: none; }
+      .hero__contact-group--tiktok { display: none; }
+      .hero__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .hero__head-photo {
+        display: block;
+        width: 150px;
+        height: 150px;
+        flex: 0 0 auto;
+        margin-top: 30px;
+        margin-right: 8px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .preview-stage__meta { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      /* On mobile the live preview pane is redundant (each card links out),
+         so hide it and let the compact card grid carry the section. */
+      .preview-stage { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid,
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+      .metric {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .metric:last-child { border-bottom: none; }
+      .site-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      /* Keep project cards in two compact columns so the section is short
+         to scroll; trim the longer supporting text. */
+      .preview-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .preview-link { padding: 14px 14px 16px; gap: 9px; border-radius: 9px; }
+      /* On mobile show a picture preview of each page instead of the text body. */
+      .preview-link__shot { display: block; }
+      .preview-link__copy { display: none; }
+      .preview-link__tags { display: none; }
+      .preview-link__best-for { display: none; }
+      .preview-link__route { display: none; }
+    }
+
+    @media (max-width: 430px) {
+      .preview-rail { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="transition.css" />
+  <link rel="stylesheet" href="assistant.css" />
+</head>
+<body>
+  <div class="site-assistant" data-site-assistant>
+    <button class="site-assistant__toggle" type="button" data-site-assistant-toggle aria-expanded="false" aria-controls="site-assistant-panel">
+      <span class="site-assistant__toggle-mark">AI</span>
+      <span class="site-assistant__toggle-copy">
+        <strong>Portfolio Assistant</strong>
+        <span>Ask about experience, projects, or where to look.</span>
+      </span>
+    </button>
+    <div class="site-assistant__panel" id="site-assistant-panel" data-site-assistant-panel hidden>
+      <div class="site-assistant__header">
+        <div>
+          <p class="site-assistant__eyebrow">Portfolio</p>
+          <p class="site-assistant__title">Portfolio Assistant</p>
+          <p class="site-assistant__subcopy">Ask questions about the work, projects, or how to get in touch.</p>
+        </div>
+        <button class="site-assistant__close" type="button" data-site-assistant-close aria-label="Close portfolio assistant">x</button>
+      </div>
+      <div class="site-assistant__frame-wrap">
+        <iframe class="site-assistant__frame" title="Portfolio Assistant" data-site-assistant-frame data-src="portfolio-assistant.html" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+  <nav class="top-nav" aria-label="Portfolio navigation">
+    <div class="top-nav__logo">Jax <span>Johnson</span></div>
+    <button class="top-nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="top-nav__menu" id="nav-menu">
+      <div class="top-nav__links">
+        <a class="is-active" href="index.html">Overview</a>
+        <a href="social.html">Social Media</a>
+        <a href="class-projects.html">Projects</a>
+        <a href="dashboards.html">Dashboards</a>
+        <a href="about.html">About</a>
+      </div>
+      <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <div class="hero__head">
+          <div>
+            <p class="eyebrow">Portfolio Overview</p>
+            <h1 class="hero__title">Marketing, MIS,<br><span>Social Media, AI building</span>.</h1>
+          </div>
+          <img class="hero__head-photo" src="jax-headshot-bw.png" alt="Jax Johnson headshot" />
+        </div>
+        <p class="hero__copy">
+          Marketing &amp; MIS at Baylor building across social media, AI tools, and
+          portfolio-ready work. Content that performs, systems that support smarter
+          execution, and projects that show how those skills connect.
+        </p>
+        <div class="hero__contact">
+          <div class="hero__contact-group">
+            <a href="mailto:JaxJohnson179263@gmail.com">JaxJohnson179263@gmail.com</a>
+            <a href="mailto:Jax_Johnson2@baylor.edu">Jax_Johnson2@baylor.edu</a>
+            <a href="mailto:Jax@usecreed.com">Jax@usecreed.com</a>
+          </div>
+          <div class="hero__contact-group">
+            <a href="https://linkedin.com/in/jax-johnson" target="_blank">LinkedIn</a>
+            <a href="https://instagram.com/j.xjohnson" target="_blank">Instagram</a>
+            <a href="tel:4699784476">(469) 978-4476</a>
+          </div>
+          <div class="hero__contact-group hero__contact-group--tiktok">
+            <a href="https://tiktok.com/@notjax" target="_blank">Personal TT</a>
+            <a href="https://tiktok.com/@jax.praise" target="_blank">Creed TT</a>
+            <a href="https://tiktok.com/@jax.relates" target="_blank">Insight Timer TT</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero__panel">
+        <img class="hero__photo" src="jax-headshot-bw.png" alt="Jax Johnson headshot" />
+        <div class="hero__panel-copy">
+          <strong>Recruiter Snapshot</strong>
+          <p>
+            Seeking full-time and contract opportunities in social media management, content and paid media, digital marketing strategy, and sports business, with a strong interest in AI-driven workflows.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+
+    <section class="section" aria-labelledby="pages-title">
+      <div class="section-head">
+        <div class="section-head__label">Explore the Work</div>
+        <h2 id="pages-title">Five pages. One portfolio system.</h2>
+        <p>
+          Hover or click any card on the right to preview what's inside — the featured view on the left locks in place as you scroll so you can always see which page is active. Each section is built to stand on its own for a different audience.
+        </p>
+      </div>
+
+      <div class="preview-shell">
+        <article class="preview-stage" aria-live="polite">
+          <div class="preview-browser">
+            <div class="preview-browser__chrome">
+              <div class="preview-browser__dots"><span></span><span></span><span></span></div>
+              <div class="preview-browser__url" id="preview-stage-url">social.html</div>
+              <div class="preview-browser__status">Live preview</div>
+            </div>
+            <div class="preview-browser__frame" id="preview-frame">
+              <a class="preview-click-overlay" id="preview-click-link" href="social.html" aria-label="Open page"></a>
+              <div class="preview-browser__badge" id="preview-stage-badge">Case studies</div>
+            </div>
+          </div>
+        </article>
+
+        <div class="preview-rail">
+          <div class="preview-link is-active"
+             data-preview-label="Social"
+             data-preview-badge="Case studies"
+             data-preview-title="Social Media Systems"
+             data-preview-copy="Three distinct brand voices, real follower growth data, and the content systems behind each account — from personal to faith-based to AI-focused."
+             data-preview-tags="TikTok|Instagram|Brand voice"
+             data-preview-url="portfolio/social.html"
+             data-preview-image="instagram-profile.png"
+             data-preview-alt="Social media page preview"
+             data-preview-fit="cover"
+             data-preview-position="top center"
+             data-preview-meta-1="Brands and marketing teams"
+             data-preview-meta-2="Audience growth, content systems, and platform proof"
+             data-href="social.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Case Studies</span>
+              <span class="preview-link__route">Start here</span>
+              <a class="preview-link__cta" href="social.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">Social Media Systems</h3>
+            <p class="preview-link__copy">Multi-account content strategy across TikTok and Instagram — different niches, different voices, same execution discipline. Includes follower metrics, posting cadence, and monetization context.</p>
+            <div class="preview-link__tags"><span class="tag">TikTok</span><span class="tag">Instagram</span><span class="tag">Brand Voice</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Brands, marketing teams, and agencies evaluating content range and platform fluency.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="Dashboards"
+             data-preview-badge="AI tools"
+             data-preview-title="Dashboards and AI Builds"
+             data-preview-copy="Three live, AI-built tools — a personal performance dashboard, a Gartner vendor scoring system, and an insurance call automation tool used by a real business."
+             data-preview-tags="Dashboards|AI workflows|Analytics"
+             data-preview-url="portfolio/dashboards.html"
+             data-preview-image="sap-suite-analytics.png"
+             data-preview-alt="Dashboards page preview"
+             data-preview-fit="cover"
+             data-preview-position="top center"
+             data-preview-meta-1="Operators and product-minded teams"
+             data-preview-meta-2="Systems thinking, interfaces, and workflow design"
+             data-href="dashboards.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Systems</span>
+              <span class="preview-link__route">AI layer</span>
+              <a class="preview-link__cta" href="dashboards.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">Dashboards and AI Builds</h3>
+            <p class="preview-link__copy">Interactive analytics interfaces and AI workflow tools built from scratch — no templates. Each one is embedded live and interactable directly on the page.</p>
+            <div class="preview-link__tags"><span class="tag">Dashboards</span><span class="tag">Analytics</span><span class="tag">AI Tools</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Operators, product-minded teams, and anyone evaluating systems or workflow thinking.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="Projects"
+             data-preview-badge="Builds"
+             data-preview-title="Academic and Client Projects"
+             data-preview-copy="The SAP pitch ecosystem, AI coursework from 4V98, and client-style projects that show how strategic thinking translates into polished deliverables."
+             data-preview-tags="4V98|SAP pitch|Client work"
+             data-preview-url="portfolio/class-projects.html"
+             data-preview-image="jerseys_mockup.png"
+             data-preview-alt="Projects page preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Professors, clients, and reviewers"
+             data-preview-meta-2="Process, presentation quality, and technical range"
+             data-href="class-projects.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Builds</span>
+              <span class="preview-link__route">Course + client</span>
+              <a class="preview-link__cta" href="class-projects.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">Academic and Client Projects</h3>
+            <p class="preview-link__copy">A curated set of course projects and client-style builds — SAP pitch decks, AI analysis deliverables, and jersey design mockups — showing how ideas get packaged into finished work.</p>
+            <div class="preview-link__tags"><span class="tag">4V98</span><span class="tag">SAP</span><span class="tag">Client Work</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Professors, reviewers, and clients evaluating process and delivery quality.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="Chatbot"
+             data-preview-badge="Live assistant"
+             data-preview-title="Deployed Chatbot Experience"
+             data-preview-copy="A live, interactive AI assistant built and deployed as a portfolio piece — shows conversation design, prompt engineering, and how AI gets packaged into a user-facing product."
+             data-preview-tags="Chatbot|Prompting|Deployment"
+             data-preview-url="portfolio/chatbot.html"
+             data-preview-image="alpha-omega-logo.png"
+             data-preview-alt="Chatbot page preview"
+             data-preview-fit="contain"
+             data-preview-position="center center"
+             data-preview-meta-1="AI product and prompt-curious viewers"
+             data-preview-meta-2="Conversation design and front-end packaging"
+             data-href="chatbot.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Conversation</span>
+              <span class="preview-link__route">Live feel</span>
+              <a class="preview-link__cta" href="chatbot.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">Deployed Chatbot Experience</h3>
+            <p class="preview-link__copy">A fully working AI assistant interface built for the portfolio — demonstrates how I think about user-facing AI design, prompt structure, and deploying conversational products.</p>
+            <div class="preview-link__tags"><span class="tag">Chatbot</span><span class="tag">AI UX</span><span class="tag">Prompting</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> AI-focused teams, product managers, and anyone curious about applied prompt engineering.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="About"
+             data-preview-badge="Personal context"
+             data-preview-title="About and Contact"
+             data-preview-copy="The human layer behind the work — background, positioning, what I'm looking to build, and every route to get in touch depending on what kind of conversation it is."
+             data-preview-tags="About|Contact|Positioning"
+             data-preview-url="portfolio/about.html"
+             data-preview-image="baylor-mic.jpg"
+             data-preview-alt="About page preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Anyone deciding whether to reach out"
+             data-preview-meta-2="Positioning, contact routes, and personal fit"
+             data-href="about.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Context</span>
+              <span class="preview-link__route">Human read</span>
+              <a class="preview-link__cta" href="about.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">About and Contact</h3>
+            <p class="preview-link__copy">The through-line behind the portfolio — who I am, what I'm building toward, and a contact form that routes to the right inbox depending on the type of inquiry.</p>
+            <div class="preview-link__tags"><span class="tag">About</span><span class="tag">Contact</span><span class="tag">Positioning</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Anyone deciding whether to reach out — and finding the right channel to do it.</div>
+          </div>
+
+          <div class="preview-rail__divider">AI: Principles &amp; Applications — 4V98</div>
+
+          <div class="preview-link"
+             data-preview-label="n8n"
+             data-preview-badge="Automation"
+             data-preview-title="n8n Multi-Agent Orchestrator"
+             data-preview-copy="11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake, scheduling, pricing, and dispatch."
+             data-preview-tags="n8n|Agents|Automation"
+             data-preview-url="portfolio/project-n8n.html"
+             data-preview-image=""
+             data-preview-alt="n8n multi-agent project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Automation systems"
+             data-preview-meta-2="Multi-agent orchestration"
+             data-href="projects/project-n8n.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Automation</span>
+              <span class="preview-link__route">4V98 build</span>
+              <a class="preview-link__cta" href="projects/project-n8n.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">n8n Multi-Agent Orchestrator</h3>
+            <p class="preview-link__copy">11-node n8n workflow routing handyman jobs through 4 specialised AI agents — intake, scheduling, pricing, and dispatch.</p>
+            <div class="preview-link__tags"><span class="tag">n8n</span><span class="tag">Agents</span><span class="tag">Automation</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Ops teams and builders evaluating orchestration logic.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="LangChain"
+             data-preview-badge="AI agent"
+             data-preview-title="LangChain Booking Agent"
+             data-preview-copy="A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming."
+             data-preview-tags="LangChain|ReAct|Python"
+             data-preview-url="portfolio/project-langchain.html"
+             data-preview-image=""
+             data-preview-alt="LangChain booking agent preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Agent workflows"
+             data-preview-meta-2="Tool-using reasoning"
+             data-href="projects/project-langchain.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">AI Agent</span>
+              <span class="preview-link__route">4V98 build</span>
+              <a class="preview-link__cta" href="projects/project-langchain.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">LangChain Booking Agent</h3>
+            <p class="preview-link__copy">A ReAct-loop AI agent that books handyman jobs end-to-end — classifying requests, checking availability, and confirming.</p>
+            <div class="preview-link__tags"><span class="tag">LangChain</span><span class="tag">ReAct</span><span class="tag">Python</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Teams exploring agentic workflows.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="AI video"
+             data-preview-badge="AI video"
+             data-preview-title="Cinematic AI Video — Google Veo"
+             data-preview-copy="A 15-second cinematic shot generated entirely with Google Veo and AI Studio — prompt engineering for visual output."
+             data-preview-tags="Google Veo|AI Studio|Prompting"
+             data-preview-url="portfolio/project-aistudio.html"
+             data-preview-image=""
+             data-preview-alt="Google Veo cinematic AI video preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Generative video"
+             data-preview-meta-2="Prompt-driven visuals"
+             data-href="projects/project-aistudio.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">AI Video</span>
+              <span class="preview-link__route">4V98 build</span>
+              <a class="preview-link__cta" href="projects/project-aistudio.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">Cinematic AI Video — Google Veo</h3>
+            <p class="preview-link__copy">A 15-second cinematic shot generated entirely with Google Veo and AI Studio — prompt engineering for visual output.</p>
+            <div class="preview-link__tags"><span class="tag">Google Veo</span><span class="tag">AI Studio</span><span class="tag">Prompting</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Creative teams exploring AI video pipelines.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="Machine learning"
+             data-preview-badge="ML models"
+             data-preview-title="Classification and Regression"
+             data-preview-copy="Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic Regression, KNN, SVM, and Decision Tree."
+             data-preview-tags="scikit-learn|Python|ML"
+             data-preview-url="portfolio/project-ml.html"
+             data-preview-image=""
+             data-preview-alt="ML classification and regression project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Model comparison"
+             data-preview-meta-2="Classification + regression"
+             data-href="projects/project-ml.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Machine Learning</span>
+              <span class="preview-link__route">4V98 build</span>
+              <a class="preview-link__cta" href="projects/project-ml.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">Classification &amp; Regression</h3>
+            <p class="preview-link__copy">Iris flower classifier hitting 96% accuracy using four scikit-learn models — Logistic Regression, KNN, SVM, and Decision Tree.</p>
+            <div class="preview-link__tags"><span class="tag">scikit-learn</span><span class="tag">Python</span><span class="tag">ML</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Anyone comparing classical ML approaches.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="Full-stack"
+             data-preview-badge="Marketplace"
+             data-preview-title="SkillSwap — Django Marketplace"
+             data-preview-copy="A full-stack Django marketplace where students list skills they can teach and request skills they want to learn."
+             data-preview-tags="Django|Full-Stack|Marketplace"
+             data-preview-url="portfolio/project-skillswap.html"
+             data-preview-image=""
+             data-preview-alt="SkillSwap Django marketplace preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Full-stack product"
+             data-preview-meta-2="Marketplace UX"
+             data-href="projects/project-skillswap.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">Full-Stack</span>
+              <span class="preview-link__route">4V98 build</span>
+              <a class="preview-link__cta" href="projects/project-skillswap.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">SkillSwap — Django Marketplace</h3>
+            <p class="preview-link__copy">A full-stack Django marketplace where students list skills they can teach and request skills they want to learn.</p>
+            <div class="preview-link__tags"><span class="tag">Django</span><span class="tag">Full-Stack</span><span class="tag">Marketplace</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> Teams assessing end-to-end product builds.</div>
+          </div>
+
+          <div class="preview-link"
+             data-preview-label="AI chatbot"
+             data-preview-badge="NLP"
+             data-preview-title="AI Chatbot — Gemini and Context"
+             data-preview-copy="Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow."
+             data-preview-tags="Gemini|NLP|Chatbot"
+             data-preview-url="portfolio/project-chatbot.html"
+             data-preview-image=""
+             data-preview-alt="Gemini chatbot project preview"
+             data-preview-fit="cover"
+             data-preview-position="center center"
+             data-preview-meta-1="Conversational AI"
+             data-preview-meta-2="Prompting + context"
+             data-href="projects/project-chatbot.html">
+            <div class="preview-link__top">
+              <span class="preview-link__kicker">NLP</span>
+              <span class="preview-link__route">4V98 build</span>
+              <a class="preview-link__cta" href="projects/project-chatbot.html" target="_blank">View Webpage →</a>
+            </div>
+            <h3 class="preview-link__title">AI Chatbot — Gemini &amp; Context</h3>
+            <p class="preview-link__copy">Conversational AI chatbot built with Gemini — context management, prompt design, and user-facing conversation flow.</p>
+            <div class="preview-link__tags"><span class="tag">Gemini</span><span class="tag">NLP</span><span class="tag">Chatbot</span></div>
+            <div class="preview-link__best-for"><strong>Best for</strong> AI product and UX reviewers.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer page-shell">
+    <div>Jax Johnson — Marketing, MIS, Social Media, AI building</div>
+    <div class="site-footer__links">
+      <a href="social.html">Social Media</a>
+      <a href="class-projects.html">Projects</a>
+      <a href="dashboards.html">Dashboards</a>
+      <a href="about.html">About</a>
+    </div>
+  </footer>
+
+  <script>
+    /* Mobile hamburger nav */
+    (function () {
+      const nav = document.querySelector(".top-nav");
+      const toggle = document.getElementById("nav-toggle");
+      const menu = document.getElementById("nav-menu");
+      if (!nav || !toggle || !menu) return;
+      const close = () => { nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); };
+      toggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+      window.addEventListener("resize", () => { if (window.innerWidth > 900) close(); });
+    })();
+
+    const previewLinks    = Array.from(document.querySelectorAll(".preview-link"));
+
+    /* Mobile-only: drop a captured screenshot into each card so the section
+       reads as a visual gallery instead of long text bodies. */
+    const previewShots = {
+      "social.html": "preview-social.png",
+      "dashboards.html": "preview-dashboards.png",
+      "class-projects.html": "preview-projects.png",
+      "chatbot.html": "preview-chatbot.png",
+      "about.html": "preview-about.png",
+      "projects/project-n8n.html": "preview-n8n.png",
+      "projects/project-langchain.html": "preview-langchain.png",
+      "projects/project-aistudio.html": "preview-aistudio.png",
+      "projects/project-ml.html": "preview-ml.png",
+      "projects/project-skillswap.html": "preview-skillswap.png",
+      "projects/project-chatbot.html": "preview-projchatbot.png",
+    };
+    previewLinks.forEach((link) => {
+      const shot = previewShots[link.dataset.href];
+      if (!shot) return;
+      const img = document.createElement("img");
+      img.className = "preview-link__shot";
+      img.src = shot;
+      img.alt = (link.querySelector(".preview-link__title")?.textContent || "Page") + " preview";
+      img.loading = "lazy";
+      const title = link.querySelector(".preview-link__title");
+      if (title) title.insertAdjacentElement("afterend", img);
+      else link.appendChild(img);
+    });
+
+    const previewFrame    = document.getElementById("preview-frame");
+    const previewUrl      = document.getElementById("preview-stage-url");
+    const previewBadge    = document.getElementById("preview-stage-badge");
+    const previewClickLink = document.getElementById("preview-click-link");
+    const badge           = previewBadge;
+
+    /* Mobile Safari cannot hold many live iframes (each loads a full page),
+       so on touch / narrow viewports we use a SINGLE iframe and swap its src.
+       Desktop keeps the pre-loaded gallery for flicker-free hover previews. */
+    const isMobile = window.matchMedia("(max-width: 900px), (hover: none)").matches;
+
+    let iframes = [];
+    let mobileFrame = null;
+    let currentMobileSrc = null;
+
+    if (!isMobile) {
+      /* Desktop: pre-load one iframe per link, no src-swapping */
+      iframes = previewLinks.map((link) => {
+        const src = link.dataset.href;
+        const f = document.createElement("iframe");
+        f.className = "preview-iframe";
+        f.src = src;
+        f.title = link.dataset.previewTitle || src;
+        f.loading = "lazy";
+        f.style.opacity = "0";
+        previewFrame.insertBefore(f, badge);
+        return f;
+      });
+    } else {
+      /* Mobile: one shared iframe, lazily pointed at the active page */
+      mobileFrame = document.createElement("iframe");
+      mobileFrame.className = "preview-iframe";
+      mobileFrame.loading = "lazy";
+      mobileFrame.style.opacity = "1";
+      previewFrame.insertBefore(mobileFrame, badge);
+      iframes = [mobileFrame];
+    }
+
+    /* Scale iframe(s) to fill the frame at every viewport size */
+    function scaleIframes() {
+      if (!previewFrame) return;
+      const scale = previewFrame.offsetWidth / 1440;
+      previewFrame.style.height = Math.round(900 * scale) + "px";
+      iframes.forEach((f) => { f.style.transform = `scale(${scale})`; });
+    }
+    requestAnimationFrame(() => {
+      scaleIframes();
+      setTimeout(scaleIframes, 120);
+    });
+    window.addEventListener("resize", scaleIframes);
+    new ResizeObserver(scaleIframes).observe(previewFrame);
+
+    function setActivePreview(link) {
+      const idx = previewLinks.indexOf(link);
+      previewLinks.forEach((item) => item.classList.toggle("is-active", item === link));
+      const href = link.dataset.href;
+      previewUrl.textContent = href;
+      previewBadge.textContent = link.dataset.previewBadge || "";
+      if (previewClickLink) previewClickLink.href = href;
+
+      if (isMobile) {
+        if (href !== currentMobileSrc) {
+          currentMobileSrc = href;
+          mobileFrame.src = href;
+        }
+      } else {
+        iframes.forEach((f, i) => { f.style.opacity = i === idx ? "1" : "0"; });
+      }
+    }
+
+    previewLinks.forEach((link) => {
+      if (!isMobile) link.addEventListener("mouseenter", () => setActivePreview(link));
+      link.addEventListener("click", () => setActivePreview(link));
+    });
+
+    if (previewLinks.length) setActivePreview(previewLinks[0]);
+  </script>
+
+</body>
+</html>
