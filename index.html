@@ -300,6 +300,47 @@
     .extras-band__copy strong { font-family: "Space Grotesk", sans-serif; font-size: 1.15rem; }
     .extras-band__copy p { margin: 6px 0 0; font-size: 13px; color: var(--muted); max-width: 60ch; }
 
+    /* ── Minimal header ── */
+    .mini-header { position: sticky; top: 0; z-index: 40; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px clamp(20px, 4vw, 40px); background: linear-gradient(180deg, rgba(6,9,15,0.85), rgba(6,9,15,0)); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .mini-header__logo { font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
+    .mini-header__logo span { color: var(--gold); }
+    .mini-header__contact { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 18px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); transition: background 0.2s ease, transform 0.2s ease; }
+    .mini-header__contact:hover { background: var(--surface-2); transform: translateY(-1px); }
+
+    /* ── Scroll-zoom showcase (two phones) ── */
+    .showcase { position: relative; }
+    .showcase__pin { min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+    .showcase__inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+    .showcase__phones { position: relative; width: 300px; height: 620px; }
+    .showcase__phone { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; will-change: transform, opacity; }
+    .showcase__phone .phone { width: 300px; }
+    .showcase__cap { position: relative; text-align: center; min-height: 74px; }
+    .showcase__cap-item { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: min(90vw, 460px); will-change: opacity; }
+    .showcase__cap-handle { font-family: "Space Grotesk", sans-serif; font-size: 1.35rem; font-weight: 600; letter-spacing: -0.01em; }
+    .showcase__cap-handle span { color: var(--gold); }
+    .showcase__cap-line { margin: 8px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+    /* ── Top videos (overlapping columns) ── */
+    .topvids { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 3vw, 40px); align-items: start; }
+    .topvids__col { display: grid; gap: clamp(14px, 2.4vw, 26px); }
+    .topvids__col--tt { margin-top: clamp(40px, 8vw, 96px); }
+    .topvids__col-label { display: flex; align-items: center; gap: 10px; font-family: "Space Grotesk", sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .topvids__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--dot, var(--gold)); box-shadow: 0 0 12px var(--dot, var(--gold)); }
+    .tv-card { position: relative; display: block; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: #05070c; box-shadow: 0 22px 54px rgba(0,0,0,0.4); transition: transform 0.25s ease, border-color 0.25s ease; }
+    .tv-card:hover { transform: translateY(-5px); border-color: var(--line-strong); }
+    .tv-card__poster { position: relative; aspect-ratio: 9 / 16; }
+    .tv-card__poster img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .tv-card__poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 52%, rgba(5,7,12,0.82)); }
+    .tv-card .feed-card__play { width: 52px; height: 52px; }
+    .tv-card__foot { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; }
+    .tv-card__plat { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
+    .tv-card__num { font-size: 11px; font-weight: 700; color: var(--gold); }
+    .topvids__col--ig .tv-card:nth-child(3) { margin-right: clamp(-30px, -4vw, -10px); }
+    .topvids__col--tt .tv-card:nth-child(2) { margin-left: clamp(-30px, -4vw, -10px); }
+    .topvids__float { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5; display: grid; gap: 6px; padding: 16px 20px; border-radius: 16px; border: 1px solid var(--line-strong); background: rgba(11,16,24,0.82); backdrop-filter: blur(14px); box-shadow: var(--shadow); text-align: center; pointer-events: none; }
+    .topvids__float strong { font-family: "Space Grotesk", sans-serif; font-size: 1.7rem; letter-spacing: -0.03em; color: var(--gold); line-height: 1; }
+    .topvids__float span { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
     .site-footer { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 18px; width: min(1240px, calc(100% - 40px)); margin: 0 auto; padding: 30px 0 60px; color: var(--faint); font-size: 12px; border-top: 1px solid var(--line); }
     .site-footer__links { display: flex; flex-wrap: wrap; gap: 18px; }
     .site-footer__links a:hover { color: var(--text); }
@@ -335,6 +376,16 @@
       .feeds { grid-template-columns: 1fr; }
       .feed-card--wide { grid-column: span 1; }
       .feed-card--wide .feed-card__poster { aspect-ratio: 9 / 13; }
+      .topvids__col--ig .tv-card:nth-child(3), .topvids__col--tt .tv-card:nth-child(2) { margin: 0; }
+      .topvids__float { position: static; transform: none; margin: 8px 0; }
+      .showcase__pin { min-height: auto; padding: 40px 0; }
+      .showcase__inner { gap: 32px; }
+      .showcase__phones { width: 240px; height: auto; display: grid; gap: 26px; }
+      .showcase__phone { position: static; }
+      .showcase__phone .phone { width: 240px; }
+      .showcase__cap { position: static; min-height: 0; }
+      .showcase__cap-item { position: static; transform: none; width: auto; opacity: 1 !important; }
+      .showcase__cap-item + .showcase__cap-item { margin-top: 18px; }
     }
     @media (max-width: 640px) {
       .blowup-grid, .metrics, .accounts-grid, .cert-grid, .paid__stats { grid-template-columns: 1fr; }
@@ -379,23 +430,10 @@
     </div>
   </div>
 
-  <nav class="top-nav" aria-label="Portfolio navigation">
-    <div class="top-nav__logo">Jax <span>Johnson</span></div>
-    <button class="top-nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="top-nav__menu" id="nav-menu">
-      <div class="top-nav__links">
-        <a class="is-active" href="index.html">Social</a>
-        <a href="#featured">Videos</a>
-        <a href="#accounts">Accounts</a>
-        <a href="#skills">Skills</a>
-        <a href="about.html">About</a>
-        <a href="extras.html">Extras</a>
-      </div>
-      <a class="top-nav__cta" href="Jax_Johnson_Resume_SocialMedia.pdf" target="_blank">Resume</a>
-    </div>
-  </nav>
+  <header class="mini-header">
+    <div class="mini-header__logo">Jax <span>Johnson</span></div>
+    <a class="mini-header__contact" href="about.html#contact">Contact</a>
+  </header>
 
   <main class="page-shell">
     <!-- ── HERO ── -->
@@ -421,7 +459,7 @@
           <div class="hero__contact-group">
             <a href="https://instagram.com/j.xjohnson" target="_blank">Instagram @j.xjohnson</a>
             <a href="https://tiktok.com/@notjax" target="_blank">TikTok @NotJax</a>
-            <a href="https://linkedin.com/in/jax-johnson" target="_blank">LinkedIn</a>
+            <a href="about.html#contact">Contact</a>
           </div>
         </div>
       </div>
@@ -450,100 +488,69 @@
       </div>
     </section>
 
-    <!-- ── CONTENT THAT BLEW UP ── -->
-    <section class="section" aria-labelledby="blowup-title">
-      <div class="section-head reveal">
-        <div class="section-head__label">Proof, on the phone</div>
-        <h2 id="blowup-title">Content that blew up.</h2>
-        <p>Three separate brand voices, each grown from scratch, each with videos that broke past a million views. Real accounts, real screenshots, real numbers.</p>
-      </div>
-      <div class="blowup-grid">
-        <article class="blowup" data-warp="0.12">
-          <div class="blowup__phone"><div class="phone"><div class="phone__screen"><img src="instagram-profile.png" alt="@j.xjohnson Instagram, 26.9K followers" loading="lazy" /></div></div></div>
-          <div class="blowup__meta">
-            <div class="blowup__handle">@<span>j.xjohnson</span></div>
-            <div class="blowup__stat">150M+</div>
-            <p class="blowup__desc">Views since January, grown to 26.9K followers, 106.3M accounts reached in 30 days.</p>
-            <div class="blowup__tags"><span class="pill">Instagram</span><span class="pill">Reels</span><span class="pill">Organic</span></div>
-          </div>
-        </article>
-        <article class="blowup" data-warp="0.24">
-          <div class="blowup__phone"><div class="phone"><div class="phone__screen"><img src="notjax-tiktok.jpg" alt="@NotJax TikTok, 20K followers" loading="lazy" /></div></div></div>
-          <div class="blowup__meta">
-            <div class="blowup__handle">@<span>NotJax</span></div>
-            <div class="blowup__stat">55M+</div>
-            <p class="blowup__desc">Lifetime views with 20K followers and 7.9M likes. Multiple videos over 1M each.</p>
-            <div class="blowup__tags"><span class="pill">TikTok</span><span class="pill">Brand deals</span><span class="pill">7.9M likes</span></div>
-          </div>
-        </article>
-        <article class="blowup" data-warp="0.18">
-          <div class="blowup__phone"><div class="phone"><div class="phone__screen"><img src="creed-tiktok.jpg" alt="Creed TikTok, 5K followers" loading="lazy" /></div></div></div>
-          <div class="blowup__meta">
-            <div class="blowup__handle">@<span>jax.prays</span></div>
-            <div class="blowup__stat">14M+</div>
-            <p class="blowup__desc">Zero to 14M+ views and 5K followers in 120 days. 75+ videos per month.</p>
-            <div class="blowup__tags"><span class="pill">TikTok</span><span class="pill">Sponsored</span><span class="pill">0 to 14M</span></div>
-          </div>
-        </article>
-      </div>
-
-      <!-- ── WARP breakout: analytics ── -->
-      <div class="warp">
-        <div class="warp__card" id="warp-card">
-          <div class="warp__inner">
-            <div class="warp__copy">
-              <h3>The analytics back it up.</h3>
-              <p>Not vanity metrics. Watch time, retention, and audience growth pulled straight from the platform dashboards, the same numbers I use to decide what to make next.</p>
-              <div class="warp__stats">
-                <div class="warp__stat"><strong>14M+</strong><span>Views in 120 days</span></div>
-                <div class="warp__stat"><strong>1M+</strong><span>Per top video</span></div>
-                <div class="warp__stat"><strong>100K</strong><span>Monthly reach</span></div>
-              </div>
+    <!-- ── SCROLL-ZOOM SHOWCASE (two phones) ── -->
+    <section class="showcase" aria-label="Instagram and TikTok showcase">
+      <div class="showcase__pin">
+        <div class="showcase__inner">
+          <div class="showcase__phones">
+            <div class="showcase__phone" data-show="ig">
+              <div class="phone"><div class="phone__screen"><img src="instagram-profile.png" alt="Instagram @j.xjohnson profile" loading="lazy" /></div></div>
             </div>
-            <div class="warp__phone"><div class="phone"><div class="phone__screen"><img src="tiktok-analytics.jpg" alt="TikTok analytics dashboard" loading="lazy" /></div></div></div>
+            <div class="showcase__phone" data-show="tt">
+              <div class="phone"><div class="phone__screen"><img src="notjax-tiktok.jpg" alt="TikTok @NotJax profile" loading="lazy" /></div></div>
+            </div>
+          </div>
+          <div class="showcase__cap">
+            <div class="showcase__cap-item" data-cap="ig">
+              <div class="showcase__cap-handle">Instagram @<span>j.xjohnson</span></div>
+              <p class="showcase__cap-line">150M+ views since January, 26.9K followers, 106.3M accounts reached in the last 30 days.</p>
+            </div>
+            <div class="showcase__cap-item" data-cap="tt">
+              <div class="showcase__cap-handle">TikTok @<span>NotJax</span></div>
+              <p class="showcase__cap-line">55M+ lifetime views, 20K followers, 7.9M likes, and $15K+ from brand deals.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── FEATURED VIDEOS ── -->
-    <section class="section" id="featured" aria-labelledby="featured-title">
+    <!-- ── TOP VIDEOS (overlapping columns) ── -->
+    <section class="section" id="featured" aria-labelledby="topvids-title">
       <div class="section-head reveal">
-        <div class="section-head__label">Featured videos</div>
-        <h2 id="featured-title">Six that hit hardest.</h2>
-        <p>My top three on TikTok and top three on Instagram. Tap any thumbnail to watch it on the platform.</p>
+        <div class="section-head__label">Top videos</div>
+        <h2 id="topvids-title">The ones that hit hardest.</h2>
+        <p>Top three on Instagram, top three on TikTok. Tap any thumbnail to watch it on the platform.</p>
       </div>
-      <div class="vid-block reveal">
-        <div class="vid-block__label"><span class="vid-block__dot" style="--dot:#fe2c55;"></span>Top 3 on TikTok</div>
-        <div class="vid-grid">
-          <a class="vid-card" data-featured="tiktok-1" href="#" target="_blank" rel="noopener">
-            <div class="vid-card__poster"><img src="notjax-tiktok.jpg" alt="Featured TikTok video 1" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
-            <div class="vid-card__meta"><span class="vid-card__plat">TikTok</span><span class="vid-card__num">Add link</span></div>
+      <div class="topvids">
+        <div class="topvids__float reveal"><strong>220M+</strong><span>Combined views</span></div>
+        <div class="topvids__col topvids__col--ig">
+          <div class="topvids__col-label"><span class="topvids__dot" style="--dot:#C13584;"></span>Instagram</div>
+          <a class="tv-card reveal" data-featured="ig-1" href="#" target="_blank" rel="noopener">
+            <div class="tv-card__poster"><img src="instagram-profile.png" alt="Top Instagram video 1" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="tv-card__foot"><span class="tv-card__plat">Instagram</span><span class="tv-card__num">Add link</span></div>
           </a>
-          <a class="vid-card" data-featured="tiktok-2" href="#" target="_blank" rel="noopener">
-            <div class="vid-card__poster"><img src="creed-tiktok.jpg" alt="Featured TikTok video 2" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
-            <div class="vid-card__meta"><span class="vid-card__plat">TikTok</span><span class="vid-card__num">Add link</span></div>
+          <a class="tv-card reveal" data-featured="ig-2" href="#" target="_blank" rel="noopener">
+            <div class="tv-card__poster"><img src="instagram-6k.jpg" alt="Top Instagram video 2" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="tv-card__foot"><span class="tv-card__plat">Instagram</span><span class="tv-card__num">Add link</span></div>
           </a>
-          <a class="vid-card" data-featured="tiktok-3" href="#" target="_blank" rel="noopener">
-            <div class="vid-card__poster"><img src="tiktok-profile.png" alt="Featured TikTok video 3" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
-            <div class="vid-card__meta"><span class="vid-card__plat">TikTok</span><span class="vid-card__num">Add link</span></div>
+          <a class="tv-card reveal" data-featured="ig-3" href="#" target="_blank" rel="noopener">
+            <div class="tv-card__poster"><img src="instagram-insights.png" alt="Top Instagram video 3" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="tv-card__foot"><span class="tv-card__plat">Instagram</span><span class="tv-card__num">Add link</span></div>
           </a>
         </div>
-      </div>
-      <div class="vid-block reveal">
-        <div class="vid-block__label"><span class="vid-block__dot" style="--dot:#C13584;"></span>Top 3 on Instagram</div>
-        <div class="vid-grid">
-          <a class="vid-card" data-featured="ig-1" href="#" target="_blank" rel="noopener">
-            <div class="vid-card__poster"><img src="instagram-profile.png" alt="Featured Instagram video 1" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
-            <div class="vid-card__meta"><span class="vid-card__plat">Instagram</span><span class="vid-card__num">Add link</span></div>
+        <div class="topvids__col topvids__col--tt">
+          <div class="topvids__col-label"><span class="topvids__dot" style="--dot:#fe2c55;"></span>TikTok</div>
+          <a class="tv-card reveal" data-featured="tiktok-1" href="#" target="_blank" rel="noopener">
+            <div class="tv-card__poster"><img src="notjax-tiktok.jpg" alt="Top TikTok video 1" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="tv-card__foot"><span class="tv-card__plat">TikTok</span><span class="tv-card__num">Add link</span></div>
           </a>
-          <a class="vid-card" data-featured="ig-2" href="#" target="_blank" rel="noopener">
-            <div class="vid-card__poster"><img src="instagram-6k.jpg" alt="Featured Instagram video 2" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
-            <div class="vid-card__meta"><span class="vid-card__plat">Instagram</span><span class="vid-card__num">Add link</span></div>
+          <a class="tv-card reveal" data-featured="tiktok-2" href="#" target="_blank" rel="noopener">
+            <div class="tv-card__poster"><img src="creed-tiktok.jpg" alt="Top TikTok video 2" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="tv-card__foot"><span class="tv-card__plat">TikTok</span><span class="tv-card__num">Add link</span></div>
           </a>
-          <a class="vid-card" data-featured="ig-3" href="#" target="_blank" rel="noopener">
-            <div class="vid-card__poster"><img src="instagram-insights.png" alt="Featured Instagram video 3" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
-            <div class="vid-card__meta"><span class="vid-card__plat">Instagram</span><span class="vid-card__num">Add link</span></div>
+          <a class="tv-card reveal" data-featured="tiktok-3" href="#" target="_blank" rel="noopener">
+            <div class="tv-card__poster"><img src="tiktok-profile.png" alt="Top TikTok video 3" loading="lazy" /><span class="feed-card__play" aria-hidden="true"></span></div>
+            <div class="tv-card__foot"><span class="tv-card__plat">TikTok</span><span class="tv-card__num">Add link</span></div>
           </a>
         </div>
       </div>
@@ -809,22 +816,6 @@
       </div>
     </section>
 
-    <!-- ── LINKEDIN FEED ── -->
-    <section class="section" aria-labelledby="li-title">
-      <div class="section-head reveal">
-        <div class="section-head__label">LinkedIn</div>
-        <h2 id="li-title">In the field.</h2>
-        <p>Real-time updates from the work as it happens: partnerships, milestones, and professional moments posted directly to LinkedIn.</p>
-      </div>
-      <div class="li-feed-wrapper reveal">
-        <div class="li-feed-scroll" id="liFeed"><div class="li-skeleton">Loading posts…</div></div>
-      </div>
-      <div class="li-feed-footer">
-        <a class="li-view-all" href="https://www.linkedin.com/in/jax-johnson/" target="_blank">View full profile on LinkedIn &rarr;</a>
-        <span class="li-update-hint">Data source: <code>linkedin-posts.json</code></span>
-      </div>
-    </section>
-
     <!-- ── CONTACT + EXTRAS ── -->
     <section class="section" id="contact">
       <div class="cta-panel reveal">
@@ -836,7 +827,7 @@
           <a href="mailto:JaxJohnson179263@gmail.com">Email me &rarr;</a>
           <a href="https://instagram.com/j.xjohnson" target="_blank">Instagram &rarr;</a>
           <a href="https://tiktok.com/@notjax" target="_blank">TikTok &rarr;</a>
-          <a href="https://linkedin.com/in/jax-johnson" target="_blank">LinkedIn &rarr;</a>
+          <a href="about.html#contact">Contact page &rarr;</a>
         </div>
       </div>
 
@@ -863,21 +854,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script>
-    /* Mobile hamburger nav */
-    (function () {
-      const nav = document.querySelector(".top-nav");
-      const toggle = document.getElementById("nav-toggle");
-      const menu = document.getElementById("nav-menu");
-      if (!nav || !toggle || !menu) return;
-      const close = () => { nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); };
-      toggle.addEventListener("click", () => {
-        const open = nav.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      });
-      menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
-      window.addEventListener("resize", () => { if (window.innerWidth > 900) close(); });
-    })();
-
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     /* Live TikTok embeds on wide screens only; mobile keeps poster + link (embeds can crash small devices) */
@@ -926,72 +902,30 @@
         scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
       gsap.to("#bg-grid", { backgroundPositionY: "260px", ease: "none",
         scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: true } });
-      const warpCard = document.getElementById("warp-card");
-      if (warpCard) {
-        gsap.fromTo(warpCard, { rotationX: 14, scale: 0.92, transformPerspective: 1600, transformOrigin: "center bottom" },
-          { rotationX: 0, scale: 1, ease: "none", scrollTrigger: { trigger: ".warp", start: "top 85%", end: "top 40%", scrub: true } });
+
+      /* Two-phone scroll-zoom: Instagram enlarges, then TikTok takes over */
+      const showcase = document.querySelector(".showcase");
+      if (showcase && window.innerWidth >= 760) {
+        const ig = showcase.querySelector('[data-show="ig"]');
+        const tt = showcase.querySelector('[data-show="tt"]');
+        const capIg = showcase.querySelector('[data-cap="ig"]');
+        const capTt = showcase.querySelector('[data-cap="tt"]');
+        gsap.set(tt, { scale: 0.72, opacity: 0 });
+        gsap.set(capTt, { opacity: 0 });
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: showcase, start: "top top", end: "+=1800", scrub: true, pin: ".showcase__pin", anticipatePin: 1 }
+        });
+        tl.fromTo(ig, { scale: 0.78, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 1 })
+          .to(ig, { scale: 1.04, duration: 0.6 })
+          .to([ig, capIg], { opacity: 0, duration: 0.7 }, "swap")
+          .to(ig, { scale: 0.72, duration: 0.7 }, "swap")
+          .fromTo(tt, { scale: 0.72, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8 }, "swap")
+          .fromTo(capTt, { opacity: 0 }, { opacity: 1, duration: 0.7 }, "swap")
+          .to(tt, { scale: 1.04, duration: 0.6 });
       }
       ScrollTrigger.refresh();
     })();
 
-    /* ── LinkedIn feed ── */
-    const LI_FEED_URL = "https://raw.githubusercontent.com/JaxJ12/Portfolio/main/linkedin-posts.json";
-    const LI_HEADLINE = "MIS & S3E Marketing @ Baylor · Creator · @NotJax";
-    const LI_AVATAR = "jax-headshot-bw.png";
-    const LI_NAME = "Jax Johnson";
-    const LI_URL = "https://www.linkedin.com/in/jax-johnson/";
-    const TRUNCATE_AT = 320;
-    const ICONS = {
-      globe: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-      like: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>`,
-      comment: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
-      repost: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
-      send: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`,
-      dots: `•••`
-    };
-    function timeAgo(dateStr){const p=new Date(dateStr),n=new Date(),d=Math.round((n-p)/(864e5));if(d<1)return"Today";if(d<7)return d+"d";if(d<30)return Math.round(d/7)+"w";if(d<365)return Math.round(d/30)+"mo";return Math.round(d/365)+"y";}
-    function formatNumber(n){return n>=1000?(n/1000).toFixed(1).replace(/\.0$/,"")+"K":String(n);}
-    function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-    const _postCache = {};
-    function expandPost(id, btn){const post=_postCache[id];if(!post)return;const body=document.querySelector(`[data-full="${id}"]`);if(!body)return;body.querySelector(".li-card__text").innerHTML=escapeHtml(post.text);btn.remove();}
-    function renderPost(post){
-      const fullText=escapeHtml(post.text);
-      const truncated=post.text.length>TRUNCATE_AT;
-      const shortText=truncated?escapeHtml(post.text.slice(0,TRUNCATE_AT).trimEnd())+"…":fullText;
-      const hashtagsHtml=(post.hashtags||[]).map(h=>`<span class="li-card__hashtag">${escapeHtml(h)}</span>`).join(" ");
-      const ago=timeAgo(post.date);
-      return `<article class="li-card"><div class="li-card__header"><img class="li-card__avatar" src="${LI_AVATAR}" alt="${LI_NAME}" /><div class="li-card__meta"><div class="li-card__name"><a href="${LI_URL}" target="_blank" style="color:inherit;text-decoration:none;">${LI_NAME}</a><span class="li-card__connection">· 1st</span></div><div class="li-card__headline">${LI_HEADLINE}</div><div class="li-card__timestamp">${ago} · ${ICONS.globe}</div></div><button class="li-card__more-btn" aria-label="More">${ICONS.dots}</button></div><div class="li-card__body" data-full="${post.id}">${`<span class="li-card__text">${shortText}</span>`}${truncated?` <span class="li-card__see-more" onclick="expandPost('${post.id}', this)">see more</span>`:""}</div>${post.image?`<img class="li-card__image" src="${post.image}" alt="Post image" loading="lazy" />`:""}${hashtagsHtml?`<div class="li-card__hashtags">${hashtagsHtml}</div>`:""}<div class="li-card__reactions-row"><div class="li-card__reaction-icons"><span class="li-card__reaction-emojis">${post.reactionTypes||"👍"}</span><span>${formatNumber(post.reactions||0)}</span></div><span class="li-card__comments-count">${post.comments||0} comments</span></div><div class="li-card__actions"><button class="li-card__action-btn">${ICONS.like} Like</button><button class="li-card__action-btn">${ICONS.comment} Comment</button><button class="li-card__action-btn">${ICONS.repost} Repost</button><button class="li-card__action-btn">${ICONS.send} Send</button></div></article>`;
-    }
-    const IS_LIVE = LI_FEED_URL.startsWith("http");
-    function showLiveBadge(){const label=document.querySelector(".li-update-hint");if(label&&IS_LIVE){label.innerHTML=`<span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:#5cb85c;display:inline-block;animation:pulse 2s infinite;"></span>Live — syncs when you post on LinkedIn</span>`;}}
-    function normalizePost(raw){if(raw.id&&raw.text!==undefined)return raw;try{const text=raw.specificContent?.["com.linkedin.ugc.ShareContent"]?.shareCommentary?.text||"";const ts=raw.created?.time;const date=ts?new Date(ts).toISOString().split("T")[0]:new Date().toISOString().split("T")[0];return{id:raw.id||String(Date.now()),date,text,hashtags:[],reactions:0,reactionTypes:"👍",comments:0};}catch(e){return null;}}
-    async function loadFeed(){
-      const feed=document.getElementById("liFeed");
-      try{
-        const res=await fetch(LI_FEED_URL+(LI_FEED_URL.includes("?")?"&":"?")+"_t="+Date.now());
-        if(!res.ok)throw new Error("fetch failed");
-        let data=await res.json();
-        if(data.record)data=data.record;
-        if(data.elements)data=data.elements;
-        if(!Array.isArray(data))data=[data];
-        const posts=data.map(normalizePost).filter(Boolean).sort((a,b)=>new Date(b.date)-new Date(a.date));
-        posts.forEach(p=>{_postCache[p.id]=p;});
-        feed.innerHTML=posts.map(renderPost).join("");
-        showLiveBadge();
-      }catch(e){
-        try{
-          const fallback=await fetch("linkedin-posts.json?"+Date.now());
-          const posts=(await fallback.json()).sort((a,b)=>new Date(b.date)-new Date(a.date));
-          posts.forEach(p=>{_postCache[p.id]=p;});
-          feed.innerHTML=posts.map(renderPost).join("");
-          const hint=document.querySelector(".li-update-hint");
-          if(hint)hint.textContent="Showing cached posts";
-        }catch(_){
-          feed.innerHTML=`<div class="li-skeleton">Could not load posts.<br><br><a href="${LI_URL}" target="_blank" style="color:#4aa3e8;">View on LinkedIn →</a></div>`;
-        }
-      }
-    }
-    document.addEventListener("DOMContentLoaded", loadFeed);
   </script>
 </body>
 </html>
