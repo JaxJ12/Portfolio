@@ -310,7 +310,7 @@
     /* ── Scroll-zoom showcase (two phones) ── */
     .showcase { position: relative; }
     .showcase__pin { min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
-    .showcase__inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+    .showcase__inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 48px; }
     .showcase__phones { position: relative; width: 300px; height: 620px; }
     .showcase__phone { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; will-change: transform, opacity; }
     .showcase__phone .phone { width: 300px; }
@@ -915,13 +915,14 @@
         const tl = gsap.timeline({
           scrollTrigger: { trigger: showcase, start: "top top", end: "+=1800", scrub: true, pin: ".showcase__pin", anticipatePin: 1 }
         });
-        tl.fromTo(ig, { scale: 0.78, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 1 })
-          .to(ig, { scale: 1.04, duration: 0.6 })
-          .to([ig, capIg], { opacity: 0, duration: 0.7 }, "swap")
+        tl.fromTo(ig, { scale: 0.78, opacity: 0.4 }, { scale: 0.96, opacity: 1, duration: 1 })
+          .to(ig, { scale: 1, duration: 0.6 })
+          .to(capIg, { opacity: 0, duration: 0.4 }, "swap")
+          .to(ig, { opacity: 0, duration: 0.7 }, "swap")
           .to(ig, { scale: 0.72, duration: 0.7 }, "swap")
-          .fromTo(tt, { scale: 0.72, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8 }, "swap")
-          .fromTo(capTt, { opacity: 0 }, { opacity: 1, duration: 0.7 }, "swap")
-          .to(tt, { scale: 1.04, duration: 0.6 });
+          .fromTo(tt, { scale: 0.72, opacity: 0 }, { scale: 0.96, opacity: 1, duration: 0.7 }, "swap")
+          .to(tt, { scale: 1, duration: 0.6 })
+          .to(capTt, { opacity: 1, duration: 0.5 }, ">-0.3");
       }
       ScrollTrigger.refresh();
     })();
