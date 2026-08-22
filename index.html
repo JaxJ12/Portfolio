@@ -181,6 +181,10 @@
     .feed-card__ig-inner { position: relative; display: grid; gap: 10px; }
     .feed-card__ig-copy { margin: 0; font-size: 13px; line-height: 1.65; color: var(--muted); max-width: 42ch; }
     .feed-card--ig .feed-card__link { color: var(--gold); margin-top: 4px; }
+    .feed-card--tt { text-decoration: none; justify-content: center; min-height: 220px; background: linear-gradient(150deg, rgba(254, 44, 85, 0.14), rgba(11, 16, 24, 0.7)); transition: transform 0.2s ease, border-color 0.2s ease; }
+    .feed-card--tt:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+    .feed-card__ttglow { position: absolute; inset: 0; background: radial-gradient(circle at 100% 0%, rgba(254, 44, 85, 0.22), transparent 55%); pointer-events: none; }
+    .feed-card--tt .feed-card__link { color: var(--gold); margin-top: 4px; }
 
     /* ── Warp breakout ── */
     .warp { position: relative; margin: clamp(40px, 8vh, 90px) 0 0; perspective: 1600px; }
@@ -617,6 +621,15 @@
             <div class="feed-card__meta">Instagram · 26.9K followers · 150M+ views</div>
             <p class="feed-card__ig-copy">106.3M accounts reached in the last 30 days. Reels, organic, grown from scratch.</p>
             <span class="feed-card__link">View Instagram &rarr;</span>
+          </div>
+        </a>
+        <a class="feed-card feed-card--tt reveal" href="https://www.tiktok.com/@notjax" target="_blank" rel="noopener">
+          <div class="feed-card__ttglow"></div>
+          <div class="feed-card__ig-inner">
+            <div class="feed-card__handle">@NotJax</div>
+            <div class="feed-card__meta">TikTok · 20K followers · 7.9M likes</div>
+            <p class="feed-card__ig-copy">55M+ lifetime views and $15K+ from brand deals. Short-form built from scratch.</p>
+            <span class="feed-card__link">View TikTok &rarr;</span>
           </div>
         </a>
       </div>
